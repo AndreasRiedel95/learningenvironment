@@ -1,0 +1,56 @@
+<!doctype html>
+
+<title>CodeMirror: Linter Demo</title>
+<meta charset="utf-8"/>
+<!-- CodeMirror -->
+<link rel=stylesheet href="resources/codemirror/doc/docs.css">
+<link rel="stylesheet" href="resources/codemirror/lib/codemirror.css">
+<script src="resources/codemirror/lib/codemirror.js"></script>
+<!-- CodeMirror JavaScript mode-->
+<script src="resources/codemirror/mode/javascript/javascript.js"></script>
+
+<!-- ESLint -->
+ <script src="resources/eslint/eslint.js"></script>
+<!-- <script src="http://eslint.org/js/app/eslint.js" ></script>-->
+
+<!-- Commons CodeMirror Lint -->
+<link rel="stylesheet" href="resources/codemirror/addon/lint/lint.css">
+<script src="resources/codemirror/addon/lint/lint.js"></script>
+<!-- CodeMirror Lint implementation with ESLint-->
+<script src="eslint-lint.js"></script>
+
+<style type="text/css">
+      .CodeMirror {border: 1px solid black;}
+    </style>
+<div id=nav>
+  <a href="http://codemirror.net"><img id=logo src="resources/codemirror/doc/logo.png"></a>
+
+  <ul>
+    <li><a href="resources/codemirror/index.html">Home</a>
+    <li><a href="resources/codemirror/doc/manual.html">Manual</a>
+    <li><a href="https://github.com/marijnh/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a class=active href="#">Linter</a>
+  </ul>
+</div>
+
+<article>
+<h2>Linter Demo with ESLint</h2>
+
+
+    <p><textarea id="code-js">var widgets = [];
+    debugger
+</textarea></p>
+
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("code-js"), {
+    lineNumbers: true,
+    mode: "javascript",
+    gutters: ["CodeMirror-lint-markers"],
+    lint: true
+  });
+
+</script>
+
+  </article>
