@@ -8,6 +8,7 @@
 </head>
 <body>
 	<script>
+		console.log("js2")
 		const objSentFromSrv = <%-JSON.stringify(tasks)%>
 	</script>
 	<div class="code-saved-wrapper">
@@ -50,12 +51,15 @@
 			<section class="css_section code-editors">
 				<div id="css" class="code_box">
 					<div class="headeline-wrapper">
-						<h3 class="headline">CSS</h3>
+						<div class="tab-wrapper">
+							<button class="tab">style.css</button>
+							<button class="tab">index.css</button>
+						</div>
 						<div class="file-import-wrapper">
 							<input type="file" class="input-file --css-js">
 						</div>
 					</div>
-			  		<textarea name="css"></textarea>
+			  			<textarea class="css-editor" name="css"></textarea>
 				</div>
 			</section>
 			<div class="resize --vertical" data-dragstart="0"></div>

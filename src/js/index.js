@@ -1,4 +1,4 @@
-delete require.cache[require.resolve('./testCSS')]
+
 import CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/css/css.js';
@@ -12,19 +12,15 @@ import 'codemirror/addon/edit/closetag.js';
 import * as resizeEditor from './resizeEditor';
 import importFile from './importFile';
 import runTest from './testCSS';
-
-
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
-console.log(objSentFromSrv)
 
 resizeEditor.vertical();
 resizeEditor.horizontal();
-
 let editorRendering = (() => {
-	var base_tpl =
+	let base_tpl =
 	"<!doctype html>\n" +
 	"<html>\n\t" +
       "<head>\n\t\t" +
@@ -34,9 +30,8 @@ let editorRendering = (() => {
       "<body>\n\t\n\t" +
       "</body>\n" +
      "</html>";
-	
 
-var cm_opt_html = {
+let cm_opt_html = {
 	mode: 'text/html',
 	gutters: ['CodeMirror-lint-markers'],
 	theme: 'lucario',
@@ -53,7 +48,7 @@ var cm_opt_html = {
 	}
 };
 
-	var cm_opt_css = {
+	let cm_opt_css = {
 	mode: 'text/html',
 	gutters: ['CodeMirror-lint-markers'],
 	theme: 'lucario',
@@ -69,17 +64,23 @@ var cm_opt_html = {
 		render();
 	}
 };
-let runBtn = document.querySelector('.runbutton-wrapper')
 
-var html_box = document.querySelector('.html-codearea');
-var html_editor = CodeMirror.fromTextArea(html_box, cm_opt_html);
+let runBtn = document.querySelector('.runbutton-wrapper');
+let html_box = document.querySelector('.html-codearea');
+let html_editor = CodeMirror.fromTextArea(html_box, cm_opt_html);
 
 cm_opt_css.mode = 'css';
-var css_box = document.querySelector('#css textarea');
-var css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
+let css_box = document.querySelector('.css-editor');
+let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
+
+html_editor.setValue(objSentFromSrv.htmlsolution_user);
+// if(checkCorrectStyleLink()) {
+
+	css_editor.setValue(objSentFromSrv.csssolution_user);
+// }
 
 	function css_validator(cm, updateLinting, options) {
-		var errors = CodeMirror.lint.css(cm);
+		let errors = CodeMirror.lint.css(cm);
 		if (errors.filter(e => e.severity === 'error').length > 0) {
 		  	runBtn.classList.add('--non-active');
 		} else {
@@ -87,47 +88,52 @@ var css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 
 		}
 		updateLinting(errors);
-
-
-	};
-
-	function html_validator(cm, updateLinting, options) {
-		var errors = CodeMirror.lint.html(cm);
-		if (errors.filter(e => e.severity === 'error').length > 0) {
-		  	runBtn.classList.add('--non-active');
-		} else {
-			runBtn.classList.remove('--non-active');
-
-		}
-		updateLinting(errors);
-
-		
-
 	}
 
+	function html_validator(cm, updateLinting, options) {
+		let errors = CodeMirror.lint.html(cm);
+		if (errors.filter(e => e.severity === 'error').length > 0) {
+		  	runBtn.classList.add('--non-active');
+		} else {
+			runBtn.classList.remove('--non-active');
+
+		}
+		updateLinting(errors);
+	}
+
+	function checkCorrectStyleLink() {
+		let html = html_editor.getValue();
+		let patt = new RegExp(/<link (?=[^>]*rel=\s*['"]stylesheet['"])(?![^>]*href=\s*['"]http)[^>]*>/i)
+		let html_string = html.replace(/'/g, "\\'")
+		let url = 'style.css'
+		let substring = "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>";
+		console.log("ja", patt.test(html_string))
+		return html_string.includes(substring)
+	}
+
+	let prepareSource = function() {
+		let html = html_editor.getValue();
+		let css = "";
+		// if(checkCorrectStyleLink()) {
+			css = css_editor.getValue();
+		// }
+		let src = '';
 
 
-	var prepareSource = function() {
-		var html = html_editor.getValue(),
-				css = css_editor.getValue(),
-				// js = js_editor.getValue(),
-				src = '';
 		// HTML
 		src = base_tpl.replace('</body>', html + '</body>');
-		
+
 		// CSS
-		let cssReset = "a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}";
+		let cssReset = "a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,let,video{margin:0;padding:0;border:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}";
 		css = '<style>' + cssReset + css + '</style>';
 		src = src.replace('</head>', css + '</head>');
-		
 		return src;
 	};
 	
-	var render = function() {
-		var source = prepareSource();
-		
-		var iframe = document.querySelector('.output-iframe'),
-				iframe_doc = iframe.contentDocument;
+	let render = function() {
+		let source = prepareSource();
+		let iframe = document.querySelector('.output-iframe');
+		let iframe_doc = iframe.contentDocument;
 		
 		iframe_doc.open();
 		iframe_doc.write(source);
@@ -135,19 +141,12 @@ var css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 	};
 
 	html_editor.on("change", function(html_editor, change) {
-	  render();
+		render();
 	});
-
-	
-
 	css_editor.on("change", function(css_editor, change) {
-	  render();
+		render();
 	});
-	
-	css_editor.setValue(objSentFromSrv.csssolution_user);
-
-	html_editor.setValue(objSentFromSrv.htmlsolution_user)
-
+	render();
 
 	return {
 		getHTMLEditor:() => {
@@ -175,7 +174,8 @@ document.querySelectorAll('.input-file').forEach((input) => {
 //Run Tests Event Handler
 document.querySelector('.run-test-js').addEventListener('click', () => {
 	let target = editorRendering.getCSSEditor();
-	runTest(target);
+	runTest(target, objSentFromSrv.tasknumber);
+	
 })
 
 //Close and open Task Wrapper Event Handler
@@ -204,13 +204,12 @@ function toggleTaskSection(taskNumber){
 	
 }
 
-
+//Call Save Code EventHandler
 let updateBtn = document.querySelector('.save');
 updateBtn.addEventListener('click', () => {
 	let html_editor = editorRendering.getHTMLEditor();
 	let css_editor = editorRendering.getCSSEditor();
 	let savedWrapper = document.querySelector('.code-saved-wrapper')
-	console.log(html_editor.getValue())
 	fetch('/tasks', {
 		method: 'put',
 		headers: {'Content-Type': 'application/json'},
@@ -233,6 +232,14 @@ updateBtn.addEventListener('click', () => {
 	})
 })
 
+document.querySelectorAll('.tab').forEach((tab) => {
+	tab.addEventListener('click', toggleTab, false);
+})   
+
+function toggleTab(e) {
+	console.log(e)
+
+}
 
 // window.addEventListener('keypress', function(event) {
 // 	if (event.which == 115 && (event.ctrlKey||event.metaKey)|| (event.which == 19)) {
@@ -243,4 +250,3 @@ updateBtn.addEventListener('click', () => {
 // 	}
 // 	return true;
 // });
-

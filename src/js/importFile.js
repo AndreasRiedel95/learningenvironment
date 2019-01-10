@@ -1,5 +1,4 @@
 export default function (input, target) { 
-
 		if ('files' in input && input.files.length > 0) {
 			placeFileContent(target, input.files[0])}
 
