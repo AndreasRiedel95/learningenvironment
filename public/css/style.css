@@ -1,14 +1,33 @@
-@import url(/../../../node_modules/codemirror/lib/codemirror.css);
-@import url(/node_modules/codemirror/addon/hint/show-hint.css);
-@import url(/node_modules/codemirror/theme/lucario.css);
-@import url(/node_modules/codemirror/addon/lint/lint.css);
-
-
+@import url(codemirror.css);
+@import url(show-hint.css);
+@import url(lucario.css);
+@import url(lint.css);
 body {
   max-width: 100vw;
   width: 100%;
   color: #484848;
   overflow: hidden; }
+
+.code-saved-wrapper {
+  position: absolute;
+  top: -2px;
+  border-radius: 4px;
+  font-family: sans-serif;
+  padding: 5px;
+  font-size: 12px;
+  z-index: 10000000;
+  color: #000;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background-color: #EBEBEB;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s; }
+  .code-saved-wrapper.--saved {
+    opacity: 1; }
 
 .header {
   position: relative;
@@ -68,10 +87,10 @@ body {
   height: calc(100vh - 50px);
   width: 100%;
   display: grid;
-  grid-column-gap: 10px;
-  grid-template-columns: repeat(2, calc(50vw - 25px));
+  grid-gap: 10px;
+  grid-template-columns: repeat(2, calc(50vw - 30px));
   grid-template-areas: "html output" "css output";
-  grid-template-rows: repeat(2, calc(50vh - 25px)); }
+  grid-template-rows: repeat(2, calc(50vh - 30px)); }
 
 .html_section {
   grid-area: html;
@@ -93,14 +112,21 @@ body {
 
 .resize {
   position: absolute;
-  height: 100%;
-  width: 10px;
   cursor: pointer;
   z-index: 100000000;
-  background-color: #2A3E50;
-  left: calc(50% - 10px); }
-  .resize.--active {
-    cursor: col-resize; }
+  background-color: #2A3E50; }
+  .resize.--vertical {
+    height: 100%;
+    width: 10px;
+    left: calc(50% - 5px); }
+    .resize.--vertical.--active {
+      cursor: col-resize; }
+  .resize.--horizontal {
+    height: 10px;
+    width: 50%;
+    top: calc(50% - 5px); }
+    .resize.--horizontal.--active {
+      cursor: row-resize; }
 
 .output {
   position: relative;
@@ -145,10 +171,11 @@ body {
   margin-left: auto; }
 
 .code_box {
+  position: relative;
   height: 100%;
   width: 100%; }
 
-.Codemirror {
+.CodeMirror {
   height: calc(100% - 40px);
   background: none; }
 

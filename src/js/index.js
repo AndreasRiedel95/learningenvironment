@@ -18,8 +18,10 @@ import runTest from './testCSS';
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
+console.log(objSentFromSrv)
 
-resizeEditor.onDragger();
+resizeEditor.vertical();
+resizeEditor.horizontal();
 
 let editorRendering = (() => {
 	var base_tpl =
@@ -142,9 +144,9 @@ var css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 	  render();
 	});
 	
-	css_editor.setValue('/* import css-reset */');
+	css_editor.setValue(objSentFromSrv.csssolution_user);
 
-	html_editor.setValue('<!-- DOCTYPE and HEADER already included -->')
+	html_editor.setValue(objSentFromSrv.htmlsolution_user)
 
 
 	return {
@@ -192,14 +194,53 @@ function toggleTaskSection(taskNumber){
 	let active = document.querySelector('.task-description.--active');
 	let taskDescriptionWrapper = document.querySelector('.task-description-wrapper');
 	let id = taskNumber.htmlFor
-	
-	taskDescriptionWrapper.classList.remove('--close');
+	taskDescriptionWrapper.classList.toggle('--close');
 
 	//set active class on task-description
 	if(active !== null) {
 		active.classList.remove('--active');
 	}
-	document.querySelector(`.--t${id}`).classList.add('--active');
-	
+	document.querySelector(`.task-description`).classList.add('--active');
 	
 }
+
+
+let updateBtn = document.querySelector('.save');
+updateBtn.addEventListener('click', () => {
+	let html_editor = editorRendering.getHTMLEditor();
+	let css_editor = editorRendering.getCSSEditor();
+	let savedWrapper = document.querySelector('.code-saved-wrapper')
+	console.log(html_editor.getValue())
+	fetch('/tasks', {
+		method: 'put',
+		headers: {'Content-Type': 'application/json'},
+		body: JSON.stringify({
+			'tasknumber' : objSentFromSrv.tasknumber,
+			'csssolution_user': css_editor.getValue(),
+			'htmlsolution_user': html_editor.getValue()
+		})
+	})
+
+	fetch('/tasks', {method: 'PUT'})
+	.then(res => {
+		if (res.ok) return res.json()
+	})
+	.then(data => {
+		savedWrapper.classList.add('--saved');
+		setTimeout(() => {
+			savedWrapper.classList.remove('--saved');
+		}, 1400)
+	})
+})
+
+
+// window.addEventListener('keypress', function(event) {
+// 	if (event.which == 115 && (event.ctrlKey||event.metaKey)|| (event.which == 19)) {
+// 		console.log("in")
+// 		event.preventDefault();
+// 		saveCode
+// 		return false;
+// 	}
+// 	return true;
+// });
+

@@ -1,5 +1,6 @@
-export const onDragger =  function () { 
-	let dragger = document.querySelector('.resize');
+export const vertical =  function () { 
+	let draggerVertical = document.querySelector('.resize.--vertical');
+	let draggerHorizontal = document.querySelector('.resize.--horizontal');	
 	let isDown = false;
 	let iFrame = document.querySelector('.output-iframe');
 	var ro = new ResizeObserver( entries => {
@@ -11,12 +12,12 @@ export const onDragger =  function () {
 	});
 
 	ro.observe(iFrame);
-	dragger.addEventListener('mousedown', mouseDown, false);
+	draggerVertical.addEventListener('mousedown', mouseDown, false);
 
 
 	function mouseDown(event) {
 		isDown = true;
-		dragger.classList.add('--active');
+		draggerVertical.classList.add('--active');
 		document.addEventListener('mouseup', mouseUp , false);
 		document.addEventListener('mouseleave', mouseUp , false);
 		document.addEventListener('mousemove', mouseMove, false);
@@ -43,14 +44,14 @@ export const onDragger =  function () {
 			x = w - 5
 		}
 		
-
 		wrapper.style.gridTemplateColumns =  `${x}px 1fr`
-		dragger.style.left = `${x}px`;
+		draggerVertical.style.left = `${x}px`;
+		draggerHorizontal.style.width = `${x}px`;
 
 	}
 
 	function mouseUp(event) {
-		dragger.classList.remove('--active')
+		draggerVertical.classList.remove('--active')
 		isDown = false;
 		document.querySelectorAll('.code-editors').forEach((editor) => {
 			editor.pointerEvents = "all";
@@ -61,4 +62,51 @@ export const onDragger =  function () {
 		document.removeEventListener('mouseleave', mouseUp , false);
 	}
 };
+
+export const horizontal =  function () { 
+	let draggerVertical = document.querySelector('.resize.--vertical');
+	let draggerHorizontal = document.querySelector('.resize.--horizontal');	
+	let isDown = false;
+	draggerHorizontal.addEventListener('mousedown', mouseDown, false);
+
+
+	function mouseDown(event) {
+		isDown = true;
+		draggerHorizontal.classList.add('--active');
+		document.addEventListener('mouseup', mouseUp , false);
+		document.addEventListener('mouseleave', mouseUp , false);
+		document.addEventListener('mousemove', mouseMove, false);
+	}
+
+	function mouseMove(event) {
+		if(!isDown) return;
+		event.preventDefault();
+		let topIndex = 50
+		let wrapper = document.querySelector('.wrapper');
+		let x = event.pageY - topIndex;
+		var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		if(x <= 10) {
+			x = 0
+		} else if (x > h - 60){
+			x = h - 60
+		}
+		wrapper.style.gridTemplateRows =  `${x}px 1fr`
+		draggerHorizontal.style.top = `${x}px`;
+
+	}
+
+	function mouseUp(event) {
+		draggerVertical.classList.remove('--active')
+		isDown = false;
+		document.querySelectorAll('.code-editors').forEach((editor) => {
+			editor.pointerEvents = "all";
+		});
+		
+		document.removeEventListener('mousemove', mouseMove, false);
+		document.removeEventListener('mouseup', mouseUp , false);
+		document.removeEventListener('mouseleave', mouseUp , false);
+	}
+};
+
+
 
