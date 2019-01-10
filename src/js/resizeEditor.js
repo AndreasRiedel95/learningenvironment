@@ -40,8 +40,8 @@ export const vertical =  function () {
 		let x = event.pageX - leftIndex;
 		if(x <= 0) {
 			x = 0
-		} else if (x > w - 5 ) {
-			x = w - 5
+		} else if (x > w - 10 ) {
+			x = w - 10
 		}
 		
 		wrapper.style.gridTemplateColumns =  `${x}px 1fr`
