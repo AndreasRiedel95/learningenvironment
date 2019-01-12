@@ -1,4 +1,3 @@
-
 import CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/css/css.js';
@@ -11,12 +10,13 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/edit/closetag.js';
 import * as resizeEditor from './resizeEditor';
 import importFile from './importFile';
-import runTest from './testCSS';
+import runTest from './test';
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
 
+console.log("HAAAALLLOOOO")
 resizeEditor.vertical();
 resizeEditor.horizontal();
 let editorRendering = (() => {
@@ -177,8 +177,9 @@ document.querySelectorAll('.input-file').forEach((input) => {
 
 //Run Tests Event Handler
 document.querySelector('.run-test-js').addEventListener('click', () => {
-	let target = editorRendering.getHTMLEditor();
-	runTest(target, objSentFromSrv.tasknumber);
+	let htmlEditor = editorRendering.getHTMLEditor();
+	let cssEditor = editorRendering.getCSSEditor();
+	runTest(htmlEditor, cssEditor, objSentFromSrv.tasknumber);
 	
 })
 

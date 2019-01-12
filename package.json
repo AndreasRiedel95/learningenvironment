@@ -40,7 +40,6 @@
     "lodash": "^4.17.11",
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.2",
-    "npm-watch": "^0.5.0",
-    "pretty": "^2.0.0"
+    "npm-watch": "^0.5.0"
   }
 }

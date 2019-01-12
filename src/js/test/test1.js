@@ -1,49 +1,42 @@
 var test1 = function () {
-	var self = this;
-	self.run = function (editor, test, h, computedStyle, jsdiff, pretty){
-		const html = editor.getValue()
-		let parser = new DOMParser();
-		let htmlDoc = parser.parseFromString(html, 'text/html');
-		let styles = [];
-		let ps = htmlDoc.querySelectorAll('p')
-		if(ps.length === 3) {
-			ps.forEach((p) => {
-				styles.push(p.style.backgroundColor)
+	let self = this;
+	self.run = function (htmlNode, cssString, test, h, computedStyle){
 
-		})
-			if(checkArray(styles)) {
-				const p1 = h('.p1', { style: `background-color: ${styles[0]}` });
-				const p2 = h('.p2', { style: `background-color: ${styles[1]}` });
-				const p3 = h('.p3', { style: `background-color: ${styles[2]}` });
+		const colorOf = (element) => {
+			let bColor = window.getComputedStyle(element, null).getPropertyValue("background-color");
+			console.log("color", bColor)
+			return bColor;
+		};
+		test(('Auf der Seite befinden sich 3 p-Elemente'),
+		{ dom: htmlNode }, (t) => {
+	  		t.deepEqual(
+	  			htmlNode.querySelectorAll('p').length, 3
+	  		);
+	  		t.end();
 
-				test(('`p` haben unterschiedliche farben'),
-				{ dom: h('div', [p1, p2, p3]) }, (is) => {
-			  		is.notDeepEqual(
-						colorOf(p1),
-						colorOf(p2),
-						colorOf(p3)
-			  		);
-			  		is.end();
-
-				});
-			} else {
-				throwErr()
+		});
+		test(('jedes `p` Element besitzt ein Attibute style '),
+		{ dom: htmlNode}, (t) => {
+			let ps = htmlNode.querySelectorAll('p').forEach((p) => {
+	  			t.equal(
+	  				p.hasAttribute('style'), true
+	  			);
+	  		})
+	  		t.end();
+		});
+		test(('`p` haben verschiedene Farben'),
+		{ dom: htmlNode}, (t) => {
+			let ps = htmlNode.querySelectorAll('p');
+			for(let i = 0; i < ps.length - 1; i++) {
+				for (let j = i + 1; j < ps.length; j++) {
+					t.notDeepEqual(
+						ps[i].style.backgroundColor,
+						ps[j].style.backgroundColor
+					);
+				}
 			}
-		} else {
-			throwErr()
-		}
-
-		function checkArray(my_arr){
-			for(var i=0;i<my_arr.length;i++){
-				if(my_arr[i] === "")   
-					return false;
-			}
-			return true;
-		}
-
-		function throwErr(){
-			console.log("HTML Error")
-		}
+	  		t.end();
+		});
    };
 }
 
