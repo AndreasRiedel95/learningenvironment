@@ -1,3 +1,5 @@
+import ResizeObserver from 'resize-observer-polyfill';
+
 export const vertical =  function () { 
 	let draggerVertical = document.querySelector('.resize.--vertical');
 	let draggerHorizontal = document.querySelector('.resize.--horizontal');	

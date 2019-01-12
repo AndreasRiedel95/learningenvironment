@@ -2,6 +2,9 @@
 @import url(show-hint.css);
 @import url(lucario.css);
 @import url(lint.css);
+.display {
+  height: 100px; }
+
 body {
   max-width: 100vw;
   width: 100%;
@@ -86,13 +89,18 @@ body {
   position: relative;
   height: calc(100vh - 50px);
   width: 100%;
+  display: -ms-grid;
   display: grid;
   grid-gap: 10px;
+  -ms-grid-columns: calc(50vw - 30px) 10px calc(50vw - 30px);
   grid-template-columns: repeat(2, calc(50vw - 30px));
   grid-template-areas: "html output" "css output";
+  -ms-grid-rows: calc(50vh - 30px) 10px calc(50vh - 30px);
   grid-template-rows: repeat(2, calc(50vh - 30px)); }
 
 .html_section {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
   grid-area: html;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -102,6 +110,8 @@ body {
   height: 100%; }
 
 .css_section {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
   position: relative;
   grid-area: css;
   display: -webkit-box;
@@ -129,6 +139,9 @@ body {
       cursor: row-resize; }
 
 .output {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  -ms-grid-column: 3;
   position: relative;
   background-color: #fff;
   width: 100%;

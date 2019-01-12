@@ -9,7 +9,10 @@ export default function (editor, tasknumber) {
 	require('tap-dev-tool/register');
 	const test = require('tape-css')(require('tape'));
 	const h = require('hyperscript');
-	let testRun = require(`./test/test${tasknumber}`)
+	const computedStyle = require('computed-style');
+	let jsdiff = require('diff');
+	const pretty = require('pretty');
+	let testRun = require(`./test/test${tasknumber}`);
 	var TestInstance = new testRun();
-	TestInstance.run(editor, test, h);
+	TestInstance.run(editor, test, h, computedStyle, jsdiff, pretty);
 };

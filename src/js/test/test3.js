@@ -1,13 +1,15 @@
 var test3 = function () {
+	console.log("Im 3")
 	var self = this;
 	self.run = function (editor, test, h){
 		const positionOf = (element) => {
+		console.log(element)
 		const {top, right, bottom, left} = element.getBoundingClientRect();
 			return {top, right, bottom, left};
 		};
 
 		const styles = editor.getValue();
-		const contents = h('div', { style: 'width: 193px; height: 122px' });
+		const contents = h('div');
 		const child = h('.child', [contents]);
 		const parent = h('.parent', [child]);
 		const container = h('.container', { style: 'width: 513px; height: 324px' }, [parent]);
@@ -23,9 +25,9 @@ var test3 = function () {
 
 		});
 
-		test((
+		test.only((
 		  '`.child` grows and shrink to fit its contents'
-		), { dom: container, styles }, (is) => {
+		), { dom: child, contents, styles }, (is) => {
 		  is.deepEqual(
 			positionOf(child),
 			positionOf(contents)

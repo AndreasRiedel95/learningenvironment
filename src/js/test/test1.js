@@ -1,60 +1,49 @@
 var test1 = function () {
 	var self = this;
-	self.run = function (editor, test, h){
-		const positionOf = (element) => {
-		const {top, right, bottom, left} = element.getBoundingClientRect();
-			return {top, right, bottom, left};
-		};
+	self.run = function (editor, test, h, computedStyle, jsdiff, pretty){
+		const html = editor.getValue()
+		let parser = new DOMParser();
+		let htmlDoc = parser.parseFromString(html, 'text/html');
+		let styles = [];
+		let ps = htmlDoc.querySelectorAll('p')
+		if(ps.length === 3) {
+			ps.forEach((p) => {
+				styles.push(p.style.backgroundColor)
 
-		const styles = editor.getValue();
-		const contents = h('div', { style: 'width: 193px; height: 122px' });
-		const child = h('.child', [contents]);
-		const parent = h('.parent', [child]);
-		const container = h('.container', { style: 'width: 513px; height: 324px' }, [parent]);
-		test((
-		  '`.parent` takes up the whole width and height of its container'
-		), { dom: container, styles }, (is) => {
-		  is.deepEqual(
-			positionOf(parent),
-			positionOf(container)
-		  );
-		  is.end();
+		})
+			if(checkArray(styles)) {
+				const p1 = h('.p1', { style: `background-color: ${styles[0]}` });
+				const p2 = h('.p2', { style: `background-color: ${styles[1]}` });
+				const p3 = h('.p3', { style: `background-color: ${styles[2]}` });
 
-		});
+				test(('`p` haben unterschiedliche farben'),
+				{ dom: h('div', [p1, p2, p3]) }, (is) => {
+			  		is.notDeepEqual(
+						colorOf(p1),
+						colorOf(p2),
+						colorOf(p3)
+			  		);
+			  		is.end();
 
-		test((
-		  '`.child` grows and shrink to fit its contents'
-		), { dom: container, styles }, (is) => {
-		  is.deepEqual(
-			positionOf(child),
-			positionOf(contents)
-		  );
-		  is.end();
-		});
+				});
+			} else {
+				throwErr()
+			}
+		} else {
+			throwErr()
+		}
 
-		test((
-		  '`.child` is centered horizontally within its `.parent`'
-		), { dom: container, styles }, (is) => {
-		  is.equal(
-			positionOf(parent).right - positionOf(child).right,
-			positionOf(child).left - positionOf(parent).left
-		  );
-		  is.end();
+		function checkArray(my_arr){
+			for(var i=0;i<my_arr.length;i++){
+				if(my_arr[i] === "")   
+					return false;
+			}
+			return true;
+		}
 
-		});
-
-		test((
-		  '`.child` is centered vertically within its `.parent`'
-		), { dom: container, styles }, (is) => {
-		  is.equal(
-			positionOf(parent).bottom - positionOf(child).bottom,
-			positionOf(child).top - positionOf(parent).top
-		  );
-		  is.end();
-		});
-
-
-
+		function throwErr(){
+			console.log("HTML Error")
+		}
    };
 }
 

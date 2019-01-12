@@ -74,10 +74,7 @@ let css_box = document.querySelector('.css-editor');
 let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 
 html_editor.setValue(objSentFromSrv.htmlsolution_user);
-// if(checkCorrectStyleLink()) {
-
-	css_editor.setValue(objSentFromSrv.csssolution_user);
-// }
+css_editor.setValue(objSentFromSrv.csssolution_user);
 
 	function css_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.css(cm);
@@ -103,20 +100,27 @@ html_editor.setValue(objSentFromSrv.htmlsolution_user);
 
 	function checkCorrectStyleLink() {
 		let html = html_editor.getValue();
-		let patt = new RegExp(/<link (?=[^>]*rel=\s*['"]stylesheet['"])(?![^>]*href=\s*['"]http)[^>]*>/i)
-		let html_string = html.replace(/'/g, "\\'")
-		let url = 'style.css'
-		let substring = "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>";
-		console.log("ja", patt.test(html_string))
-		return html_string.includes(substring)
-	}
+		let parser = new DOMParser();
+		let htmlDoc = parser.parseFromString(html, 'text/html');
+		let link = htmlDoc.querySelector('link');
+		let boolean = false;
+		if(link !== null) {
+			if (link.getAttribute('rel') === 'stylesheet' && (link.getAttribute('href') === 'style.css' || link.getAttribute('href') === './style.css' )) {
+				boolean = true;
+			} else {
+				boolean = false;
+			}
+		}
+		return boolean;
+
+	} 
 
 	let prepareSource = function() {
 		let html = html_editor.getValue();
 		let css = "";
-		// if(checkCorrectStyleLink()) {
+		if(checkCorrectStyleLink()) {
 			css = css_editor.getValue();
-		// }
+		}
 		let src = '';
 
 
@@ -173,7 +177,7 @@ document.querySelectorAll('.input-file').forEach((input) => {
 
 //Run Tests Event Handler
 document.querySelector('.run-test-js').addEventListener('click', () => {
-	let target = editorRendering.getCSSEditor();
+	let target = editorRendering.getHTMLEditor();
 	runTest(target, objSentFromSrv.tasknumber);
 	
 })
@@ -232,14 +236,14 @@ updateBtn.addEventListener('click', () => {
 	})
 })
 
-document.querySelectorAll('.tab').forEach((tab) => {
-	tab.addEventListener('click', toggleTab, false);
-})   
+// document.querySelectorAll('.tab').forEach((tab) => {
+// 	tab.addEventListener('click', toggleTab, false);
+// })   
 
-function toggleTab(e) {
-	console.log(e)
+// function toggleTab(e) {
+// 	console.log(e)
 
-}
+// }
 
 // window.addEventListener('keypress', function(event) {
 // 	if (event.which == 115 && (event.ctrlKey||event.metaKey)|| (event.which == 19)) {
