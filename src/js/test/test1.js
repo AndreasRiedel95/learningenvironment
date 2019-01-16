@@ -1,6 +1,6 @@
 var test1 = function () {
 	let self = this;
-	self.run = function (htmlNode, cssString, test, h, computedStyle){
+	self.run1 = function (htmlNode, cssString, test, h, computedStyle){
 
 		const colorOf = (element) => {
 			let bColor = window.getComputedStyle(element, null).getPropertyValue("background-color");

@@ -10,15 +10,15 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/edit/closetag.js';
 import * as resizeEditor from './resizeEditor';
 import importFile from './importFile';
-import runTest from './test';
+import runTest from './testHandler';
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
 
-console.log("HAAAALLLOOOO")
 resizeEditor.vertical();
 resizeEditor.horizontal();
+
 let editorRendering = (() => {
 	let base_tpl =
 	"<!doctype html>\n" +
@@ -112,7 +112,6 @@ css_editor.setValue(objSentFromSrv.csssolution_user);
 			}
 		}
 		return boolean;
-
 	} 
 
 	let prepareSource = function() {
@@ -179,7 +178,7 @@ document.querySelectorAll('.input-file').forEach((input) => {
 document.querySelector('.run-test-js').addEventListener('click', () => {
 	let htmlEditor = editorRendering.getHTMLEditor();
 	let cssEditor = editorRendering.getCSSEditor();
-	runTest(htmlEditor, cssEditor, objSentFromSrv.tasknumber);
+	runTest(htmlEditor, cssEditor, objSentFromSrv.tasknumber, 1);
 	
 })
 

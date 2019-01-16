@@ -49,16 +49,11 @@ export const vertical =  function () {
 		wrapper.style.gridTemplateColumns =  `${x}px 1fr`
 		draggerVertical.style.left = `${x}px`;
 		draggerHorizontal.style.width = `${x}px`;
-
 	}
 
 	function mouseUp(event) {
 		draggerVertical.classList.remove('--active')
 		isDown = false;
-		document.querySelectorAll('.code-editors').forEach((editor) => {
-			editor.pointerEvents = "all";
-		});
-		
 		document.removeEventListener('mousemove', mouseMove, false);
 		document.removeEventListener('mouseup', mouseUp , false);
 		document.removeEventListener('mouseleave', mouseUp , false);
@@ -98,12 +93,8 @@ export const horizontal =  function () {
 	}
 
 	function mouseUp(event) {
-		draggerVertical.classList.remove('--active')
+		draggerHorizontal.classList.remove('--active')
 		isDown = false;
-		document.querySelectorAll('.code-editors').forEach((editor) => {
-			editor.pointerEvents = "all";
-		});
-		
 		document.removeEventListener('mousemove', mouseMove, false);
 		document.removeEventListener('mouseup', mouseUp , false);
 		document.removeEventListener('mouseleave', mouseUp , false);
