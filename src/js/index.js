@@ -214,7 +214,7 @@ updateBtn.addEventListener('click', () => {
 	let html_editor = editorRendering.getHTMLEditor();
 	let css_editor = editorRendering.getCSSEditor();
 	let savedWrapper = document.querySelector('.code-saved-wrapper')
-	fetch('/tasks', {
+	fetch('/taskDescription', {
 		method: 'put',
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify({
@@ -224,7 +224,7 @@ updateBtn.addEventListener('click', () => {
 		})
 	})
 
-	fetch('/tasks', {method: 'PUT'})
+	fetch('/taskDescription', {method: 'PUT'})
 	.then(res => {
 		if (res.ok) return res.json()
 	})

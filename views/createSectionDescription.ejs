@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Section Description</title>
+</head>
+<body>
+	<ul class="sections">
+		<% for(var i=0; i<sectionDescription.length; i++) {%>
+			<li class="section">
+				<a href="/createTaskDescription?id=<%= sectionDescription[i]._id %>">
+					<span><%= sectionDescription[i].SectionNumber %></span>
+				</a>
+			</li>
+		<% } %>
+	</ul>
+	<form action="/sectionDescription" method="POST">
+		<input type="number" placeholder="Section Number" name="SectionNumber">
+		<textarea type="text" placeholder="Section Description" name="SectionDescription"></textarea>
+		<button type="submit">Submit</button>
+	</form>
+</body>
+</html>
