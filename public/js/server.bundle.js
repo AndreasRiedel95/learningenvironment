@@ -81,10 +81,43 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./server.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./backend/server.js");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./backend/init.js":
+/*!*************************!*\
+  !*** ./backend/init.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(process) {var settings = __webpack_require__(/*! ./settings.json */ \"./backend/settings.json\");\n\nmodule.exports = function () {\n  for (var i in settings) {\n    process.env[i] = settings[i];\n  }\n};\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/process/browser.js */ \"./node_modules/process/browser.js\")))\n\n//# sourceURL=webpack:///./backend/init.js?");
+
+/***/ }),
+
+/***/ "./backend/server.js":
+/*!***************************!*\
+  !*** ./backend/server.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(__dirname, process) {__webpack_require__(/*! ./init.js */ \"./backend/init.js\")();\n\nvar express = __webpack_require__(/*! express */ \"./node_modules/express/index.js\");\n\nvar bodyParser = __webpack_require__(/*! body-parser */ \"./node_modules/body-parser/index.js\");\n\nvar app = express();\n\nvar MongoClient = __webpack_require__(/*! mongodb */ \"./node_modules/mongodb/index.js\").MongoClient;\n\nvar ObjectId = __webpack_require__(/*! mongodb */ \"./node_modules/mongodb/index.js\").ObjectID;\n\napp.set('view engine', 'ejs');\napp.use(express.static(__dirname + '../../public'));\napp.use(bodyParser.json());\nvar db;\nvar db_url = 'mongodb://andreas:andreas95@ds253104.mlab.com:53104/mongo_db_test2';\nMongoClient.connect(db_url, {\n  useNewUrlParser: true\n}, function (err, client) {\n  if (err) return console.log(err);\n  db = client.db('mongo_db_test2'); // whatever your database name is\n\n  app.listen(process.env.port || 3000, function () {\n    console.log(\"listening on \".concat(process.env.port));\n  });\n});\napp.use(bodyParser.urlencoded({\n  extended: true\n})); //Routing\n\napp.get('/', function (req, res) {\n  db.collection('taskDescription').find().toArray(function (err, result) {\n    if (err) return console.log(err);\n    res.render('overview.ejs', {\n      taskDescription: result\n    });\n  });\n});\napp.get('/editor', function (req, res) {\n  var id = req.query.id;\n  db.collection('taskDescription').findOne({\n    '_id': ObjectId(id)\n  }, function (err, result) {\n    if (err) return console.log(err);\n    res.render('editor.ejs', {\n      tasks: result\n    });\n  });\n});\napp.get('/createSectionDescription', function (req, res) {\n  db.collection('sectionDescription').find().toArray(function (err, result) {\n    if (err) return console.log(err);\n    res.render('createSectionDescription.ejs', {\n      sectionDescription: result\n    });\n  });\n});\napp.get('/createTaskDescription', function (req, res) {\n  var id = req.query.id;\n  db.collection('sectionDescription').findOne({\n    '_id': ObjectId(id)\n  }, function (err, result) {\n    if (err) return console.log(err);\n    res.render('createTaskDescription.ejs', {\n      sectionDescription: result\n    });\n  });\n}); //Save taskdescription in DB\n\napp.post('/taskDescription', function (req, res) {\n  db.collection('taskDescription').save(req.body, function (err, result) {\n    if (err) return console.log(err);\n    console.log('saved to database');\n    res.redirect('/');\n  });\n}); //Save Section Description\n\napp.post('/sectionDescription', function (req, res) {\n  db.collection('sectionDescription').save(req.body, function (err, result) {\n    if (err) return console.log(err);\n    console.log('saved to collection section description');\n    res.redirect('/createSectionDescription');\n  });\n}); //Update tasks\n\napp.put('/taskDescription', function (req, res) {\n  var tasknumberSend = req.body.tasknumber;\n  db.collection('taskDescription').findOneAndUpdate({\n    tasknumber: tasknumberSend\n  }, {\n    $set: {\n      csssolution_user: req.body.csssolution_user,\n      htmlsolution_user: req.body.htmlsolution_user\n    }\n  }, {\n    upsert: true\n  }, function (err, result) {\n    if (err) return res.send(err);\n    res.send(result);\n  });\n});\n/* WEBPACK VAR INJECTION */}.call(this, \"/\", __webpack_require__(/*! ./../node_modules/process/browser.js */ \"./node_modules/process/browser.js\")))\n\n//# sourceURL=webpack:///./backend/server.js?");
+
+/***/ }),
+
+/***/ "./backend/settings.json":
+/*!*******************************!*\
+  !*** ./backend/settings.json ***!
+  \*******************************/
+/*! exports provided: port, mode, db_name, default */
+/***/ (function(module) {
+
+eval("module.exports = {\"port\":3000,\"mode\":\"dev\",\"db_name\":\"cookbook\"};\n\n//# sourceURL=webpack:///./backend/settings.json?");
+
+/***/ }),
 
 /***/ "./node_modules/accepts/index.js":
 /*!***************************************!*\
@@ -4693,17 +4726,6 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 /***/ (function(module, exports) {
 
 eval("module.exports = extend\n\nvar hasOwnProperty = Object.prototype.hasOwnProperty;\n\nfunction extend() {\n    var target = {}\n\n    for (var i = 0; i < arguments.length; i++) {\n        var source = arguments[i]\n\n        for (var key in source) {\n            if (hasOwnProperty.call(source, key)) {\n                target[key] = source[key]\n            }\n        }\n    }\n\n    return target\n}\n\n\n//# sourceURL=webpack:///./node_modules/xtend/immutable.js?");
-
-/***/ }),
-
-/***/ "./server.js":
-/*!*******************!*\
-  !*** ./server.js ***!
-  \*******************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/* WEBPACK VAR INJECTION */(function(__dirname) {var express = __webpack_require__(/*! express */ \"./node_modules/express/index.js\");\n\nvar bodyParser = __webpack_require__(/*! body-parser */ \"./node_modules/body-parser/index.js\");\n\nvar app = express();\n\nvar MongoClient = __webpack_require__(/*! mongodb */ \"./node_modules/mongodb/index.js\").MongoClient;\n\nvar ObjectId = __webpack_require__(/*! mongodb */ \"./node_modules/mongodb/index.js\").ObjectID;\n\napp.set('view engine', 'ejs');\napp.use(express.static(__dirname + '/public'));\napp.use(bodyParser.json());\nvar db;\nvar db_url = 'mongodb://andreas:andreas95@ds253104.mlab.com:53104/mongo_db_test2';\nMongoClient.connect(db_url, function (err, client) {\n  if (err) return console.log(err);\n  db = client.db('mongo_db_test2'); // whatever your database name is\n\n  app.listen(3000, function () {\n    console.log('listening on 3000');\n  });\n});\napp.use(bodyParser.urlencoded({\n  extended: true\n})); //Routing\n\napp.get('/', function (req, res) {\n  db.collection('taskDescription').find().toArray(function (err, result) {\n    if (err) return console.log(err);\n    res.render('overview.ejs', {\n      taskDescription: result\n    });\n  });\n});\napp.get('/editor', function (req, res) {\n  var id = req.query.id;\n  db.collection('taskDescription').findOne({\n    '_id': ObjectId(id)\n  }, function (err, result) {\n    if (err) return console.log(err);\n    res.render('editor.ejs', {\n      tasks: result\n    });\n  });\n});\napp.get('/createSectionDescription', function (req, res) {\n  db.collection('sectionDescription').find().toArray(function (err, result) {\n    if (err) return console.log(err);\n    res.render('createSectionDescription.ejs', {\n      sectionDescription: result\n    });\n  });\n});\napp.get('/createTaskDescription', function (req, res) {\n  var id = req.query.id;\n  db.collection('sectionDescription').findOne({\n    '_id': ObjectId(id)\n  }, function (err, result) {\n    if (err) return console.log(err);\n    res.render('createTaskDescription.ejs', {\n      sectionDescription: result\n    });\n  });\n}); //Save taskdescription in DB\n\napp.post('/taskDescription', function (req, res) {\n  db.collection('taskDescription').save(req.body, function (err, result) {\n    if (err) return console.log(err);\n    console.log('saved to database');\n    res.redirect('/');\n  });\n}); //Save Section Description\n\napp.post('/sectionDescription', function (req, res) {\n  db.collection('sectionDescription').save(req.body, function (err, result) {\n    if (err) return console.log(err);\n    console.log('saved to collection section description');\n    res.redirect('/createSectionDescription');\n  });\n}); //Update tasks\n\napp.put('/taskDescription', function (req, res) {\n  var tasknumberSend = req.body.tasknumber;\n  db.collection('taskDescription').findOneAndUpdate({\n    tasknumber: tasknumberSend\n  }, {\n    $set: {\n      csssolution_user: req.body.csssolution_user,\n      htmlsolution_user: req.body.htmlsolution_user\n    }\n  }, {\n    upsert: true\n  }, function (err, result) {\n    if (err) return res.send(err);\n    res.send(result);\n  });\n});\n/* WEBPACK VAR INJECTION */}.call(this, \"/\"))\n\n//# sourceURL=webpack:///./server.js?");
 
 /***/ }),
 

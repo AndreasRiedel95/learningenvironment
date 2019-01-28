@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm-run-all --parallel watch:server watch:build",
     "watch:build": "webpack",
-    "watch:server": "nodemon server.js --ignore src"
+    "watch:server": "nodemon backend/server.js --ignore src"
   },
   "keywords": [],
   "author": "",

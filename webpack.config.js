@@ -12,7 +12,7 @@ module.exports = {
   },
   entry: {
     index: './src/js/index.js',
-    server: './server.js'
+    server: './backend/server.js'
   },
   output: {
     path: path.resolve(__dirname, "public"),
