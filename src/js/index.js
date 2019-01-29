@@ -20,6 +20,7 @@ resizeEditor.vertical();
 resizeEditor.horizontal();
 
 let editorRendering = (() => {
+	console.log("in")
 	let base_tpl =
 	"<!doctype html>\n" +
 	"<html>\n\t" +
@@ -65,12 +66,12 @@ let cm_opt_html = {
 	}
 };
 
-let runBtn = document.querySelector('.runbutton-wrapper');
+let tasks = document.querySelectorAll('.task');
 let html_box = document.querySelector('.html-codearea');
 let html_editor = CodeMirror.fromTextArea(html_box, cm_opt_html);
 
 cm_opt_css.mode = 'css';
-let css_box = document.querySelector('.css-editor');
+let css_box = document.querySelector('.css-codearea');
 let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 
 html_editor.setValue(objSentFromSrv.htmlsolution_user);
@@ -78,23 +79,23 @@ css_editor.setValue(objSentFromSrv.csssolution_user);
 
 	function css_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.css(cm);
-		if (errors.filter(e => e.severity === 'error').length > 0) {
-		  	runBtn.classList.add('--non-active');
-		} else {
-			runBtn.classList.remove('--non-active');
+		// if (errors.filter(e => e.severity === 'error').length > 0) {
+		//   	runBtn.classList.add('--non-active');
+		// } else {
+		// 	runBtn.classList.remove('--non-active');
 
-		}
+		// }
 		updateLinting(errors);
 	}
 
 	function html_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.html(cm);
-		if (errors.filter(e => e.severity === 'error').length > 0) {
-		  	runBtn.classList.add('--non-active');
-		} else {
-			runBtn.classList.remove('--non-active');
+		// if (errors.filter(e => e.severity === 'error').length > 0) {
+		//   	runBtn.classList.add('--non-active');
+		// } else {
+		// 	runBtn.classList.remove('--non-active');
 
-		}
+		// }
 		updateLinting(errors);
 	}
 
@@ -114,7 +115,7 @@ css_editor.setValue(objSentFromSrv.csssolution_user);
 		return boolean;
 	} 
 
-	let prepareSource = function() {
+	const prepareSource = function() {
 		let html = html_editor.getValue();
 		let css = "";
 		if(checkCorrectStyleLink()) {
@@ -133,7 +134,7 @@ css_editor.setValue(objSentFromSrv.csssolution_user);
 		return src;
 	};
 	
-	let render = function() {
+	const render = function() {
 		let source = prepareSource();
 		let iframe = document.querySelector('.output-iframe');
 		let iframe_doc = iframe.contentDocument;
@@ -175,38 +176,21 @@ document.querySelectorAll('.input-file').forEach((input) => {
 });
 
 //Run Tests Event Handler
-document.querySelector('.run-test-js').addEventListener('click', () => {
-	let htmlEditor = editorRendering.getHTMLEditor();
-	let cssEditor = editorRendering.getCSSEditor();
-	runTest(htmlEditor, cssEditor, objSentFromSrv.tasknumber, 1);
+let testButtons = document.querySelectorAll('.run-test-js');
+testButtons.forEach((button) => {
+	button.addEventListener('click', () => {
+		let htmlEditor = editorRendering.getHTMLEditor();
+		let cssEditor = editorRendering.getCSSEditor();
+		let testNumber = parseInt(button.dataset.testnumber);
+		console.log(testNumber)
+		runTest(htmlEditor, cssEditor, objSentFromSrv.tasknumber, testNumber);
 	
 })
 
-//Close and open Task Wrapper Event Handler
-document.querySelector('.close-task').addEventListener('click', closeTask, false);
-document.querySelectorAll('.task-number').forEach((taskNumber) => {
-	taskNumber.addEventListener('click', () => {toggleTaskSection(taskNumber)}, false);
 })
 
-//Evtl auslagern in neue Datei
-function closeTask() {
-	let wrapper = document.querySelector('.task-description-wrapper');
-	wrapper.classList.add('--close');
-}
 
-function toggleTaskSection(taskNumber){
-	let active = document.querySelector('.task-description.--active');
-	let taskDescriptionWrapper = document.querySelector('.task-description-wrapper');
-	let id = taskNumber.htmlFor
-	taskDescriptionWrapper.classList.toggle('--close');
 
-	//set active class on task-description
-	if(active !== null) {
-		active.classList.remove('--active');
-	}
-	document.querySelector(`.task-description`).classList.add('--active');
-	
-}
 
 //Call Save Code EventHandler
 let updateBtn = document.querySelector('.save');

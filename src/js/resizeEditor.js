@@ -28,17 +28,13 @@ export const vertical =  function () {
 	function mouseMove(event) {
 		if(!isDown) return;
 		event.preventDefault();
-		let taskDescriptionWrapper = document.querySelector('.task-description-wrapper.--close');
-		let wrapper = document.querySelector('.wrapper');
+		let wrapper = document.querySelector('.task-editor-wrapper');
 		let header = document.querySelector('.header');
-		let leftIndex = 0;
-		if(taskDescriptionWrapper !== null) {
-			leftIndex = 50
-		} else {
-			leftIndex = 450
-		}
-		
-		let w = header.clientWidth - leftIndex
+		let taskDescriptionWrapper = document.querySelector('.task-description-wrapper')
+		let sidebar  = document.querySelector('.task-number-wrapper')
+		let taskDescriptionWrapperWidth = taskDescriptionWrapper.clientWidth 
+		let leftIndex = taskDescriptionWrapperWidth + sidebar.clientWidth
+		let w = header.clientWidth - leftIndex 
 		let x = event.pageX - leftIndex;
 		if(x <= 0) {
 			x = 0
@@ -46,7 +42,8 @@ export const vertical =  function () {
 			x = w - 10
 		}
 		
-		wrapper.style.gridTemplateColumns =  `${x}px 1fr`
+		wrapper.style.gridTemplateColumns =  `50px ${taskDescriptionWrapperWidth}px ${x}px 1fr`
+		
 		draggerVertical.style.left = `${x}px`;
 		draggerHorizontal.style.width = `${x}px`;
 	}
@@ -79,7 +76,7 @@ export const horizontal =  function () {
 		if(!isDown) return;
 		event.preventDefault();
 		let topIndex = 50
-		let wrapper = document.querySelector('.wrapper');
+		let wrapper = document.querySelector('.html-css-wrapper');
 		let x = event.pageY - topIndex;
 		var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 		if(x <= 10) {

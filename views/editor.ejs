@@ -6,7 +6,6 @@
 	<link rel="stylesheet" type="text/css" href="/css/reset.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
-<!-- <div class="display"></div> -->
 <body>
 	<script>
 		const objSentFromSrv = <%-JSON.stringify(tasks)%>
@@ -16,26 +15,71 @@
 	</div>
 	<div class="header">Playground 
 		<button class="save" type="button">Save</button>
-		<div class="runbutton-wrapper --non-active">
-			<button type="button" class="run-test-js run-test">Run Test</button>
-			<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
-			<span class="run-btn-hover __open-console">Please open delelopver console</span>
-		</div>
 	</div>
 	<div class="task-editor-wrapper">
 		<div class="task-number-wrapper">
 			<div class="input-wrapper">
-				<input id="<%- tasks.tasknumber %>" type="radio" name="task" class="task">
+				<input id="<%- tasks.tasknumber %>" type="radio" name="task" class="taskInput">
 				<label class="task-number" for="<%- tasks.tasknumber %>"><%- tasks.tasknumber %></label>
 			</div>
 		</div>
-		<div class="task-description-wrapper --close">
-			<button type="button" class="close-task">x</button>
-			<div class="task-description">
-				<%- tasks.taskdescription %>
+		<div class="task-description-wrapper">
+			<div class="description-scroll-wrapper">
+				<div class="task">
+					<div class="task-headline">Aufgabe 1</div>
+					<input type="checkbox" class="task-solved">
+					<div class="task-description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
+						</p>
+						<div class="runbutton-wrapper">
+							<button type="button" class="run-test-js run-test" data-testnumber="1">Run Test</button>
+							<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
+						</div>
+					</div>
+				</div>
+				<div class="task --not-solved">
+					<div class="task-headline">Aufgabe 2</div>
+					<input type="checkbox" class="task-solved">
+					<div class="task-description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
+						</p>
+						<div class="runbutton-wrapper">
+							<button type="button" class="run-test-js run-test" data-testnumber="2">Run Test</button>
+							<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
+						</div>
+					</div>
+				</div>
+				<div class="task --not-solved">
+					<div class="task-headline">Aufgabe 3</div>
+					<input type="checkbox" class="task-solved">
+					<div class="task-description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
+						</p>
+						<div class="runbutton-wrapper">
+							<button type="button" class="run-test-js run-test" data-testnumber="3">Run Test</button>
+							<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
+						</div>
+					</div>
+				</div>
+				<div class="task --not-solved">
+					<div class="task-headline">Aufgabe 4</div>
+					<input type="checkbox" class="task-solved">
+					<div class="task-description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
+						</p>
+						<div class="runbutton-wrapper">
+							<button type="button" class="run-test-js run-test" data-testnumber="4">Run Test</button>
+							<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="wrapper">
+		<div class="html-css-wrapper">
 			<section class="html_section code-editors">
 				<div class="code_box">
 					<div class="headeline-wrapper">
@@ -51,32 +95,25 @@
 			<section class="css_section code-editors">
 				<div id="css" class="code_box">
 					<div class="headeline-wrapper">
-						<div class="tab-wrapper">
-							<button class="tab">style.css</button>
-							<button class="tab">index.css</button>
-						</div>
+						<h3 class="headline">CSS</h3>
 						<div class="file-import-wrapper">
 							<input type="file" class="input-file --css-js">
 						</div>
 					</div>
-			  			<textarea class="css-editor" name="css"></textarea>
+			  		<textarea class="css-codearea" name="css"></textarea>
 				</div>
 			</section>
 			<div class="resize --vertical" data-dragstart="0"></div>
-			<section class="output">
+		</div>
+		<section class="output">
 			<div class="headeline-wrapper">
 				<h3 class="headline">Output</h3>
 			</div>
-				<div class="size-iframe"></div>
-				<iframe class="output-iframe"></iframe>
-			</section>
-		</div>
+			<div class="size-iframe"></div>
+			<div class="error-message"></div>
+			<iframe class="output-iframe"></iframe>
+		</section>
 	</div>
-	<script type="text/javascript">
-	window.addEventListener('error', function(e) {
-	    console.log(e);
-	}, true);
-	</script>
 	<script src="https://unpkg.com/csslint@1.0.5/dist/csslint.js"></script>
 	<script src="/js/html-hint.js" charset="utf-8"></script>
 	<script src="/js/index.bundle.js" charset="utf-8"></script>
