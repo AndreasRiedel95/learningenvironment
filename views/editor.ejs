@@ -32,10 +32,7 @@
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
-						<div class="runbutton-wrapper">
-							<button type="button" class="run-test-js run-test" data-testnumber="1">Run Test</button>
-							<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
-						</div>
+						<button type="button" class="run-test-js run-test" data-testnumber="1">Run Test</button>
 					</div>
 				</div>
 				<div class="task --not-solved">
@@ -45,10 +42,7 @@
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
-						<div class="runbutton-wrapper">
-							<button type="button" class="run-test-js run-test" data-testnumber="2">Run Test</button>
-							<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
-						</div>
+						<button type="button" class="run-test-js run-test" data-testnumber="2">Run Test</button>
 					</div>
 				</div>
 				<div class="task --not-solved">
@@ -58,10 +52,7 @@
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
-						<div class="runbutton-wrapper">
-							<button type="button" class="run-test-js run-test" data-testnumber="3">Run Test</button>
-							<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
-						</div>
+						<button type="button" class="run-test-js run-test" data-testnumber="3">Run Test</button>
 					</div>
 				</div>
 				<div class="task --not-solved">
@@ -71,39 +62,37 @@
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
-						<div class="runbutton-wrapper">
-							<button type="button" class="run-test-js run-test" data-testnumber="4">Run Test</button>
-							<span class="run-btn-hover __syntax-error">Please solve syntax error!</span>
-						</div>
+						<button type="button" class="run-test-js run-test" data-testnumber="4">Run Test</button>
 					</div>
 				</div>
 			</div>
+			<div class="resize --vertical" onmousedown="onClickVertical(this)"></div>
 		</div>
 		<div class="html-css-wrapper">
-			<section class="html_section code-editors">
-				<div class="code_box">
-					<div class="headeline-wrapper">
-						<h3 class="headline">HTML</h3>
-						<div class="file-import-wrapper">
-							<input type="file" class="input-file --html-js">
-						</div>
+			<section class="section --html code-editors">
+				<div class="headeline-wrapper">
+					<h3 class="headline">HTML</h3>
+					<div class="file-import-wrapper">
+						<input type="file" class="input-file --html-js">
 					</div>
+				</div>
+				<div class="code_box">
 					<textarea class="html-codearea" name="html"></textarea>
 				</div>
+				<div class="resize --horizontal" onmousedown="onClickHorizontal(this)"></div>
 			</section>
-			<div class="resize --horizontal"></div>
-			<section class="css_section code-editors">
-				<div id="css" class="code_box">
-					<div class="headeline-wrapper">
-						<h3 class="headline">CSS</h3>
-						<div class="file-import-wrapper">
-							<input type="file" class="input-file --css-js">
-						</div>
+			<section class="section --css code-editors">
+				<div class="headeline-wrapper">
+					<h3 class="headline">CSS</h3>
+					<div class="file-import-wrapper">
+						<input type="file" class="input-file --css-js">
 					</div>
+				</div>
+				<div class="code_box">
 			  		<textarea class="css-codearea" name="css"></textarea>
 				</div>
 			</section>
-			<div class="resize --vertical" data-dragstart="0"></div>
+			<div class="resize --vertical" onmousedown="onClickVertical(this)"></div>
 		</div>
 		<section class="output">
 			<div class="headeline-wrapper">

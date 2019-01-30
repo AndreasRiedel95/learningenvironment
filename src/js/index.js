@@ -16,11 +16,9 @@ import runTest from './testHandler';
 //   event.returnValue = '';
 // });
 
-resizeEditor.vertical();
-resizeEditor.horizontal();
+console.log("ljsss")
 
 let editorRendering = (() => {
-	console.log("in")
 	let base_tpl =
 	"<!doctype html>\n" +
 	"<html>\n\t" +
@@ -42,7 +40,7 @@ let cm_opt_html = {
 		"getAnnotations": html_validator,
 		"async": true 
 	},
-	autoCloseTags: true,
+	autoCloseTags: false,
 	extraKeys: {"Ctrl-Space": "autocomplete"},
 	onChange: function () {
 		render();

@@ -56,7 +56,7 @@ const test3 = function () {
 
 		setTimeout(() => {
 			CheckInstance.check(testNumber)
-		},100)
+		},1)
    }
 
 	self.run2 = function (htmlNode, cssString, test, h, computedStyle, testNumber){

@@ -19,6 +19,14 @@ module.exports = {
     filename: 'js/[name].bundle.js'
   },
   watch: true,
+  watchOptions: {
+    ignored: ['/node_modules/', '/backend/*']
+  },
+  devServer: {
+    watchOptions: {
+      poll: true
+    }
+  },
    module: {
     rules: [
       {

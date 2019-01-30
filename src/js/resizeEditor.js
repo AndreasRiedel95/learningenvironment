@@ -1,8 +1,7 @@
 import ResizeObserver from 'resize-observer-polyfill';
 
-export const vertical =  function () { 
-	let draggerVertical = document.querySelector('.resize.--vertical');
-	let draggerHorizontal = document.querySelector('.resize.--horizontal');	
+export const vertical =  function (draggerVertical) {
+	let draggerHorizontal = document.querySelector('.resize.--horizontal')
 	let isDown = false;
 	let iFrame = document.querySelector('.output-iframe');
 	var ro = new ResizeObserver( entries => {
@@ -14,9 +13,7 @@ export const vertical =  function () {
 	});
 
 	ro.observe(iFrame);
-	draggerVertical.addEventListener('mousedown', mouseDown, false);
-
-
+	mouseDown();
 	function mouseDown(event) {
 		isDown = true;
 		draggerVertical.classList.add('--active');
@@ -30,22 +27,39 @@ export const vertical =  function () {
 		event.preventDefault();
 		let wrapper = document.querySelector('.task-editor-wrapper');
 		let header = document.querySelector('.header');
-		let taskDescriptionWrapper = document.querySelector('.task-description-wrapper')
-		let sidebar  = document.querySelector('.task-number-wrapper')
-		let taskDescriptionWrapperWidth = taskDescriptionWrapper.clientWidth 
-		let leftIndex = taskDescriptionWrapperWidth + sidebar.clientWidth
-		let w = header.clientWidth - leftIndex 
-		let x = event.pageX - leftIndex;
-		if(x <= 0) {
-			x = 0
-		} else if (x > w - 10 ) {
-			x = w - 10
+		let taskDescriptionWrapper = document.querySelector('.task-description-wrapper');
+		let sidebar  = document.querySelector('.task-number-wrapper');
+		let taskDescriptionWrapperWidth = taskDescriptionWrapper.clientWidth; 
+		let outputWrapper = document.querySelector('.output');
+		let outputWrapperWidth = outputWrapper.clientWidth;
+		let codeWidth = document.querySelector('.html-css-wrapper').clientWidth 
+		let x,
+			w,
+			leftIndex,
+			xNew;
+
+		if(draggerVertical.previousElementSibling.classList.contains('description-scroll-wrapper')) {
+			leftIndex =  sidebar.clientWidth
+			w = header.clientWidth - leftIndex;
+			x = event.pageX - leftIndex;
+			if((w - x - outputWrapperWidth) <= 0) {
+				wrapper.style.gridTemplateColumns =  `50px ${x}px 0 1fr `;	
+			} else {
+				xNew = w - x - outputWrapperWidth
+				wrapper.style.gridTemplateColumns =  `50px ${x}px ${xNew}px 1fr`;	
+			}
+		} else {
+			leftIndex = taskDescriptionWrapperWidth + sidebar.clientWidth
+			w = header.clientWidth - leftIndex 
+			x = event.pageX - leftIndex;
+			if(x < 0) {
+				xNew  = taskDescriptionWrapperWidth + x
+				wrapper.style.gridTemplateColumns =  `50px ${xNew}px 0px 1fr`;
+			} else {
+
+				wrapper.style.gridTemplateColumns =  `50px ${taskDescriptionWrapperWidth}px ${x}px 1fr`;
+			}
 		}
-		
-		wrapper.style.gridTemplateColumns =  `50px ${taskDescriptionWrapperWidth}px ${x}px 1fr`
-		
-		draggerVertical.style.left = `${x}px`;
-		draggerHorizontal.style.width = `${x}px`;
 	}
 
 	function mouseUp(event) {
@@ -57,13 +71,9 @@ export const vertical =  function () {
 	}
 };
 
-export const horizontal =  function () { 
-	let draggerVertical = document.querySelector('.resize.--vertical');
-	let draggerHorizontal = document.querySelector('.resize.--horizontal');	
+export const horizontal =  function (draggerHorizontal) { 
 	let isDown = false;
-	draggerHorizontal.addEventListener('mousedown', mouseDown, false);
-
-
+	mouseDown();
 	function mouseDown(event) {
 		isDown = true;
 		draggerHorizontal.classList.add('--active');
@@ -98,5 +108,5 @@ export const horizontal =  function () {
 	}
 };
 
-
-
+window.onClickVertical = vertical;
+window.onClickHorizontal = horizontal;
