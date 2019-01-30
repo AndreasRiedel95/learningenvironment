@@ -188,8 +188,6 @@ testButtons.forEach((button) => {
 })
 
 
-
-
 //Call Save Code EventHandler
 let updateBtn = document.querySelector('.save');
 updateBtn.addEventListener('click', () => {
@@ -217,22 +215,3 @@ updateBtn.addEventListener('click', () => {
 		}, 1400)
 	})
 })
-
-// document.querySelectorAll('.tab').forEach((tab) => {
-// 	tab.addEventListener('click', toggleTab, false);
-// })   
-
-// function toggleTab(e) {
-// 	console.log(e)
-
-// }
-
-// window.addEventListener('keypress', function(event) {
-// 	if (event.which == 115 && (event.ctrlKey||event.metaKey)|| (event.which == 19)) {
-// 		console.log("in")
-// 		event.preventDefault();
-// 		saveCode
-// 		return false;
-// 	}
-// 	return true;
-// });

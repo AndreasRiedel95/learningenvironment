@@ -17,6 +17,8 @@ export const vertical =  function (draggerVertical) {
 	function mouseDown(event) {
 		isDown = true;
 		draggerVertical.classList.add('--active');
+		document.body.style.pointerEvents = "none";
+		draggerVertical.style.pointerEvents = "all";
 		document.addEventListener('mouseup', mouseUp , false);
 		document.addEventListener('mouseleave', mouseUp , false);
 		document.addEventListener('mousemove', mouseMove, false);
@@ -65,6 +67,7 @@ export const vertical =  function (draggerVertical) {
 	function mouseUp(event) {
 		draggerVertical.classList.remove('--active')
 		isDown = false;
+		document.body.style.pointerEvents = "all"
 		document.removeEventListener('mousemove', mouseMove, false);
 		document.removeEventListener('mouseup', mouseUp , false);
 		document.removeEventListener('mouseleave', mouseUp , false);
@@ -76,6 +79,8 @@ export const horizontal =  function (draggerHorizontal) {
 	mouseDown();
 	function mouseDown(event) {
 		isDown = true;
+		document.body.style.pointerEvents = "none"
+		draggerHorizontal.style.pointerEvents = "all";
 		draggerHorizontal.classList.add('--active');
 		document.addEventListener('mouseup', mouseUp , false);
 		document.addEventListener('mouseleave', mouseUp , false);
@@ -101,6 +106,7 @@ export const horizontal =  function (draggerHorizontal) {
 
 	function mouseUp(event) {
 		draggerHorizontal.classList.remove('--active')
+		document.body.style.pointerEvents = "all"
 		isDown = false;
 		document.removeEventListener('mousemove', mouseMove, false);
 		document.removeEventListener('mouseup', mouseUp , false);

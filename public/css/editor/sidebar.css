@@ -1,0 +1,53 @@
+.task-number-wrapper {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: calc(100vh - 50px);
+  width: 50px;
+  grid-area: sidebar;
+  background-color: #ebebeb; }
+
+.input-wrapper {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  background-color: #ebebeb;
+  border-bottom: 1px solid #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.task-number {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  position: relative;
+  font-size: 20px;
+  font-family: sans-serif;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.taskInput {
+  position: absolute;
+  opacity: 0; }
+  .taskInput:checked ~ .task-description-wrapper {
+    display: block;
+    pointer-events: all; }
+  .taskInput:checked ~ .task-number {
+    background-color: #292929;
+    color: #fff; }

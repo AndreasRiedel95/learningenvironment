@@ -1,0 +1,110 @@
+@import '../base/variable'
+
+.headeline-wrapper
+	background-color: $grey
+	user-select: none
+	padding-left: 20px
+	z-index: 10
+	padding-right: 20px
+	padding-top: 12px
+	height: 30px
+	width: 100%
+	display: flex
+	grid-area: codeHeadline
+	flex-direction: row
+
+.headline
+	user-select: none
+	font-family: sans-serif
+	color: #292929
+
+.file-import-wrapper
+	margin-left: auto
+
+.html-css-wrapper
+	position: relative
+	height: calc(100vh - 50px)
+	max-width: calc(100vw - 60px)
+	display: grid
+	padding-left: 10px
+	width: 100%
+	grid-area: html_css
+	grid-row-gap: 10px
+	grid-template-columns: 100%
+	grid-template-rows: repeat(2, calc(50vh - 35px))
+	grid-template-areas: "html" "css"
+
+.section
+	position: relative
+	width: 100%
+	height: 100%
+	display: grid
+	grid-template-columns: 100%
+	grid-template-rows: 30px 1fr
+	grid-template-areas: "codeHeadline" "code"
+	&.--html
+		grid-area: html
+	&.--css
+		grid-area: css
+
+
+.code_box
+	position: relative
+	grid-area: code
+	height: 100%
+	width: 100%
+	z-index: 10
+
+.runbutton-wrapper
+	margin-left: auto
+	position: relative
+
+
+.run-test
+	cursor: pointer
+	pointer-events: all
+	.--not-solved &
+		pointer-events: none
+
+
+//Output
+.output
+	position: relative
+	right: 0
+	background-color: #fff
+	width: 100%
+	z-index: 1000000
+	height: calc(100vh - 50px)
+	grid-area: output
+	flex-shrink: 0
+	padding-left: 10px
+
+.output-iframe
+	position: relative
+	width: 100%
+	height: calc(100% - 50px)
+
+.size-iframe
+	z-index: 10000000
+	position: absolute
+	right: 10px
+	user-select: none
+	top: 55px
+	font-size: 12px
+	font-family: sans-serif
+
+.error-message
+	max-width: 100%
+	width: 100%
+	padding: 0px 10px 10px 10px
+	position: absolute
+	bottom: 0
+	z-index: 100000
+	background-color: #2A3E50
+	color: red
+	font-size: 15px
+	line-height: 20px
+	font-family: sans-serif
+	display: none
+	&.--active
+		display: flex

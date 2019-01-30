@@ -17,6 +17,7 @@ const checkIfError = function () {
 			}  
 			if(!(Array.from(asserts).some(assert => assert.classList.contains('fail')))) {
 				taskInputs[testNumber-1].checked = true;
+				console.log(taskInputs)
 				tasks[testNumber].classList.remove('--not-solved')
 			}
 		})

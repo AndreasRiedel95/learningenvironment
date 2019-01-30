@@ -1,0 +1,40 @@
+@import '../base/variable'
+.task-number-wrapper
+	position: relative
+	display: flex
+	flex-direction: column
+	flex-shrink: 0
+	height: calc(100vh - 50px)
+	width: 50px
+	grid-area: sidebar
+	background-color: $grey
+
+.input-wrapper
+	height: 50px
+	width: 50px
+	position: relative
+	background-color: $grey
+	border-bottom: 1px solid #000
+	display: flex
+
+.task-number
+	width: 100%
+	cursor: pointer
+	height: 100%
+	position: relative
+	font-size: 20px
+	font-family: sans-serif
+	text-align: center
+	display: flex
+	justify-content: center
+	align-items: center
+
+.taskInput
+	position: absolute
+	opacity: 0
+	&:checked ~ .task-description-wrapper
+		display: block
+		pointer-events: all
+	&:checked ~ .task-number
+		background-color: $darkgrey
+		color: #fff
