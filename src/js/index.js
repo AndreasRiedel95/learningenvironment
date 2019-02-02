@@ -10,13 +10,11 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/edit/closetag.js';
 import * as resizeEditor from './resizeEditor';
 import importFile from './importFile';
-import runTest from './testHandler';
+import callTestHandler from './testHandler';
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
-
-console.log("ljsss")
 
 let editorRendering = (() => {
 	let base_tpl =
@@ -30,74 +28,61 @@ let editorRendering = (() => {
       "</body>\n" +
      "</html>";
 
-let cm_opt_html = {
-	mode: 'text/html',
-	gutters: ['CodeMirror-lint-markers'],
-	theme: 'lucario',
-	indentWithTabs: true,
-	lineNumbers: true,
-	lint: {
-		"getAnnotations": html_validator,
-		"async": true 
-	},
-	autoCloseTags: false,
-	extraKeys: {"Ctrl-Space": "autocomplete"},
-	onChange: function () {
-		render();
-	}
-};
+	let cm_opt_html = {
+		mode: 'text/html',
+		gutters: ['CodeMirror-lint-markers'],
+		theme: 'lucario',
+		indentWithTabs: true,
+		lineNumbers: true,
+		lint: {
+			"getAnnotations": html_validator,
+			"async": true 
+		},
+		autoCloseTags: false,
+		extraKeys: {"Ctrl-Space": "autocomplete"},
+		onChange: function () {
+			render();
+		}
+	};
 
-	let cm_opt_css = {
-	mode: 'text/html',
-	gutters: ['CodeMirror-lint-markers'],
-	theme: 'lucario',
-	indentWithTabs: true,
-	lint: {
-		"getAnnotations": css_validator,
-		"async": true 
-	},
-	lineNumbers: true,
-	autoCloseTags: true,
-	extraKeys: {"Ctrl-Space": "autocomplete"},
-	onChange: function () {
-		render();
-	}
-};
+		let cm_opt_css = {
+		mode: 'text/html',
+		gutters: ['CodeMirror-lint-markers'],
+		theme: 'lucario',
+		indentWithTabs: true,
+		lint: {
+			"getAnnotations": css_validator,
+			"async": true 
+		},
+		lineNumbers: true,
+		autoCloseTags: true,
+		extraKeys: {"Ctrl-Space": "autocomplete"},
+		onChange: function () {
+			render();
+		}
+	};
 
-let tasks = document.querySelectorAll('.task');
-let html_box = document.querySelector('.html-codearea');
-let html_editor = CodeMirror.fromTextArea(html_box, cm_opt_html);
+	let html_box = document.querySelector('.html-codearea');
+	let html_editor = CodeMirror.fromTextArea(html_box, cm_opt_html);
 
-cm_opt_css.mode = 'css';
-let css_box = document.querySelector('.css-codearea');
-let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
+	cm_opt_css.mode = 'css';
+	let css_box = document.querySelector('.css-codearea');
+	let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 
-html_editor.setValue(objSentFromSrv.htmlsolution_user);
-css_editor.setValue(objSentFromSrv.csssolution_user);
+	html_editor.setValue(objSentFromSrv.htmlsolution_user);
+	css_editor.setValue(objSentFromSrv.csssolution_user);
 
-	function css_validator(cm, updateLinting, options) {
+	const css_validator = (cm, updateLinting, options) => {
 		let errors = CodeMirror.lint.css(cm);
-		// if (errors.filter(e => e.severity === 'error').length > 0) {
-		//   	runBtn.classList.add('--non-active');
-		// } else {
-		// 	runBtn.classList.remove('--non-active');
-
-		// }
 		updateLinting(errors);
 	}
 
-	function html_validator(cm, updateLinting, options) {
+	const html_validator = (cm, updateLinting, options) => {
 		let errors = CodeMirror.lint.html(cm);
-		// if (errors.filter(e => e.severity === 'error').length > 0) {
-		//   	runBtn.classList.add('--non-active');
-		// } else {
-		// 	runBtn.classList.remove('--non-active');
-
-		// }
 		updateLinting(errors);
 	}
 
-	function checkCorrectStyleLink() {
+	const checkCorrectStyleLink = () => {
 		let html = html_editor.getValue();
 		let parser = new DOMParser();
 		let htmlDoc = parser.parseFromString(html, 'text/html');
@@ -132,7 +117,7 @@ css_editor.setValue(objSentFromSrv.csssolution_user);
 		return src;
 	};
 	
-	const render = function() {
+	const render = () => {
 		let source = prepareSource();
 		let iframe = document.querySelector('.output-iframe');
 		let iframe_doc = iframe.contentDocument;
@@ -180,10 +165,8 @@ testButtons.forEach((button) => {
 		let htmlEditor = editorRendering.getHTMLEditor();
 		let cssEditor = editorRendering.getCSSEditor();
 		let testNumber = parseInt(button.dataset.testnumber);
-		console.log(testNumber)
-		runTest(htmlEditor, cssEditor, objSentFromSrv.tasknumber, testNumber);
-	
-})
+		callTestHandler(htmlEditor, cssEditor, objSentFromSrv.tasknumber, testNumber);
+	})
 
 })
 

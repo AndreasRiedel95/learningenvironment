@@ -1,6 +1,6 @@
 import ResizeObserver from 'resize-observer-polyfill';
 
-export const vertical =  function (draggerVertical) {
+export const vertical = (draggerVertical) => {
 	let draggerHorizontal = document.querySelector('.resize.--horizontal')
 	let isDown = false;
 	let iFrame = document.querySelector('.output-iframe');
@@ -74,7 +74,7 @@ export const vertical =  function (draggerVertical) {
 	}
 };
 
-export const horizontal =  function (draggerHorizontal) { 
+export const horizontal = (draggerHorizontal) => { 
 	let isDown = false;
 	mouseDown();
 	function mouseDown(event) {

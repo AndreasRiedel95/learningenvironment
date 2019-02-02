@@ -44,8 +44,8 @@
   grid-row-gap: 10px;
   -ms-grid-columns: 100%;
   grid-template-columns: 100%;
-  -ms-grid-rows: calc(50vh - 35px) 10px calc(50vh - 35px);
-  grid-template-rows: repeat(2, calc(50vh - 35px));
+  -ms-grid-rows: calc(50vh - 30px) 10px calc(50vh - 30px);
+  grid-template-rows: repeat(2, calc(50vh - 30px));
   grid-template-areas: "html" "css"; }
 
 .section {

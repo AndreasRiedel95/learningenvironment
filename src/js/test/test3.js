@@ -1,6 +1,6 @@
 const test3 = function () {
 	let self = this;
-	self.run1 = (htmlNode, cssString, test, h, computedStyle, testNumber, CheckInstance) => {
+	self.run1 = (htmlNode, cssString, test, h, computedStyle) => {
 			const positionOf = (element) => {
 			  const {top, right, bottom, left} = element.getBoundingClientRect();
 			  return {top, right, bottom, left};
@@ -54,12 +54,10 @@ const test3 = function () {
 				is.end();
 			});
 
-		setTimeout(() => {
-			CheckInstance.check(testNumber)
-		},100)
+			return Promise.resolve()
    }
 
-	self.run2 = function (htmlNode, cssString, test, h, computedStyle, testNumber){
+	self.run2 = function (htmlNode, cssString, test, h, computedStyle){
 		console.log("Im test 2")
 		const positionOf = (element) => {
 		  const {top, right, bottom, left} = element.getBoundingClientRect();
