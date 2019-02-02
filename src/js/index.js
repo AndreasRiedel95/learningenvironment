@@ -7,10 +7,12 @@ import 'codemirror/addon/lint/css-lint.js';
 import 'codemirror/addon/lint/html-lint.js';
 import 'codemirror/addon/hint/html-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
-import 'codemirror/addon/edit/closetag.js';
+import 'codemirror/addon/hint/css-hint.js';
+import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import importFile from './importFile';
 import callTestHandler from './testHandler';
+
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
@@ -33,6 +35,9 @@ let editorRendering = (() => {
 		gutters: ['CodeMirror-lint-markers'],
 		theme: 'lucario',
 		indentWithTabs: true,
+		showCursorWhenSelecting: true,
+		fixedGutter: true,
+		scrollbarStyle: "overlay",
 		lineNumbers: true,
 		lint: {
 			"getAnnotations": html_validator,
@@ -50,6 +55,9 @@ let editorRendering = (() => {
 		gutters: ['CodeMirror-lint-markers'],
 		theme: 'lucario',
 		indentWithTabs: true,
+		fixedGutter: true,
+		showCursorWhenSelecting: true,
+		scrollbarStyle: "overlay",
 		lint: {
 			"getAnnotations": css_validator,
 			"async": true 
@@ -70,7 +78,9 @@ let editorRendering = (() => {
 	let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 
 	html_editor.setValue(objSentFromSrv.htmlsolution_user);
+	html_editor.setSize("100%", "100%");
 	css_editor.setValue(objSentFromSrv.csssolution_user);
+	css_editor.setSize("100%", "100%");
 
 	const css_validator = (cm, updateLinting, options) => {
 		let errors = CodeMirror.lint.css(cm);
@@ -198,3 +208,7 @@ updateBtn.addEventListener('click', () => {
 		}, 1400)
 	})
 })
+
+export const getEditors = () => {
+	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];
+}

@@ -57,7 +57,7 @@
   position: absolute;
   cursor: pointer;
   z-index: 100000000;
-  background-color: #2A3E50; }
+  background-color: #292929; }
   .resize.--vertical {
     height: 100%;
     width: 10px;

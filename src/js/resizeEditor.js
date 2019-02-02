@@ -1,4 +1,5 @@
 import ResizeObserver from 'resize-observer-polyfill';
+import  { getEditors } from'./index.js';
 
 export const vertical = (draggerVertical) => {
 	let draggerHorizontal = document.querySelector('.resize.--horizontal')
@@ -67,7 +68,10 @@ export const vertical = (draggerVertical) => {
 	function mouseUp(event) {
 		draggerVertical.classList.remove('--active')
 		isDown = false;
-		document.body.style.pointerEvents = "all"
+		document.body.style.pointerEvents = "all";
+		let editors = getEditors();
+		editors[0].refresh();
+		editors[1].refresh();
 		document.removeEventListener('mousemove', mouseMove, false);
 		document.removeEventListener('mouseup', mouseUp , false);
 		document.removeEventListener('mouseleave', mouseUp , false);
@@ -108,6 +112,9 @@ export const horizontal = (draggerHorizontal) => {
 		draggerHorizontal.classList.remove('--active')
 		document.body.style.pointerEvents = "all"
 		isDown = false;
+		let editors = getEditors();
+		editors[0].refresh();
+		editors[1].refresh();
 		document.removeEventListener('mousemove', mouseMove, false);
 		document.removeEventListener('mouseup', mouseUp , false);
 		document.removeEventListener('mouseleave', mouseUp , false);
