@@ -2,6 +2,7 @@
 
 .headeline-wrapper
 	background-color: $grey
+	position: absolute
 	user-select: none
 	padding-left: 20px
 	z-index: 10
@@ -44,52 +45,44 @@
 	grid-template-areas: "codeHeadline" "code"
 	&.--html
 		grid-area: html
+		z-index: 140
 	&.--css
 		grid-area: css
+		z-index: 150
 
-.code_box
+.code-box-wrapper
 	position: relative
 	grid-area: code
 	height: 100%
 	width: 100%
-	z-index: 10
-
-.runbutton-wrapper
-	margin-left: auto
-	position: relative
-
-
-.run-test
-	cursor: pointer
-	pointer-events: all
-	.--not-solved &
-		pointer-events: none
-
+	z-index: 110
+	
 
 //Output
 .output
 	position: relative
-	right: 0
 	background-color: #fff
 	width: 100%
-	z-index: 1000000
 	height: calc(100vh - 50px)
 	grid-area: output
 	flex-shrink: 0
 	padding-left: 10px
+	z-index: 160
 
 .output-iframe
 	position: relative
 	width: 100%
 	height: calc(100% - 50px)
+	
 
 .size-iframe
 	z-index: 10000000
 	position: absolute
-	right: 10px
 	user-select: none
 	top: 55px
+	right: 10px
 	font-size: 12px
+	z-index: 130
 	font-family: sans-serif
 
 .error-message

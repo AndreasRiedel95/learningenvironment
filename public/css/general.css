@@ -298,11 +298,7 @@
 .pb-250 {
   padding-bottom: 250px; }
 
-html {
-  overflow: hidden; }
-
 body {
-  overflow: hidden;
   font-family: "Roboto", Avenir, "Helvetica Neue", sans-serif;
   color: #4C4C5F;
   -webkit-font-variant-ligatures: none;

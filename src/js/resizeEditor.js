@@ -9,7 +9,12 @@ export const vertical = (draggerVertical) => {
 		for (let entry of entries) {
 			const cr = entry.contentRect;
 			let iFrameWidth = document.querySelector('.size-iframe');
-			iFrameWidth.innerHTML = `${cr.width}px x ${cr.height}px`
+			if(cr.width >= 100) {
+				iFrameWidth.style.display = "block";
+				iFrameWidth.innerHTML = `${cr.width}px x ${cr.height}px`	
+			} else {
+				iFrameWidth.style.display = "none";
+			}
 		}
 	});
 
@@ -35,31 +40,32 @@ export const vertical = (draggerVertical) => {
 		let taskDescriptionWrapperWidth = taskDescriptionWrapper.clientWidth; 
 		let outputWrapper = document.querySelector('.output');
 		let outputWrapperWidth = outputWrapper.clientWidth;
-		let codeWidth = document.querySelector('.html-css-wrapper').clientWidth 
-		let x,
-			w,
-			leftIndex,
-			xNew;
+		let x, vw,leftIndex, xNew;
 
 		if(draggerVertical.previousElementSibling.classList.contains('description-scroll-wrapper')) {
 			leftIndex =  sidebar.clientWidth
-			w = header.clientWidth - leftIndex;
+			vw = header.clientWidth - leftIndex;
 			x = event.pageX - leftIndex;
-			if((w - x - outputWrapperWidth) <= 0) {
+			//Fix resizer on left side of vw
+			if((vw - x - outputWrapperWidth) <= 0) {
 				wrapper.style.gridTemplateColumns =  `50px ${x}px 0 1fr `;	
 			} else {
-				xNew = w - x - outputWrapperWidth
+				//2nd resizer is 1st resizer 
+				xNew = vw - x - outputWrapperWidth
 				wrapper.style.gridTemplateColumns =  `50px ${x}px ${xNew}px 1fr`;	
 			}
 		} else {
 			leftIndex = taskDescriptionWrapperWidth + sidebar.clientWidth
-			w = header.clientWidth - leftIndex 
+			vw = header.clientWidth - leftIndex 
 			x = event.pageX - leftIndex;
 			if(x < 0) {
 				xNew  = taskDescriptionWrapperWidth + x
 				wrapper.style.gridTemplateColumns =  `50px ${xNew}px 0px 1fr`;
-			} else {
 
+			} else if (((x-leftIndex) + 9) >= (vw - leftIndex)) {
+				//Rewrite for better solution!
+				//Do nothing and fix 2nd resizer on the right side of viewport
+			} else {
 				wrapper.style.gridTemplateColumns =  `50px ${taskDescriptionWrapperWidth}px ${x}px 1fr`;
 			}
 		}

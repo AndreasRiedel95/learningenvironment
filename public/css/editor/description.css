@@ -13,7 +13,8 @@
   grid-area: description;
   flex-shrink: 0;
   width: 100%;
-  max-width: calc(100vw - 60px); }
+  max-width: calc(100vw - 60px);
+  z-index: 170; }
 
 .description-scroll-wrapper {
   width: 100%;
@@ -70,3 +71,13 @@
   grid-area: input;
   padding-top: 10px;
   pointer-events: none; }
+
+.runbutton-wrapper {
+  margin-left: auto;
+  position: relative; }
+
+.run-test {
+  cursor: pointer;
+  pointer-events: all; }
+  .--not-solved .run-test {
+    pointer-events: none; }

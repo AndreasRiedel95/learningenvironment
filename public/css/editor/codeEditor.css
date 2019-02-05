@@ -2,6 +2,7 @@
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   background-color: #ebebeb;
+  position: absolute;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -62,42 +63,33 @@
   .section.--html {
     -ms-grid-row: 1;
     -ms-grid-column: 1;
-    grid-area: html; }
+    grid-area: html;
+    z-index: 140; }
   .section.--css {
     -ms-grid-row: 3;
     -ms-grid-column: 1;
-    grid-area: css; }
+    grid-area: css;
+    z-index: 150; }
 
-.code_box {
+.code-box-wrapper {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   position: relative;
   grid-area: code;
   height: 100%;
   width: 100%;
-  z-index: 10; }
-
-.runbutton-wrapper {
-  margin-left: auto;
-  position: relative; }
-
-.run-test {
-  cursor: pointer;
-  pointer-events: all; }
-  .--not-solved .run-test {
-    pointer-events: none; }
+  z-index: 110; }
 
 .output {
   position: relative;
-  right: 0;
   background-color: #fff;
   width: 100%;
-  z-index: 1000000;
   height: calc(100vh - 50px);
   grid-area: output;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  padding-left: 10px; }
+  padding-left: 10px;
+  z-index: 160; }
 
 .output-iframe {
   position: relative;
@@ -107,13 +99,14 @@
 .size-iframe {
   z-index: 10000000;
   position: absolute;
-  right: 10px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   top: 55px;
+  right: 10px;
   font-size: 12px;
+  z-index: 130;
   font-family: sans-serif; }
 
 .error-message {

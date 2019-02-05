@@ -79,15 +79,17 @@ let editorRendering = (() => {
 
 	html_editor.setValue(objSentFromSrv.htmlsolution_user);
 	html_editor.setSize("100%", "100%");
+	var charWidth = html_editor.defaultCharWidth(), basePadding = 4;
 	css_editor.setValue(objSentFromSrv.csssolution_user);
 	css_editor.setSize("100%", "100%");
 
-	const css_validator = (cm, updateLinting, options) => {
+	function css_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.css(cm);
+		console.log(errors)
 		updateLinting(errors);
 	}
 
-	const html_validator = (cm, updateLinting, options) => {
+	function html_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.html(cm);
 		updateLinting(errors);
 	}
