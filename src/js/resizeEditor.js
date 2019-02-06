@@ -5,13 +5,13 @@ export const vertical = (draggerVertical) => {
 	let draggerHorizontal = document.querySelector('.resize.--horizontal')
 	let isDown = false;
 	let iFrame = document.querySelector('.output-iframe');
+	let iFrameWidth = document.querySelector('.size-iframe');
 	var ro = new ResizeObserver( entries => {
 		for (let entry of entries) {
 			const cr = entry.contentRect;
-			let iFrameWidth = document.querySelector('.size-iframe');
 			if(cr.width >= 100) {
 				iFrameWidth.style.display = "block";
-				iFrameWidth.innerHTML = `${cr.width}px x ${cr.height}px`	
+				iFrameWidth.innerHTML = `${Math.round(cr.width)}px x ${Math.round(cr.height)}px`	
 			} else {
 				iFrameWidth.style.display = "none";
 			}

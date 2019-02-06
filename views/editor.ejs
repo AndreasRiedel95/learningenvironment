@@ -20,8 +20,9 @@
 	<div class="code-saved-wrapper">
 		Code saved
 	</div>
-	<div class="header">Playground 
-		<button class="save" type="button">Save</button>
+	<div class="header">
+		<h1 class="header-1 white">Web Development 1</h1>
+		<button class="save btn --grey" type="button">Save Code</button>
 	</div>
 	<div class="task-editor-wrapper">
 		<div class="task-number-wrapper">
@@ -33,43 +34,63 @@
 		<div class="task-description-wrapper">
 			<div class="description-scroll-wrapper">
 				<div class="task">
-					<div class="task-headline">Aufgabe 1</div>
-					<input type="checkbox" class="task-solved">
+					<div class="task-headline-wrapper">
+						<h3 class="header-3">Aufgabe 1</h3>
+					</div>
+					<div class="task-solved-wrapper">
+						<input type="checkbox" class="task-solved">
+						<label class="task-solved-label"></label>
+					</div>
 					<div class="task-description">
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
-						<button type="button" class="run-test-js run-test" data-testnumber="1">Run Test</button>
+						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="1">Run Test</button>
 					</div>
 				</div>
 				<div class="task --not-solved">
-					<div class="task-headline">Aufgabe 2</div>
-					<input type="checkbox" class="task-solved">
+					<div class="task-headline-wrapper">
+						<h3 class="header-3">Aufgabe 2</h3>
+					</div>
+					<div class="task-solved-wrapper">
+						<input type="checkbox" class="task-solved">
+						<label class="task-solved-label"></label>
+					</div>
 					<div class="task-description">
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
-						<button type="button" class="run-test-js run-test" data-testnumber="2">Run Test</button>
+						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="2">Run Test</button>
 					</div>
 				</div>
 				<div class="task --not-solved">
-					<div class="task-headline">Aufgabe 3</div>
-					<input type="checkbox" class="task-solved">
+					<div class="task-headline-wrapper">
+						<h3 class="header-3">Aufgabe 3</h3>
+					</div>
+					<div class="task-solved-wrapper">
+						<input type="checkbox" class="task-solved">
+						<label class="task-solved-label"></label>
+					</div>
 					<div class="task-description">
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
-						<button type="button" class="run-test-js run-test" data-testnumber="3">Run Test</button>
+						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="3">Run Test</button>
 					</div>
 				</div>
 				<div class="task --not-solved">
-					<div class="task-headline">Aufgabe 4</div>
-					<input type="checkbox" class="task-solved">
+					<div class="task-headline-wrapper">
+						<h3 class="header-3">Aufgabe 4</h3>
+					</div>
+					<div class="task-solved-wrapper">
+						<input type="checkbox" class="task-solved">
+						<label class="task-solved-label"></label>
+					</div>
 					<div class="task-description">
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
-						<button type="button" class="run-test-js run-test" data-testnumber="4">Run Test</button>
+						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="4">Run Test</button>
 					</div>
 				</div>
 			</div>
@@ -78,8 +99,9 @@
 		<div class="html-css-wrapper">
 			<section class="section --html">
 				<div class="headeline-wrapper">
-					<h3 class="headline">HTML</h3>
+					<h3 class="header-3">HTML</h3>
 					<div class="file-import-wrapper">
+						<button class="btn">Upload a file</button>
 						<input type="file" class="input-file --html-js">
 					</div>
 				</div>
@@ -90,8 +112,9 @@
 			</section>
 			<section class="section --css">
 				<div class="headeline-wrapper">
-					<h3 class="headline">CSS</h3>
+					<h3 class="header-3">CSS</h3>
 					<div class="file-import-wrapper">
+						<button class="btn">Upload a file</button>
 						<input type="file" class="input-file --css-js">
 					</div>
 				</div>
@@ -102,11 +125,11 @@
 			<div class="resize --vertical" onmousedown="onClickVertical(this)"></div>
 		</div>
 		<section class="output">
-			<div class="headeline-wrapper">
-				<h3 class="headline">Output</h3>
-			</div>
 			<div class="size-iframe"></div>
-			<div class="error-message"></div>
+			<div class="error-message-wrapper">
+				<div class="close-wrapper" onclick="closeErrorMessage()"></div>
+				<div class="error-message"></div>
+			</div>
 			<iframe class="output-iframe"></iframe>
 		</section>
 	</div>

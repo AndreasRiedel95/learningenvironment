@@ -27,8 +27,9 @@
   position: relative;
   -ms-grid-columns: 50px 1fr;
   grid-template-columns: 50px 1fr;
+  -ms-grid-rows: 50px 20px 1fr;
+  grid-template-rows: 50px 1fr;
   row-gap: 20px;
-  -ms-grid-rows: auto 20px auto;
   grid-template-areas: "taskHeadline taskHeadline" "input taskDescription";
   z-index: 10; }
   .task.--not-solved {
@@ -44,19 +45,28 @@
       opacity: 0.5;
       z-index: 100; }
 
-.task-headline {
+.task-headline-wrapper {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-area: taskHeadline;
-  padding: 10px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  font-weight: bold;
   background-color: #ebebeb;
-  width: 100%; }
+  position: absolute;
+  padding-left: 20px;
+  z-index: 10;
+  padding-right: 20px;
+  height: 50px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row; }
 
 .task-description {
   -ms-grid-row: 3;
@@ -65,12 +75,36 @@
   width: 100%;
   padding: 0px 10px 10px 0; }
 
-.task-solved {
+.task-solved-wrapper {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: input;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.task-solved {
+  position: absolute;
   padding-top: 10px;
-  pointer-events: none; }
+  pointer-events: none;
+  opacity: 0; }
+  .task-solved:checked + label {
+    background-position: -50px 0px; }
+  .task-solved.--error + label {
+    background-position: -25px 0px; }
+
+.task-solved-label {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  top: 5px;
+  background-image: url("../../img/input_label.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0px 0px; }
 
 .runbutton-wrapper {
   margin-left: auto;

@@ -17,11 +17,12 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber) => {
 
 	//Reset TestResult before every testrun
 	let testOutput = document.querySelector('#tests');
-	let errorMsg = document.querySelector('.error-message')
+	let errorMsgWrapper = document.querySelector('.error-message-wrapper');
+	let errorMsgField = document.querySelector('.error-message');
 	if(testOutput !== undefined){
 		testOutput.innerHTML = '';
-		errorMsg.innerHTML = '';
-		errorMsg.classList.remove('--active')
+		errorMsgField.innerHTML = '';
+		errorMsgWrapper.classList.remove('--active')
 	}
 	
 	let htmlStr = htmlEditor.getValue()
