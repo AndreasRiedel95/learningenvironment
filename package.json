@@ -36,6 +36,7 @@
     "diff": "^4.0.1",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "file-saver": "^2.0.0",
     "htmlhint": "^0.10.1",
     "hyperscript": "^2.0.2",
     "import-fresh": "^3.0.0",

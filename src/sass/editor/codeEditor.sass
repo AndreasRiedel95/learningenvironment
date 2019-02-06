@@ -3,9 +3,9 @@
 .headeline-wrapper
 	background-color: $grey
 	position: absolute
-	padding-left: 20px
+	padding-left: 10px
+	padding-right: 10px
 	z-index: 10
-	padding-right: 20px
 	height: 50px
 	width: 100%
 	display: flex
@@ -13,13 +13,27 @@
 	grid-area: codeHeadline
 	flex-direction: row
 
-.file-import-wrapper
+.import-export-wrapper
 	margin-left: auto
+	display: flex
+	flex-direction: row
+
+.file-icon
+	background-repeat: no-repeat
+	background-size: cover
+	width: 20px
+	height: 15px
+	&.--import
+		background-image: url('../../img/upload.png')
+	&.--export
+		background-image: url('../../img/download.png')
+
+.file-import-wrapper
+	margin-left: 10px
 	position: relative
 	overflow: hidden
 	display: inline-block
 	cursor: pointer
-	min-width: 93px
 	&:hover > .btn
 		background-color: #446a89
 

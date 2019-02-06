@@ -1,4 +1,6 @@
-export default (input, target) => { 
+var FileSaver = require('file-saver');
+
+export const importFile = (input, target) => { 
 		if ('files' in input && input.files.length > 0) {
 			placeFileContent(target, input.files[0])}
 
@@ -17,3 +19,9 @@ export default (input, target) => {
 		})
 	}
 };
+
+export const exportFile = (fileName, target) => {
+	var blob = new Blob([target.getValue()], {type: "text/plain;charset=utf-8"});
+	FileSaver.saveAs(blob, fileName);
+}
+

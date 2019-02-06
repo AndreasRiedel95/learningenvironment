@@ -10,7 +10,7 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
-import importFile from './importFile';
+import { importFile, exportFile } from './importExportFile';
 import callTestHandler from './testHandler';
 
 // window.addEventListener("beforeunload", function (event) {
@@ -79,13 +79,12 @@ let editorRendering = (() => {
 
 	html_editor.setValue(objSentFromSrv.htmlsolution_user);
 	html_editor.setSize("100%", "100%");
-	var charWidth = html_editor.defaultCharWidth(), basePadding = 4;
 	css_editor.setValue(objSentFromSrv.csssolution_user);
 	css_editor.setSize("100%", "100%");
 
+
 	function css_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.css(cm);
-		console.log(errors)
 		updateLinting(errors);
 	}
 
@@ -121,7 +120,6 @@ let editorRendering = (() => {
 
 		// HTML
 		src = base_tpl.replace('</body>', html + '</body>');
-
 		// CSS
 		let cssReset = "a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,let,video{margin:0;padding:0;border:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}";
 		css = '<style>' + cssReset + css + '</style>';
@@ -146,6 +144,8 @@ let editorRendering = (() => {
 		render();
 	});
 	render();
+	css_editor.refresh();
+	html_editor.refresh();
 
 	return {
 		getHTMLEditor:() => {
@@ -159,15 +159,31 @@ let editorRendering = (() => {
 })();
 
 //Import Files Event Handler
-document.querySelectorAll('.input-file').forEach((input) => {
-	input.addEventListener('change', () => {
+document.querySelectorAll('.import-file').forEach((button) => {
+	button.addEventListener('change', () => {
 		let target = null;
-		if(input.classList.contains('--html-js')) {
+		if(button.classList.contains('--html-js')) {
 			target = editorRendering.getHTMLEditor()
 		} else {
 			target = editorRendering.getCSSEditor()
 		}
-		importFile(input, target)}, false)
+		importFile(button, target)
+	}, false)
+});
+
+document.querySelectorAll('.export-file').forEach((button) => {
+	button.addEventListener('click', () => {
+		let target = null;
+		let fileName = ''
+		if(button.classList.contains('--html-js')) {
+			target = editorRendering.getHTMLEditor();
+			fileName = 'index.html';
+		} else {
+			target = editorRendering.getCSSEditor();
+			fileName = 'style.css';
+		}
+		exportFile(fileName, target)
+	}, false)
 });
 
 //Run Tests Event Handler
