@@ -6,13 +6,18 @@ export const vertical = (draggerVertical) => {
 	let isDown = false;
 	let iFrame = document.querySelector('.output-iframe');
 	let iFrameWidth = document.querySelector('.size-iframe');
+	let errorMessageWrapper = document.querySelector('.error-message-wrapper');
 	var ro = new ResizeObserver( entries => {
 		for (let entry of entries) {
 			const cr = entry.contentRect;
 			if(cr.width >= 100) {
 				iFrameWidth.style.display = "block";
-				iFrameWidth.innerHTML = `${Math.round(cr.width)}px x ${Math.round(cr.height)}px`	
+				iFrameWidth.innerHTML = `${Math.round(cr.width)}px x ${Math.round(cr.height)}px`;
+				if(errorMessageWrapper.querySelector('.error-message').innerHTML !== '') {
+					errorMessageWrapper.classList.add('--active')
+				}
 			} else {
+				errorMessageWrapper.classList.remove('--active')
 				iFrameWidth.style.display = "none";
 			}
 		}

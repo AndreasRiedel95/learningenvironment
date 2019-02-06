@@ -28,6 +28,8 @@ const checkIfError = function () {
 
 let closeErrorMessage = () => {
 	let errorMsgWrapper = document.querySelector('.error-message-wrapper');
+	let errorMsgField = document.querySelector('.error-message');
+	errorMsgField.innerHTML = '';
 	errorMsgWrapper.classList.remove('--active')
 }
 

@@ -27,9 +27,9 @@
   position: relative;
   -ms-grid-columns: 50px 1fr;
   grid-template-columns: 50px 1fr;
-  -ms-grid-rows: 50px 20px 1fr;
+  -ms-grid-rows: 50px 10px 1fr;
   grid-template-rows: 50px 1fr;
-  row-gap: 20px;
+  row-gap: 10px;
   grid-template-areas: "taskHeadline taskHeadline" "input taskDescription";
   z-index: 10; }
   .task.--not-solved {
