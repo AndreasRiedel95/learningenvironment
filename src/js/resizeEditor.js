@@ -53,11 +53,11 @@ export const vertical = (draggerVertical) => {
 			x = event.pageX - leftIndex;
 			//Fix resizer on left side of vw
 			if((vw - x - outputWrapperWidth) <= 0) {
-				wrapper.style.gridTemplateColumns =  `50px ${x}px 0 1fr `;	
+				wrapper.style.gridTemplateColumns =  `50px ${x}px 10px 1fr `;	
 			} else {
 				//2nd resizer is 1st resizer 
 				xNew = vw - x - outputWrapperWidth
-				wrapper.style.gridTemplateColumns =  `50px ${x}px ${xNew}px 1fr`;	
+				wrapper.style.gridTemplateColumns =  `50px ${x}px minmax(10px, ${xNew}px) 1fr`;	
 			}
 		} else {
 			leftIndex = taskDescriptionWrapperWidth + sidebar.clientWidth
@@ -65,13 +65,13 @@ export const vertical = (draggerVertical) => {
 			x = event.pageX - leftIndex;
 			if(x < 0) {
 				xNew  = taskDescriptionWrapperWidth + x
-				wrapper.style.gridTemplateColumns =  `50px ${xNew}px 0px 1fr`;
+				wrapper.style.gridTemplateColumns =  `50px ${xNew}px 10px 1fr`;
 
 			} else if (((x-leftIndex) + 9) >= (vw - leftIndex)) {
 				//Rewrite for better solution!
 				//Do nothing and fix 2nd resizer on the right side of viewport
 			} else {
-				wrapper.style.gridTemplateColumns =  `50px ${taskDescriptionWrapperWidth}px ${x}px 1fr`;
+				wrapper.style.gridTemplateColumns =  `50px ${taskDescriptionWrapperWidth}px minmax(10px, ${x}px) 1fr`;
 			}
 		}
 	}
@@ -132,5 +132,11 @@ export const horizontal = (draggerHorizontal) => {
 	}
 };
 
+export const setInitalGrid = () => {
+	let editorWrapper = document.querySelector('.task-editor-wrapper');
+	editorWrapper.style.gridTemplateColumns =  `50px repeat(3, calc((100vw - 50px) / 3))`;
+}
+
+window.setInitialGrid = setInitalGrid;
 window.onClickVertical = vertical;
 window.onClickHorizontal = horizontal;
