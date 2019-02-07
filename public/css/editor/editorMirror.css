@@ -3,7 +3,6 @@
 @import url(../lucario.css);
 @import url(../lint.css);
 @import url(../simplescrollbars.css);
-
 .CodeMirror-sizer {
   min-height: 100px !important;
   height: 100px !important;
@@ -12,3 +11,6 @@
 
 .CodeMirror-scrollbar-filler {
   background: #2A3E50; }
+
+.CodeMirror-lint-tooltip {
+  z-index: 100000000; }
