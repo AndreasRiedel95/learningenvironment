@@ -12,7 +12,8 @@ import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import { importFile, exportFile } from './importExportFile';
 import callTestHandler from './testHandler';
-
+import { initSVG } from './initSVG'
+initSVG();
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
@@ -193,11 +194,33 @@ testButtons.forEach((button) => {
 		let htmlEditor = editorRendering.getHTMLEditor();
 		let cssEditor = editorRendering.getCSSEditor();
 		let testNumber = parseInt(button.dataset.testnumber);
-		callTestHandler(htmlEditor, cssEditor, objSentFromSrv.tasknumber, testNumber);
+		let taskNumber = document.querySelector('.taskInput:checked');
+		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber);
 	})
 
 })
 
+//Toggle TaskDescription 
+let setTaskDescription = (ele) => {
+	let tasknumber = ele.htmlFor
+	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-tasknumber="${tasknumber}"])`);
+	taskDescriptions.forEach((taskDescription) => {
+		taskDescription.classList.add('--not-active')
+	})
+	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${tasknumber}"]`);
+	activeTaskDescription.classList.remove('--not-active')
+}
+
+let setDescription = (ele) => {
+	let descriptionWrapper = document.querySelector(`.description-scroll-wrapper[data-description="description"]`);
+	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
+	taskDescriptions.forEach((taskDescription) => {
+		taskDescription.classList.add('--not-active')
+	})
+	descriptionWrapper.classList.remove('--not-active')
+
+
+}
 
 //Call Save Code EventHandler
 let updateBtn = document.querySelector('.save');
@@ -230,3 +253,6 @@ updateBtn.addEventListener('click', () => {
 export const getEditors = () => {
 	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];
 }
+
+window.setTaskDescription = setTaskDescription;
+window.setDescription = setDescription;

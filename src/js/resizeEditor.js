@@ -40,7 +40,7 @@ export const vertical = (draggerVertical) => {
 		event.preventDefault();
 		let wrapper = document.querySelector('.task-editor-wrapper');
 		let header = document.querySelector('.header');
-		let taskDescriptionWrapper = document.querySelector('.task-description-wrapper');
+		let taskDescriptionWrapper = document.querySelector('.description-wrapper');
 		let sidebar  = document.querySelector('.task-number-wrapper');
 		let taskDescriptionWrapperWidth = taskDescriptionWrapper.clientWidth; 
 		let outputWrapper = document.querySelector('.output');

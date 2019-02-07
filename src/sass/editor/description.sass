@@ -1,6 +1,6 @@
 @import '../base/variable'
 
-.task-description-wrapper
+.description-wrapper
 	position: relative
 	user-select: none
 	height: calc(100vh - 50px)
@@ -12,13 +12,23 @@
 	flex-shrink: 0
 	width: 100%
 	max-width: calc(100vw - 60px)
-	z-index: 170
 
 .description-scroll-wrapper
 	width: 100%
 	height: 100%
 	position: relative
 	overflow-y: scroll
+	display: flex
+	flex-direction: column
+	&.--not-active 
+		display: none
+
+.description-text-wrapper
+	max-width: 100%
+	width: 100%
+	padding-left: 20px
+	padding-right: 20px
+	height: 100%
 
 .task
 	display: grid
@@ -39,7 +49,21 @@
 			bottom: 0
 			background-color: $grey
 			opacity: 0.5
-			z-index: 100
+			z-index: 1000
+
+.task-number
+	display: flex
+	justify-content: center
+	align-items: center
+
+.taskInput:checked + label > .description-svg
+	fill: #fff
+
+
+.description-svg
+	width: 25px
+	height: 18px
+	fill: #292929
 
 .task-headline-wrapper
 	grid-area: taskHeadline
@@ -54,6 +78,7 @@
 	display: flex
 	align-items: center
 	flex-direction: row
+	flex-shrink: 0
 
 .task-description
 	grid-area: taskDescription

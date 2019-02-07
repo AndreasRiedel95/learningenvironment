@@ -36,12 +36,37 @@
 	<div class="task-editor-wrapper">
 		<div class="task-number-wrapper">
 			<div class="input-wrapper">
+				<input id="description" type="radio" name="task" class="taskInput" checked>
+				<label class="task-number" for="description" onclick="setDescription()" >
+					<svg class="description-svg">
+						<use xlink:href="#svg-description" />
+					</svg>
+				</label>
+			</div>
+			<div class="input-wrapper">
 				<input id="<%- tasks.tasknumber %>" type="radio" name="task" class="taskInput">
-				<label class="task-number" for="<%- tasks.tasknumber %>"><%- tasks.tasknumber %></label>
+				<label class="task-number" for="<%- tasks.tasknumber %>" onclick="setTaskDescription(this)"><%- tasks.tasknumber %></label>
+			</div>
+			<div class="input-wrapper">
+				<input id="4" type="radio" name="task" class="taskInput">
+				<label class="task-number" for="4" onclick="setTaskDescription(this)">4</label>
 			</div>
 		</div>
-		<div class="task-description-wrapper">
-			<div class="description-scroll-wrapper">
+		<div class="description-wrapper">
+			<div class="description-scroll-wrapper" data-description="description">
+				<div class="task-headline-wrapper">
+					<h3 class="header-3">Description</h3>
+				</div>
+				<div class="description-text-wrapper">
+					<p class="mb-20">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi sint maxime tempora quibusdam non, nihil architecto illum labore nisi suscipit possimus minus maiores, rem enim. Totam saepe placeat laudantium facilis animi commodi in eaque deserunt, doloribus reprehenderit dolorem reiciendis voluptatem deleniti similique fugiat magnam veritatis voluptate cum, possimus voluptatibus veniam. Mollitia esse itaque, sit dolor aspernatur, quo eveniet laudantium voluptas maiores modi quasi id nihil? Voluptatem inventore quibusdam ab quam maiores minus. Ipsam id quo impedit at molestiae nulla natus, quam facilis dicta nam molestias corporis reprehenderit nemo quibusdam, fugit pariatur quidem veritatis aperiam omnis iste incidunt magni, fugiat officiis.
+					</p>
+					<p class="mb-20">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi sint maxime tempora quibusdam non, nihil architecto illum labore nisi suscipit possimus minus maiores, rem enim. Totam saepe placeat laudantium facilis animi commodi in eaque deserunt, doloribus reprehenderit dolorem reiciendis voluptatem deleniti similique fugiat magnam veritatis voluptate cum, possimus voluptatibus veniam. Mollitia esse itaque, sit dolor aspernatur, quo eveniet laudantium voluptas maiores modi quasi id nihil? Voluptatem inventore quibusdam ab quam maiores minus. Ipsam id quo impedit at molestiae nulla natus, quam facilis dicta nam molestias corporis reprehenderit nemo quibusdam, fugit pariatur quidem veritatis aperiam omnis iste incidunt magni, fugiat officiis.
+					</p>
+				</div>
+			</div>
+			<div class="description-scroll-wrapper --not-active" data-tasknumber="3">
 				<div class="task">
 					<div class="task-headline-wrapper">
 						<h3 class="header-3">Aufgabe 1</h3>
@@ -52,6 +77,70 @@
 					</div>
 					<div class="task-description">
 						<p>
+							I'm 3
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
+						</p>
+						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="1">Run Test</button>
+					</div>
+				</div>
+				<div class="task --not-solved">
+					<div class="task-headline-wrapper">
+						<h3 class="header-3">Aufgabe 2</h3>
+					</div>
+					<div class="task-solved-wrapper">
+						<input type="checkbox" class="task-solved">
+						<label class="task-solved-label"></label>
+					</div>
+					<div class="task-description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
+						</p>
+						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="2">Run Test</button>
+					</div>
+				</div>
+				<div class="task --not-solved">
+					<div class="task-headline-wrapper">
+						<h3 class="header-3">Aufgabe 3</h3>
+					</div>
+					<div class="task-solved-wrapper">
+						<input type="checkbox" class="task-solved">
+						<label class="task-solved-label"></label>
+					</div>
+					<div class="task-description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
+						</p>
+						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="3">Run Test</button>
+					</div>
+				</div>
+				<div class="task --not-solved">
+					<div class="task-headline-wrapper">
+						<h3 class="header-3">Aufgabe 4</h3>
+					</div>
+					<div class="task-solved-wrapper">
+						<input type="checkbox" class="task-solved">
+						<label class="task-solved-label"></label>
+					</div>
+					<div class="task-description">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
+						</p>
+						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="4">Run Test</button>
+					</div>
+				</div>
+			</div>
+			<div class="description-scroll-wrapper --not-active" data-tasknumber="4">
+				<div class="task">
+					<div class="task-headline-wrapper">
+						<h3 class="header-3">Aufgabe 1</h3>
+					</div>
+					<div class="task-solved-wrapper">
+						<input type="checkbox" class="task-solved">
+						<label class="task-solved-label"></label>
+					</div>
+					<div class="task-description">
+						<p>
+							I'm 4
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam consequuntur quaerat, aspernatur cum sed odit, blanditiis laboriosam facilis. Necessitatibus excepturi neque, nostrum eaque magni ad labore similique amet nobis laborum!
 						</p>
 						<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="1">Run Test</button>
@@ -164,6 +253,5 @@
 	<script src="/js/html-hint.js" charset="utf-8"></script>
 	<script src="/js/index.bundle.js" charset="utf-8"></script>
 	<script src="/js/test.bundle.js" charset="utf-8"></script>
-
 </body>
 </html>

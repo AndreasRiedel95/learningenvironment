@@ -1,13 +1,14 @@
 const checkIfError = function () {
 	let self = this;
-	self.check = function (testNumber) {
+	self.check = function (tasknumber, testNumber) {
 		//TODO Check for right taskInputs and tasks depending on overtask
 		let asserts = document.querySelectorAll('.assert');
 		let tests = document.querySelector('#tests');
 		let errorMsgWrapper = document.querySelector('.error-message-wrapper');
 		let errorMsgField = document.querySelector('.error-message');
-		let taskInputs = document.querySelectorAll('.task-solved');
-		let tasks = document.querySelectorAll('.task');
+		let activeTaskNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${tasknumber}"]`)
+		let taskInputs = activeTaskNumberWrapper.querySelectorAll('.task-solved');
+		let tasks = activeTaskNumberWrapper.querySelectorAll('.task');
 		asserts.forEach((assert) => {
 			document.body.style.backgroundColor = "transparent";
 			if(assert.classList.contains('fail')) {

@@ -1,4 +1,4 @@
-const test3 = function () {
+const test4 = function () {
 	let self = this;
 	self.run1 = (htmlNode, cssString, test, h, computedStyle) => {
 			const positionOf = (element) => {
@@ -116,4 +116,4 @@ const test3 = function () {
    };
 }
 
-module.exports = test3;
+module.exports = test4;

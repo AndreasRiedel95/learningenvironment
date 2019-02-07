@@ -44,8 +44,10 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber) => {
 					checkElementExists('.assert') 
 						.then(() => {
 							//Element exists now
-							CheckInstance.check(testnumber)
+							CheckInstance.check(tasknumber, testnumber)
 						});
+				}).catch((err) => {
+					console.log("No Promise resolved" + err.message)
 				});
 		} catch(err) {
 			console.log(err.message);
@@ -61,7 +63,6 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber) => {
 	}
 
 	const checkElementExists = (selector) => {
-		console.log(document.querySelector(selector))
 		if (document.querySelector(selector) === null) {
 			return rafAsync().then(() => checkElementExists(selector));
 		} else {
