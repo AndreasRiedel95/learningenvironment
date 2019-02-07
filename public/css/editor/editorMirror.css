@@ -3,6 +3,7 @@
 @import url(../lucario.css);
 @import url(../lint.css);
 @import url(../simplescrollbars.css);
+
 .CodeMirror-sizer {
   min-height: 100px !important;
   height: 100px !important;

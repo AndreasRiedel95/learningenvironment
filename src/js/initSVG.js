@@ -3,7 +3,6 @@ export function initSVG() {
 		var ajaxIcon = new XMLHttpRequest();
 		ajaxIcon.open("GET", "/svg/sprite.svg", true);
 		ajaxIcon.send();
-		console.log("jaa")
 		ajaxIcon.onload = function(e) {
 			var iconSprite = document.createElement("div");
 			iconSprite.innerHTML = ajaxIcon.responseText;

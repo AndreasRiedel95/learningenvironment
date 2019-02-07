@@ -7,7 +7,6 @@ import 'codemirror/addon/lint/css-lint.js';
 import 'codemirror/addon/lint/html-lint.js';
 import 'codemirror/addon/hint/html-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
-import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import { importFile, exportFile } from './importExportFile';
@@ -86,11 +85,13 @@ let editorRendering = (() => {
 
 	function css_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.css(cm);
-		updateLinting(errors);
+		let onlyErrors = errors.filter(error => error.severity === 'error')
+		updateLinting(onlyErrors);
 	}
 
 	function html_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.html(cm);
+		let onlyErrors = errors.filter(error => error.severity === 'error')
 		updateLinting(errors);
 	}
 
