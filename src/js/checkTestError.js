@@ -1,7 +1,6 @@
 const checkIfError = function () {
 	let self = this;
 	self.check = function (tasknumber, testNumber) {
-		//TODO Check for right taskInputs and tasks depending on overtask
 		let asserts = document.querySelectorAll('.assert');
 		let tests = document.querySelector('#tests');
 		let errorMsgWrapper = document.querySelector('.error-message-wrapper');
