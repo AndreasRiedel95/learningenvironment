@@ -64,7 +64,6 @@ app.post('/taskDescription', (req, res) => {
 	})
 })
 
-
 //Save Section Description
 app.post('/sectionDescription', (req, res) => {
 	db.collection('sectionDescription').save(req.body, (err, result) => {

@@ -17,7 +17,7 @@ initSVG();
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
-
+console.log("kssskks")
 let editorRendering = (() => {
 	let base_tpl =
 	"<!doctype html>\n" +

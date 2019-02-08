@@ -12,20 +12,16 @@ module.exports = {
   },
   entry: {
     index: './src/js/index.js',
-    server: './backend/server.js'
   },
   output: {
-    path: path.resolve(__dirname, "public"),
-    filename: 'js/[name].bundle.js'
-  },
-  watch: true,
-  watchOptions: {
-    ignored: ['/node_modules/', '/backend/*']
+    path: path.resolve(__dirname, "public/js"),
+    filename: '[name].bundle.js'
   },
   devServer: {
-    watchOptions: {
-      poll: true
-    }
+    publicPath: '/js/',
+    hot: true,
+    contentBase: path.resolve(__dirname, "./views"),
+    watchContentBase: true
   },
    module: {
     rules: [
