@@ -11,7 +11,7 @@ var app = express();
 
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb://admin:admin123@ds137605.mlab.com:37605/editor';
-mongoose.connect(mongoDB);
+mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
