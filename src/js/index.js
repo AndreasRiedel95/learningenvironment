@@ -17,7 +17,7 @@ initSVG();
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
-
+console.log("kssskks")
 let editorRendering = (() => {
 	let base_tpl =
 	"<!doctype html>\n" +
@@ -206,20 +206,21 @@ let setTaskDescription = (ele) => {
 	let tasknumber = ele.htmlFor
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-tasknumber="${tasknumber}"])`);
 	taskDescriptions.forEach((taskDescription) => {
-		taskDescription.classList.add('--not-active');
+		taskDescription.classList.add('--not-active')
 	})
 	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${tasknumber}"]`);
-	activeTaskDescription.classList.remove('--not-active');
+	activeTaskDescription.classList.remove('--not-active')
 }
 
-//Toggle Section Description
 let setDescription = (ele) => {
 	let descriptionWrapper = document.querySelector(`.description-scroll-wrapper[data-description="description"]`);
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
 	taskDescriptions.forEach((taskDescription) => {
-		taskDescription.classList.add('--not-active');
+		taskDescription.classList.add('--not-active')
 	})
-	descriptionWrapper.classList.remove('--not-active');
+	descriptionWrapper.classList.remove('--not-active')
+
+
 }
 
 //Call Save Code EventHandler
@@ -227,7 +228,7 @@ let updateBtn = document.querySelector('.save');
 updateBtn.addEventListener('click', () => {
 	let html_editor = editorRendering.getHTMLEditor();
 	let css_editor = editorRendering.getCSSEditor();
-	let savedWrapper = document.querySelector('.code-saved-wrapper');
+	let savedWrapper = document.querySelector('.code-saved-wrapper')
 	fetch('/taskDescription', {
 		method: 'put',
 		headers: {'Content-Type': 'application/json'},

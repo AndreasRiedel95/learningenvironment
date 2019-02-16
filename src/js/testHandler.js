@@ -15,7 +15,7 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber) => {
 	const checkIfError = require(`./checkTestError`);
 	const CheckInstance = new checkIfError();
 
-	//Reset TestResult before every test run
+	//Reset TestResult before every testrun
 	let testOutput = document.querySelector('#tests');
 	let errorMsgWrapper = document.querySelector('.error-message-wrapper');
 	let errorMsgField = document.querySelector('.error-message');
@@ -47,7 +47,7 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber) => {
 							CheckInstance.check(tasknumber, testnumber)
 						});
 				}).catch((err) => {
-					console.log("No Promise resolved in Test file" + err.message)
+					console.log("No Promise resolved" + err.message)
 				});
 		} catch(err) {
 			console.log(err.message);

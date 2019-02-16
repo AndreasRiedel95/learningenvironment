@@ -18,7 +18,6 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   devServer: {
-    //For some reason live reloading not working – feel free to fix
     publicPath: '/js/',
     hot: true,
     contentBase: path.resolve(__dirname, "./views"),
