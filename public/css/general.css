@@ -473,7 +473,7 @@
 .white {
   color: #fff !important; }
 
-p {
+p, li {
   font-size: 14px;
   font-family: "Roboto", "Avenir", "Helvetica Neue", sans-serif;
   line-height: 1.6;
@@ -491,6 +491,14 @@ body {
   font-variant-ligatures: none;
   max-width: 100vw;
   width: 100%; }
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px; }
 
 .btn {
   padding: 10px;

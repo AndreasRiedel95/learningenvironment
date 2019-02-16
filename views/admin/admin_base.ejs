@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
+	<title>Editor</title>
+	<link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/general.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/backend/admin_base.css"/>
+</head>
+<body>
+	<div class="header mb-50">
+		<h2 class="header-1 white"><%= title %></h2>
+	</div>
+	<div class="container-grid">
+		<div class="sidebar-nav">
+			<ul>
+				<li>
+					<a href="/editor">Editor</a>
+				</li>
+			</ul>
+			<div class="break"></div>
+			<ul>
+				<li>
+					<a href="/admin">Home</a>
+				</li>
+				<li>
+					<a href="/admin/sections">All Sections</a>
+				</li>
+				<li>
+					<a href="/admin/taskinstances">All Task-Instances</a>
+				</li>
+				<li>
+					<a href="/admin/tasks">All Tasks</a>
+				</li>
+			</ul>
+			<div class="break"></div>
+			<ul>
+				<li>
+					<a href="/admin/section/create">Create new section</a>
+				</li>
+				<li>
+					<a href="/admin/taskinstance/create">Create new task instance</a>
+				</li>
+				<li>
+					<a href="/admin/task/create">Create new task</a>
+				</li>
+			</ul>
+		</div>
+		<%- content %>
+		<div class="overview"></div>
+	</div>
+</body>
+</html>

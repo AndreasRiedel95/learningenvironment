@@ -4,20 +4,17 @@
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
 	<title>Editor</title>
-	<link rel="stylesheet" type="text/css" href="/css/reset.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/general.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/editor/editorMirror.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/editor/editor.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/editor/sidebar.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/editor/description.css"/>
-	<link rel="stylesheet" type="text/css" href="/css/editor/codeEditor.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/general.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/editor/editorMirror.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/editor/editor.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/editor/sidebar.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/editor/description.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/editor/codeEditor.css"/>
 	
 	
 </head>
 <body>
-	<script>
-		const objSentFromSrv = <%-JSON.stringify(tasks)%>
-	</script>
 	<div class="code-saved-wrapper">
 		Code saved
 	</div>
@@ -44,8 +41,8 @@
 				</label>
 			</div>
 			<div class="input-wrapper">
-				<input id="<%- tasks.tasknumber %>" type="radio" name="task" class="taskInput">
-				<label class="task-number" for="<%- tasks.tasknumber %>" onclick="setTaskDescription(this)"><%- tasks.tasknumber %></label>
+				<input id="tasks.tasknumber" type="radio" name="task" class="taskInput">
+				<label class="task-number" for="<tasks.tasknumber >" onclick="setTaskDescription(this)">tasks.tasknumber></label>
 			</div>
 			<div class="input-wrapper">
 				<input id="4" type="radio" name="task" class="taskInput">
@@ -57,7 +54,7 @@
 				<div class="task-headline-wrapper">
 					<h3 class="header-3">Description</h3>
 				</div>
-				<div class="description-text-wrapper">
+				<div class="description-text-wrapper mt-20">
 					<p class="mb-20">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi sint maxime tempora quibusdam non, nihil architecto illum labore nisi suscipit possimus minus maiores, rem enim. Totam saepe placeat laudantium facilis animi commodi in eaque deserunt, doloribus reprehenderit dolorem reiciendis voluptatem deleniti similique fugiat magnam veritatis voluptate cum, possimus voluptatibus veniam. Mollitia esse itaque, sit dolor aspernatur, quo eveniet laudantium voluptas maiores modi quasi id nihil? Voluptatem inventore quibusdam ab quam maiores minus. Ipsam id quo impedit at molestiae nulla natus, quam facilis dicta nam molestias corporis reprehenderit nemo quibusdam, fugit pariatur quidem veritatis aperiam omnis iste incidunt magni, fugiat officiis.
 					</p>
@@ -250,7 +247,7 @@
 		</section>
 	</div>
 	<script src="https://unpkg.com/csslint@1.0.5/dist/csslint.js"></script>
-	<script src="js/html-hint.js" charset="utf-8"></script>
-	<script src="js/index.bundle.js" charset="utf-8"></script>
+	<script src="../js/html-hint.js" charset="utf-8"></script>
+	<script src="../js/index.bundle.js" charset="utf-8"></script>
 </body>
 </html>

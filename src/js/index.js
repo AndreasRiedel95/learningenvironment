@@ -77,9 +77,9 @@ let editorRendering = (() => {
 	let css_box = document.querySelector('.css-codearea');
 	let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 
-	html_editor.setValue(objSentFromSrv.htmlsolution_user);
+	html_editor.setValue("objSentFromSrv.htmlsolution_user");
 	html_editor.setSize("100%", "100%");
-	css_editor.setValue(objSentFromSrv.csssolution_user);
+	css_editor.setValue("objSentFromSrv.csssolution_user");
 	css_editor.setSize("100%", "100%");
 
 
@@ -222,33 +222,6 @@ let setDescription = (ele) => {
 	descriptionWrapper.classList.remove('--not-active');
 }
 
-//Call Save Code EventHandler
-let updateBtn = document.querySelector('.save');
-updateBtn.addEventListener('click', () => {
-	let html_editor = editorRendering.getHTMLEditor();
-	let css_editor = editorRendering.getCSSEditor();
-	let savedWrapper = document.querySelector('.code-saved-wrapper');
-	fetch('/taskDescription', {
-		method: 'put',
-		headers: {'Content-Type': 'application/json'},
-		body: JSON.stringify({
-			'tasknumber' : objSentFromSrv.tasknumber,
-			'csssolution_user': css_editor.getValue(),
-			'htmlsolution_user': html_editor.getValue()
-		})
-	})
-
-	fetch('/taskDescription', {method: 'PUT'})
-	.then(res => {
-		if (res.ok) return res.json()
-	})
-	.then(data => {
-		savedWrapper.classList.add('--saved');
-		setTimeout(() => {
-			savedWrapper.classList.remove('--saved');
-		}, 1400)
-	})
-})
 
 export const getEditors = () => {
 	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];

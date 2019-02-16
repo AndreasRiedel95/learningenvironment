@@ -1,0 +1,13 @@
+<% extend('admin_base') %>
+	<div class="content">
+		<p class="mb-20">Folgende Sections, Tasks und Taskinstancen befinden sich in der Datenbank: </p>
+		<% if(error) {%>
+			<p>Error getting dynamic contehnt</p>
+		<% } else{ %>
+			<ul>
+				<li>Section <%= data.section_count %></li>
+				<li>Task <%= data.task_count %></li>
+				<li>Task Instance <%= data.task_instance_count %></li>
+			</ul>
+		<% } %>
+	</div>
