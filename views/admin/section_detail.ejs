@@ -1,13 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>MY APP</title>
-</head>
-<body>
-<h1><%= section.name %></h1>
-<p><%= section.section_number %></p>
-<p><%= section.description %></p>
-<p><%= section.taskinstance %></p>
-</body>
-</html>
+<% extend('admin_base') %>
+	<div class="content">
+		<p><strong>Section Name: </strong></p>
+		<p class="mb-20"><%= section.name %></p>
+		<p><strong>Section Description: </strong></p>
+		<p class="mb-20"><%= section.description %></p>
+		
+		<%if(section.taskinstance.length > 0) { %>
+		<ul>
+			<%for (var i = 0; i<section.taskinstance.length; i++) { %>
+				<p><strong>Section Testinstanz <%=section.taskinstance[i].taskInstance_number %>: </strong></p>
+				<li>
+					<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name %></a>	
+				</li>
+				<%if(section.taskinstance[i].task.length > 0) { %>
+					<ol class="ml-20">
+						<p><strong>Subtests der Testinstanz: </strong></p>
+						<%for (var j = 0; j<section.taskinstance[i].task.length; j++) { %>
+							<li class="ml-20">
+								<a href="<%= section.taskinstance[i].task[j].url %>"><%= section.taskinstance[i].task[j].name %></a>
+							</li>
+						<% } %>
+					</ol>
+				<% } %>
+			<% } %>
+		<ul>
+		<% } else { %> 
+			<p> Es sind noch keine Taskinstancen dieser Section zugewiesen worden </p>
+		<% } %>
+	</div>

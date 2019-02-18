@@ -14,7 +14,7 @@ var TaskInstanceSchema = new Schema(
 TaskInstanceSchema
 .virtual('url')
 .get(function () {
-  return '/taskinstance/' + this._id;
+  return '/admin/taskinstance/' + this._id;
 });
 
 

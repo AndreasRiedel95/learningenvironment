@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>MY APP</title>
-</head>
-<body>
-<h1><%= taskinstance.name %></h1>
-</body>
-</html>
+<% extend('admin_base') %>
+<div class="content">
+	<p><strong>Task Instance Nummer: </strong></p>
+	<p class="mb-20"><%= taskinstance.taskInstance_number %></p>
+	<p><strong>Task Instance Name: </strong></p>
+	<p class="mb-20"><%= taskinstance.name %></p>
+	<p><strong>Task Aufgaben: </strong></p>
+	<ul>
+		<% if(taskinstance.task.length > 0) { %>
+			<% for(var i = 0; i<taskinstance.task.length; i++) { %>
+				<li>
+					<a href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name %></a>
+				</li>
+			<% } %>
+		<% } else { %>
+			<li>Diese Instanz hat keine zugehörigen Aufgaben</li>
+		<% } %>
+	</ul>
+

@@ -1,5 +1,6 @@
 <% extend('admin_base') %>
-	<div class="content">
+	<link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
+	<div class="content mb-20">
 		<p class="mb-20">Fill in the form for your Subtasks:</p>
 		<form action="" method="POST">
 			<div class="form-group-col-2">
@@ -17,13 +18,15 @@
 				<label class="input-label" for="description">Beschreibung</label>
 			</div>
 			<div class="form-group mb-40">
-				<textarea class="input --textarea" name="htmlCode_inital" placeholder=" "></textarea>
-				<label class="input-label" for="htmlCode_inital">Inital HTML Code</label>
+				<span class="code-label">Inital HTML Code</span>
+				<textarea class="input --textarea html-codearea" name="htmlCode_inital" placeholder=" "></textarea>
 			</div>
 			<div class="form-group mb-40">
-				<textarea class="input --textarea" name="cssCode_inital" placeholder=" "></textarea>
-				<label class="input-label" for="cssCode_inital">Inital CSS Code</label>
+				<span class="code-label">Inital CSS Code</span>
+				<textarea class="input --textarea css-codearea" name="cssCode_inital" placeholder=" "></textarea>
 			</div>
 			<button class="btn" type="submit">Submit</button>
 		</form>
 	</div>
+	<script src="/js/admin_codeMirror.bundle.js"></script>
+	

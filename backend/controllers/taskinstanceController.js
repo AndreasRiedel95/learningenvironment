@@ -1,4 +1,6 @@
 var TaskInstance = require('../models/taskinstance');
+var Task = require('../models/task');
+var async = require('async')
 
 
 // Display list of all TaskInstances.
@@ -14,7 +16,6 @@ exports.taskinstance_list = function(req, res) {
 
 // Display detail page for a specific taskinstance.
 exports.taskinstance_detail = function(req, res) {
-    
     TaskInstance.findById(req.params.id)
     	.populate('task')
     	.exec(function (err, taskinstance) {
@@ -31,20 +32,35 @@ exports.taskinstance_detail = function(req, res) {
 
 // Display taskinstance create form on GET.
 exports.taskinstance_create_get = function(req, res) {
-	res.render('admin/taskinstance_form', { title: 'Create TaskInstance' });
+    async.parallel({
+        tasks: function(callback) {
+            Task.find(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        res.render('admin/taskinstance_form', { title: 'Create Task Instance',tasks:results.tasks});
+    });
 };
 
 // Handle taskinstance create on POST.
 exports.taskinstance_create_post = [    
     (req, res, next) => {
-
+        if(!(req.body.task instanceof Array)){
+            if(typeof req.body.task==='undefined')
+            req.body.task=[];
+            else
+            req.body.task=new Array(req.body.task);
+        }
+        next();
+    },
+    (req, res, next) => {
         // Extract the validation errors from a request.
 
         // Create a BookInstance object with escaped and trimmed data.
         var taskinstance = new TaskInstance(
           { name: req.body.name,
-            taskInstance_number: req.body.taskinstance_number,
-            task: null
+            taskInstance_number: req.body.taskInstance_number,
+            task: req.body.task
            });
 
             // Data from form is valid

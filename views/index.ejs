@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>MY APP</title>
+	<title>Overview</title>
 </head>
 <body>
-Dies ist die Overview Seite für die Studenten
+	<% for(var i = 0; i<sections.length; i++) { %>
+		<ul>
+			<li>
+				<a href="/editor/<%=sections[i]._id%>"><%=sections[i].name %></a>
+			</li>
+		</ul>
+	<%}%>
 </body>
 </html>

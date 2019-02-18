@@ -1,1 +1,5 @@
 /*Don't put any styles in here, this stylesheet is for handeling MIME-Type Error in Editor*/
+
+/*-----------IMPORTANT------------*/
+/*Workaround needed:*/
+/*Its not allowed to use the same class names or id's in the editor which are already used in the code base*/

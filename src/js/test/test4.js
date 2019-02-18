@@ -12,9 +12,11 @@ const test4 = function () {
 			const parent = htmlNode.querySelector('.parent')
 			const container = htmlNode.querySelector('.container')
 
-			test((
+			test.only((
 			'`.parent` takes up the whole width and height of its container'
 			), { dom: htmlNode, styles }, (is) => {
+				console.log(htmlNode)
+				console.log(styles)
 				is.deepEqual(
 					positionOf(parent),
 					positionOf(container),

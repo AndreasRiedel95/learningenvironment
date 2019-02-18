@@ -1,4 +1,5 @@
 @import '../base/variable'
+
 html
 	overflow-y: auto 
 body
@@ -7,7 +8,6 @@ body
 .container-grid
 	width: 100%
 	max-width: 1200px
-	min-height: 100vh
 	margin-left: auto
 	margin-right: auto
 	padding-left: 20px
@@ -16,14 +16,14 @@ body
 	grid-gap: 50px
 	grid-template-columns: 150px 1fr
 
-.break
-	margin-top: 20px
-	margin-bottom: 20px
+.break 
 	width: 100%
 	margin-right: auto
 	margin-left: auto
 	border: 0
 	border-top: 1px solid #eee
+	&.--dark
+		border-color: $darkgrey
 
 
 .header
@@ -40,6 +40,7 @@ body
 	padding: 10px
 	background-color: $darkblue
 	display: flex
+
 .form-group-col-2
 	display: grid
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
@@ -47,6 +48,7 @@ body
 
 .form-group
 	display: flex
+	flex-direction: column
 	position: relative
 	width: 100%
 
@@ -83,4 +85,27 @@ body
 	&.--textarea
 		height: 200px
 		resize: none
-	
+
+.code-label 
+	position: relative
+	font-family: "Roboto", "Avenir", "Helvetica Neue", sans-serif
+	line-height: 1.6
+	color: #292929
+	font-weight: 300
+	left: 10px
+	font-size: 12px
+
+.checkbox-group
+	position: relative
+	padding-top: 10px
+	padding-bottom: 10px
+	width: 100%
+
+.input-list
+	width: 100%
+	background-color: #eee
+	max-height: 200px
+	overflow-y: scroll
+	display: flex
+	flex-direction: column
+	padding: 20px

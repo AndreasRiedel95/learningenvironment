@@ -11,6 +11,7 @@ module.exports = {
     tls: 'empty'
   },
   entry: {
+    admin_codeMirror: './src/js/admin/codeMirror_admin.js',
     index: './src/js/index.js',
   },
   output: {

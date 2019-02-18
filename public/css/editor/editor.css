@@ -6,8 +6,8 @@
   height: calc(100vh - 50px);
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 50px (calc((100vw - 50px) / 3))[3];
-  grid-template-columns: 50px repeat(3, calc((100vw - 50px) / 3));
+  -ms-grid-columns: 50px (calc((100% - 50px) / 3))[3];
+  grid-template-columns: 50px repeat(3, calc((100% - 50px) / 3));
   -ms-grid-rows: (calc(50vh - 25px))[2];
   grid-template-rows: repeat(2, calc(50vh - 25px));
   grid-template-areas: "sidebar description html_css output" "sidebar description html_css output"; }

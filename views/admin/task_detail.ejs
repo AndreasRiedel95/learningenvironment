@@ -1,5 +1,11 @@
 <% extend('admin_base') %>
 	<div class="content">
-		<p><%= task.name %></p>
-		<p><%= task_instance.length %></p>
+		<p><strong>Task Name: </strong></p>
+		<p class="mb-20"><%= task.name %></p>
+		<p><strong>Task Description: </strong></p>
+		<p class="mb-20"><%= task.description %></p>
+		<p><strong>Inital HTML Code: </strong></p>
+		<p class="mb-20" style="white-space: pre-wrap; font-family: monospace;"><%= task.htmlCode_inital %></p>
+		<p><strong>Inital Css Code: </strong></p>
+		<p class="mb-20" style="white-space: pre-wrap; font-family: monospace;"><%= task.cssCode_inital %></p>
 	</div>

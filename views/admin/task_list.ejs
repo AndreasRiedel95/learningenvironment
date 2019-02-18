@@ -1,1 +1,16 @@
-hallo
+ <% extend('admin_base') %>
+	<div class="content">
+		<ul>
+			<% if(list_tasks.length > 0) { %>
+				<li>Alle sich in der Datenbank befindenen Aufgaben</li>
+				<% for(var i = 0; i<list_tasks.length; i++) { %>
+					<li>
+						<a href="<%=list_tasks[i].url %>"><%= list_tasks[i].name %></a>
+					</li>
+				<% } %>
+			<% } else { %>
+				<li>Leider sind noch keine Aufgaben in der Datenbank</li>
+			<% } %>
+
+		</ul>
+	</div>

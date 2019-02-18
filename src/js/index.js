@@ -18,6 +18,8 @@ initSVG();
 //   event.returnValue = '';
 // });
 
+console.log(objSentFromSrv)
+
 let editorRendering = (() => {
 	let base_tpl =
 	"<!doctype html>\n" +
@@ -76,7 +78,7 @@ let editorRendering = (() => {
 	cm_opt_css.mode = 'css';
 	let css_box = document.querySelector('.css-codearea');
 	let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
-
+	
 	html_editor.setValue("objSentFromSrv.htmlsolution_user");
 	html_editor.setSize("100%", "100%");
 	css_editor.setValue("objSentFromSrv.csssolution_user");
