@@ -1,4 +1,29 @@
 <% extend('admin_base') %>
 	<div class="content">
-		HIER KOMMT das task form 
+		<p class="mb-20">Fill in the form for your Subtasks:</p>
+		<form action="" method="POST">
+			<div class="form-group-col-2">
+				<div class="form-group mb-40">
+					<input class="input" type="number" name="task_number" placeholder=" ">
+					<label class="input-label" for="task_number">Task Number</label>
+				</div>
+				<div class="form-group mb-40">
+					<input class="input" type="text" name="name" placeholder=" ">
+					<label class="input-label" for="name">Titel</label>
+				</div>
+			</div>
+			<div class="form-group mb-40">
+				<textarea class="input --textarea" name="description" placeholder=" "></textarea>
+				<label class="input-label" for="description">Beschreibung</label>
+			</div>
+			<div class="form-group mb-40">
+				<textarea class="input --textarea" name="htmlCode_inital" placeholder=" "></textarea>
+				<label class="input-label" for="htmlCode_inital">Inital HTML Code</label>
+			</div>
+			<div class="form-group mb-40">
+				<textarea class="input --textarea" name="cssCode_inital" placeholder=" "></textarea>
+				<label class="input-label" for="cssCode_inital">Inital CSS Code</label>
+			</div>
+			<button class="btn" type="submit">Submit</button>
+		</form>
 	</div>

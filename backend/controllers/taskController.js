@@ -3,7 +3,7 @@ var TaskInstance = require('../models/taskinstance')
 var async = require('async');
 
 // Display list of all tasks.
-exports.task_list = function(req, res) {
+exports.task_list = function(req, res, next) {
 	Task.find()
 		.sort([['name', 'ascending']])
 		.exec(function (err, list_tasks) {
@@ -14,23 +14,20 @@ exports.task_list = function(req, res) {
 };
 
 // Display detail page for a specific task.
-exports.task_detail = function(req, res) {
+exports.task_detail = function(req, res, next) {
 	async.parallel({
 		task: function(callback) {
-
-		Task.findById(req.params.id)
-			.exec(callback);
-	},
-
-	task_instance: function(callback) {
-		TaskInstance.find({ 'task': req.params.id })
-			.exec(callback);
-	},
-
+			Task.findById(req.params.id)
+				.exec(callback);
+		},
+		task_instance: function(callback) {
+			TaskInstance.find({ 'task': req.params.id })
+				.exec(callback);
+		},
 	}, function(err, results) {
 		if (err) { return next(err); }
-		if (results.genre==null) { // No results.
-			var err = new Error('Genre not found');
+		if (results.task==null) { // No results.
+			var err = new Error('Task not found');
 			err.status = 404;
 			return next(err);
 		}
@@ -52,8 +49,8 @@ exports.task_create_post =  [
 				task_number: req.body.task_number,
 				name: req.body.name,
 				description: req.body.description,
-				htmlCode_inital: req.body.task_htmlCode_inital,
-				cssCode_inital: req.body.task_cssCode_inital,
+				htmlCode_inital: req.body.htmlCode_inital,
+				cssCode_inital: req.body.cssCode_inital,
 				htmlCode_user: null,
 				cssCode_user: null,
 				task_solved: false

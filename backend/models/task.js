@@ -9,8 +9,8 @@ var TaskSchema = new Schema(
     description: {type: String, required: true},
     htmlCode_inital: {type: String, required: true},
     cssCode_inital: {type: String, required: true},
-    htmlCode_user: {type: String, required: true},
-    cssCode_user: {type: String, required: true},
+    htmlCode_user: {type: String},
+    cssCode_user: {type: String},
     task_solved: {type: Boolean, required: true, default: false}
   }
 );
