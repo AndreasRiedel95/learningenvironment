@@ -4,6 +4,10 @@
 	<p class="mb-20"><%= taskinstance.taskInstance_number %></p>
 	<p><strong>Task Instance Name: </strong></p>
 	<p class="mb-20"><%= taskinstance.name %></p>
+	<p><strong>Inital HTML Code: </strong></p>
+	<p class="mb-20" style="white-space: pre-wrap; font-family: monospace;"><%= taskinstance.htmlCode_inital %></p>
+	<p><strong>Inital Css Code: </strong></p>
+	<p class="mb-20" style="white-space: pre-wrap; font-family: monospace;"><%= taskinstance.cssCode_inital %></p>
 	<p><strong>Task Aufgaben: </strong></p>
 	<ul>
 		<% if(taskinstance.task.length > 0) { %>

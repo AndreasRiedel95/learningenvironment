@@ -1,4 +1,5 @@
 <% extend('admin_base') %>
+<link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
 <div class="content mb-20">
 	<form action="" method="POST">
 		<div class="form-group-col-2">
@@ -11,13 +12,20 @@
 				<label class="input-label" for="name">Titel</label>
 			</div>
 		</div>
+		<div class="form-group mb-40">
+			<span class="code-label">Inital HTML Code</span>
+			<textarea class="input --textarea html-codearea" name="htmlCode_inital" placeholder=" "></textarea>
+		</div>
+		<div class="form-group mb-40">
+			<span class="code-label">Inital CSS Code</span>
+			<textarea class="input --textarea css-codearea" name="cssCode_inital" placeholder=" "></textarea>
+		</div>
 		<span class="code-label">Select Tasks for the Task Instance:</span>
 		<div class="input-list mb-50 mt-10">
 			<% for(var i = 0; i<tasks.length; i++) { %>
 				<label class="checkbox-group" for="<%= tasks[i]._id %>">
 					<input type="checkbox" name="task" id="<%= tasks[i]._id %>" value="<%= tasks[i]._id %>">
 					<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].name %></label>
-
 				</label>
 			<div class="break --dark"></div>
 			<% } %>
@@ -25,3 +33,4 @@
 		<button class="btn" type="submit">Submit</button>
 	</form>
 </div>
+<script src="/js/admin_codeMirror.bundle.js"></script>

@@ -60,6 +60,10 @@ exports.taskinstance_create_post = [
         var taskinstance = new TaskInstance(
           { name: req.body.name,
             taskInstance_number: req.body.taskInstance_number,
+            htmlCode_inital: req.body.htmlCode_inital,
+            cssCode_inital: req.body.cssCode_inital,
+            htmlCode_user: null,
+            cssCode_user: null,
             task: req.body.task
            });
 

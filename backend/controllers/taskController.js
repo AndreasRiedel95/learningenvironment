@@ -46,10 +46,6 @@ exports.task_create_post =  [
 				task_number: req.body.task_number,
 				name: req.body.name,
 				description: req.body.description,
-				htmlCode_inital: req.body.htmlCode_inital,
-				cssCode_inital: req.body.cssCode_inital,
-				htmlCode_user: null,
-				cssCode_user: null,
 				task_solved: false
 			}
 		);
