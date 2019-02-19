@@ -239,6 +239,37 @@ let setDescription = (ele) => {
 }
 
 
+let updateBtn = document.querySelector('.save');
+updateBtn.addEventListener('click', () => {
+	let html_editor = editorRendering.getHTMLEditor();
+	let css_editor = editorRendering.getCSSEditor();
+	let savedWrapper = document.querySelector('.code-saved-wrapper');
+	let taskinstance = document.querySelector('.taskInput.--task:checked');
+	console.log(taskinstance)
+	let key = taskinstance.dataset.taskinstanceid
+	for (key in section.taskinstance) {
+    if (section.taskinstance.hasOwnProperty(key)) {
+        console.log(key + " = " + section.taskinstance[key].task[0]);
+    }
+} 
+	if(taskinstance !== null) {
+		fetch(`/admin/btn/taskinstance/${taskinstance.dataset.taskinstanceid}/update`, {
+			method: 'post',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				'id' : taskinstance.dataset.taskinstanceid,
+				'htmlCode_user': html_editor.getValue(),
+				'cssCode_user': css_editor.getValue(),
+			})
+		})
+		savedWrapper.classList.add('--saved');
+		setTimeout(() => {
+			savedWrapper.classList.remove('--saved');
+		}, 1400)
+	}
+})
+
+
 export const getEditors = () => {
 	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];
 }

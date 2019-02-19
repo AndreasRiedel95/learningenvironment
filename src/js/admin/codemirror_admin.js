@@ -5,7 +5,6 @@ import 'codemirror/mode/css/css.js';
 
 let cm_opt_html = {
 	mode: 'text/html',
-	gutters: ['CodeMirror-lint-markers'],
 	theme: 'lucario',
 	indentWithTabs: true,
 	showCursorWhenSelecting: true,
@@ -29,12 +28,10 @@ let cm_opt_html = {
 
 let cm_opt_output = {
 	mode: 'text/html',
-	gutters: ['CodeMirror-lint-markers'],
 	theme: 'lucario',
-	fixedGutter: true,
 	scrollbarStyle: "overlay",
 	lineNumbers: true,
-	viewportMargin: Infinity
+	readOnly: true
 };
 
 
@@ -61,16 +58,20 @@ if(css_box.classList.contains('--output')){
 	css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 }
 
+// html_editor.on("change", function(html_editor, change) {
+// 	render();
+// });
+// css_editor.on("change", function(css_editor, change) {
+// 	render();
+// });
 
-html_editor.on("change", function(html_editor, change) {
-	render(html_editor);
-});
-css_editor.on("change", function(css_editor, change) {
-	render(css_editor);
-});
+// html_editor.setSize("100%", "100%");
+// css_editor.setSize("100%", "100%");
+// css_editor.refresh();
+// html_editor.refresh();
 
-function render(editor) {
-	html_box.value = html_editor.getValue();
-	css_box.value = css_editor.getValue();
+// function render() {
+// 	html_box.value = html_editor.getValue();
+// 	css_box.value = css_editor.getValue();
 
-}
+// }

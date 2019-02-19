@@ -14,7 +14,7 @@ exports.taskinstance_list = function(req, res) {
 };
 
 // Display detail page for a specific taskinstance.
-exports.taskinstance_detail = function(req, res) {
+exports.taskinstance_detail = function(req, res, next) {
     TaskInstance.findById(req.params.id)
     	.populate('task')
     	.exec(function (err, taskinstance) {
@@ -22,7 +22,7 @@ exports.taskinstance_detail = function(req, res) {
     		if(taskinstance == null) {
     			var err = new Error('Task not found')
     			err.status = 404;
-    			return nex(err);
+    			return next(err);
     		}
 
     		res.render('admin/taskinstance_detail', {title: 'Task', taskinstance: taskinstance})
@@ -77,7 +77,7 @@ exports.taskinstance_create_post = [
 
 // Display taskinstance delete form on GET.
 exports.taskinstance_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: taskinstance delete GET');
+
 };
 
 // Handle taskinstance delete on POST.
@@ -87,10 +87,70 @@ exports.taskinstance_delete_post = function(req, res) {
 
 // Display taskinstance update form on GET.
 exports.taskinstance_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: taskinstance update GET');
+    async.parallel({
+        taskinstance: function(callback) {
+            TaskInstance.findById(req.params.id).populate('task').exec(callback)
+        },
+        tasks: function(callback) {
+            Task.find(callback)
+        },
+
+        }, function(err, results) {
+            if (err) { return next(err); }
+            if (results.taskinstance==null) { // No results.
+                var err = new Error('Taskinstance  not found');
+                err.status = 404;
+                return next(err);
+            }
+            for (var i = 0; i < results.tasks.length; i++) {
+                for (var j = 0; j < results.taskinstance.task.length; j++) {
+                    if (results.tasks[i]._id.toString()==results.taskinstance.task[j]._id.toString()) {
+                        results.tasks[i].checked='true';
+                    }
+                }
+            }
+            // Success.
+            res.render('admin/taskinstance_form', { title: 'Update  TaskInstance', tasks : results.tasks, selected_task : results.taskinstance.task._id, taskinstance:results.taskinstance });
+    });
 };
 
 // Handle taskinstance update on POST.
-exports.taskinstance_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: taskinstance update POST');
-};
+exports.taskinstance_update_post = [
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+
+        // Create a BookInstance object with escaped/trimmed data and current id.
+        var taskinstance = new TaskInstance(
+          { name: req.body.name,
+            taskInstance_number: req.body.taskInstance_number,
+            htmlCode_inital: req.body.htmlCode_inital,
+            cssCode_inital: req.body.cssCode_inital,
+            task: req.body.task,
+            _id: req.params.id
+           });
+
+        TaskInstance.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            {   name: req.body.name,
+                taskInstance_number: req.body.taskInstance_number,
+                task: req.body.task,
+            } 
+        }, function (err,thetaskinstance) {
+            if (err) { return next(err); }
+               res.redirect(thetaskinstance.url);
+            });
+        }
+];
+
+exports.taskinstance_update_btn = function(req, res, next) {
+    TaskInstance.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            { 
+                htmlCode_user: req.body.htmlCode_user,
+                cssCode_user: req.body.cssCode_user,
+            } 
+        }, function (err,thetaskinstance) {
+            if (err) { return next(err); }
+           console.log("Update yaaa")
+        });
+    }

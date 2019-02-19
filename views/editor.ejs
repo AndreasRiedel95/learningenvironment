@@ -20,7 +20,7 @@
 		Code saved
 	</div>
 	<div class="header">
-		<h1 class="header-1 white">Web Development 1</h1>
+		<h1 class="header-1 white">Web Development 1 | <%=section.name %></h1>
 		<div class="header-btn-wrapper">
 			<button class="btn --icon" type="button" onclick="setInitialGrid()" title='Set Editor-Grid to inital size'>
 				<div class="set-inital-grid"></div>
@@ -43,7 +43,7 @@
 			</div>
 			<% for(let i = 0; i<section.taskinstance.length; i++){ %>
 				<div class="input-wrapper">
-					<input id="<%= section.taskinstance[i].taskInstance_number %>" type="radio" name="task" class="taskInput">
+					<input id="<%= section.taskinstance[i].taskInstance_number %>" type="radio" name="task" class="taskInput --task" data-taskinstanceid="<%= section.taskinstance[i]._id %>">
 					<label class="task-number" for="<%= section.taskinstance[i].taskInstance_number %>" onclick="setTaskDescription(this)"><%= section.taskinstance[i].taskInstance_number %></label>
 				</div>
 			<% } %>

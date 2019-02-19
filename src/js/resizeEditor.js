@@ -134,7 +134,7 @@ export const horizontal = (draggerHorizontal) => {
 
 export const setInitalGrid = () => {
 	let editorWrapper = document.querySelector('.task-editor-wrapper');
-	editorWrapper.style.gridTemplateColumns =  `50px repeat(3, calc((100vw - 50px) / 3))`;
+	editorWrapper.style.gridTemplateColumns =  `50px repeat(3, calc((100% - 50px) / 3))`;
 }
 
 window.setInitialGrid = setInitalGrid;

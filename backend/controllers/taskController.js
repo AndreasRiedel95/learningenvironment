@@ -2,6 +2,9 @@ var Task = require('../models/task');
 var TaskInstance = require('../models/taskinstance')
 var async = require('async');
 
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
+
 // Display list of all tasks.
 exports.task_list = function(req, res, next) {
 	Task.find()
@@ -84,11 +87,59 @@ exports.task_delete_post = function(req, res) {
 };
 
 // Display task update form on GET.
-exports.task_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: task update GET');
+exports.task_update_get = function(req, res, next) {
+    Task.findById(req.params.id, function(err, task) {
+        if (err) { return next(err); }
+        if (task==null) { // No results.
+            var err = new Error('task not found');
+            err.status = 404;
+            return next(err);
+        }
+        // Success.
+        res.render('admin/task_form', { title: 'Update Task', task: task });
+    });
+
 };
 
 // Handle task update on POST.
-exports.task_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: task update POST');
-};
+exports.task_update_post = [
+   
+    // Validate that the name field is not empty.
+    body('name', 'Title name required').isLength({ min: 1 }).trim(),
+    
+    // Sanitize (trim and escape) the name field.
+    sanitizeBody('name').trim().escape(),
+
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+
+        // Extract the validation errors from a request .
+        const errors = validationResult(req);
+
+    // Create a genre object with escaped and trimmed data (and the old id!)
+        var task = new Task(
+          {
+			task_number: req.body.task_number,
+			name: req.body.name,
+			description: req.body.description,
+			task_solved: false,
+			_id: req.params.id
+          }
+        );
+
+
+        if (!errors.isEmpty()) {
+            // There are errors. Render the form again with sanitized values and error messages.
+            res.render('task_form', { title: 'Update Task', task: task, errors: errors.array()});
+        return;
+        }
+        else {
+            // Data from form is valid. Update the record.
+            Task.findByIdAndUpdate(req.params.id, task, {}, function (err,thetask) {
+                if (err) { return next(err); }
+                   // Successful - redirect to genre detail page.
+                   res.redirect(thetask.url);
+                });
+        }
+    }
+];

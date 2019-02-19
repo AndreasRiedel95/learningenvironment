@@ -4,8 +4,3 @@
 @import url(../simplescrollbars.css);
 .CodeMirror {
   border-radius: 2px; }
-
-.CodeMirror-scroll {
-  height: auto;
-  overflow-y: hidden;
-  overflow-x: auto; }
