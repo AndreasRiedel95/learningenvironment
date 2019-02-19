@@ -2,3 +2,10 @@
 @import url(../show-hint.css);
 @import url(../lucario.css);
 @import url(../simplescrollbars.css);
+.CodeMirror {
+  border-radius: 2px; }
+
+.CodeMirror-scroll {
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: auto; }

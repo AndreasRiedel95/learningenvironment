@@ -34,7 +34,6 @@ let cm_opt_output = {
 	fixedGutter: true,
 	scrollbarStyle: "overlay",
 	lineNumbers: true,
-	readOnly: true,
 	viewportMargin: Infinity
 };
 

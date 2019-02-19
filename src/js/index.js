@@ -18,7 +18,7 @@ initSVG();
 //   event.returnValue = '';
 // });
 
-console.log(objSentFromSrv)
+console.log(section)
 
 let editorRendering = (() => {
 	let base_tpl =
@@ -79,9 +79,8 @@ let editorRendering = (() => {
 	let css_box = document.querySelector('.css-codearea');
 	let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 	
-	html_editor.setValue("objSentFromSrv.htmlsolution_user");
+	let inputWrappers = document.querySelectorAll('.taskInput:not(.--description)')
 	html_editor.setSize("100%", "100%");
-	css_editor.setValue("objSentFromSrv.csssolution_user");
 	css_editor.setSize("100%", "100%");
 
 
@@ -196,22 +195,37 @@ testButtons.forEach((button) => {
 	button.addEventListener('click', () => {
 		let htmlEditor = editorRendering.getHTMLEditor();
 		let cssEditor = editorRendering.getCSSEditor();
+		let section = document.querySelector('.description-wrapper')
+		let sectionNumber = section.dataset.descriptionnumber
 		let testNumber = parseInt(button.dataset.testnumber);
 		let taskNumber = document.querySelector('.taskInput:checked');
-		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber);
+		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber);
 	})
 
 })
 
 //Toggle TaskDescription 
 let setTaskDescription = (ele) => {
-	let tasknumber = ele.htmlFor
+	let tasknumber = parseInt(ele.htmlFor)
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-tasknumber="${tasknumber}"])`);
 	taskDescriptions.forEach((taskDescription) => {
 		taskDescription.classList.add('--not-active');
 	})
 	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${tasknumber}"]`);
 	activeTaskDescription.classList.remove('--not-active');
+	let htmlEditor = editorRendering.getHTMLEditor();
+	let cssEditor = editorRendering.getCSSEditor();
+	if(section.taskinstance[tasknumber - 1].htmlCode_user !== null) {
+		htmlEditor.setValue(section.taskinstance[(tasknumber - 1)].htmlCode_user)
+	} else {
+		htmlEditor.setValue(section.taskinstance[(tasknumber - 1)].htmlCode_inital)
+	}
+
+	if(section.taskinstance[tasknumber - 1].cssCode_user !== null) {
+		cssEditor.setValue(section.taskinstance[(tasknumber - 1)].cssCode_user)
+	} else {
+		cssEditor.setValue(section.taskinstance[(tasknumber - 1)].cssCode_inital)
+	}
 }
 
 //Toggle Section Description

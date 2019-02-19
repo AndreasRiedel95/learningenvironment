@@ -46,6 +46,7 @@ exports.section_to_editor = function(req, res, next) {
 			return next(err);
 		}
 		// Successful, so render.
+		console.log(JSON.stringify(results.section))
 		res.render('editor', { title: 'Overview', section: results.section} );
 	});
 };
