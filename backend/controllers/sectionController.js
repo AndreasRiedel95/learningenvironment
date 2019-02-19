@@ -41,12 +41,12 @@ exports.section_to_editor = function(req, res, next) {
 	}, function(err, results) {
 		if (err) { return next(err); }
 		if (results.section==null) { // No results.
-			var err = new Error('Secion not found');
+			var err = new Error('Section not found');
 			err.status = 404;
 			return next(err);
 		}
 		// Successful, so render.
-		res.render('editor', { title: 'Create Section', section: results.section} );
+		res.render('editor', { title: 'Overview', section: results.section} );
 	});
 };
 
@@ -66,21 +66,20 @@ exports.admin = function(req, res) {
 	});
 };
 
+
+
+
 // Display list of all sections.
 exports.section_list = function(req, res, next) {
-	
-	Section.find({}, 'name taskinstance')
-	.populate('taskinstance')
-	.exec(function (err, list_sections, next) {
-	  if (err) { return next(err); }
-	  //Successful, so render
-	  res.render('admin/section_list', { title: 'Section List', section_list: list_sections });
-	});
+	Section.find()
+		.populate('taskinstance')
+		.exec(function (err, list_sections) {
+			if(err) {return next(err); }
+			res.render('admin/section_list', {title: "Section List", sections: list_sections})
+		});
 };
 
 // Display detail page for a specific section.
-
-// find({}).populate({path : 'userId', populate : {path : 'reviewId'}}).exec(function (err, res) 
 exports.section_detail = function(req, res, next) {
 	async.parallel({
 		section: function(callback) {
@@ -102,7 +101,6 @@ exports.section_detail = function(req, res, next) {
 
 // Display section create form on GET.
 exports.section_create_get = function(req, res) {
-
 		async.parallel({
 			taskinstances: function(callback) {
 				TaskInstance.find(callback);

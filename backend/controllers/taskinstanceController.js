@@ -5,7 +5,6 @@ var async = require('async')
 
 // Display list of all TaskInstances.
 exports.taskinstance_list = function(req, res) {
-
 	TaskInstance.find()
 		.populate('task')
 		.exec(function (err, list_taskinstances) {

@@ -1,13 +1,14 @@
 <% extend('admin_base') %>
-<div class="content">
+<link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
+<div class="content mb-100">
 	<p><strong>Task Instance Nummer: </strong></p>
 	<p class="mb-20"><%= taskinstance.taskInstance_number %></p>
 	<p><strong>Task Instance Name: </strong></p>
 	<p class="mb-20"><%= taskinstance.name %></p>
 	<p><strong>Inital HTML Code: </strong></p>
-	<p class="mb-20" style="white-space: pre-wrap; font-family: monospace;"><%= taskinstance.htmlCode_inital %></p>
+	<textarea class="input --textarea html-codearea --output" name="htmlCode_inital" placeholder=" "><%= taskinstance.htmlCode_inital %></textarea>
 	<p><strong>Inital Css Code: </strong></p>
-	<p class="mb-20" style="white-space: pre-wrap; font-family: monospace;"><%= taskinstance.cssCode_inital %></p>
+		<textarea class="input --textarea css-codearea --output" name="htmlCode_inital" placeholder=" "><%= taskinstance.cssCode_inital %></textarea>
 	<p><strong>Task Aufgaben: </strong></p>
 	<ul>
 		<% if(taskinstance.task.length > 0) { %>
@@ -20,4 +21,5 @@
 			<li>Diese Instanz hat keine zugehörigen Aufgaben</li>
 		<% } %>
 	</ul>
-
+</div>
+<script src="/js/admin_codeMirror.bundle.js"></script>

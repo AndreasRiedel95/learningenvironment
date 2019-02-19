@@ -1,6 +1,4 @@
 @import url(../codemirror.css);
 @import url(../show-hint.css);
 @import url(../lucario.css);
-.CodeMirror {
-  width: 100%;
-  border-radius: 2px; }
+@import url(../simplescrollbars.css);
