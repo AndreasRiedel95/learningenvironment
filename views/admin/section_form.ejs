@@ -1,39 +1,76 @@
 <% extend('admin_base') %>
 <div class="content mb-20">
-	<form action="" method="POST">
-		<div class="form-group-col-2">
-			<div class="form-group mb-40">
-				<input class="input" type="number" name="section_number" placeholder=" ">
-				<label class="input-label" for="section_number">Section Nummer</label>
+	<%if (typeof section === 'undefined') { %>
+		<form action="" method="POST">
+			<div class="form-group-col-2">
+				<div class="form-group mb-40">
+					<input class="input" type="number" name="section_number" placeholder=" ">
+					<label class="input-label" for="section_number">Section Nummer</label>
+				</div>
+				<div class="form-group mb-40">
+					<input class="input" type="text" name="name" placeholder=" ">
+					<label class="input-label" for="name">Titel</label>
+				</div>
 			</div>
 			<div class="form-group mb-40">
-				<input class="input" type="text" name="name" placeholder=" ">
-				<label class="input-label" for="name">Titel</label>
+				<textarea class="input --textarea" name="description" placeholder=" "></textarea>
+				<label class="input-label" for="description">Beschreibung</label>
 			</div>
-		</div>
-		<div class="form-group mb-40">
-			<textarea class="input --textarea" name="description" placeholder=" "></textarea>
-			<label class="input-label" for="description">Beschreibung</label>
-		</div>
-		<% if(taskinstances.length > 0) { %>
-			<span class="code-label">Wählen Sie die Taskinstance mit für diese Section aus:</span>
-			<div class="input-list mb-50 mt-10">
-				<% for(var i = 0; i<taskinstances.length; i++) { %>
-					<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
-						<input type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>">
-						<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].name %></label>
+			<% if(taskinstances.length > 0) { %>
+				<span class="code-label">Wählen Sie die Taskinstance für diese Section aus:</span>
+				<div class="input-list mb-50 mt-10">
+					<% for(var i = 0; i<taskinstances.length; i++) { %>
+						<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
+							<input type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>">
+							<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].name %></label>
 
-					</label>
-					<% if(i < (taskinstances.length - 1)) { %>
-						<div class="break --dark"></div>
+						</label>
+						<% if(i < (taskinstances.length - 1)) { %>
+							<div class="break --dark"></div>
+						<% } %>
 					<% } %>
-				<% } %>
+				</div>
+			<% } else { %>
+				<p>Leider gibt es keine Task Instanzen die Sie auswählen können</p>
+			<% } %>
+			<button class="btn" type="submit">Submit</button>
+		</form>
+	<% } else { %>
+		<form action="" method="POST">
+			<div class="form-group-col-2">
+				<div class="form-group mb-40">
+					<input class="input" type="number" name="section_number" value="<%= section.section_number %>"placeholder=" ">
+					<label class="input-label" for="section_number">Section Nummer</label>
+				</div>
+				<div class="form-group mb-40">
+					<input class="input" type="text" name="name" value="<%= section.name %>" placeholder=" ">
+					<label class="input-label" for="name">Titel</label>
+				</div>
 			</div>
-		<% } else { %>
-			<p>Leider gibt es keine Task Instanzen die Sie auswählen können</p>
-		<% } %>
-		<button class="btn" type="submit">Submit</button>
-	</form>
+			<div class="form-group mb-40">
+				<textarea class="input --textarea" name="description" placeholder=" "><%= section.description %></textarea>
+				<label class="input-label" for="description">Beschreibung</label>
+			</div>
+			<% if(taskinstances.length > 0) { %>
+				<span class="code-label">Wählen Sie die Taskinstance mit für diese Section aus:</span>
+				<div class="input-list mb-50 mt-10">
+					<% for(var i = 0; i<taskinstances.length; i++) { %>
+						<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
+							<input type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>" <% if(taskinstances[i].checked) { %> checked <% } %>>
+							<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].name %></label>
+
+						</label>
+						<% if(i < (taskinstances.length - 1)) { %>
+							<div class="break --dark"></div>
+						<% } %>
+					<% } %>
+				</div>
+			<% } else { %>
+				<p>Leider gibt es keine Task Instanzen die Sie auswählen können</p>
+			<% } %>
+			<button class="btn" type="submit">Submit</button>
+		</form>
+	<% } %>
 </div>
 
 

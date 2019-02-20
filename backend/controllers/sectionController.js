@@ -3,23 +3,7 @@ var Task = require('../models/task');
 var TaskInstance = require('../models/taskinstance');
 var async = require('async');
 
-
-exports.index = function(req, res, next) {  
-	async.parallel({
-		section_count: function(callback) {
-			Section.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
-		},
-		task_count: function(callback) {
-			Task.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
-		},
-		task_instance_count: function(callback) {
-			TaskInstance.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
-		}
-	}, function(err, results) {
-		res.render('admin', { title: 'Overview Home', error: err, data: results });
-	});
-};
-
+//Pass sections to Student Overview
 exports.section_overview = function(req, res, next) {
 	async.parallel({
         sections: function(callback) {
@@ -31,6 +15,7 @@ exports.section_overview = function(req, res, next) {
     });
 }
 
+//Pass selected Section to Editor 
 exports.section_to_editor = function(req, res, next) {   
 	async.parallel({
 		section: function(callback) {
@@ -51,7 +36,8 @@ exports.section_to_editor = function(req, res, next) {
 	});
 };
 
-exports.admin = function(req, res) {   
+// Display everything on Admin overview which is in the database
+exports.admin = function(req, res, next) {   
 	async.parallel({
 		section_count: function(callback) {
 			Section.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
@@ -63,12 +49,12 @@ exports.admin = function(req, res) {
 			TaskInstance.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
 		}
 	}, function(err, results) {
-		res.render('admin/index', { title: 'Overview Home', error: err, data: results });
+		res.render('admin/index', { title: 'Overview Admin', error: err, data: results });
 	});
 };
 
 
-
+///SECTIONS////
 
 // Display list of all sections.
 exports.section_list = function(req, res, next) {
@@ -101,7 +87,7 @@ exports.section_detail = function(req, res, next) {
 };
 
 // Display section create form on GET.
-exports.section_create_get = function(req, res) {
+exports.section_create_get = function(req, res, next) {
 		async.parallel({
 			taskinstances: function(callback) {
 				TaskInstance.find(callback);
@@ -124,7 +110,7 @@ exports.section_create_post = [
 		next();
 	},
 	(req, res, next) => {
-		// Create a Book object with escaped and trimmed data.
+		// Create a Section object with escaped and trimmed data.
 		var section = new Section({ 
 			name: req.body.name,
 			section_number: req.body.section_number,
@@ -153,11 +139,49 @@ exports.section_delete_post = function(req, res) {
 };
 
 // Display section update form on GET.
-exports.section_update_get = function(req, res) {
-	res.send('NOT IMPLEMENTED: Section update GET');
+exports.section_update_get = function(req, res, next) {
+    async.parallel({
+        section: function(callback) {
+            Section.findById(req.params.id).populate('taskinstance').exec(callback)
+        },
+        taskinstances: function(callback) {
+            TaskInstance.find(callback)
+        },
+
+        }, function(err, results) {
+            if (err) { return next(err); }
+            if (results.section==null) { // No results.
+                var err = new Error('Section  not found');
+                err.status = 404;
+                return next(err);
+            }
+            for (var i = 0; i < results.taskinstances.length; i++) {
+                for (var j = 0; j < results.section.taskinstance.length; j++) {
+                    if (results.taskinstances[i]._id.toString()==results.section.taskinstance[j]._id.toString()) {
+                        results.taskinstances[i].checked='true';
+                    }
+                }
+            }
+            // Success.
+            res.render('admin/section_form', { title: 'Update  Section', taskinstances : results.taskinstances, section:results.section });
+    });
 };
 
 // Handle section update on POST.
-exports.section_update_post = function(req, res) {
-	res.send('NOT IMPLEMENTED: Section update POST');
-};
+exports.section_update_post = [
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+        Section.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            {   
+            	name: req.body.name,
+                section_number: req.body.section_number,
+                description: req.body.description,
+                taskinstance: req.body.taskinstance,
+            } 
+        }, function (err,thetaskinstance) {
+            if (err) { return next(err); }
+               res.redirect(thetaskinstance.url);
+            });
+        }
+];

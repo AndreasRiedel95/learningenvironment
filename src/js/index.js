@@ -20,17 +20,21 @@ initSVG();
 
 
 document.addEventListener("DOMContentLoaded", function() {
-	//remove --not-solved class from first Task, so student is able to run test for it 
-	let tasks = document.querySelectorAll('.task');
-	let taskInputs = document.querySelectorAll('.task-solved')
-	console.log(taskInputs)
-	tasks[0].classList.remove('--not-solved'); 
-	//find first Task-Input which is not checked
-	var result = Array.from(taskInputs).filter(taskInput => taskInput.checked === false)[0];
-	//find index of first Task-Input which is not checked
-	var index = Array.from(taskInputs).findIndex(taskInput => taskInput === result)
-	//remove --not-solved class on Task, so student is able to run test for it 
-	tasks[index].classList.remove('--not-solved')
+	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
+	taskDescriptions.forEach(taskDescription => {
+		let tasks = taskDescription.querySelectorAll('.task');
+		let taskInputs = taskDescription.querySelectorAll('.task-solved')
+		//remove --not-solved class from first Task, so student is able to run test for it 
+		tasks[0].classList.remove('--not-solved'); 
+		//find first Task-Input which is not checked
+		var result = Array.from(taskInputs).filter(taskInput => taskInput.checked === false)[0];
+		//find index of first Task-Input which is not checked
+		var index = Array.from(taskInputs).findIndex(taskInput => taskInput === result)
+		//remove --not-solved class on Task, so student is able to run test for it 
+		tasks[index].classList.remove('--not-solved')
+
+	})
+
 });
 
 let editorRendering = (() => {
@@ -208,8 +212,8 @@ testButtons.forEach((button) => {
 	button.addEventListener('click', () => {
 		let htmlEditor = editorRendering.getHTMLEditor();
 		let cssEditor = editorRendering.getCSSEditor();
-		let section = document.querySelector('.description-wrapper')
-		let sectionNumber = section.dataset.descriptionnumber
+		let section = document.querySelector('.description-wrapper');
+		let sectionNumber = parseInt(section.dataset.descriptionnumber);
 		let testNumber = parseInt(button.dataset.testnumber);
 		let taskNumber = document.querySelector('.taskInput:checked');
 		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber);
@@ -252,19 +256,14 @@ let setDescription = (ele) => {
 }
 
 
+//Save code on button click
 let updateBtn = document.querySelector('.save');
 updateBtn.addEventListener('click', () => {
 	let html_editor = editorRendering.getHTMLEditor();
 	let css_editor = editorRendering.getCSSEditor();
 	let savedWrapper = document.querySelector('.code-saved-wrapper');
 	let taskinstance = document.querySelector('.taskInput.--task:checked');
-	console.log(taskinstance)
-	let key = taskinstance.dataset.taskinstanceid
-	for (key in section.taskinstance) {
-    if (section.taskinstance.hasOwnProperty(key)) {
-        console.log(key + " = " + section.taskinstance[key].task[0]);
-    }
-} 
+
 	if(taskinstance !== null) {
 		fetch(`/admin/btn/taskinstance/${taskinstance.dataset.taskinstanceid}/update`, {
 			method: 'post',

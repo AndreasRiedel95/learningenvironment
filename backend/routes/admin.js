@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-// Require controller modules.
 var section_controller = require('../controllers/sectionController');
 var task_controller = require('../controllers/taskController');
 var task_instance_controller = require('../controllers/taskinstanceController');
@@ -9,7 +8,7 @@ var task_instance_controller = require('../controllers/taskinstanceController');
 //Get admin index
 router.get('/', section_controller.admin);
 
-// GET request for creating a section. NOTE This must come before routes that display section (uses id).
+// GET request for creating a section.
 router.get('/section/create', section_controller.section_create_get);
 
 // POST request for creating section.
@@ -60,7 +59,7 @@ router.get('/task/:id', task_controller.task_detail);
 // GET request for list of all task items.
 router.get('/tasks', task_controller.task_list);
 
-// POST request to update task solved field.
+//Post request to update task solve field through button click
 router.post('/solved/task/:id/update', task_controller.task_udpate_solved);
 
 
@@ -91,6 +90,7 @@ router.get('/taskinstance/:id', task_instance_controller.taskinstance_detail);
 // GET request for list of all taskinstance.
 router.get('/taskinstances', task_instance_controller.taskinstance_list);
 
+// Post request to update user html and css fields through button click
 router.post('/btn/taskinstance/:id/update', task_instance_controller.taskinstance_update_btn)
 
 

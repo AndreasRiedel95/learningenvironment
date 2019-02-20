@@ -1,19 +1,20 @@
 <% extend('admin_base') %>
 	<div class="content">
+		<p><strong>Section Nummer: </strong></p>
+		<p class="mb-20"><%= section.section_number %></p>
 		<p><strong>Section Name: </strong></p>
 		<p class="mb-20"><%= section.name %></p>
 		<p><strong>Section Description: </strong></p>
 		<p class="mb-20"><%= section.description %></p>
-		
 		<%if(section.taskinstance.length > 0) { %>
-		<ul>
+		<ul class="mb-20">
 			<%for (var i = 0; i<section.taskinstance.length; i++) { %>
 				<p><strong>Section Testinstanz <%=section.taskinstance[i].taskInstance_number %>: </strong></p>
 				<li>
 					<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name %></a>	
 				</li>
 				<%if(section.taskinstance[i].task.length > 0) { %>
-					<ol class="ml-20">
+					<ol class="ml-20 mb-20">
 						<p><strong>Subtests der Testinstanz: </strong></p>
 						<%for (var j = 0; j<section.taskinstance[i].task.length; j++) { %>
 							<li class="ml-20">
@@ -27,4 +28,5 @@
 		<% } else { %> 
 			<p> Es sind noch keine Taskinstancen dieser Section zugewiesen worden </p>
 		<% } %>
+		<a class="btn mt-20" href="<%= section.url%>/update">Update</a>
 	</div>

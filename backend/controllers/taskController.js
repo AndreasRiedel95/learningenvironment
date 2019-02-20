@@ -38,7 +38,7 @@ exports.task_detail = function(req, res, next) {
 
 // Display task create form on GET.
 exports.task_create_get = function(req, res) {
-    res.render('admin/task_form', { title: 'Create Genre'});
+    res.render('admin/task_form', { title: 'Create Task'});
 };
 
 // Handle task create on POST.
@@ -144,6 +144,7 @@ exports.task_update_post = [
     }
 ];
 
+// Handle task update on Button click .
 exports.task_udpate_solved = function(req, res, next) {
     Task.findByIdAndUpdate(req.params.id, 
         { '$set': 

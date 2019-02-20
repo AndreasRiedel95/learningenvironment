@@ -1,13 +1,26 @@
 <% extend('admin_base') %>
 <div class="content mb-20">
-	<p class="mb-20">Alle Sections in der Datenbank:</p>
-	<ul>
-		<% for(let i = 0; i < sections.length; i++) { %>
-			<li>
-				<a href="<%=sections[i].url%>"><%=sections[i].section_number%> <%=sections[i].name%></a>
-			</li>
-		<% } %>
-	</ul>
+	<p class="mb-20">Alle sich in der Datenbank befindenen Sections:</p>
+	<% if(sections.length > 0) { %>
+		<table>
+			<tr>
+				<th class="table-cell --header">Nummer</th>
+				<th class="table-cell --header">Name</th>
+			</tr>
+			<% for(let i = 0; i < sections.length; i++) { %>
+				<tr>
+					<td class="table-cell">
+						<%=sections[i].section_number%>
+					</td>
+					<td class="table-cell">
+						<a href="<%=sections[i].url%>"><%=sections[i].name%></a>
+					</td>
+				</tr>
+			<% } %>
+		</table>
+	<% } else { %>
+		<p>Leider sind noch keine Sections in der Datenbank</p>
+	<% } %>
 </div>
 
 

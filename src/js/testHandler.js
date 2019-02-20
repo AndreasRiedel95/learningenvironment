@@ -29,7 +29,7 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber) =>
 	let htmlNode = document.createElement( 'html' );
 	htmlNode.innerHTML = htmlStr;
 	let cssString = cssEditor.getValue();
-	let runFunc = `run${testnumber}`.toString();
+	let runNumber = `run${testnumber}`.toString();
 	console.log(sectionNumber)
 	
 	//check if files are existing
@@ -40,7 +40,7 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber) =>
 		let TestInstance = new testRun();
 		try {
 			//Call dynamically the correct test function in test file
-			TestInstance[runFunc](htmlNode, cssString, test, h, computedStyle, testnumber)
+			TestInstance[runNumber](htmlNode, cssString, test, h, computedStyle, testnumber)
 				.then(() => {
 					//Check if Test result is append to DOM
 					checkElementExists('.assert') 

@@ -1,13 +1,23 @@
 <% extend('admin_base') %>
-<div class="content mb-20">
-	<p class="mb-20">Alle Sections in der Datenbank:</p>
-	<ul>
-		<% for(let i = 0; i < taskinstance_list.length; i++) { %>
-			<li>
-				<a href="<%=taskinstance_list[i].url%>"><%=taskinstance_list[i].name%></a>
-			</li>
-		<% } %>
-	</ul>
-</div>
-
-
+	<div class="content mb-20">
+		<p class="mb-20">Alle sich in der Datenbank befindenen Taskinstanzen:</p>
+		<% if(taskinstance_list.length > 0) { %>
+			<table>
+				<tr>
+					<th class="table-cell --header">Nummer</th>
+					<th class="table-cell --header">Name</th>
+				</tr>
+				<% for(var i = 0; i<taskinstance_list.length; i++) { %>
+					<tr>
+						<td class="table-cell">
+							<%= taskinstance_list[i].taskInstance_number %>
+						</td>
+						<td class="table-cell">
+							<a href="<%=taskinstance_list[i].url %>"><%= taskinstance_list[i].name %></a>
+						</td>
+					</tr>
+				<% } %>
+		<% } else { %>
+			<p>Leider sind noch keine Taskinstancen in der Datenbank</p>
+		<% } %>
+	</div>

@@ -1,7 +1,7 @@
-const test1 = function () {
+const test2 = function () {
 	let self = this;
 	self.run1 = (htmlNode, cssString, test, h, computedStyle) => {
-		console.log("Section 2 test 1 run 1")
+		console.log("Section 1 test 2 run 1")
 			const positionOf = (element) => {
 			  const {top, right, bottom, left} = element.getBoundingClientRect();
 			  return {top, right, bottom, left};
@@ -174,4 +174,4 @@ const test1 = function () {
    };
 }
 
-module.exports = test1;
+module.exports = test2;

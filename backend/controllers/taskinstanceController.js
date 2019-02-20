@@ -25,7 +25,7 @@ exports.taskinstance_detail = function(req, res, next) {
     			return next(err);
     		}
 
-    		res.render('admin/taskinstance_detail', {title: 'Task', taskinstance: taskinstance})
+    		res.render('admin/taskinstance_detail', {title: 'Task Instance', taskinstance: taskinstance})
     	})
 };
 
@@ -86,7 +86,7 @@ exports.taskinstance_delete_post = function(req, res) {
 };
 
 // Display taskinstance update form on GET.
-exports.taskinstance_update_get = function(req, res) {
+exports.taskinstance_update_get = function(req, res, next) {
     async.parallel({
         taskinstance: function(callback) {
             TaskInstance.findById(req.params.id).populate('task').exec(callback)
@@ -116,19 +116,7 @@ exports.taskinstance_update_get = function(req, res) {
 
 // Handle taskinstance update on POST.
 exports.taskinstance_update_post = [
-    // Process request after validation and sanitization.
     (req, res, next) => {
-
-        // Create a BookInstance object with escaped/trimmed data and current id.
-        var taskinstance = new TaskInstance(
-          { name: req.body.name,
-            taskInstance_number: req.body.taskInstance_number,
-            htmlCode_inital: req.body.htmlCode_inital,
-            cssCode_inital: req.body.cssCode_inital,
-            task: req.body.task,
-            _id: req.params.id
-           });
-
         TaskInstance.findByIdAndUpdate(req.params.id, 
         { '$set': 
             {   name: req.body.name,
@@ -142,6 +130,7 @@ exports.taskinstance_update_post = [
         }
 ];
 
+// Handle taskinstance update (only user code)on button click.
 exports.taskinstance_update_btn = function(req, res, next) {
     TaskInstance.findByIdAndUpdate(req.params.id, 
         { '$set': 

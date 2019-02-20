@@ -473,7 +473,7 @@
 .white {
   color: #fff !important; }
 
-p, li {
+p, li, td {
   font-size: 14px;
   font-family: "Roboto", "Avenir", "Helvetica Neue", sans-serif;
   line-height: 1.6;
