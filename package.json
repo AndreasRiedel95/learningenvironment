@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "async": "^2.6.2",
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
     "codemirror": "^5.42.2",
     "codemirror-lint-eslint": "^1.0.1",

@@ -1,4 +1,7 @@
 import Quill from 'quill';
+//For enabling async await
+require("babel-polyfill"); 
+
 
 var quill = new Quill('#editor-container', {
   modules: {
@@ -24,21 +27,17 @@ form.onsubmit = function() {
 
 function imageHandler() {
 
-
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
     input.click();
     let fileName;
 
-    input.onchange = function() {
-      let file = input.files[0];
-      fileName = file.name;
-  	}
-
-  	var range = this.quill.getSelection();
-  	
-  	this.quill.insertEmbed(range.index, 'image', `/img/${fileName}`, Quill.sources.USER);
-
+	input.onchange = async function() {
+		const file = input.files[0];
+		const fileName = await file.name; 
+		var range = this.quill.getSelection();	
+	  	this.quill.insertEmbed(range.index, 'image', `/img/${fileName}`, Quill.sources.USER);
+	}.bind(this); 
 
 }
