@@ -1,5 +1,5 @@
 <% extend('admin_base') %>
-	<div class="content">
+	<div class="content mb-100">
 		<p><strong>Section Nummer: </strong></p>
 		<p class="mb-20"><%= section.section_number %></p>
 		<p><strong>Section Name: </strong></p>
@@ -7,26 +7,54 @@
 		<p><strong>Section Description: </strong></p>
 		<p class="mb-20"><%= section.description %></p>
 		<%if(section.taskinstance.length > 0) { %>
-		<ul class="mb-20">
 			<%for (var i = 0; i<section.taskinstance.length; i++) { %>
-				<p><strong>Section Testinstanz <%=section.taskinstance[i].taskInstance_number %>: </strong></p>
-				<li>
-					<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name %></a>	
-				</li>
-				<%if(section.taskinstance[i].task.length > 0) { %>
-					<ol class="ml-20 mb-20">
-						<p><strong>Subtests der Testinstanz: </strong></p>
-						<%for (var j = 0; j<section.taskinstance[i].task.length; j++) { %>
-							<li class="ml-20">
-								<a href="<%= section.taskinstance[i].task[j].url %>"><%= section.taskinstance[i].task[j].name %></a>
-							</li>
-						<% } %>
-					</ol>
-				<% } %>
+				<div class="taskinstance-task-wrapper">
+					<p><strong>Section Testinstanz:</strong></p>
+					<table>
+						<tr>
+							<th class="table-cell --header">Nummer</th>
+							<th class="table-cell --header">Name</th>
+							<th class="table-cell --header">Hierachie</th>
+						</tr>
+							<tr>
+								<td class="table-cell">
+									<%= section.taskinstance[i].taskInstance_number %>
+								</td>
+								<td class="table-cell">
+									<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name %></a>
+								</td>
+								<td class="table-cell">
+									<%= section.taskinstance[i].suffix %>
+								</td>
+							</tr>
+					</table>
+					<%if(section.taskinstance[i].task.length > 0) { %>
+							<p><strong>Subtests der Testinstanz: </strong></p>
+							<table>
+								<tr>
+									<th class="table-cell --header">Nummer</th>
+									<th class="table-cell --header">Name</th>
+									<th class="table-cell --header">Hierachie</th>
+								</tr>
+								<%for (var j = 0; j<section.taskinstance[i].task.length; j++) { %>
+										<tr>
+											<td class="table-cell">
+												<%= section.taskinstance[i].task[j].task_number %>
+											</td>
+											<td class="table-cell">
+												<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].task[j].name %></a>
+											</td>
+											<td class="table-cell">
+												<%= section.taskinstance[i].task[j].suffix %>
+											</td>
+										</tr>
+								<% } %>
+							</table>
+					<% } %>
+				</div>
 			<% } %>
-		<ul>
 		<% } else { %> 
 			<p> Es sind noch keine Taskinstancen dieser Section zugewiesen worden </p>
 		<% } %>
-		<a class="btn mt-20" href="<%= section.url%>/update">Update</a>
+		<a class="btn" href="<%= section.url%>/update">Update Section</a>
 	</div>

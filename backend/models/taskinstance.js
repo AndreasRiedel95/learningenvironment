@@ -10,6 +10,7 @@ var TaskInstanceSchema = new Schema(
     cssCode_inital: {type: String},
     htmlCode_user: {type: String},
     cssCode_user: {type: String},
+    suffix: {type: String, required: true, unique: true},
     task: [{type: Schema.Types.ObjectId, ref: 'Task'}]
   }
 );

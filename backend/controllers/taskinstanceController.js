@@ -7,6 +7,7 @@ var async = require('async')
 exports.taskinstance_list = function(req, res) {
 	TaskInstance.find()
 		.populate('task')
+        .sort([['suffix', 'ascending']])
 		.exec(function (err, list_taskinstances) {
 			if(err) {return next(err); }
 			res.render('admin/taskinstance_list', {title: "TaskInstance List", taskinstance_list: list_taskinstances})
@@ -63,6 +64,7 @@ exports.taskinstance_create_post = [
             cssCode_inital: req.body.cssCode_inital,
             htmlCode_user: null,
             cssCode_user: null,
+            suffix: req.body.suffix,
             task: req.body.task
            });
 
@@ -110,7 +112,7 @@ exports.taskinstance_update_get = function(req, res, next) {
                 }
             }
             // Success.
-            res.render('admin/taskinstance_form', { title: 'Update  TaskInstance', tasks : results.tasks, selected_task : results.taskinstance.task._id, taskinstance:results.taskinstance });
+            res.render('admin/taskinstance_form', { title: 'Update  TaskInstance', tasks : results.tasks, taskinstance:results.taskinstance });
     });
 };
 
@@ -121,6 +123,7 @@ exports.taskinstance_update_post = [
         { '$set': 
             {   name: req.body.name,
                 taskInstance_number: req.body.taskInstance_number,
+                suffix: req.body.suffix,
                 task: req.body.task,
             } 
         }, function (err,thetaskinstance) {

@@ -1,10 +1,12 @@
 <% extend('admin_base') %>
 	<div class="content">
+		<p><strong>Task Hierachie: </strong></p>
+		<p class="mb-20"><%= task.suffix %></p>
 		<p><strong>Task Nummer: </strong></p>
 		<p class="mb-20"><%= task.task_number %></p>
 		<p><strong>Task Name: </strong></p>
 		<p class="mb-20"><%= task.name %></p>
 		<p><strong>Task Description: </strong></p>
 		<p class="mb-20"><%= task.description %></p>
-		<a class="btn" href="<%= task.url%>/update">Update</a>
+		<a class="btn" href="<%= task.url%>/update">Update Task</a>
 	</div>

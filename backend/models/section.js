@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var SectionSchema = new Schema(
   {
-    section_number: {type: Number, required: true},
+    section_number: {type: Number, required: true, unique: true},
     name: {type: String, required: true, max: 100},
     description: {type: String, required: true},
     taskinstance: [{type: Schema.Types.ObjectId, ref: 'TaskInstance'}]

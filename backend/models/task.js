@@ -7,6 +7,7 @@ var TaskSchema = new Schema(
     task_number: {type: Number, required: true},
     name: {type: String, required: true, max: 100},
     description: {type: String, required: true},
+    suffix: {type: String, required: true, unique: true},
     task_solved: {type: Boolean, required: true, default: false}
   }
 );

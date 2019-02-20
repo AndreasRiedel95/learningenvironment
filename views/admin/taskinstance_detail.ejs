@@ -1,6 +1,8 @@
 <% extend('admin_base') %>
 <link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
 <div class="content mb-100">
+	<p><strong>Task Instance Hierachie: </strong></p>
+	<p class="mb-20"><%= taskinstance.suffix %></p>
 	<p><strong>Task Instance Nummer: </strong></p>
 	<p class="mb-20"><%= taskinstance.taskInstance_number %></p>
 	<p><strong>Task Instance Name: </strong></p>
@@ -10,17 +12,26 @@
 	<p class="mt-20"><strong>Inital Css Code: </strong></p>
 		<textarea class="input --textarea css-codearea --output" name="htmlCode_inital" placeholder=" "><%= taskinstance.cssCode_inital %></textarea>
 	<p class="mt-20"><strong>Task Aufgaben: </strong></p>
-	<ul class="mb-20">
-		<% if(taskinstance.task.length > 0) { %>
+	<% if(taskinstance.task.length > 0) { %>
+		<table class="mb-20">
+			<tr>
+				<th class="table-cell --header">Nummer</th>
+				<th class="table-cell --header">Name</th>
+				<th class="table-cell --header">Hierachie</th>
+			</tr>
 			<% for(var i = 0; i<taskinstance.task.length; i++) { %>
-				<li>
-					<a href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name %></a>
-				</li>
+				<tr>
+					<td class="table-cell"><%= taskinstance.task[i].task_number %></td>
+					<td class="table-cell">
+						<a href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name %></a>
+					</td>
+					<td class="table-cell"><%= taskinstance.task[i].suffix %></td>
 			<% } %>
-		<% } else { %>
-			<li>Diese Instanz hat keine zugehörigen Aufgaben</li>
-		<% } %>
-	</ul>
-	<a class="btn mt-20" href="<%= taskinstance.url%>/update">Update</a>
+		</table>
+	<% } else { %>
+		<p>Diese Instanz hat keine zugehörigen Aufgaben</p>
+	<% } %>
+	</table>
+	<a class="btn mt-20" href="<%= taskinstance.url%>/update">Update Taskinstance</a>
 </div>
 <script src="/js/admin_codeMirror.bundle.js"></script>

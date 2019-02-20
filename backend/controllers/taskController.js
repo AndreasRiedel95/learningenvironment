@@ -8,7 +8,7 @@ const { sanitizeBody } = require('express-validator/filter');
 // Display list of all tasks.
 exports.task_list = function(req, res, next) {
 	Task.find()
-		.sort([['name', 'ascending']])
+		.sort([['suffix', 'ascending']])
 		.exec(function (err, list_tasks) {
 			if (err) { return next(err); }
 			// Successful, so render.
@@ -49,11 +49,12 @@ exports.task_create_post =  [
 				task_number: req.body.task_number,
 				name: req.body.name,
 				description: req.body.description,
+                suffix: req.body.suffix,
 				task_solved: false
 			}
 		);
 
-            Task.findOne({ 'name': req.body.name })
+            Task.findOne({ 'suffix': req.body.suffix })
                 .exec( function(err, found_task) {
                      if (err) { return next(err); }
 
@@ -123,6 +124,7 @@ exports.task_update_post = [
 			name: req.body.name,
 			description: req.body.description,
 			task_solved: false,
+            suffix: req.body.suffix,
 			_id: req.params.id
           }
         );
@@ -153,6 +155,5 @@ exports.task_udpate_solved = function(req, res, next) {
             } 
         }, function (err,thetaskinstance) {
             if (err) { return next(err); }
-           console.log("Update yaaa")
         });
 };

@@ -22,7 +22,7 @@
 					<% for(var i = 0; i<taskinstances.length; i++) { %>
 						<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
 							<input type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>">
-							<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].name %></label>
+							<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].taskInstance_number %> | <%= taskinstances[i].name %> | <%= taskinstances[i].suffix %></label>
 
 						</label>
 						<% if(i < (taskinstances.length - 1)) { %>

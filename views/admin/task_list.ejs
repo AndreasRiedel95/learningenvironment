@@ -6,6 +6,7 @@
 				<tr>
 					<th class="table-cell --header">Nummer</th>
 					<th class="table-cell --header">Name</th>
+					<th class="table-cell --header">Hierachie</th>
 				</tr>
 				<% for(var i = 0; i<list_tasks.length; i++) { %>
 					<tr>
@@ -15,8 +16,12 @@
 						<td class="table-cell">
 							<a href="<%=list_tasks[i].url %>"><%= list_tasks[i].name %></a>
 						</td>
+						<td class="table-cell">
+							<a href="<%=list_tasks[i].url %>"><%= list_tasks[i].suffix %></a>
+						</td>
 					</tr>
 				<% } %>
+			</table>
 		<% } else { %>
 			<p>Leider sind noch keine Aufgaben in der Datenbank</p>
 		<% } %>
