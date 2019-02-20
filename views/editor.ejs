@@ -53,10 +53,8 @@
 				<div class="task-headline-wrapper">
 					<h3 class="header-3">Description</h3>
 				</div>
-				<div class="description-text-wrapper mt-20">
-					<p class="mb-20">
-						<%= section.description %>
-					</p>
+				<div class="description-text-wrapper mt-20 quill-format">
+						<%- section.description %>
 				</div>
 			</div>
 			<% for(let i = 0; i<section.taskinstance.length; i++){ %>
@@ -70,10 +68,8 @@
 								<input type="checkbox" class="task-solved" <% if(section.taskinstance[i].task[j].task_solved){ %> checked <% } %>>
 								<label class="task-solved-label"></label>
 							</div>
-							<div class="task-description">
-								<p>
-									<%= section.taskinstance[i].task[j].description %>
-								</p>
+							<div class="task-description quill-format">
+									<%- section.taskinstance[i].task[j].description %>
 								<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="<%= section.taskinstance[i].task[j].task_number %>">Run Test</button>
 							</div>
 						</div>

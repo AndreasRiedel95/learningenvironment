@@ -31,7 +31,6 @@ exports.task_detail = function(req, res, next) {
 			return next(err);
 		}
 	// Successful, so render.
-		console.log(results.task)
 		res.render('admin/task_detail', { title: 'Task Detail', task: results.task} );
 	});
 };

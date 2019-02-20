@@ -12,6 +12,7 @@ module.exports = {
   },
   entry: {
     admin_codeMirror: './src/js/admin/codeMirror_admin.js',
+    quill_setUp: './src/js/admin/quill_setUp.js',
     index: './src/js/index.js',
   },
   output: {
