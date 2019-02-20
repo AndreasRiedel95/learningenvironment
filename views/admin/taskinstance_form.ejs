@@ -28,7 +28,9 @@
 						<input type="checkbox" name="task" id="<%= tasks[i]._id %>" value="<%= tasks[i]._id %>">
 						<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].name %></label>
 					</label>
-				<div class="break --dark"></div>
+					<% if(i < (tasks.length - 1)) { %>
+						<div class="break --dark"></div>
+					<% } %>
 				<% } %>
 			</div>
 			<button class="btn" type="submit">Submit</button>
@@ -62,7 +64,9 @@
 						<input type="checkbox" name="task" id="<%= tasks[i]._id %>" <% if(tasks[i].checked) { %> checked <% } %> value="<%= tasks[i]._id %>">
 						<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].name %></label>
 					</label>
-				<div class="break --dark"></div>
+					<% if(i < (tasks.length - 1)) { %>
+						<div class="break --dark"></div>
+					<% } %>
 				<% } %>
 			</div>
 			<button class="btn" type="submit">Submit</button>

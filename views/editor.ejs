@@ -62,12 +62,12 @@
 			<% for(let i = 0; i<section.taskinstance.length; i++){ %>
 				<div class="description-scroll-wrapper --not-active" data-tasknumber="<%= section.taskinstance[i].taskInstance_number %>">
 					<% for(let j = 0; j<section.taskinstance[i].task.length; j++){ %>
-						<div class="task">
+						<div class="task <% if(!(section.taskinstance[i].task[j].task_solved)){ %> --not-solved <% } %>" data-taskid="<%= section.taskinstance[i].task[j]._id %>">
 							<div class="task-headline-wrapper">
 								<h3 class="header-3"><%= section.taskinstance[i].task[j].name  %></h3>
 							</div>
 							<div class="task-solved-wrapper">
-								<input type="checkbox" class="task-solved">
+								<input type="checkbox" class="task-solved" <% if(section.taskinstance[i].task[j].task_solved){ %> checked <% } %>>
 								<label class="task-solved-label"></label>
 							</div>
 							<div class="task-description">

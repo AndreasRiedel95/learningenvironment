@@ -143,3 +143,15 @@ exports.task_update_post = [
         }
     }
 ];
+
+exports.task_udpate_solved = function(req, res, next) {
+    Task.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            { 
+                task_solved: req.body.task_solved,
+            } 
+        }, function (err,thetaskinstance) {
+            if (err) { return next(err); }
+           console.log("Update yaaa")
+        });
+};

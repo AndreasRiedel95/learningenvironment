@@ -60,6 +60,10 @@ router.get('/task/:id', task_controller.task_detail);
 // GET request for list of all task items.
 router.get('/tasks', task_controller.task_list);
 
+// POST request to update task solved field.
+router.post('/solved/task/:id/update', task_controller.task_udpate_solved);
+
+
 
 /// TASKINSTANCE ROUTES ///
 

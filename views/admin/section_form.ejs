@@ -24,7 +24,9 @@
 						<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].name %></label>
 
 					</label>
-				<div class="break --dark"></div>
+					<% if(i < (taskinstances.length - 1)) { %>
+						<div class="break --dark"></div>
+					<% } %>
 				<% } %>
 			</div>
 		<% } else { %>

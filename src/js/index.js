@@ -18,7 +18,20 @@ initSVG();
 //   event.returnValue = '';
 // });
 
-console.log(section)
+
+document.addEventListener("DOMContentLoaded", function() {
+	//remove --not-solved class from first Task, so student is able to run test for it 
+	let tasks = document.querySelectorAll('.task');
+	let taskInputs = document.querySelectorAll('.task-solved')
+	console.log(taskInputs)
+	tasks[0].classList.remove('--not-solved'); 
+	//find first Task-Input which is not checked
+	var result = Array.from(taskInputs).filter(taskInput => taskInput.checked === false)[0];
+	//find index of first Task-Input which is not checked
+	var index = Array.from(taskInputs).findIndex(taskInput => taskInput === result)
+	//remove --not-solved class on Task, so student is able to run test for it 
+	tasks[index].classList.remove('--not-solved')
+});
 
 let editorRendering = (() => {
 	let base_tpl =
