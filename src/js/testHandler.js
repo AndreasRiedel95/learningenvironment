@@ -34,7 +34,7 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, se
 	//check if files are existing
 	try {
 		//Require dynamically the correct test file
-		let testRun = require(`./test/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${tasknumber}`);
+		let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${tasknumber}`);
 
 		let TestInstance = new testRun();
 		try {

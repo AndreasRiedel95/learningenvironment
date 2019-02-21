@@ -21,7 +21,7 @@
 		Code saved
 	</div>
 	<div class="header" data-sectioninstancenumber="<%= sectioninstance[0].sectionInstance_number %>">
-		<h1 class="header-1 white">Web Development 1 | <%=section.name %></h1>
+		<h1 class="header-1 white"><%=section.name %></h1>
 		<div class="header-btn-wrapper">
 			<button class="btn --icon" type="button" onclick="setInitialGrid()" title='Set Editor-Grid to inital size'>
 				<div class="set-inital-grid"></div>
@@ -43,16 +43,16 @@
 				</label>
 			</div>
 			<% for(let i = 0; i<section.taskinstance.length; i++){ %>
-				<div class="input-wrapper">
+				<div class="input-wrapper --task">
 					<input id="<%= section.taskinstance[i].taskInstance_number %>" type="radio" name="task" class="taskInput --task" data-taskinstanceid="<%= section.taskinstance[i]._id %>">
-					<label class="task-number" for="<%= section.taskinstance[i].taskInstance_number %>" onclick="setTaskDescription(this)"><%= section.taskinstance[i].taskInstance_number %></label>
+					<label class="task-number" for="<%= section.taskinstance[i].taskInstance_number %>" onclick="setTaskDescription(this)">A<%= section.taskinstance[i].taskInstance_number %></label>
 				</div>
 			<% } %>
 		</div>
 		<div class="description-wrapper" data-descriptionnumber="<%= section.section_number %>">
 			<div class="description-scroll-wrapper" data-description="description">
 				<div class="task-headline-wrapper">
-					<h3 class="header-3">Description</h3>
+					<h3 class="header-3">Beschreibung</h3>
 				</div>
 				<div class="description-text-wrapper quill-format">
 						<%- section.description %>
@@ -82,7 +82,7 @@
 		<div class="html-css-wrapper">
 			<section class="section --html">
 				<div class="headeline-wrapper">
-					<h3 class="header-3 mr-10">HTML</h3>
+					<div class="code-editor-header">index.html</div>
 					<div class="import-export-wrapper">
 						<div class="file-export-wrapper">
 							<button class="btn export-file --html-js" title="Download File">
@@ -104,7 +104,7 @@
 			</section>
 			<section class="section --css">
 				<div class="headeline-wrapper">
-					<h3 class="header-3 mr-10">CSS</h3>
+					<div class="code-editor-header">style.css</div>
 					<div class="import-export-wrapper">
 						<div class="file-export-wrapper">
 							<button class="btn export-file --css-js" title="Download File">

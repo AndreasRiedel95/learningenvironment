@@ -1,13 +1,92 @@
 <% extend('admin_base') %>
-	<div class="content">
-		<p class="mb-20">Folgende Sections, Tasks und Taskinstancen befinden sich in der Datenbank: </p>
-		<% if(error) {%>
-			<p>Error getting dynamic contehnt</p>
-		<% } else{ %>
-			<ul>
-				<li>Section <%= data.section_count %></li>
-				<li>Task <%= data.task_count %></li>
-				<li>Task Instance <%= data.task_instance_count %></li>
-			</ul>
-		<% } %>
+	<div class="content mb-50">
+		<h2 class="header-2 mb-20">Willkommen im Admin-Bereich</h2> 
+		<p class="mb-20">
+			Über das Menü auf der linken Seite, können die Sektionen und Aufgaben für die Studenten angelegt werden. 
+			Die Datenbank hat den folgenden UML Aufbau: 
+		</p>
+		<p class="mb-20">
+			<strong>Bitte beachten Sie:</strong> Es können nur Objekte anhand bereits vorhandener Objekte erstellt werden. (Es müssen also z.B. schon alle Sektionen erstellt werden und können dann der Sektions-Instanz zugewiesen werden) 
+		</p>
+		<p>Aus diesem Grund bietet es sich an, bei der Erstellung der Objekte in folgender Reihenfolge vorzugehen: </p>
+		<ol class="mb-20">
+			<li>Alle Tasks einer Aufgabe erstellen</li>
+			<li>Task-Instanz erstellen und die Tasks dieser Instanz zuweisen</li>
+			<li>Section erstellen und Task-Instanz zuweisen </li>
+			<li>Section-Instanz erstellen und Section zuweisen </li>
+		</ol>
+
+		<h4>Hierarchien:</h4>
+		<p class="mb-20">
+			In den jeweiligen Übersichtslisten werden die Objekte nach der Hierarchie geordnet. Die Hierarchie-Ebenen vereinfachen die Zuordnung und sollten deshalb richtig betitelt werden.
+		</p>
+		<h4>Objekt-Nummerierung und Namensgebung:</h4>
+		<p class="mb-20">
+			Um die späteren Tests korrekt durchführen zu können ist es wichtig, dass die jeweiligen Nummern korrekt und in aufsteigender Reihenfolge gewählt werden. Andernfalls wird es zu Komplikationen beim Durchführen der Tests kommen, da die richtigen Testdateien in der Dateistruktur nicht gefunden werden können. 
+		</p>
+		<p class="mb-20">Die Titel/Namen eines Objektes können beliebieg gewählt werden.</p>
+		<p class="mb-20">Eine korrekte Nummerierung und Hierarchie könnte wie folgt aussehen:</p>
+		<ol>
+			<li><strong>Section-Instanz:</strong> HTML-Grundlagen (1)</li>
+			<ol>
+				<li><strong>Section:</strong> Absätze und Überschriften (1.1)</li>
+				<ol>
+					<li><strong>Testinstanz:</strong> Absätze und Überschriften (1.1.1)</li>
+					<ol>
+						<li><strong>Task:</strong> Aufgabe (1.1.1.1)</li>
+						<li><strong>Task:</strong> Aufgabe (1.1.1.1)</li>
+					</ol>
+					<li>Testinstanz: Überschrift (1.1.2)</li>
+					<ol>
+						<li><strong>Task:</strong> Aufgabe (1.1.2.1)</li>
+						<li><strong>Task:</strong> Aufgabe (1.1.2.2)</li>
+						<li><strong>Task:</strong> Aufgabe (1.1.2.3)</li>
+					</ol>
+				</ol>
+				<li><strong>Section:</strong> Listen (1.2)</li>
+				<ol>
+					<li><strong>Testinstanz:</strong> &lt;li&gt;-Listen (1.2.1)</li>
+					<ol>
+						<li><strong>Task:</strong> Aufgabe (1.2.1.1)</li>
+						<li><strong>Task:</strong> Aufgabe (1.2.1.2)</li>
+					</ol>
+					<li><strong>Testinstanz:</strong> &lt;ol&gt;-Listen (1.2.2)</li>
+					<ol>
+						<li><strong>Task:</strong> Aufgabe (1.2.2.1)</li>
+						<li><strong>Task:</strong> Aufgabe (1.2.2.2)</li>
+					</ol>
+				</ol>
+			</ol>
+		</ol>
+		<h4>Bilder:</h4>
+		<p class="mb-20">
+			Alle Bilder die in dieser Applikation benutzt werden (auch die, die über den WYSIWYG-Editor hochgeladen werden), müssen sich in dem folgenden Verzeichnis befinden:
+			<code>root > public > img </code>
+		</p>
+		<h4>Tests:</h4>
+		<p>
+			Alle Test-Dateien müssen sich in folgendem Verzeichnis befinden: <code> root > src > js > tests</code>. 
+		</p>
+		<p>
+			Damit die Tests von der Applikation gefunden werden können, muss innerhalb des Tests-Ordner die folgende Verzeichnisstruktur und Namengebung eingehalten werden: 
+		</p>
+		<p class="mb-20"><code>sectioninstance${sectioninstance_number} > section${section_number} > test${taskinstance_number}.js</code></p>
+		
+		<p>
+			In den <code>test${taskinstance_number}.js-Dateien</code> befinden sich die Tests für die jeweiligen Aufgaben.
+		</p>
+		<p>
+			Hierbei gibt es pro Datei eine Testinstanz mit den jeweiligen Funktionen für die Aufgaben. Die Funktionsnamen müssen wie folgt gewählt werden:
+		</p>
+		<p class="mb-20"><code>self.run${task_number} = (htmlNode, cssString, test, [...]) => { ... }</code></p>
+		<p class="mb-20">
+			<strong>Bitte beachten Sie:</strong> Jede run-Funktion, muss nach dem letzten Test ein Promise wie folgt zurückgeben:
+			<code>return Promise.resolve();</code>
+		</p>
+		<p class="mb-20">
+			Die Tests basieren auf dem Modul <a target="_blank" href="https://github.com/studio-b12/tape-css">tape-css</a>. Tape-css benutzt die existierende <a target="_blank" href="https://github.com/substack/tape">API</a> der Test-Bibliothek tape.  
+		</p>
+		<h4>Weitere Module/Bibliotheken:</h4>
+		<p>Für die Implementierung des WYSIWG-Editor wird der "Rich-Text-Editor" <a target="_blank" href="https://quilljs.com/">Quill</a> benutzt.</p>
+		<p>Für den Code-Editor wird die <a target="_blank" href="https://codemirror.net/">Codemirror-Bibliothek</a> benutzt.</p>
 	</div>

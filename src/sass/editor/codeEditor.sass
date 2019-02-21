@@ -8,19 +8,32 @@ body
 .headeline-wrapper
 	background-color: $grey
 	position: absolute
-	padding-left: 10px
 	padding-right: 10px
 	z-index: 10
 	height: 50px
 	width: 100%
 	display: flex
-	align-items: center
 	grid-area: codeHeadline
 	flex-direction: row
+
+.code-editor-header
+	height: 100%
+	align-self: flex-end
+	background-color: $blue
+	color: $grey
+	font-size: 12px
+	font-weight: 300
+	min-width: 100px
+	display: flex
+	justify-content: center
+	align-items: center
+	margin-right: 10px
+	user-select: none
 
 .import-export-wrapper
 	margin-left: auto
 	display: flex
+	align-self: center
 	flex-direction: row
 
 .file-icon

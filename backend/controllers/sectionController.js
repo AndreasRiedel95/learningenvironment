@@ -18,7 +18,7 @@ exports.admin = function(req, res, next) {
 			TaskInstance.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
 		}
 	}, function(err, results) {
-		res.render('admin/index', { title: 'Overview Admin', error: err, data: results });
+		res.render('admin/index', { title: 'Admin Übersicht', error: err, data: results });
 	});
 };
 
@@ -32,7 +32,7 @@ exports.section_list = function(req, res, next) {
 		.sort([['suffix', 'ascending']])
 		.exec(function (err, list_sections) {
 			if(err) {return next(err); }
-			res.render('admin/section_list', {title: "Section List", sections: list_sections})
+			res.render('admin/section_list', {title: "Section Übersicht", sections: list_sections})
 		});
 };
 
@@ -41,7 +41,7 @@ exports.section_detail = function(req, res, next) {
 	async.parallel({
 		section: function(callback) {
 			Section.findById(req.params.id)
-  				.populate({path: 'taskinstance', populate: {path: 'task'}})
+				.populate({path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}})
   				.exec(callback);
 		},
 	}, function(err, results) {
@@ -64,7 +64,7 @@ exports.section_create_get = function(req, res, next) {
 			},
 	}, function(err, results) {
 		if (err) { return next(err); }
-		res.render('admin/section_form', { title: 'Create Sections',taskinstances:results.taskinstances});
+		res.render('admin/section_form', { title: 'Erstelle neue Section',taskinstances:results.taskinstances});
 	});
 };
 

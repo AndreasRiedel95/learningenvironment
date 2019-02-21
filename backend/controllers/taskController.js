@@ -12,7 +12,7 @@ exports.task_list = function(req, res, next) {
 		.exec(function (err, list_tasks) {
 			if (err) { return next(err); }
 			// Successful, so render.
-			res.render('admin/task_list', { title: 'Task List', list_tasks:  list_tasks});
+			res.render('admin/task_list', { title: 'Task Übersicht', list_tasks:  list_tasks});
 	});
 };
 
@@ -37,7 +37,7 @@ exports.task_detail = function(req, res, next) {
 
 // Display task create form on GET.
 exports.task_create_get = function(req, res) {
-    res.render('admin/task_form', { title: 'Create Task'});
+    res.render('admin/task_form', { title: 'Erstelle neuen Task'});
 };
 
 // Handle task create on POST.

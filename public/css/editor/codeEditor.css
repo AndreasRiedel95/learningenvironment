@@ -9,7 +9,6 @@ body {
   -ms-grid-column: 1;
   background-color: #ebebeb;
   position: absolute;
-  padding-left: 10px;
   padding-right: 10px;
   z-index: 10;
   height: 50px;
@@ -17,20 +16,43 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   grid-area: codeHeadline;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row; }
 
+.code-editor-header {
+  height: 100%;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  background-color: #2A3E50;
+  color: #ebebeb;
+  font-size: 12px;
+  font-weight: 300;
+  min-width: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
 .import-export-wrapper {
   margin-left: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-item-align: center;
+  align-self: center;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -ms-flex-direction: row;

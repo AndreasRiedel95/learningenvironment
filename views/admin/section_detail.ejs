@@ -8,55 +8,29 @@
 		<p class="mb-20"><%= section.name %></p>
 		<p class="mb-20"><strong>Section Description: </strong></p>
 		<div class="mb-20 code-editor"><%- section.description %></div>
-		<%if(section.taskinstance.length > 0) { %>
-			<%for (var i = 0; i<section.taskinstance.length; i++) { %>
-				<div class="taskinstance-task-wrapper mb-50">
-					<p><strong>Section Testinstanz:</strong></p>
-					<table>
-						<tr>
-							<th class="table-cell --header">Nummer</th>
-							<th class="table-cell --header">Name</th>
-							<th class="table-cell --header">Hierachie</th>
-						</tr>
-							<tr>
-								<td class="table-cell">
-									<%= section.taskinstance[i].taskInstance_number %>
-								</td>
-								<td class="table-cell">
-									<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name %></a>
-								</td>
-								<td class="table-cell">
-									<%= section.taskinstance[i].suffix %>
-								</td>
-							</tr>
-					</table>
-					<%if(section.taskinstance[i].task.length > 0) { %>
-							<p><strong>Subtests der Testinstanz: </strong></p>
-							<table>
-								<tr>
-									<th class="table-cell --header">Nummer</th>
-									<th class="table-cell --header">Name</th>
-									<th class="table-cell --header">Hierachie</th>
-								</tr>
-								<%for (var j = 0; j<section.taskinstance[i].task.length; j++) { %>
-										<tr>
-											<td class="table-cell">
-												<%= section.taskinstance[i].task[j].task_number %>
-											</td>
-											<td class="table-cell">
-												<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].task[j].name %></a>
-											</td>
-											<td class="table-cell">
-												<%= section.taskinstance[i].task[j].suffix %>
-											</td>
-										</tr>
+		<%if(section !== null) { %>
+			<p class="mt-20"><strong>Hierachie:</strong></p>
+			<ol class="mb-20 with-out-decimal">
+				<li>
+					<strong><%= section.section_number %>. Section</strong> <%= section.name %> (<%= section.suffix %>)
+				</li>
+				<ol class="with-out-decimal">
+					<%if(section.taskinstance !== null) { %>
+						<% for(var i = 0; i<section.taskinstance.length; i++) { %>
+							<li><strong><%= section.taskinstance[i].taskInstance_number %>. Taskinstanz:</strong> <a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name%></a> (<%= section.taskinstance[i].suffix %>)</li>
+							<ol class="with-out-decimal">
+								<% if(section.taskinstance[i].task !== null) { %>
+									<% for(var j = 0; j<section.taskinstance[i].task.length; j++) { %>
+										<li><strong><%= section.taskinstance[i].task[j].task_number %>. Task:</strong> <a href="<%= section.taskinstance[i].task[j].url %>"><%= section.taskinstance[i].task[j].name %> </a> (<%= section.taskinstance[i].task[j].suffix %>)</li>
+									<% } %>	
 								<% } %>
-							</table>
+							</ol>
+						<% } %>
 					<% } %>
-				</div>
-			<% } %>
-		<% } else { %> 
-			<p class="mb-20"> Es sind noch keine Taskinstancen dieser Section zugewiesen worden </p>
+				</ol>
+			</ol>
+		<% } else { %>
+			<p class="mb-20">Diese Instanz hat keine zugehörigen Sections</p>
 		<% } %>
 		<a class="btn" href="<%= section.url%>/update">Update Section</a>
 	</div>

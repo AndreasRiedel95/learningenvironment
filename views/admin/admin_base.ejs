@@ -16,41 +16,41 @@
 		<div class="container-grid">
 			<div class="sidebar-nav">
 				<ul>
+					<li class="mb-10">
+						<a class="sidebar-link" href="/">Studenten Übersicht</a>
+					</li>
 					<li>
-						<a href="/">Studenten Übersicht</a>
+						<a class="sidebar-link <%if(title==='Admin Übersicht') {%>--active <% } %>" href="/admin">Admin Übersicht</a>
 					</li>
 				</ul>
 				<div class="break mt-20 mb-20"></div>
 				<ul>
-					<li>
-						<a href="/admin">Admin Home</a>
+					<li class="mb-10">
+						<a class="sidebar-link <%if(title==='Section-Instance Übersicht') {%>--active <% } %>" href="/admin/sectioninstances">Section-Instance Übersicht</a>
+					</li>
+					<li class="mb-10">
+						<a class="sidebar-link <%if(title==='Section Übersicht') {%>--active <% } %>" href="/admin/sections">Section Übersicht</a>
+					</li>
+					<li class="mb-10">
+						<a class="sidebar-link <%if(title==='Task-Instance Übersicht') {%>--active <% } %>" href="/admin/taskinstances">Task-Instance Übersicht</a>
 					</li>
 					<li>
-						<a href="/admin/sectioninstances">All Section-Instances</a>
-					</li>
-					<li>
-						<a href="/admin/sections">All Sections</a>
-					</li>
-					<li>
-						<a href="/admin/taskinstances">All Task-Instances</a>
-					</li>
-					<li>
-						<a href="/admin/tasks">All Tasks</a>
+						<a class="sidebar-link <%if(title==='Task Übersicht') {%>--active <% } %>" href="/admin/tasks">Task Übersicht</a>
 					</li>
 				</ul>
 				<div class="break mt-20 mb-20"></div>
 				<ul>
-					<li>
-						<a href="/admin/task/create">Create new task</a>
+					<li class="mb-10">
+						<a class="sidebar-link <%if(title==='Erstelle neuen Task') {%>--active <% } %> " href="/admin/task/create">Erstelle neuen Task</a>
+					</li>
+					<li class="mb-10">
+						<a class="sidebar-link <%if(title==='Erstelle neue Task-Instance') {%>--active <% } %>" href="/admin/taskinstance/create">Erstelle neue Task-Instance</a>
+					</li>
+					<li class="mb-10">
+						<a class="sidebar-link <%if(title==='Erstelle neue Section') {%>--active <% } %>" href="/admin/section/create">Erstelle neue Section</a>
 					</li>
 					<li>
-						<a href="/admin/taskinstance/create">Create new task instance</a>
-					</li>
-					<li>
-						<a href="/admin/section/create">Create new section</a>
-					</li>
-					<li>
-						<a href="/admin/sectioninstance/create">Create new section instance</a>
+						<a class="sidebar-link <%if(title==='Erstelle neue Section-Instance') {%>--active <% } %>" href="/admin/sectioninstance/create">Erstelle neue Section-Instance</a>
 					</li>
 				</ul>
 			</div>

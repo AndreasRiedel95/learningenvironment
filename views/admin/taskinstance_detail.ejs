@@ -12,26 +12,23 @@
 	<p class="mt-20"><strong>Inital Css Code: </strong></p>
 		<textarea class="input --textarea css-codearea --output" name="htmlCode_inital" placeholder=" "><%= taskinstance.cssCode_inital %></textarea>
 	<p class="mt-20"><strong>Task Aufgaben: </strong></p>
-	<% if(taskinstance.task.length > 0) { %>
-		<table class="mb-20">
-			<tr>
-				<th class="table-cell --header">Nummer</th>
-				<th class="table-cell --header">Name</th>
-				<th class="table-cell --header">Hierachie</th>
-			</tr>
-			<% for(var i = 0; i<taskinstance.task.length; i++) { %>
-				<tr>
-					<td class="table-cell"><%= taskinstance.task[i].task_number %></td>
-					<td class="table-cell">
-						<a href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name %></a>
-					</td>
-					<td class="table-cell"><%= taskinstance.task[i].suffix %></td>
-			<% } %>
-		</table>
+	<%if(taskinstance !== null) { %>
+		<p class="mt-20"><strong>Hierachie:</strong></p>
+		<ol class="mb-20 with-out-decimal">
+			<li>
+				<strong><%= taskinstance.taskInstance_number %>. Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.suffix %>)
+			</li>
+			<ol class="with-out-decimal">
+				<%if(taskinstance.task !== null) { %>
+					<% for(var i = 0; i<taskinstance.task.length; i++) { %>
+						<li><strong><%= taskinstance.task[i].task_number %>. Task:</strong> <a href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name%></a> (<%= taskinstance.task[i].suffix %>)</li>
+					<% } %>
+				<% } %>
+			</ol>
+		</ol>
 	<% } else { %>
-		<p class="mb-20">Diese Instanz hat keine zugehörigen Aufgaben</p>
+		<p class="mb-20">Diese Instanz hat keine zugehörigen Sections</p>
 	<% } %>
-	</table>
 	<a class="btn mt-20" href="<%= taskinstance.url%>/update">Update Taskinstance</a>
 </div>
 <script src="/js/admin_codeMirror.bundle.js"></script>

@@ -9,6 +9,16 @@
 	padding-right: 20px
 	position: relative
 
+.sidebar-link
+	text-decoration: none
+	color: $fontgrey
+	transition: color 0.3s
+	&:hover
+		color: $darkgrey
+	&:active, &:visited
+		color: $darkgrey
+	&.--active
+		font-weight: 500
 
 .container-grid
 	width: 100%
@@ -141,15 +151,16 @@
 .code-editor > h3
 	font-size: 16px
 
-.code-editor > pre
-	font-family: Consolas
-	font-weight: 300
-	background-color: $blue
+.code-editor > pre, .ql-editor > pre, pre
+	font-family: Consolas !important
+	font-weight: 300 !important
+	background-color: $blue !important
 	color: $grey
 	display: block
 	padding: 10px
 	font-size: 13px
 	line-height: 1.4
+	word-break: break-all
 	border-radius: 2px
 	white-space: pre-wrap
 	width: 100%
@@ -178,6 +189,9 @@
 	min-height: 100px
 	padding-top: 50px
 
+.ql-editor > p > img
+	width: 80% !important
+
 .ql-toolbar 
 	position: absolute
 	top: 0
@@ -185,3 +199,21 @@
 	left: 0
 	background-color: #fff
 	z-index: 100000
+
+ol
+	list-style: decimal 
+	padding-left: 1.5em
+	list-style-position: inside
+
+code
+	font-size: 14px
+	white-space: pre-wrap
+
+h4
+	margin-top: 10px
+	font-size: 15px
+
+.with-out-decimal > li
+	padding-top: 5px
+	padding-bottom: 5px
+	list-style: none

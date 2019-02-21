@@ -10,14 +10,14 @@ exports.taskinstance_list = function(req, res) {
         .sort([['suffix', 'ascending']])
 		.exec(function (err, list_taskinstances) {
 			if(err) {return next(err); }
-			res.render('admin/taskinstance_list', {title: "TaskInstance List", taskinstance_list: list_taskinstances})
+			res.render('admin/taskinstance_list', {title: "Task-Instance Übersicht", taskinstance_list: list_taskinstances})
 		});
 };
 
 // Display detail page for a specific taskinstance.
 exports.taskinstance_detail = function(req, res, next) {
     TaskInstance.findById(req.params.id)
-    	.populate('task')
+        .populate({path: 'task', options:{sort:{suffix: 'ascending'}}})
     	.exec(function (err, taskinstance) {
     		if(err) {return next(err)}
     		if(taskinstance == null) {
@@ -26,7 +26,7 @@ exports.taskinstance_detail = function(req, res, next) {
     			return next(err);
     		}
 
-    		res.render('admin/taskinstance_detail', {title: 'Task Instance', taskinstance: taskinstance})
+    		res.render('admin/taskinstance_detail', {title: 'Task-Instance Übersicht', taskinstance: taskinstance})
     	})
 };
 
@@ -38,7 +38,7 @@ exports.taskinstance_create_get = function(req, res) {
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('admin/taskinstance_form', { title: 'Create Task Instance',tasks:results.tasks});
+        res.render('admin/taskinstance_form', { title: 'Erstelle neue Task-Instance',tasks:results.tasks});
     });
 };
 

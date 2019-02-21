@@ -61,14 +61,14 @@ exports.sectioninstance_list = function(req, res) {
         .sort([['suffix', 'ascending']])
 		.exec(function (err, list_sectioninstances) {
 			if(err) {return next(err); }
-			res.render('admin/sectioninstance_list', {title: "SectionInstance List", sectioninstance_list: list_sectioninstances})
+			res.render('admin/sectioninstance_list', {title: "Section-Instance Übersicht", sectioninstance_list: list_sectioninstances})
 		});
 };
 
 // Display detail page for a specific taskinstance.
 exports.sectioninstance_detail = function(req, res, next) {
     SectionInstance.findById(req.params.id)
-    	.populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance', populate: {path: 'task'}}})
+    	.populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
     	.exec(function (err, sectioninstance) {
     		if(err) {return next(err)}
     		if(sectioninstance == null) {
@@ -90,7 +90,7 @@ exports.sectioninstance_create_get = function(req, res) {
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('admin/sectioninstance_form', { title: 'Create Section Instance',sections:results.sections});
+        res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance',sections:results.sections});
     });
 };
 
