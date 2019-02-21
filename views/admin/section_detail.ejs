@@ -5,7 +5,7 @@
 		<p><strong>Section Name: </strong></p>
 		<p class="mb-20"><%= section.name %></p>
 		<p><strong>Section Description: </strong></p>
-		<div class="mb-20"><%- section.description %></div>
+		<div class="mb-20 code-editor"><%- section.description %></div>
 		<%if(section.taskinstance.length > 0) { %>
 			<%for (var i = 0; i<section.taskinstance.length; i++) { %>
 				<div class="taskinstance-task-wrapper">

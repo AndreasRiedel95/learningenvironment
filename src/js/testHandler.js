@@ -30,7 +30,6 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber) =>
 	htmlNode.innerHTML = htmlStr;
 	let cssString = cssEditor.getValue();
 	let runNumber = `run${testnumber}`.toString();
-	console.log(sectionNumber)
 	
 	//check if files are existing
 	try {

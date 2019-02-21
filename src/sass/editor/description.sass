@@ -26,9 +26,7 @@
 .description-text-wrapper
 	max-width: 100%
 	width: 100%
-	padding-left: 20px
-	padding-right: 20px
-	height: 100%
+	padding: 20px
 
 
 .task
@@ -88,7 +86,6 @@
 
 
 .quill-format > p 
-	margin-bottom: 20px
 	text-align: left
 
 
@@ -98,8 +95,6 @@
 	margin-left: auto
 	margin-right: auto
 	display: block
-	
-
 
 .quill-format > pre
 	font-family: Consolas
@@ -117,6 +112,16 @@
 	background-color: #f5f5f5
 	border: 1px solid #ccc
 	border-radius: 4px
+
+.quill-format > ol
+	list-style: decimal 
+	padding-left: 1.5em
+	list-style-position: inside
+
+.quill-format > ul
+	padding-left: 1.5em
+	list-style: disc
+	list-style-position: inside
 
 .task-solved-wrapper
 	grid-area: input

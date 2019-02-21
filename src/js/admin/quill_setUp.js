@@ -7,15 +7,16 @@ var quill = new Quill('#editor-container', {
   modules: {
     toolbar: {
 	    container: [
-	      [{ header: [1, 2, false] }],
+	      [{ header: [1, 2, 3, false] }],
 	      ['bold', 'italic', 'underline'],
-	      ['image', 'code-block', 'link']
+	      ['image', 'code-block', 'link'],
+	      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
 	    ],
 		handlers: {image: imageHandler},
 	}
   },
   placeholder: 'Beschreibung',
-  theme: 'snow'  // or 'bubble'
+  theme: 'snow'
 });
 
 var form = document.querySelector('form');
@@ -26,8 +27,8 @@ form.onsubmit = function() {
 }
 
 function imageHandler() {
-
     const input = document.createElement('input');
+    var reader = new FileReader();
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
     input.click();
@@ -35,6 +36,7 @@ function imageHandler() {
 
 	input.onchange = async function() {
 		const file = input.files[0];
+		console.log(file)
 		const fileName = await file.name; 
 		var range = this.quill.getSelection();	
 	  	this.quill.insertEmbed(range.index, 'image', `/img/${fileName}`, Quill.sources.USER);
