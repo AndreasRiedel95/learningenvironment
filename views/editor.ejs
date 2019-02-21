@@ -15,11 +15,12 @@
 <body>
 	<script>
 		const section =  <%- JSON.stringify(section) %>;
+		const sectioninstance =  <%- JSON.stringify(sectioninstance) %>;
 	</script>
 	<div class="code-saved-wrapper">
 		Code saved
 	</div>
-	<div class="header">
+	<div class="header" data-sectioninstancenumber="<%= sectioninstance[0].sectionInstance_number %>">
 		<h1 class="header-1 white">Web Development 1 | <%=section.name %></h1>
 		<div class="header-btn-wrapper">
 			<button class="btn --icon" type="button" onclick="setInitialGrid()" title='Set Editor-Grid to inital size'>

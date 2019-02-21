@@ -1,4 +1,4 @@
-export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber) => {
+export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, sectioninstanceNumber) => {
 	// delete all require cache everytime a test gets called otherwise test can be called only once
 	for (const path in require.cache) {
 		if (path.endsWith('.js')) { // only clear *.js, not *.node
@@ -34,7 +34,7 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber) =>
 	//check if files are existing
 	try {
 		//Require dynamically the correct test file
-		let testRun = require(`./test/section${sectionNumber}/test${tasknumber}`);
+		let testRun = require(`./test/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${tasknumber}`);
 
 		let TestInstance = new testRun();
 		try {

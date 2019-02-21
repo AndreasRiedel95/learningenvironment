@@ -1,0 +1,58 @@
+<% extend('admin_base') %>
+<link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
+<div class="content mb-20">
+<%if (typeof sectioninstance === 'undefined') { %>
+	<form action="" method="POST">
+		<div class="form-group-col-2">
+			<div class="form-group mb-40">
+				<input class="input" type="number" name="sectionInstance_number" placeholder=" ">
+				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer</label>
+			</div>
+			<div class="form-group mb-40">
+				<input class="input" type="text" name="name" placeholder=" ">
+				<label class="input-label" for="name">Titel</label>
+			</div>
+		</div>
+		<span class="code-label">Select Section(s) for the Section Instance:</span>
+		<div class="input-list mb-50 mt-10">
+			<% for(var i = 0; i<sections.length; i++) { %>
+				<label class="checkbox-group" for="<%= sections[i]._id %>">
+					<input type="checkbox" name="section" id="<%= sections[i]._id %>" value="<%= sections[i]._id %>">
+					<label class="code-label" for="<%= sections[i]._id %>"><%= sections[i].section_number %> | <%= sections[i].name %> | <%= sections[i].suffix %></label>
+				</label>
+				<% if(i < (sections.length - 1)) { %>
+					<div class="break --dark"></div>
+				<% } %>
+			<% } %>
+		</div>
+		<button class="btn" type="submit">Submit</button>
+	</form>
+<% } else { %>
+	<form action="" method="POST">
+		<div class="form-group-col-2">
+			<div class="form-group mb-40">
+				<input class="input" type="number" name="sectionInstance_number"  value="<%= sectioninstance.sectionInstance_number %>" placeholder=" ">
+				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer</label>
+			</div>
+			<div class="form-group mb-40">
+				<input class="input" type="text" name="name" value="<%= sectioninstance.name %>" placeholder=" ">
+				<label class="input-label" for="name">Titel</label>
+			</div>
+		</div>
+		<span class="code-label">Select Section(s) for the Section Instance:</span>
+		<div class="input-list mb-50 mt-10">
+			<% for(var i = 0; i<sections.length; i++) { %>
+				<label class="checkbox-group" for="<%= sections[i]._id %>">
+					<input type="checkbox" name="section" id="<%= sections[i]._id %>" <% if(sections[i].checked) { %> checked <% } %> value="<%= sections[i]._id %>">
+					<label class="code-label" for="<%= sections[i]._id %>"><%= sections[i].section_number %> | <%= sections[i].name %> | <%= sections[i].suffix %></label>
+				</label>
+				<% if(i < (sections.length - 1)) { %>
+					<div class="break --dark"></div>
+				<% } %>
+			<% } %>
+		</div>
+		<button class="btn" type="submit">Submit</button>
+	</form>
+<% } %>
+</div>
+<script src="/js/admin_codeMirror.bundle.js"></script>

@@ -15,6 +15,8 @@ var quill = new Quill('#editor-container', {
 		handlers: {image: imageHandler},
 	}
   },
+  bounds: '.scrolling-container',
+  scrollingContainer: '.scrolling-container', 
   placeholder: 'Beschreibung',
   theme: 'snow'
 });

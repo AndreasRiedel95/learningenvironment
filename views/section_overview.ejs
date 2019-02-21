@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
+	<title>Overview</title>
+	<link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/general.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/section_overview/section_overview.css"/>
+</head>
+<body>
+	<div class="header --big mb-50">
+		<h1 class="header-1 white"><%=sectioninstance.name %></h1>
+		<p class="header-text">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore et, earum nisi voluptatem. Illum temporibus minima hic voluptatem veritatis reprehenderit, mollitia expedita nostrum voluptatibus ipsam iste sed vero quasi aliquid!
+		</p>
+	</div>
+	<div class="section-container_overview mb-100">
+		<% for(var i = 0; i<sectioninstance.section.length; i++) { %>
+			<a href="/editor/<%=sectioninstance.section[i]._id%>" class="section-container">
+					<div class="top-line"></div>
+					<h4 class="section-container__headline"><%=sectioninstance.section[i].name %></h4>
+					<p class="section-container__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae velit, quidem eligendi.</p>
+			</a>
+		<%}%>
+	</div>
+</body>
+</html>

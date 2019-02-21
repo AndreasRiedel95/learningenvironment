@@ -4,6 +4,7 @@ var router = express.Router();
 var section_controller = require('../controllers/sectionController');
 var task_controller = require('../controllers/taskController');
 var task_instance_controller = require('../controllers/taskinstanceController');
+var section_instance_controller = require('../controllers/sectioninstanceController');
 
 //Get admin index
 router.get('/', section_controller.admin);
@@ -63,9 +64,6 @@ router.get('/tasks', task_controller.task_list);
 router.post('/solved/task/:id/update', task_controller.task_udpate_solved);
 
 
-
-/// TASKINSTANCE ROUTES ///
-
 // GET request for creating a BookInstance. NOTE This must come before route that displays BookInstance (uses id).
 router.get('/taskinstance/create', task_instance_controller.taskinstance_create_get);
 
@@ -93,5 +91,31 @@ router.get('/taskinstances', task_instance_controller.taskinstance_list);
 // Post request to update user html and css fields through button click
 router.post('/btn/taskinstance/:id/update', task_instance_controller.taskinstance_update_btn)
 
+
+/// Sectioninstance ROUTES ///
+
+// GET request for creating a SectionInstance. NOTE This must come before route that displays BookInstance (uses id).
+router.get('/sectioninstance/create', section_instance_controller.sectioninstance_create_get);
+
+// POST request for creating sectioninstance. 
+router.post('/sectioninstance/create', section_instance_controller.sectioninstance_create_post);
+
+// GET request to delete sectioninstance.
+router.get('/sectioninstance/:id/delete', section_instance_controller.sectioninstance_delete_get);
+
+// // POST request to delete sectioninstance.
+// router.post('/sectioninstance/:id/delete', section_instance_controller.sectioninstance_delete_post);
+
+// GET request to update sectioninstance.
+router.get('/sectioninstance/:id/update', section_instance_controller.sectioninstance_update_get);
+
+// POST request to update sectioninstance.
+router.post('/sectioninstance/:id/update', section_instance_controller.sectioninstance_update_post);
+
+// GET request for one sectioninstance.
+router.get('/sectioninstance/:id', section_instance_controller.sectioninstance_detail);
+
+// GET request for list of all sectioninstance.
+router.get('/sectioninstances', section_instance_controller.sectioninstance_list);
 
 module.exports = router;

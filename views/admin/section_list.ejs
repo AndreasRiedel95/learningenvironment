@@ -6,6 +6,7 @@
 			<tr>
 				<th class="table-cell --header">Nummer</th>
 				<th class="table-cell --header">Name</th>
+				<th class="table-cell --header">Hierachie</th>
 			</tr>
 			<% for(let i = 0; i < sections.length; i++) { %>
 				<tr>
@@ -14,6 +15,9 @@
 					</td>
 					<td class="table-cell">
 						<a href="<%=sections[i].url%>"><%=sections[i].name%></a>
+					</td>
+					<td class="table-cell">
+						<%=sections[i].suffix%>
 					</td>
 				</tr>
 			<% } %>

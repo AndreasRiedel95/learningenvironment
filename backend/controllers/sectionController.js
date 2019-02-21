@@ -3,38 +3,7 @@ var Task = require('../models/task');
 var TaskInstance = require('../models/taskinstance');
 var async = require('async');
 
-//Pass sections to Student Overview
-exports.section_overview = function(req, res, next) {
-	async.parallel({
-        sections: function(callback) {
-            Section.find(callback);
-        },
-    }, function(err, results) {
-        if (err) { return next(err); }
-        res.render('index', { title: 'Overview', sections: results.sections});
-    });
-}
 
-//Pass selected Section to Editor 
-exports.section_to_editor = function(req, res, next) {   
-	async.parallel({
-		section: function(callback) {
-			Section.findById(req.params.id)
-  				.populate({path: 'taskinstance', populate: {path: 'task'}})
-  				.exec(callback);
-		},
-	}, function(err, results) {
-		if (err) { return next(err); }
-		if (results.section==null) { // No results.
-			var err = new Error('Section not found');
-			err.status = 404;
-			return next(err);
-		}
-		// Successful, so render.
-		console.log(JSON.stringify(results.section))
-		res.render('editor', { title: 'Overview', section: results.section} );
-	});
-};
 
 // Display everything on Admin overview which is in the database
 exports.admin = function(req, res, next) {   
@@ -60,6 +29,7 @@ exports.admin = function(req, res, next) {
 exports.section_list = function(req, res, next) {
 	Section.find()
 		.populate('taskinstance')
+		.sort([['suffix', 'ascending']])
 		.exec(function (err, list_sections) {
 			if(err) {return next(err); }
 			res.render('admin/section_list', {title: "Section List", sections: list_sections})
@@ -82,7 +52,7 @@ exports.section_detail = function(req, res, next) {
 			return next(err);
 		}
 		// Successful, so render.
-		res.render('admin/section_detail', { title: 'Create Section', section: results.section} );
+		res.render('admin/section_detail', { title: 'Section Detail', section: results.section} );
 	});
 };
 
@@ -115,6 +85,7 @@ exports.section_create_post = [
 			name: req.body.name,
 			section_number: req.body.section_number,
 			description: req.body.description,
+			suffix: req.body.suffix,
 			taskinstance: req.body.taskinstance,
 		   });
 
@@ -177,6 +148,7 @@ exports.section_update_post = [
             	name: req.body.name,
                 section_number: req.body.section_number,
                 description: req.body.description,
+                suffix: req.body.suffix,
                 taskinstance: req.body.taskinstance,
             } 
         }, function (err,thetaskinstance) {
