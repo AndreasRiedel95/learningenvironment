@@ -85,6 +85,7 @@ exports.section_create_post = [
 			name: req.body.name,
 			section_number: req.body.section_number,
 			description: req.body.description,
+			shortdescription: req.body.shortdescription,
 			suffix: req.body.suffix,
 			taskinstance: req.body.taskinstance,
 		   });
@@ -126,6 +127,7 @@ exports.section_update_get = function(req, res, next) {
                 err.status = 404;
                 return next(err);
             }
+        if(results.section.taskinstance !== null) {
             for (var i = 0; i < results.taskinstances.length; i++) {
                 for (var j = 0; j < results.section.taskinstance.length; j++) {
                     if (results.taskinstances[i]._id.toString()==results.section.taskinstance[j]._id.toString()) {
@@ -133,6 +135,7 @@ exports.section_update_get = function(req, res, next) {
                     }
                 }
             }
+        }
             // Success.
             res.render('admin/section_form', { title: 'Update  Section', taskinstances : results.taskinstances, section:results.section });
     });
@@ -148,6 +151,7 @@ exports.section_update_post = [
             	name: req.body.name,
                 section_number: req.body.section_number,
                 description: req.body.description,
+                shortdescription: req.body.shortdescription,
                 suffix: req.body.suffix,
                 taskinstance: req.body.taskinstance,
             } 

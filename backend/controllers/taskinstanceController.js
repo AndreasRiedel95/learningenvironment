@@ -91,7 +91,9 @@ exports.taskinstance_delete_post = function(req, res) {
 exports.taskinstance_update_get = function(req, res, next) {
     async.parallel({
         taskinstance: function(callback) {
-            TaskInstance.findById(req.params.id).populate('task').exec(callback)
+            TaskInstance.findById(req.params.id)
+            .populate({path: 'task', options:{sort:{suffix: 'ascending'}}})
+            .exec(callback)
         },
         tasks: function(callback) {
             Task.find(callback)
@@ -104,10 +106,12 @@ exports.taskinstance_update_get = function(req, res, next) {
                 err.status = 404;
                 return next(err);
             }
-            for (var i = 0; i < results.tasks.length; i++) {
-                for (var j = 0; j < results.taskinstance.task.length; j++) {
-                    if (results.tasks[i]._id.toString()==results.taskinstance.task[j]._id.toString()) {
-                        results.tasks[i].checked='true';
+            if(results.taskinstance.task !== null) {
+                for (var i = 0; i < results.tasks.length; i++) {
+                    for (var j = 0; j < results.taskinstance.task.length; j++) {
+                        if (results.tasks[i]._id.toString()==results.taskinstance.task[j]._id.toString()) {
+                            results.tasks[i].checked='true';
+                        }
                     }
                 }
             }
@@ -143,6 +147,5 @@ exports.taskinstance_update_btn = function(req, res, next) {
             } 
         }, function (err,thetaskinstance) {
             if (err) { return next(err); }
-           console.log("Update yaaa")
         });
     }

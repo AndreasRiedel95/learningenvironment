@@ -8,13 +8,18 @@
 	padding-left: 20px
 	padding-right: 20px
 	position: relative
-
+a
+	text-decoration: none
+	color: #478ac1
+	transition: color 0.3s
+	&:hover
+		color: $blue
 .sidebar-link
 	text-decoration: none
 	color: $fontgrey
 	transition: color 0.3s
 	&:hover
-		color: $darkgrey
+		color: #478ac1
 	&:active, &:visited
 		color: $darkgrey
 	&.--active
@@ -26,15 +31,6 @@
 	grid-gap: 50px
 	position: relative
 	grid-template-columns: 150px minmax(250px, 1fr)
-
-.break 
-	width: 100%
-	margin-right: auto
-	margin-left: auto
-	border: 0
-	border-top: 1px solid #eee
-	&.--dark
-		border-color: $darkgrey
 
 .form-group-col-2
 	display: grid
@@ -128,6 +124,13 @@
 	margin-bottom: 20px
 	border-radius: 2px
 
+.code-editor
+	max-height: 500px
+	overflow-y: scroll
+	border: 1px solid #000
+	border-radius: 2px
+	padding: 20px 
+
 #code-editor > p > img
 	width: 50%
 
@@ -160,9 +163,9 @@
 	padding: 10px
 	font-size: 13px
 	line-height: 1.4
-	word-break: break-all
+	word-break: normal
 	border-radius: 2px
-	white-space: pre-wrap
+	white-space: pre
 	width: 100%
 	margin-bottom: 20px
 
@@ -208,6 +211,7 @@ ol
 code
 	font-size: 14px
 	white-space: pre-wrap
+	word-break: break-all
 
 h4
 	margin-top: 10px

@@ -7,6 +7,7 @@ var SectionSchema = new Schema(
     section_number: {type: Number, required: true},
     name: {type: String, required: true, max: 100},
     description: {type: String, required: true},
+    shortdescription: {type: String, required: true, max: 200},
     suffix: {type: String, required: true},
     taskinstance: [{type: Schema.Types.ObjectId, ref: 'TaskInstance'}]
   }

@@ -34,6 +34,17 @@ body
 		justify-content: center
 		align-items: center
 
+.break 
+	width: 100%
+	margin-right: auto
+	margin-left: auto
+	border: 0
+	border-top: 1px solid #eee
+	&.--dark
+		border-color: $darkgrey
+	&.--max-1000
+		max-width: 960px
+		height: 20px
 
 .section-container
 	max-width: 1000px
@@ -42,6 +53,26 @@ body
 	margin-left: auto
 	padding-left: 20px
 	padding-right: 20px
+
+.arrow-down-svg
+	position: absolute
+	top: 90vh
+	cursor: pointer
+	fill: #fff
+	width: 50px
+	height: 50px
+	animation: ArrowJump 2s infinite
+	transition: fill 0.3s
+	&:hover
+		fill: $darkgrey
+
+@keyframes ArrowJump 
+	0%
+		margin-top: 0 
+	50%
+		margin-top: 15px
+	100%
+		margin-top: 0
 
 .btn
 	padding: 10px

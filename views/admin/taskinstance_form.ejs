@@ -30,7 +30,7 @@
 				<% for(var i = 0; i<tasks.length; i++) { %>
 					<label class="checkbox-group" for="<%= tasks[i]._id %>">
 						<input type="checkbox" name="task" id="<%= tasks[i]._id %>" value="<%= tasks[i]._id %>">
-						<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %> | <%= tasks[i].name %> | <%= tasks[i].suffix %></label>
+						<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].suffix %>)</label>
 					</label>
 					<% if(i < (tasks.length - 1)) { %>
 						<div class="break --dark"></div>
@@ -70,7 +70,7 @@
 				<% for(var i = 0; i<tasks.length; i++) { %>
 					<label class="checkbox-group" for="<%= tasks[i]._id %>">
 						<input type="checkbox" name="task" id="<%= tasks[i]._id %>" <% if(tasks[i].checked) { %> checked <% } %> value="<%= tasks[i]._id %>">
-						<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %> | <%= tasks[i].name %> | <%= tasks[i].suffix %></label>
+						<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].suffix %>)</label>
 					</label>
 					<% if(i < (tasks.length - 1)) { %>
 						<div class="break --dark"></div>

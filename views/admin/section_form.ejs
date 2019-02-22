@@ -18,6 +18,10 @@
 				</div>
 			</div>
 			<div class="form-group mb-40">
+				<textarea name="shortdescription"class="input --textarea" max-length="200" placeholder=" "></textarea>
+				<label class="input-label" for="shortdescription">Kurzbeschreibung</label>
+			</div>
+			<div class="form-group mb-40">
 				<input name="description" type="hidden">
 				<div class="scrolling-container">
 					<div id="editor-container"></div>
@@ -29,7 +33,7 @@
 					<% for(var i = 0; i<taskinstances.length; i++) { %>
 						<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
 							<input type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>">
-							<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].taskInstance_number %> | <%= taskinstances[i].name %> | <%= taskinstances[i].suffix %></label>
+							<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].taskInstance_number %>. <%= taskinstances[i].name %> (<%= taskinstances[i].suffix %>)</label>
 
 						</label>
 						<% if(i < (taskinstances.length - 1)) { %>
@@ -59,10 +63,14 @@
 				</div>
 			</div>
 			<div class="form-group mb-40">
-				<input name="description" type="hidden">
-			<div class="scrolling-container">
-				<div id="editor-container"><%- section.description %></div>
+				<textarea class="input --textarea" name="shortdescription" max-length="200" placeholder=" "><%- section.shortdescription %></textarea>
+				<label class="input-label" for="shortdescription">Kurzbeschreibung</label>
 			</div>
+			<div class="form-group mb-40">
+				<input name="description" type="hidden">
+				<div class="scrolling-container">
+					<div id="editor-container"><%- section.description %></div>
+				</div>
 			</div>
 			<% if(taskinstances.length > 0) { %>
 				<span class="code-label">Wählen Sie die Taskinstance(n) mit für diese Section aus:</span>
@@ -70,7 +78,7 @@
 					<% for(var i = 0; i<taskinstances.length; i++) { %>
 						<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
 							<input type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>" <% if(taskinstances[i].checked) { %> checked <% } %>>
-							<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].name %></label>
+							<label class="code-label" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].taskInstance_number %>. <%= taskinstances[i].name %> (<%= taskinstances[i].suffix %>)</label>
 
 						</label>
 						<% if(i < (taskinstances.length - 1)) { %>

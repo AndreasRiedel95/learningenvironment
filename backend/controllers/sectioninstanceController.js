@@ -6,7 +6,8 @@ var async = require('async')
 exports.section_instance_overview = function(req, res, next) {
     async.parallel({
         sectioninstances: function(callback) {
-            SectionInstance.find(callback);
+            SectionInstance.find(callback)
+            .sort([['sectionInstance_number', 'ascending']]);
         },
     }, function(err, results) {
         if (err) { return next(err); }
@@ -57,8 +58,7 @@ exports.section_to_editor = function(req, res, next) {
 // Display list of all TaskInstances.
 exports.sectioninstance_list = function(req, res) {
 	SectionInstance.find()
-		.populate('section')
-        .sort([['suffix', 'ascending']])
+        .sort([['sectionInstance_number', 'ascending']])
 		.exec(function (err, list_sectioninstances) {
 			if(err) {return next(err); }
 			res.render('admin/sectioninstance_list', {title: "Section-Instance Übersicht", sectioninstance_list: list_sectioninstances})
@@ -111,6 +111,7 @@ exports.sectioninstance_create_post = [
         // Create a BookInstance object with escaped and trimmed data.
         var sectioninstance = new SectionInstance(
           { name: req.body.name,
+            description: req.body.description,
             sectionInstance_number: req.body.sectionInstance_number,
             section: req.body.section
            });
@@ -175,6 +176,7 @@ exports.sectioninstance_update_post = [
         SectionInstance.findByIdAndUpdate(req.params.id, 
         { '$set': 
             {   name: req.body.name,
+                description: req.body.description,
                 sectionInstance_number: req.body.sectionInstance_number,
                 section: req.body.section,
             } 

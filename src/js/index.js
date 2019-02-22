@@ -11,8 +11,6 @@ import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import { importFile, exportFile } from './importExportFile';
 import callTestHandler from './testHandler';
-import { initSVG } from './initSVG'
-initSVG();
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';

@@ -11,24 +11,31 @@
 <body>
 	<div class="header --big mb-50">
 		<h1 class="header-1 white">HTML- und CSS- Editor</h1>
-		<p class="header-text">
+		<p class="header-text" onclick="scrollTo()">
 			Lernen Sie die Grundlagen von HTML5 und CSS3 kennen und beginnen Sie mit dem Erstellen und Bearbeiten von Webseiten. 
 		</p>
+		<svg class="arrow-down-svg">
+			<use xlink:href="#svg-arrow-down" />
+		</svg>
 	</div>
-	<p class="section-container mb-50">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus tenetur reiciendis eos enim dolores impedit pariatur corporis, architecto sed, officia commodi quia perspiciatis alias vel iure, voluptatibus iusto, ut amet?
-	</p>
+	<div class="section-container mb-30 scroll-to-js">
+		<p>
+			HTML ist die Grundlage aller Webseiten. Es wird verwendet, um Text, Bildern und mehr Struktur und Form hinzuzufügen. CSS ist die Sprache, mit der HTML-Inhalte gestaltet werden. In den Kursen lernen Sie die Grundlagen beider Sprachen, damit Sie visuell ansprechende Webseiten erstellen können.
+		</p>
+		<div class="break --max-1000 mt-30"></div>
+	</div>
 	<div class="section-container">
 		<% for(var i = 0; i<sectioninstances.length; i++) { %>
 			<a href="/<%= sectioninstances[i]._id %>/overview" class="section-grid-container mb-50">
 				<div class="section-grid__image"></div>
 				<div class="section-grid__text-container">
 					<h4 class="section-grid__text-container__headline"><%= sectioninstances[i].name %></h4>
-					<p class="section-grid__text-container__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae velit, quidem eligendi, cupiditate rerum sit earum porro reprehenderit totam fuga expedita quas! Id quia consequatur maiores velit, dolorem magni temporibus.</p>
+					<p class="section-grid__text-container__text"><%- sectioninstances[i].description %></p>
 				</div>
 			</a>
 		<%}%>
 	</div>
+	<script src="/js/init.bundle.js"></script>
 </body>
 </html>
 

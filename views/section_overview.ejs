@@ -12,17 +12,25 @@
 	<div class="header --big mb-50">
 		<h1 class="header-1 white"><%=sectioninstance.name %></h1>
 		<p class="header-text">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore et, earum nisi voluptatem. Illum temporibus minima hic voluptatem veritatis reprehenderit, mollitia expedita nostrum voluptatibus ipsam iste sed vero quasi aliquid!
+			<%- sectioninstance.description %>
 		</p>
+		<svg class="arrow-down-svg">
+			<use xlink:href="#svg-arrow-down" />
+		</svg>
 	</div>
-	<div class="section-container_overview mb-100">
+	<div class="section-container_overview mb-100 scroll-to-js">
 		<% for(var i = 0; i<sectioninstance.section.length; i++) { %>
 			<a href="/editor/<%=sectioninstance.section[i]._id%>" class="section-container">
 					<div class="top-line"></div>
 					<h4 class="section-container__headline"><%=sectioninstance.section[i].name %></h4>
-					<p class="section-container__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae velit, quidem eligendi.</p>
+					<div class="section-container__text">
+						<% if(typeof sectioninstance.section[i].shortdescription !== 'undefined') { %>
+							<p><%- sectioninstance.section[i].shortdescription.substring(0, 150) %>...</p>
+						<% } %>
+					</div>
 			</a>
 		<%}%>
 	</div>
+	<script src="/js/init.bundle.js"></script>
 </body>
 </html>

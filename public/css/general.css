@@ -529,6 +529,18 @@ body {
     -ms-flex-align: center;
     align-items: center; }
 
+.break {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  border: 0;
+  border-top: 1px solid #eee; }
+  .break.--dark {
+    border-color: #292929; }
+  .break.--max-1000 {
+    max-width: 960px;
+    height: 20px; }
+
 .section-container {
   max-width: 1000px;
   width: 100%;
@@ -536,6 +548,37 @@ body {
   margin-left: auto;
   padding-left: 20px;
   padding-right: 20px; }
+
+.arrow-down-svg {
+  position: absolute;
+  top: 90vh;
+  cursor: pointer;
+  fill: #fff;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: ArrowJump 2s infinite;
+  animation: ArrowJump 2s infinite;
+  -webkit-transition: fill 0.3s;
+  -o-transition: fill 0.3s;
+  transition: fill 0.3s; }
+  .arrow-down-svg:hover {
+    fill: #292929; }
+
+@-webkit-keyframes ArrowJump {
+  0% {
+    margin-top: 0; }
+  50% {
+    margin-top: 15px; }
+  100% {
+    margin-top: 0; } }
+
+@keyframes ArrowJump {
+  0% {
+    margin-top: 0; }
+  50% {
+    margin-top: 15px; }
+  100% {
+    margin-top: 0; } }
 
 .btn {
   padding: 10px;

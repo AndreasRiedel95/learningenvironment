@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var SectionInstanceSchema = new Schema(
   {
     sectionInstance_number: {type: Number, required: true, unique: true},
+    description: {type: String, max: 250},
     name: {type: String, required: true, max: 100},
     section: [{type: Schema.Types.ObjectId, ref: 'Section'}]
   }

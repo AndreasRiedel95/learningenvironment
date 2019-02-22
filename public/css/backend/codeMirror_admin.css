@@ -3,4 +3,5 @@
 @import url(../lucario.css);
 @import url(../simplescrollbars.css);
 .CodeMirror {
-  border-radius: 2px; }
+  border-radius: 2px;
+  font-size: 13px; }

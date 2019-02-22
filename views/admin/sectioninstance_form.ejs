@@ -13,12 +13,16 @@
 				<label class="input-label" for="name">Titel</label>
 			</div>
 		</div>
+		<div class="form-group mb-40">
+			<textarea class="input --textarea"name="description" maxlength="250" placeholder=" "></textarea>
+			<label class="input-label" for="description">Kurzbeschreibung</label>
+		</div>
 		<span class="code-label">Select Section(s) for the Section Instance:</span>
 		<div class="input-list mb-50 mt-10">
 			<% for(var i = 0; i<sections.length; i++) { %>
 				<label class="checkbox-group" for="<%= sections[i]._id %>">
 					<input type="checkbox" name="section" id="<%= sections[i]._id %>" value="<%= sections[i]._id %>">
-					<label class="code-label" for="<%= sections[i]._id %>"><%= sections[i].section_number %> | <%= sections[i].name %> | <%= sections[i].suffix %></label>
+					<label class="code-label" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].suffix %>)</label>
 				</label>
 				<% if(i < (sections.length - 1)) { %>
 					<div class="break --dark"></div>
@@ -39,12 +43,16 @@
 				<label class="input-label" for="name">Titel</label>
 			</div>
 		</div>
+		<div class="form-group mb-40">
+			<textarea class="input --textarea"name="description" maxlength="250" placeholder=" "><%= sectioninstance.description %></textarea>
+			<label class="input-label" for="description">Kurzbeschreibung</label>
+		</div>
 		<span class="code-label">Select Section(s) for the Section Instance:</span>
 		<div class="input-list mb-50 mt-10">
 			<% for(var i = 0; i<sections.length; i++) { %>
 				<label class="checkbox-group" for="<%= sections[i]._id %>">
 					<input type="checkbox" name="section" id="<%= sections[i]._id %>" <% if(sections[i].checked) { %> checked <% } %> value="<%= sections[i]._id %>">
-					<label class="code-label" for="<%= sections[i]._id %>"><%= sections[i].section_number %> | <%= sections[i].name %> | <%= sections[i].suffix %></label>
+					<label class="code-label" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].suffix %>)</label>
 				</label>
 				<% if(i < (sections.length - 1)) { %>
 					<div class="break --dark"></div>

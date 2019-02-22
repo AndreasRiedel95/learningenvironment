@@ -6,6 +6,9 @@
 		<p class="mb-20"><%= section.section_number %></p>
 		<p><strong>Section Name: </strong></p>
 		<p class="mb-20"><%= section.name %></p>
+		<p><strong>Kurzbeschreibung: </strong></p>
+		<div class="mb-20">
+			<p><%- section.shortdescription %></p></div>
 		<p class="mb-20"><strong>Section Description: </strong></p>
 		<div class="mb-20 code-editor"><%- section.description %></div>
 		<%if(section !== null) { %>
