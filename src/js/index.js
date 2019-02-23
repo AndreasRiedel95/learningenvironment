@@ -16,8 +16,6 @@ import callTestHandler from './testHandler';
 //   event.returnValue = '';
 // });
 
-console.log(sectioninstance)
-console.log(section)
 document.addEventListener("DOMContentLoaded", function() {
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
 	taskDescriptions.forEach(taskDescription => {
@@ -217,7 +215,6 @@ testButtons.forEach((button) => {
 		let taskNumber = document.querySelector('.taskInput:checked');
 		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
 		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
-		console.log(sectioninstanceNumber)
 		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber, sectioninstanceNumber);
 	})
 
