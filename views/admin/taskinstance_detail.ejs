@@ -11,9 +11,18 @@
 	<textarea class="input --textarea html-codearea --output" name="htmlCode_inital" placeholder=" "><%= taskinstance.htmlCode_inital %></textarea>
 	<p class="mt-20"><strong>Inital Css Code: </strong></p>
 		<textarea class="input --textarea css-codearea --output" name="htmlCode_inital" placeholder=" "><%= taskinstance.cssCode_inital %></textarea>
-	<p class="mt-20"><strong>Task Aufgaben: </strong></p>
 	<%if(taskinstance !== null) { %>
 		<p class="mt-20"><strong>Hierachie:</strong></p>
+		<%if(section.length) { %>
+				<ol class="with-out-decimal --pl">
+					<% for(let i = 0; i<section.length; i++) { %>
+						<li>
+							<strong><%= section[i].section_number %>. Section</strong>
+							<a href="<%= section[i].url %>"><%= sectioninstance[i].name %></a> (<%= sectioninstance[i].suffix %>)
+						</li>
+					<% } %>
+				</ol>
+		<% } %>
 		<ol class="mb-20 with-out-decimal">
 			<li>
 				<strong><%= taskinstance.taskInstance_number %>. Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.suffix %>)

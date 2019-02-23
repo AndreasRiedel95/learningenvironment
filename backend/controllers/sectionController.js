@@ -45,6 +45,9 @@ exports.section_detail = function(req, res, next) {
 				.populate({path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}})
   				.exec(callback);
 		},
+		sectioninstance: function(callback) {
+            SectionInstance.find({ 'section': req.params.id }).exec(callback);
+        },
 	}, function(err, results) {
 		if (err) { return next(err); }
 		if (results.section==null) { // No results.
@@ -53,7 +56,7 @@ exports.section_detail = function(req, res, next) {
 			return next(err);
 		}
 		// Successful, so render.
-		res.render('admin/section_detail', { title: 'Section Detail', section: results.section} );
+		res.render('admin/section_detail', { title: 'Section Detail', section: results.section, sectioninstance: results.sectioninstance} );
 	});
 };
 
@@ -114,7 +117,7 @@ exports.section_delete_get = function(req, res, next) {
     }, function(err, results) {
         if (err) { return next(err); }
         if (results.section==null) { // No results.
-            res.redirect('/admin/sectioninstances');
+            res.redirect('/admin/sections');
         }
         // Successful, so render.
         res.render('admin/section_delete', { title: 'Lösche Section', section: results.section, sectioninstance: results.sectioninstance } );

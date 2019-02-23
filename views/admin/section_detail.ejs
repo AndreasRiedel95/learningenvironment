@@ -13,6 +13,17 @@
 		<div class="mb-20 code-editor"><%- section.description %></div>
 		<%if(section !== null) { %>
 			<p class="mt-20"><strong>Hierachie:</strong></p>
+			<%if(sectioninstance.length) { %>
+				<ol class="with-out-decimal --pl">
+					<% for(let i = 0; i<sectioninstance.length; i++) { %>
+						<li>
+							<strong><%= sectioninstance[i].sectionInstance_number %>. Sectioninstance</strong>
+							<a href="<%= sectioninstance[i].url %>"><%= sectioninstance[i].name %></a>
+
+						</li>
+					<% } %>
+				</ol>
+			<% } %>
 			<ol class="mb-20 with-out-decimal">
 				<li>
 					<strong><%= section.section_number %>. Section</strong> <%= section.name %> (<%= section.suffix %>)

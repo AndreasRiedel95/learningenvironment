@@ -22,7 +22,10 @@ exports.task_detail = function(req, res, next) {
 		task: function(callback) {
 			Task.findById(req.params.id)
 				.exec(callback);
-		}
+		},
+        taskinstance: function(callback) {
+            TaskInstance.find({ 'task': req.params.id }).exec(callback);
+        }
 	}, function(err, results) {
 		if (err) { return next(err); }
 		if (results.task==null) { // No results.
@@ -31,7 +34,7 @@ exports.task_detail = function(req, res, next) {
 			return next(err);
 		}
 	// Successful, so render.
-		res.render('admin/task_detail', { title: 'Task Detail', task: results.task} );
+		res.render('admin/task_detail', { title: 'Task Detail', task: results.task, taskinstance: results.taskinstance} );
 	});
 };
 

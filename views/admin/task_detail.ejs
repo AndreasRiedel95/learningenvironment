@@ -8,6 +8,17 @@
 		<p class="mb-20"><%= task.name %></p>
 		<p><strong>Task Description: </strong></p>
 		<div class="mb-20 code-editor" ><%- task.description %></div>
+		<%if(taskinstance.length) { %>
+			<p><strong>Dieser Task wird von folgender Taskinstance benutzt: </strong></p>
+			<ol class="with-out-decimal --pl mb-40">
+				<% for(let i = 0; i<taskinstance.length; i++) { %>
+					<li>
+						<strong><%= taskinstance[i].taskInstance_number %>. Sectioninstance</strong>
+						<a href="<%= taskinstance[i].url %>"><%= taskinstance[i].name %> (<%= taskinstance[i].suffix %>)</a>
+					</li>
+				<% } %>
+			</ol>
+		<% } %>
 		<a class="btn" href="<%= task.url%>/update">Update Task</a>
 		<a class="btn" href="<%= task.url%>/delete">Delete Task</a>
 	</div>

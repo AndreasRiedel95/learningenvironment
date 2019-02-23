@@ -17,18 +17,24 @@ exports.taskinstance_list = function(req, res) {
 
 // Display detail page for a specific taskinstance.
 exports.taskinstance_detail = function(req, res, next) {
-    TaskInstance.findById(req.params.id)
-        .populate({path: 'task', options:{sort:{suffix: 'ascending'}}})
-    	.exec(function (err, taskinstance) {
-    		if(err) {return next(err)}
-    		if(taskinstance == null) {
-    			var err = new Error('Task not found')
-    			err.status = 404;
-    			return next(err);
-    		}
-
-    		res.render('admin/taskinstance_detail', {title: 'Task-Instance Übersicht', taskinstance: taskinstance})
-    	})
+    async.parallel({
+        taskinstance: function(callback) {
+             TaskInstance.findById(req.params.id)
+                .populate({path: 'task', options:{sort:{suffix: 'ascending'}}})
+                .exec(callback);
+        }, 
+        section: function(callback) {
+            Section.find({ 'taskinstance': req.params.id }).exec(callback);
+        }
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.taskinstance==null) { // No results.
+            var err = new Error('Taskinstance not found');
+            err.status = 404;
+            return next(err);
+        }
+        res.render('admin/taskinstance_detail', {title: 'Task-Instance Übersicht', taskinstance: results.taskinstance, section: results.section})
+    });
 };
 
 // Display taskinstance create form on GET.

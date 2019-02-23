@@ -238,7 +238,11 @@ h4 {
   margin-top: 10px;
   font-size: 15px; }
 
-.with-out-decimal > li {
-  padding-top: 5px;
-  padding-bottom: 5px;
+.with-out-decimal {
   list-style: none; }
+  .with-out-decimal > li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    list-style: none; }
+  .with-out-decimal.--pl {
+    padding-left: 0px !important; }
