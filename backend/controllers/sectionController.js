@@ -6,26 +6,6 @@ var async = require('async');
 
 
 
-// Display everything on Admin overview which is in the database
-exports.admin = function(req, res, next) {   
-	async.parallel({
-		section_count: function(callback) {
-			Section.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
-		},
-		task_count: function(callback) {
-			Task.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
-		},
-		task_instance_count: function(callback) {
-			TaskInstance.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
-		}
-	}, function(err, results) {
-		res.render('admin/index', { title: 'Admin Übersicht', error: err, data: results });
-	});
-};
-
-
-///SECTIONS////
-
 // Display list of all sections.
 exports.section_list = function(req, res, next) {
 	Section.find()

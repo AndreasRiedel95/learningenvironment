@@ -7,7 +7,7 @@ var task_instance_controller = require('../controllers/taskinstanceController');
 var section_instance_controller = require('../controllers/sectioninstanceController');
 
 //Get admin index
-router.get('/', section_controller.admin);
+router.get('/', section_instance_controller.admin);
 
 // GET request for creating a section.
 router.get('/section/create', section_controller.section_create_get);
@@ -117,5 +117,7 @@ router.get('/sectioninstance/:id', section_instance_controller.sectioninstance_d
 
 // GET request for list of all sectioninstance.
 router.get('/sectioninstances', section_instance_controller.sectioninstance_list);
+
+router.get('/sectioninstance/:id/createpath', section_instance_controller.sectioninstance_create_path);
 
 module.exports = router;

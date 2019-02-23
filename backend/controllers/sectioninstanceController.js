@@ -1,8 +1,14 @@
 var SectionInstance = require('../models/sectioninstance');
 var Section = require('../models/section');
 var async = require('async')
+const fs = require('fs');
+var path = require('path');
 
+exports.admin = function(req, res, next) {   
+        res.render('admin/index', { title: 'Admin Übersicht'});
+};
 
+//Render Sectioninstances to index.ejs
 exports.section_instance_overview = function(req, res, next) {
     async.parallel({
         sectioninstances: function(callback) {
@@ -15,8 +21,7 @@ exports.section_instance_overview = function(req, res, next) {
     });
 }
 
-
-
+//Render Sectioninstances with section, taskinstances and tasks to section_overview.ejs
 exports.section_instance_overview_section = function(req, res, next) {
     SectionInstance.findById(req.params.id)
         .populate({path: 'section', populate: {path: 'taskinstance', populate: {path: 'task'}}})
@@ -32,6 +37,7 @@ exports.section_instance_overview_section = function(req, res, next) {
         })
 }
 
+//Render Sectioninstances and Sections to editor
 exports.section_to_editor = function(req, res, next) {   
     async.parallel({
         section: function (callback) {
@@ -57,28 +63,28 @@ exports.section_to_editor = function(req, res, next) {
 
 // Display list of all TaskInstances.
 exports.sectioninstance_list = function(req, res) {
-	SectionInstance.find()
+    SectionInstance.find()
         .sort([['sectionInstance_number', 'ascending']])
-		.exec(function (err, list_sectioninstances) {
-			if(err) {return next(err); }
-			res.render('admin/sectioninstance_list', {title: "Section-Instance Übersicht", sectioninstance_list: list_sectioninstances})
-		});
+        .exec(function (err, list_sectioninstances) {
+            if(err) {return next(err); }
+            res.render('admin/sectioninstance_list', {title: "Section-Instance Übersicht", sectioninstance_list: list_sectioninstances})
+        });
 };
 
 // Display detail page for a specific taskinstance.
 exports.sectioninstance_detail = function(req, res, next) {
     SectionInstance.findById(req.params.id)
-    	.populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
-    	.exec(function (err, sectioninstance) {
-    		if(err) {return next(err)}
-    		if(sectioninstance == null) {
-    			var err = new Error('Section not found')
-    			err.status = 404;
-    			return next(err);
-    		}
+        .populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
+        .exec(function (err, sectioninstance) {
+            if(err) {return next(err)}
+            if(sectioninstance == null) {
+                var err = new Error('Section not found')
+                err.status = 404;
+                return next(err);
+            }
 
-    		res.render('admin/sectioninstance_detail', {title: 'Section Instance', sectioninstance: sectioninstance})
-    	})
+            res.render('admin/sectioninstance_detail', {title: 'Section Instance', sectioninstance: sectioninstance})
+        })
 };
 
 // Display taskinstance create form on GET.
@@ -106,28 +112,25 @@ exports.sectioninstance_create_post = [
         next();
     },
     (req, res, next) => {
-        // Extract the validation errors from a request.
-
-        // Create a BookInstance object with escaped and trimmed data.
         var sectioninstance = new SectionInstance(
-          { name: req.body.name,
-            description: req.body.description,
-            sectionInstance_number: req.body.sectionInstance_number,
-            section: req.body.section
-           });
+            { 
+                name: req.body.name,
+                description: req.body.description,
+                sectionInstance_number: req.body.sectionInstance_number,
+                section: req.body.section
+            }
+        );
 
-            // Data from form is valid
-            sectioninstance.save(function (err) {
-                if (err) { return next(err); }
-                   // Successful - redirect to new record.
-                   res.redirect(sectioninstance.url);
-                });
+        sectioninstance.save(function (err) {
+            if (err) { return next(err); }
+               // Successful - redirect to new record.
+               res.redirect(sectioninstance.url);
+        });
     }
 ];
 
-// Display taskinstance delete form on GET.
+// Display sectioninstance delete form on GET.
 exports.sectioninstance_delete_get = function(req, res, next) {
-
     async.parallel({
         sectioninstance: function(callback) {
             SectionInstance.findById(req.params.id).exec(callback);
@@ -143,7 +146,7 @@ exports.sectioninstance_delete_get = function(req, res, next) {
 
 };
 
-// Handle taskinstance delete on POST.
+// Handle sectioninstance delete on POST.
 exports.sectioninstance_delete_post = function(req, res, next) {
     async.parallel({
         sectioninstance: function(callback) {
@@ -162,7 +165,7 @@ exports.sectioninstance_delete_post = function(req, res, next) {
 
 };
 
-// Display taskinstance update form on GET.
+// Display sectioninstance update form on GET.
 exports.sectioninstance_update_get = function(req, res, next) {
     async.parallel({
         sectioninstance: function(callback) {
@@ -175,29 +178,29 @@ exports.sectioninstance_update_get = function(req, res, next) {
             .sort([['suffix', 'ascending']])
         },
 
-        }, function(err, results) {
-            if (err) { return next(err); }
-            if (results.sectioninstance==null) { // No results.
-                var err = new Error('SectionInstance  not found');
-                err.status = 404;
-                return next(err);
-            }
-
-            if(results.sectioninstance.section !== null) {
-                for (var i = 0; i < results.sections.length; i++) {
-                    for (var j = 0; j < results.sectioninstance.section.length; j++) {
-                        if (results.sections[i]._id.toString()==results.sectioninstance.section[j]._id.toString()) {
-                            results.sections[i].checked='true';
-                        }
+    }, 
+    function(err, results) {
+        if (err) { return next(err); }
+        if (results.sectioninstance==null) { // No results.
+            var err = new Error('SectionInstance  not found');
+            err.status = 404;
+            return next(err);
+        }
+        if(results.sectioninstance.section !== null) {
+            for (var i = 0; i < results.sections.length; i++) {
+                for (var j = 0; j < results.sectioninstance.section.length; j++) {
+                    if (results.sections[i]._id.toString()==results.sectioninstance.section[j]._id.toString()) {
+                        results.sections[i].checked='true';
                     }
                 }
             }
-            // Success.
-            res.render('admin/sectioninstance_form', { title: 'Update  SectionInstance', sections : results.sections, sectioninstance:results.sectioninstance });
+        }
+        // Success.
+        res.render('admin/sectioninstance_form', { title: 'Update  SectionInstance', sections : results.sections, sectioninstance:results.sectioninstance });
     });
 };
 
-// Handle taskinstance update on POST.
+// Handle sectioninstance update on POST.
 exports.sectioninstance_update_post = [
     (req, res, next) => {
         SectionInstance.findByIdAndUpdate(req.params.id, 
@@ -209,7 +212,71 @@ exports.sectioninstance_update_post = [
             } 
         }, function (err,thesectioninstance) {
             if (err) { return next(err); }
-               res.redirect(thesectioninstance.url);
-            });
-        }
+
+            res.redirect(thesectioninstance.url);
+        });
+    }
 ];
+
+exports.sectioninstance_create_path = function(req, res, next) {
+    SectionInstance.findById(req.params.id)
+        .populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
+        .exec(function (err, sectioninstance) {
+            if(err) {return next(err)}
+            if(sectioninstance == null) {
+                var err = new Error('Section not found')
+                err.status = 404;
+                return next(err);
+            }
+
+
+            let sectioninstancePath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section`
+            ensureDirectoryExistence(sectioninstancePath)
+
+            if(sectioninstance.section !== null) {
+                if(sectioninstance.section.length) {
+                    for(let i = 0; i<sectioninstance.section.length; i++) {
+                        let sectionPath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/section`
+                        ensureDirectoryExistence(sectionPath)
+                        if(sectioninstance.section[i].taskinstance !== null) {
+                            if(sectioninstance.section[i].taskinstance.length) {
+                                for(let j = 0; j<sectioninstance.section[i].taskinstance.length; j++) {
+                                    if(sectioninstance.section[i].taskinstance[j].task !== null){
+                                        if(sectioninstance.section[i].taskinstance[j].task.length){
+                                            for(let k = 0; k < sectioninstance.section[i].taskinstance[j].task.length; k++) {
+                                                fs.writeFile(`./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/test${sectioninstance.section[i].taskinstance[j].taskInstance_number}.js`, `//Jede Funktion muss ein Promise zurückgeben. Diese Datei muss folgende Funktionen beinhalten: `, function(err) {
+                                                    if(err) {
+                                                        return console.log("file", err);
+                                                    }
+                                                });
+                                                fs.appendFile(`./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/test${sectioninstance.section[i].taskinstance[j].taskInstance_number}.js`, `self.run${sectioninstance.section[i].taskinstance[j].task[k].task_number}, `, function(err) {
+                                                    if(err) {
+                                                        return console.log("file", err);
+                                                    }
+                                                    console.log("file was saved!");
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            function ensureDirectoryExistence(filePath) {
+              var dirname = path.dirname(filePath);
+              if (fs.existsSync(dirname)) {
+                console.log("Folder already exsists")
+                return true;
+              }
+              fs.mkdirSync(dirname);
+              console.log("Folder saved")
+            }
+
+            res.render('admin/sectioninstance_create_path', {title: 'Section Instance Create Path', sectioninstance: sectioninstance, path: "Es wurden für diese Sectionsinstanzen die nötigen Dateien erstellt"})
+        })
+};
+
+

@@ -24,9 +24,9 @@
 		<p class="mb-20">
 			Um die späteren Tests korrekt durchführen zu können ist es wichtig, dass die jeweiligen Nummern korrekt und in aufsteigender Reihenfolge gewählt werden. Andernfalls wird es zu Komplikationen beim Durchführen der Tests kommen, da die richtigen Testdateien in der Dateistruktur nicht gefunden werden können. 
 		</p>
-		<p class="mb-20">Die Titel/Namen eines Objektes können beliebieg gewählt werden.</p>
+		<p>Die Titel/Namen eines Objektes können beliebieg gewählt werden.</p>
 		<p class="mb-20">Eine korrekte Nummerierung und Hierarchie könnte wie folgt aussehen:</p>
-		<ol>
+		<ol class="mb-40">
 			<li><strong>Section-Instanz:</strong> HTML-Grundlagen (1)</li>
 			<ol>
 				<li><strong>Section:</strong> Absätze und Überschriften (1.1)</li>
@@ -58,6 +58,14 @@
 				</ol>
 			</ol>
 		</ol>
+
+		<h4>Testdateien automatisch generieren:</h4>
+		<p class="mb-20">
+			Ist eine Sectionsinstanz aufgebaut, so können die für die Tests nötigen Dateien auch automatisch erstellt werden, indem auf der jeweiligen Detail Seite der Sectioninstanz auf den Button "Create File-System Path" geklickt wird. Dennoch wird eine intelligente Nummerierung empfohlen. 
+		</p>
+		<p class="mb-20">
+			<strong>Bitte beachten Sie:</strong> Dieses Feature befindet sich noch in der Beta-Version. Vor jedem neuen Generieren der Dateien wird empfohlen den jeweiliegn Sectioninstance Ordner in folgendem Verzeichnis zu löschen: <code>delete: src > js > tests > sectioninstance${sectioninstnace_number}</code>
+		</p>
 		<h4>Bilder:</h4>
 		<p class="mb-20">
 			Alle Bilder die in dieser Applikation benutzt werden (auch die, die über den WYSIWYG-Editor hochgeladen werden), müssen sich in dem folgenden Verzeichnis befinden:
