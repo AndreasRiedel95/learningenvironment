@@ -1,5 +1,6 @@
 var TaskInstance = require('../models/taskinstance');
 var Task = require('../models/task');
+var Section = require('../models/section');
 var async = require('async')
 
 
@@ -78,13 +79,61 @@ exports.taskinstance_create_post = [
 ];
 
 // Display taskinstance delete form on GET.
-exports.taskinstance_delete_get = function(req, res) {
+exports.taskinstance_delete_get = function(req, res, next) {
+
+    async.parallel({
+        taskinstance: function(callback) {
+            TaskInstance.findById(req.params.id).exec(callback);
+        },
+        section: function(callback) {
+            Section.find({ 'taskinstance': req.params.id }).exec(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.taskinstance==null) { // No results.
+            res.redirect('/admin/taskinstances');
+        }
+        // Successful, so render.
+        res.render('admin/taskinstance_delete', { title: 'Lösche Task-Instance', taskinstance: results.taskinstance, section: results.section } );
+    });
 
 };
 
 // Handle taskinstance delete on POST.
-exports.taskinstance_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: taskinstance delete POST');
+exports.taskinstance_delete_post = function(req, res, next) {
+    async.parallel({
+        taskinstance: function(callback) {
+            TaskInstance.findById(req.params.id).exec(callback);
+        },
+        section: function(callback) {
+            Section.find({ 'taskinstance': req.params.id }).exec(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        // Success
+        if (results.section.length > 0) {
+            // Taskinstnace has tasks.
+            for(let i = 0; i<results.section.length; i++) {
+                results.section[i].update(
+                    { $pull: 
+                        {
+                            taskinstance: req.params.id
+                        }
+                    },function(err, numberAffected) {
+                        if (err) { return next(err); }
+                    }
+
+                )
+            }
+        }
+        //Delete object and redirect to the list of tasks.
+        TaskInstance.findByIdAndRemove(req.body.id, function deleteTaskinstance(err) {
+            if (err) { return next(err); }
+            res.redirect('/admin/taskinstances');
+        });
+
+    });
+
 };
 
 // Display taskinstance update form on GET.

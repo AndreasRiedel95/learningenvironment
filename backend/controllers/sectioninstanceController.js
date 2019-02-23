@@ -126,13 +126,40 @@ exports.sectioninstance_create_post = [
 ];
 
 // Display taskinstance delete form on GET.
-exports.sectioninstance_delete_get = function(req, res) {
+exports.sectioninstance_delete_get = function(req, res, next) {
+
+    async.parallel({
+        sectioninstance: function(callback) {
+            SectionInstance.findById(req.params.id).exec(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.sectioninstance==null) { // No results.
+            res.redirect('/admin/sectioninstances');
+        }
+        // Successful, so render.
+        res.render('admin/sectioninstance_delete', { title: 'Lösche Section-Instance', sectioninstance: results.sectioninstance } );
+    });
 
 };
 
 // Handle taskinstance delete on POST.
-exports.sectioninstance_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: taskinstance delete POST');
+exports.sectioninstance_delete_post = function(req, res, next) {
+    async.parallel({
+        sectioninstance: function(callback) {
+            SectionInstance.findById(req.params.id).exec(callback);
+        }
+    }, function(err, results) {
+        if (err) { return next(err); }
+        // Success
+        //Delete object and redirect to the list of tasks.
+        SectionInstance.findByIdAndRemove(req.body.id, function deleteSectionisntance(err) {
+            if (err) { return next(err); }
+            res.redirect('/admin/sectioninstances');
+        });
+
+    });
+
 };
 
 // Display taskinstance update form on GET.

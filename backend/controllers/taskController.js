@@ -77,14 +77,63 @@ exports.task_create_post =  [
 
 
 // Display task delete form on GET.
-exports.task_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: task delete GET');
+exports.task_delete_get = function(req, res, next) {
+
+    async.parallel({
+        task: function(callback) {
+            Task.findById(req.params.id).exec(callback);
+        },
+        taskinstance: function(callback) {
+            TaskInstance.find({ 'task': req.params.id }).exec(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.task==null) { // No results.
+            res.redirect('/admin/tasks');
+        }
+        // Successful, so render.
+        res.render('admin/task_delete', { title: 'Lösche Task', task: results.task, taskinstance: results.taskinstance } );
+    });
+
 };
 
 // Handle task delete on POST.
-exports.task_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: task delete POST');
+exports.task_delete_post = function(req, res, next) {
+    async.parallel({
+        task: function(callback) {
+            Task.findById(req.params.id).exec(callback);
+        },
+        taskinstance: function(callback) {
+            TaskInstance.find({ 'task': req.params.id }).exec(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        // Success
+        if (results.taskinstance.length > 0) {
+            // Taskinstnace has tasks.
+            for(let i = 0; i<results.taskinstance.length; i++) {
+                results.taskinstance[i].update(
+                    { $pull: 
+                        {
+                            task: req.params.id
+                        }
+                    },function(err, numberAffected) {
+                        if (err) { return next(err); }
+                    }
+
+                )
+            }
+        }
+        //Delete object and redirect to the list of tasks.
+        Task.findByIdAndRemove(req.body.id, function deleteTask(err) {
+            if (err) { return next(err); }
+            res.redirect('/admin/tasks');
+        });
+
+    });
+
 };
+
 
 // Display task update form on GET.
 exports.task_update_get = function(req, res, next) {
@@ -152,7 +201,7 @@ exports.task_udpate_solved = function(req, res, next) {
             { 
                 task_solved: req.body.task_solved,
             } 
-        }, function (err,thetaskinstance) {
+        }, function (err,numberAffected) {
             if (err) { return next(err); }
         });
 };

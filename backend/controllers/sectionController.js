@@ -1,6 +1,7 @@
 var Section = require('../models/section');
 var Task = require('../models/task');
 var TaskInstance = require('../models/taskinstance');
+var SectionInstance = require('../models/sectioninstance');
 var async = require('async');
 
 
@@ -47,7 +48,7 @@ exports.section_detail = function(req, res, next) {
 	}, function(err, results) {
 		if (err) { return next(err); }
 		if (results.section==null) { // No results.
-			var err = new Error('Secion not found');
+			var err = new Error('Section not found');
 			err.status = 404;
 			return next(err);
 		}
@@ -101,13 +102,61 @@ exports.section_create_post = [
 ];
 
 // Display section delete form on GET.
-exports.section_delete_get = function(req, res) {
-	res.send('NOT IMPLEMENTED: Section delete GET');
+exports.section_delete_get = function(req, res, next) {
+
+    async.parallel({
+        section: function(callback) {
+            Section.findById(req.params.id).exec(callback);
+        },
+        sectioninstance: function(callback) {
+            SectionInstance.find({ 'section': req.params.id }).exec(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.section==null) { // No results.
+            res.redirect('/admin/sectioninstances');
+        }
+        // Successful, so render.
+        res.render('admin/section_delete', { title: 'Lösche Section', section: results.section, sectioninstance: results.sectioninstance } );
+    });
+
 };
 
 // Handle section delete on POST.
-exports.section_delete_post = function(req, res) {
-	res.send('NOT IMPLEMENTED: Section delete POST');
+exports.section_delete_post = function(req, res, next) {
+    async.parallel({
+        section: function(callback) {
+            Section.findById(req.params.id).exec(callback);
+        },
+        sectioninstance: function(callback) {
+            SectionInstance.find({ 'section': req.params.id }).exec(callback);
+        },
+    }, function(err, results) {
+        if (err) { return next(err); }
+        // Success
+        if (results.sectioninstance.length > 0) {
+            // Taskinstnace has tasks.
+            for(let i = 0; i<results.sectioninstance.length; i++) {
+                results.sectioninstance[i].update(
+                    { $pull: 
+                        {
+                            section: req.params.id
+                        }
+                    },function(err, numberAffected) {
+                        if (err) { return next(err); }
+                    }
+
+                )
+            }
+        }
+        //Delete object and redirect to the list of tasks.
+        Section.findByIdAndRemove(req.body.id, function deleteSection(err) {
+            if (err) { return next(err); }
+            res.redirect('/admin/sections');
+        });
+
+    });
+
 };
 
 // Display section update form on GET.

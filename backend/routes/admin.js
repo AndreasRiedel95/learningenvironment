@@ -104,7 +104,7 @@ router.post('/sectioninstance/create', section_instance_controller.sectioninstan
 router.get('/sectioninstance/:id/delete', section_instance_controller.sectioninstance_delete_get);
 
 // // POST request to delete sectioninstance.
-// router.post('/sectioninstance/:id/delete', section_instance_controller.sectioninstance_delete_post);
+router.post('/sectioninstance/:id/delete', section_instance_controller.sectioninstance_delete_post);
 
 // GET request to update sectioninstance.
 router.get('/sectioninstance/:id/update', section_instance_controller.sectioninstance_update_get);

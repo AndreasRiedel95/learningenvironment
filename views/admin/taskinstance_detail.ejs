@@ -19,10 +19,12 @@
 				<strong><%= taskinstance.taskInstance_number %>. Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.suffix %>)
 			</li>
 			<ol class="with-out-decimal">
-				<%if(taskinstance.task !== null) { %>
+				<%if(taskinstance.task.length > 0) { %>
 					<% for(var i = 0; i<taskinstance.task.length; i++) { %>
 						<li><strong><%= taskinstance.task[i].task_number %>. Task:</strong> <a href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name%></a> (<%= taskinstance.task[i].suffix %>)</li>
 					<% } %>
+				<% } else { %>
+					<li>Taskinstance hat keine Tasks</li>
 				<% } %>
 			</ol>
 		</ol>
@@ -30,5 +32,6 @@
 		<p class="mb-20">Diese Instanz hat keine zugehörigen Sections</p>
 	<% } %>
 	<a class="btn mt-20" href="<%= taskinstance.url%>/update">Update Taskinstance</a>
+	<a class="btn mt-20" href="<%= taskinstance.url%>/delete">Delete Taskinstance</a>
 </div>
 <script src="/js/admin_codeMirror.bundle.js"></script>

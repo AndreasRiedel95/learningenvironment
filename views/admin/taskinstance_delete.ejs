@@ -1,0 +1,19 @@
+<% extend('admin_base') %>
+	<div class="content mb-50">
+		<% if(section.length) { %>
+			<p>Diese Taskinstance wird in folgender Section benutzt</p>
+			<ul class="mb-40">
+				<% for(let i = 0; i < section.length; i++) { %>
+					<li><a href="<%= section[i].url %>"><%= section[i].section_number %>. <%= section[i].name %> (<%= section[i].suffix %>)</a></li>
+				<% } %>
+			</ul>
+		<% } %>
+
+		<p>Möchten sie diese Task-Instance: <a href="<%= taskinstance.url %>"><%= taskinstance.taskInstance_number %>. <%= taskinstance.name %> (<%= taskinstance.suffix %>)</a> wirklich löschen?</p>
+		<form action="" method="POST">
+			<div class="form-group mb-40">
+				<input class="input" required="true" type="hidden" name="id" value="<%= taskinstance._id %>" >
+			</div>
+			<button class="btn" type="submit">Löschen</button>
+		</form>
+	</div>

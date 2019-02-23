@@ -1,0 +1,19 @@
+<% extend('admin_base') %>
+	<div class="content mb-50">
+		<% if(sectioninstance.length) { %>
+			<p>Diese Section wird in folgender Sectioninstance benutzt</p>
+			<ul class="mb-40">
+				<% for(let i = 0; i < sectioninstance.length; i++) { %>
+					<li><a href="<%= sectioninstance[i].url %>"><%= sectioninstance[i].sectionInstance_number %>. <%= sectioninstance[i].name %></a></li>
+				<% } %>
+			</ul>
+		<% } %>
+
+		<p>Möchten sie diese Section: <a href="<%= section.url %>"><%= section.section_number %>. <%= section.name %> (<%= section.suffix %>)</a> wirklich löschen?</p>
+		<form action="" method="POST">
+			<div class="form-group mb-40">
+				<input class="input" required="true" type="hidden" name="id" value="<%= section._id %>" >
+			</div>
+			<button class="btn" type="submit">Löschen</button>
+		</form>
+	</div>

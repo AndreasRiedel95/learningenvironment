@@ -598,7 +598,8 @@ body {
   -o-transition: background-color 0.3s;
   transition: background-color 0.3s; }
   .btn:hover {
-    background-color: #446a89; }
+    background-color: #446a89;
+    color: #fff !important; }
   .btn.--grey {
     background-color: #ebebeb;
     color: #223342; }
