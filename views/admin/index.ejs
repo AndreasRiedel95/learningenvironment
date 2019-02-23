@@ -59,9 +59,29 @@
 			</ol>
 		</ol>
 
+		<h4>Tests:</h4>
+		<p>
+			Alle Test-Dateien müssen sich in folgendem Verzeichnis befinden: <code> root > src > js > tests</code>. 
+		</p>
+		<p>
+			Damit die Tests von der Applikation gefunden werden können, muss innerhalb des <code>tests</code>-Ordner die folgende Verzeichnisstruktur und Namensgebung eingehalten werden: 
+		</p>
+		<p class="mb-20"><code>sectioninstance${sectioninstance_number} > section${section_number} > test${taskinstance_number}.js</code></p>
+		
+		<p>
+			In den <code>test${taskinstance_number}.js</code>-Dateien befinden sich die eigentlichen Tests für die jeweiligen Aufgaben. Die Funktionsnamen für die Tests müssen wie folgt gewählt werden:
+		</p>
+		<p class="mb-20"><code>self.run${task_number} = (htmlNode, cssString, test, [...]) => { ... }</code></p>
+		<p class="mb-20">
+			<strong>Bitte beachten Sie:</strong> Jede <code>self.run${task_number}</code>-Funktion, muss nach dem letzten Test ein Promise wie folgt zurückgeben:
+			<code>return Promise.resolve();</code>
+		</p>
+		<p class="mb-20">
+			Die Tests basieren auf dem Modul <a target="_blank" href="https://github.com/studio-b12/tape-css">tape-css</a>. Tape-css benutzt die existierende <a target="_blank" href="https://github.com/substack/tape">API</a> der Test-Bibliothek tape.  
+		</p>
 		<h4>Testdateien automatisch generieren:</h4>
 		<p class="mb-20">
-			Ist eine Sectionsinstanz aufgebaut, so können die für die Tests nötigen Dateien auch automatisch erstellt werden, indem auf der jeweiligen Detail Seite der Sectioninstanz auf den Button "Create File-System Path" geklickt wird. Dennoch wird eine intelligente Nummerierung empfohlen. 
+			Ist eine Sectionsinstanz aufgebaut, so können die für die Tests nötigen Dateien auch automatisch erstellt werden. Hier muss im Admin Bereich auf der jeweiligen Detail-Seite der Sectioninstanz auf den Button "Create File-System Path" geklickt werden. Somit wird sicher gestellt, dass die Applikationen die korrekte Verzechnisstrukur hat und die Tests gefunden werden können. Dennoch wird eine intelligente Nummerierung empfohlen. 
 		</p>
 		<p class="mb-20">
 			<strong>Bitte beachten Sie:</strong> Dieses Feature befindet sich noch in der Beta-Version. Vor jedem neuen Generieren der Dateien wird empfohlen den jeweiliegn Sectioninstance Ordner in folgendem Verzeichnis zu löschen: <code>delete: src > js > tests > sectioninstance${sectioninstnace_number}</code>
@@ -70,29 +90,6 @@
 		<p class="mb-20">
 			Alle Bilder die in dieser Applikation benutzt werden (auch die, die über den WYSIWYG-Editor hochgeladen werden), müssen sich in dem folgenden Verzeichnis befinden:
 			<code>root > public > img </code>
-		</p>
-		<h4>Tests:</h4>
-		<p>
-			Alle Test-Dateien müssen sich in folgendem Verzeichnis befinden: <code> root > src > js > tests</code>. 
-		</p>
-		<p>
-			Damit die Tests von der Applikation gefunden werden können, muss innerhalb des Tests-Ordner die folgende Verzeichnisstruktur und Namengebung eingehalten werden: 
-		</p>
-		<p class="mb-20"><code>sectioninstance${sectioninstance_number} > section${section_number} > test${taskinstance_number}.js</code></p>
-		
-		<p>
-			In den <code>test${taskinstance_number}.js-Dateien</code> befinden sich die Tests für die jeweiligen Aufgaben.
-		</p>
-		<p>
-			Hierbei gibt es pro Datei eine Testinstanz mit den jeweiligen Funktionen für die Aufgaben. Die Funktionsnamen müssen wie folgt gewählt werden:
-		</p>
-		<p class="mb-20"><code>self.run${task_number} = (htmlNode, cssString, test, [...]) => { ... }</code></p>
-		<p class="mb-20">
-			<strong>Bitte beachten Sie:</strong> Jede run-Funktion, muss nach dem letzten Test ein Promise wie folgt zurückgeben:
-			<code>return Promise.resolve();</code>
-		</p>
-		<p class="mb-20">
-			Die Tests basieren auf dem Modul <a target="_blank" href="https://github.com/studio-b12/tape-css">tape-css</a>. Tape-css benutzt die existierende <a target="_blank" href="https://github.com/substack/tape">API</a> der Test-Bibliothek tape.  
 		</p>
 		<h4>Datenbank:</h4>
 		<p class="mb-20">
