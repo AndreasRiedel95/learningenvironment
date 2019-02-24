@@ -41,7 +41,7 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, se
 			//Call dynamically the correct test function in test file
 			TestInstance[runNumber](htmlNode, cssString, test, h, computedStyle, testnumber)
 				.then(() => {
-					//Check if Test result is append to DOM
+					//Check if Test result is already append to DOM (ASYNC)
 					checkElementExists('.assert') 
 						.then(() => {
 							//Element exists now

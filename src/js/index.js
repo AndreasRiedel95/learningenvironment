@@ -27,14 +27,17 @@ document.addEventListener("DOMContentLoaded", function() {
 		var result = Array.from(taskInputs).filter(taskInput => taskInput.checked === false)[0];
 		//find index of first Task-Input which is not checked
 		var index = Array.from(taskInputs).findIndex(taskInput => taskInput === result)
-		//remove --not-solved class on Task, so student is able to run test for it 
-		tasks[index].classList.remove('--not-solved')
+		//remove --not-solved class on Task, so student is able to run test for it
+		if(tasks[index] !== undefined) { 
+			tasks[index].classList.remove('--not-solved')
+		}
 
 	})
 
 });
 
 let editorRendering = (() => {
+	//Base template for Output 
 	let base_tpl =
 	"<!doctype html>\n" +
 	"<html>\n\t" +
@@ -137,7 +140,7 @@ let editorRendering = (() => {
 
 		// HTML
 		src = base_tpl.replace('</body>', html + '</body>');
-		// CSS
+		// include css reset from http://meyerweb.com/eric/tools/css/reset/ (maybe better fetch from external file?)
 		let cssReset = "a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,let,video{margin:0;padding:0;border:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}";
 		css = '<style>' + cssReset + css + '</style>';
 		src = src.replace('</head>', css + '</head>');
@@ -175,7 +178,7 @@ let editorRendering = (() => {
 			
 })();
 
-//Import Files Event Handler
+//Import/Export Files Event Handler
 document.querySelectorAll('.import-file').forEach((button) => {
 	button.addEventListener('change', () => {
 		let target = null;
@@ -203,7 +206,7 @@ document.querySelectorAll('.export-file').forEach((button) => {
 	}, false)
 });
 
-//Run Tests Event Handler
+//Run Tests Event Handler (EXLUDE IN teshandler.js)
 let testButtons = document.querySelectorAll('.run-test-js');
 testButtons.forEach((button) => {
 	button.addEventListener('click', () => {
@@ -261,6 +264,7 @@ updateBtn.addEventListener('click', () => {
 	let html_editor = editorRendering.getHTMLEditor();
 	let css_editor = editorRendering.getCSSEditor();
 	let savedWrapper = document.querySelector('.code-saved-wrapper');
+	let savedWrapperError = document.querySelector('.code-saved-wrapper.--error');
 	let taskinstance = document.querySelector('.taskInput.--task:checked');
 
 	if(taskinstance !== null) {
@@ -276,7 +280,13 @@ updateBtn.addEventListener('click', () => {
 		savedWrapper.classList.add('--saved');
 		setTimeout(() => {
 			savedWrapper.classList.remove('--saved');
-		}, 1400)
+		}, 2000)
+	} else {
+		savedWrapperError.classList.add('--saved');
+		setTimeout(() => {
+			savedWrapperError.classList.remove('--saved');
+		}, 3000)
+
 	}
 })
 

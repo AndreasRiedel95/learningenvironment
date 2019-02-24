@@ -1,4 +1,5 @@
-const test3 = function () {
+//self.run2 – test 2, //self.run1 – Test, //self.run3 – Test 3, 
+const test1 = function () {
 	let self = this;
 	self.run1 = (htmlNode, cssString, test, h, computedStyle) => {
 			console.log("Sectioninstanz 1.1.1.1" )
@@ -123,4 +124,4 @@ const test3 = function () {
    };
 }
 
-module.exports = test3;
+module.exports = test1;

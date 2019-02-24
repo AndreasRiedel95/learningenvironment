@@ -8,6 +8,10 @@
   display: grid;
   -ms-grid-columns: 50px (calc((100% - 50px) / 3))[3];
   grid-template-columns: 50px repeat(3, calc((100% - 50px) / 3));
+  -webkit-transition: grid-template-columns 0.3s;
+  -o-transition: grid-template-columns 0.3s;
+  transition: grid-template-columns 0.3s;
+  transition: grid-template-columns 0.3s, -ms-grid-columns 0.3s;
   -ms-grid-rows: (calc(50vh - 25px))[2];
   grid-template-rows: repeat(2, calc(50vh - 25px));
   grid-template-areas: "sidebar description html_css output" "sidebar description html_css output"; }
@@ -19,19 +23,26 @@
   font-family: sans-serif;
   padding: 5px;
   font-size: 12px;
+  font-weight: 300;
   z-index: 10000000;
-  color: #000;
+  color: #fff;
   left: 50%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  background-color: #ebebeb;
+  background-color: #41C3BD;
   opacity: 0;
   -webkit-transition: opacity 0.3s;
   -o-transition: opacity 0.3s;
   transition: opacity 0.3s; }
   .code-saved-wrapper.--saved {
     opacity: 1; }
+  .code-saved-wrapper.--error {
+    background-color: #F7465D; }
 
 .header-btn-wrapper {
   margin-left: auto;

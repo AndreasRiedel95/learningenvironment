@@ -8,6 +8,7 @@ let cm_opt_html = {
 	theme: 'lucario',
 	indentWithTabs: true,
 	showCursorWhenSelecting: true,
+	scrollbarStyle: "overlay",
 	fixedGutter: true,
 	lineNumbers: true,
 	autoCloseTags: false
@@ -15,7 +16,6 @@ let cm_opt_html = {
 
 	let cm_opt_css = {
 	mode: 'text/html',
-	gutters: ['CodeMirror-lint-markers'],
 	theme: 'lucario',
 	indentWithTabs: true,
 	scrollbarStyle: "overlay",
@@ -34,15 +34,10 @@ let cm_opt_output = {
 	readOnly: true
 };
 
-
-
-
-
 let html_box = document.querySelector('.html-codearea');
 let html_editor, css_editor;
 if(html_box.classList.contains('--output')) {
 	html_editor = CodeMirror.fromTextArea(html_box, cm_opt_output);
-
 } else {
 	html_editor = CodeMirror.fromTextArea(html_box, cm_opt_html);	
 }
@@ -53,25 +48,6 @@ let css_box = document.querySelector('.css-codearea');
 if(css_box.classList.contains('--output')){
 	cm_opt_output.mode = 'css';
 	css_editor = CodeMirror.fromTextArea(css_box, cm_opt_output);
-
 } else {
 	css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 }
-
-// html_editor.on("change", function(html_editor, change) {
-// 	render();
-// });
-// css_editor.on("change", function(css_editor, change) {
-// 	render();
-// });
-
-// html_editor.setSize("100%", "100%");
-// css_editor.setSize("100%", "100%");
-// css_editor.refresh();
-// html_editor.refresh();
-
-// function render() {
-// 	html_box.value = html_editor.getValue();
-// 	css_box.value = css_editor.getValue();
-
-// }

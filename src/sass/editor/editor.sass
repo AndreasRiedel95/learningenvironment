@@ -8,6 +8,7 @@
 	height: calc(100vh - 50px)
 	display: grid 
 	grid-template-columns: 50px repeat(3, calc((100% - 50px) / 3))
+	transition: grid-template-columns 0.3s
 	grid-template-rows: repeat(2, calc(50vh - 25px)) 
 	grid-template-areas: "sidebar description html_css output" "sidebar description html_css output"
 
@@ -18,15 +19,20 @@
 	font-family: sans-serif
 	padding: 5px
 	font-size: 12px
+	font-weight: 300
 	z-index: 10000000
-	color: #000
+	color: #fff
 	left: 50%
+	user-select: none
 	transform: translateX(-50%)
-	background-color: $grey
+	background-color: $green
 	opacity: 0
 	transition: opacity 0.3s
 	&.--saved
 		opacity: 1
+	&.--error
+		background-color: $red
+		
 
 .header-btn-wrapper
 	margin-left: auto

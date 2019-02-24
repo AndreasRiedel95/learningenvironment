@@ -39,4 +39,10 @@
 	<symbol id="svg-arrow-down" viewBox="0 0 60 60">
 		<path d="M30,32.83l9.9-9.9a2,2,0,1,1,2.83,2.83L31.41,37.07a2,2,0,0,1-2.82,0L17.27,25.76a2,2,0,0,1,2.83-2.83Z"/>
 	</symbol>
+    </symbol>
+	<symbol id="svg-close" viewBox="0 0 28.233 27.046">
+		<g stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
+			<path d="m26.219 25.189-23.612-23.611"/><path d="m2.248 25.098 23.611-23.611"/>
+		</g>
+	</symbol>
 </svg>

@@ -47,6 +47,7 @@ export const vertical = (draggerVertical) => {
 		let outputWrapperWidth = outputWrapper.clientWidth;
 		let x, vw,leftIndex, xNew;
 
+		//Check if First Resizer is clicked
 		if(draggerVertical.previousElementSibling.classList.contains('description-scroll-wrapper')) {
 			leftIndex =  sidebar.clientWidth
 			vw = header.clientWidth - leftIndex;
@@ -81,6 +82,7 @@ export const vertical = (draggerVertical) => {
 		isDown = false;
 		document.body.style.pointerEvents = "all";
 		let editors = getEditors();
+		//Refresh so scrollbar is new calculated
 		editors[0].refresh();
 		editors[1].refresh();
 		document.removeEventListener('mousemove', mouseMove, false);
@@ -109,6 +111,7 @@ export const horizontal = (draggerHorizontal) => {
 		let wrapper = document.querySelector('.html-css-wrapper');
 		let x = event.pageY - topIndex;
 		var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		//calculation to fix resizer on top or bottom
 		if(x <= 10) {
 			x = 0
 		} else if (x > h - 60){
@@ -137,6 +140,12 @@ export const setInitalGrid = () => {
 	editorWrapper.style.gridTemplateColumns =  `50px repeat(3, calc((100% - 50px) / 3))`;
 }
 
+export const closeDescription = () => {
+	let editorWrapper = document.querySelector('.task-editor-wrapper');
+	editorWrapper.style.gridTemplateColumns =  `50px 0px repeat(2, calc((100% - 50px) / 2))`;
+}
+
+window.closeDescription = closeDescription;
 window.setInitialGrid = setInitalGrid;
 window.onClickVertical = vertical;
 window.onClickHorizontal = horizontal;

@@ -194,10 +194,7 @@ body {
   position: absolute;
   right: 20px;
   top: 10px;
-  background-image: url("../../img/close_red.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  cursor: pointer;
-  background-position: 0px 0px;
   width: 12px;
-  height: 12px; }
+  height: 12px;
+  stroke: #F7465D;
+  cursor: pointer; }

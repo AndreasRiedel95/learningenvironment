@@ -449,6 +449,12 @@
   padding-bottom: 250px; }
 
 .header-1 {
+  font-size: 60px;
+  font-weight: 700;
+  font-family: "Roboto", "Avenir", "Helvetica Neue", sans-serif;
+  margin-bottom: 20px; }
+
+.header-2 {
   font-size: 20px;
   font-family: "Roboto", "Avenir", "Helvetica Neue", sans-serif;
   font-weight: 500;
@@ -472,6 +478,9 @@
 
 .white {
   color: #fff !important; }
+
+.text-center {
+  text-align: center; }
 
 p, li, td {
   font-size: 15px;

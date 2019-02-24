@@ -18,7 +18,7 @@
 					<% for(let i = 0; i<section.length; i++) { %>
 						<li>
 							<strong><%= section[i].section_number %>. Section</strong>
-							<a href="<%= section[i].url %>"><%= sectioninstance[i].name %></a> (<%= sectioninstance[i].suffix %>)
+							<a href="<%= section[i].url %>"><%= section[i].name %></a> (<%= section[i].suffix %>)
 						</li>
 					<% } %>
 				</ol>
@@ -28,7 +28,7 @@
 				<strong><%= taskinstance.taskInstance_number %>. Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.suffix %>)
 			</li>
 			<ol class="with-out-decimal">
-				<%if(taskinstance.task.length > 0) { %>
+				<%if(taskinstance.task !== null) { %>
 					<% for(var i = 0; i<taskinstance.task.length; i++) { %>
 						<li><strong><%= taskinstance.task[i].task_number %>. Task:</strong> <a href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name%></a> (<%= taskinstance.task[i].suffix %>)</li>
 					<% } %>

@@ -64,27 +64,26 @@ exports.section_to_editor = function(req, res, next) {
 // Display list of all TaskInstances.
 exports.sectioninstance_list = function(req, res) {
     SectionInstance.find()
-        .sort([['sectionInstance_number', 'ascending']])
-        .exec(function (err, list_sectioninstances) {
-            if(err) {return next(err); }
-            res.render('admin/sectioninstance_list', {title: "Section-Instance Übersicht", sectioninstance_list: list_sectioninstances})
-        });
+    .sort([['sectionInstance_number', 'ascending']])
+    .exec(function (err, list_sectioninstances) {
+        if(err) {return next(err); }
+        res.render('admin/sectioninstance_list', {title: "Section-Instance Übersicht", sectioninstance_list: list_sectioninstances})
+    });
 };
 
 // Display detail page for a specific taskinstance.
 exports.sectioninstance_detail = function(req, res, next) {
     SectionInstance.findById(req.params.id)
-        .populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
-        .exec(function (err, sectioninstance) {
-            if(err) {return next(err)}
-            if(sectioninstance == null) {
-                var err = new Error('Section not found')
-                err.status = 404;
-                return next(err);
-            }
-
-            res.render('admin/sectioninstance_detail', {title: 'Section Instance', sectioninstance: sectioninstance})
-        })
+    .populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
+    .exec(function (err, sectioninstance) {
+        if(err) {return next(err)}
+        if(sectioninstance == null) {
+            var err = new Error('Section not found')
+            err.status = 404;
+            return next(err);
+        }
+        res.render('admin/sectioninstance_detail', {title: 'Section Instance', sectioninstance: sectioninstance})
+    })
 };
 
 // Display taskinstance create form on GET.
@@ -177,7 +176,6 @@ exports.sectioninstance_update_get = function(req, res, next) {
             Section.find(callback)
             .sort([['suffix', 'ascending']])
         },
-
     }, 
     function(err, results) {
         if (err) { return next(err); }
@@ -219,64 +217,52 @@ exports.sectioninstance_update_post = [
 ];
 
 exports.sectioninstance_create_path = function(req, res, next) {
-    SectionInstance.findById(req.params.id)
-        .populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
-        .exec(function (err, sectioninstance) {
-            if(err) {return next(err)}
-            if(sectioninstance == null) {
-                var err = new Error('Section not found')
-                err.status = 404;
-                return next(err);
-            }
+SectionInstance.findById(req.params.id)
+    .populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
+    .exec(function (err, sectioninstance) {
+        if(err) {return next(err)}
+        if(sectioninstance == null) {
+            var err = new Error('Section not found')
+            err.status = 404;
+            return next(err);
+        }
 
-
-            let sectioninstancePath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section`
-            ensureDirectoryExistence(sectioninstancePath)
-
-            if(sectioninstance.section !== null) {
-                if(sectioninstance.section.length) {
-                    for(let i = 0; i<sectioninstance.section.length; i++) {
-                        let sectionPath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/section`
-                        ensureDirectoryExistence(sectionPath)
-                        if(sectioninstance.section[i].taskinstance !== null) {
-                            if(sectioninstance.section[i].taskinstance.length) {
-                                for(let j = 0; j<sectioninstance.section[i].taskinstance.length; j++) {
-                                    if(sectioninstance.section[i].taskinstance[j].task !== null){
-                                        if(sectioninstance.section[i].taskinstance[j].task.length){
-                                            for(let k = 0; k < sectioninstance.section[i].taskinstance[j].task.length; k++) {
-                                                fs.writeFile(`./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/test${sectioninstance.section[i].taskinstance[j].taskInstance_number}.js`, `//Jede Funktion muss ein Promise zurückgeben. Diese Datei muss folgende Funktionen beinhalten: `, function(err) {
-                                                    if(err) {
-                                                        return console.log("file", err);
-                                                    }
-                                                });
-                                                fs.appendFile(`./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/test${sectioninstance.section[i].taskinstance[j].taskInstance_number}.js`, `self.run${sectioninstance.section[i].taskinstance[j].task[k].task_number}, `, function(err) {
-                                                    if(err) {
-                                                        return console.log("file", err);
-                                                    }
-                                                    console.log("file was saved!");
-                                                });
-                                            }
-                                        }
+        let sectioninstancePath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section`
+        ensureDirectoryExistence(sectioninstancePath)
+        //REALLY BAD CODE STYLE
+        if(sectioninstance.section !== null) {
+            for(let i = 0; i<sectioninstance.section.length; i++) {
+                let sectionPath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/section`
+                ensureDirectoryExistence(sectionPath)
+                if(sectioninstance.section[i].taskinstance !== null) {
+                    for(let j = 0; j<sectioninstance.section[i].taskinstance.length; j++) {
+                        if(sectioninstance.section[i].taskinstance[j].task !== null){
+                            for(let k = 0; k < sectioninstance.section[i].taskinstance[j].task.length; k++) {
+                                fs.appendFile(`./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/test${sectioninstance.section[i].taskinstance[j].taskInstance_number}.js`, `//self.run${sectioninstance.section[i].taskinstance[j].task[k].task_number} – ${sectioninstance.section[i].taskinstance[j].task[k].name}, `, function(err) {
+                                    if(err) {
+                                        return console.log("file", err);
                                     }
-                                }
+                                    console.log("file was saved!");
+                                });
                             }
                         }
                     }
                 }
             }
+        }
 
-            function ensureDirectoryExistence(filePath) {
-              var dirname = path.dirname(filePath);
-              if (fs.existsSync(dirname)) {
-                console.log("Folder already exsists")
-                return true;
-              }
-              fs.mkdirSync(dirname);
-              console.log("Folder saved")
-            }
+        function ensureDirectoryExistence(filePath) {
+          var dirname = path.dirname(filePath);
+          if (fs.existsSync(dirname)) {
+            console.log("Folder already exsists")
+            return true;
+          }
+          fs.mkdirSync(dirname);
+          console.log("Folder saved")
+        }
 
-            res.render('admin/sectioninstance_create_path', {title: 'Section Instance Create Path', sectioninstance: sectioninstance, path: "Es wurden für diese Sectionsinstanzen die nötigen Dateien erstellt"})
-        })
+        res.render('admin/sectioninstance_create_path', {title: 'Section Instance Create Path', sectioninstance: sectioninstance, path: "Es wurden für diese Sectionsinstanzen die nötigen Dateien erstellt"})
+    })
 };
 
 

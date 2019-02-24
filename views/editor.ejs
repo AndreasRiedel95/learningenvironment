@@ -18,15 +18,17 @@
 		const sectioninstance =  <%- JSON.stringify(sectioninstance) %>;
 	</script>
 	<div class="code-saved-wrapper">
-		Code saved
+		Code gespeichert
+	</div>
+	<div class="code-saved-wrapper --error">
+		Bitte Aufgabe auswählen um Code zu speichern
 	</div>
 	<div class="header" data-sectioninstancenumber="<%= sectioninstance[0].sectionInstance_number %>">
-		<h1 class="header-1 white"><%=section.name %></h1>
+		<h2 class="header-2 white"><%=section.name %></h2>
 		<div class="header-btn-wrapper">
 			<button class="btn --icon" type="button" onclick="setInitialGrid()" title='Set Editor-Grid to inital size'>
 				<div class="set-inital-grid"></div>
 			</button>
-			
 			<button class="save btn --icon" type="button" title='Save your code'>
 				<div class="save-disk"></div>
 			</button>
@@ -36,46 +38,56 @@
 		<div class="task-number-wrapper">
 			<div class="input-wrapper --description">
 				<input id="description" type="radio" name="task" class="taskInput --description" checked>
-				<label class="task-number" for="description" onclick="setDescription()" >
+				<label class="task-number" for="description" onclick="setDescription(); setInitialGrid();" >
 					<svg class="description-svg">
 						<use xlink:href="#svg-description" />
 					</svg>
 				</label>
 			</div>
-			<% for(let i = 0; i<section.taskinstance.length; i++){ %>
-				<div class="input-wrapper --task">
-					<input id="<%= section.taskinstance[i].taskInstance_number %>" type="radio" name="task" class="taskInput --task" data-taskinstanceid="<%= section.taskinstance[i]._id %>">
-					<label class="task-number" for="<%= section.taskinstance[i].taskInstance_number %>" onclick="setTaskDescription(this)">A<%= section.taskinstance[i].taskInstance_number %></label>
-				</div>
+			<% if(section.taskinstance !== null) { %>
+				<% for(let i = 0; i<section.taskinstance.length; i++){ %>
+					<div class="input-wrapper --task">
+						<input id="<%= section.taskinstance[i].taskInstance_number %>" type="radio" name="task" class="taskInput --task" data-taskinstanceid="<%= section.taskinstance[i]._id %>">
+						<label class="task-number" for="<%= section.taskinstance[i].taskInstance_number %>" onclick="setTaskDescription(this); setInitialGrid();">A<%= section.taskinstance[i].taskInstance_number %></label>
+					</div>
+				<% } %>
 			<% } %>
 		</div>
 		<div class="description-wrapper" data-descriptionnumber="<%= section.section_number %>">
 			<div class="description-scroll-wrapper" data-description="description">
 				<div class="task-headline-wrapper">
-					<h3 class="header-3">Beschreibung</h3>
+					<h3 class="header-3 mr-10">Beschreibung</h3>
+					<svg class="svg-close" onclick="closeDescription()">
+						<use xlink:href="#svg-close" />
+					</svg>
 				</div>
 				<div class="description-text-wrapper quill-format">
 						<%- section.description %>
 				</div>
 			</div>
-			<% for(let i = 0; i<section.taskinstance.length; i++){ %>
-				<div class="description-scroll-wrapper --not-active" data-tasknumber="<%= section.taskinstance[i].taskInstance_number %>">
-					<% for(let j = 0; j<section.taskinstance[i].task.length; j++){ %>
-						<div class="task <% if(!(section.taskinstance[i].task[j].task_solved)){ %> --not-solved <% } %>" data-taskid="<%= section.taskinstance[i].task[j]._id %>">
-							<div class="task-headline-wrapper">
-								<h3 class="header-3"><%= section.taskinstance[i].task[j].name  %></h3>
+			<% if(section.taskinstance !== null) { %>
+				<% for(let i = 0; i<section.taskinstance.length; i++){ %>
+					<div class="description-scroll-wrapper --not-active" data-tasknumber="<%= section.taskinstance[i].taskInstance_number %>">
+						<% for(let j = 0; j<section.taskinstance[i].task.length; j++){ %>
+							<div class="task <% if(!(section.taskinstance[i].task[j].task_solved)){ %> --not-solved <% } %>" data-taskid="<%= section.taskinstance[i].task[j]._id %>">
+								<div class="task-headline-wrapper">
+									<h3 class="header-3"><%= section.taskinstance[i].task[j].name  %></h3>
+										<svg class="svg-close" onclick="closeDescription()">
+											<use xlink:href="#svg-close" />
+										</svg>
+								</div>
+								<div class="task-solved-wrapper">
+									<input type="checkbox" class="task-solved" <% if(section.taskinstance[i].task[j].task_solved){ %> checked <% } %>>
+									<label class="task-solved-label"></label>
+								</div>
+								<div class="task-description quill-format">
+										<%- section.taskinstance[i].task[j].description %>
+									<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="<%= section.taskinstance[i].task[j].task_number %>">Run Test</button>
+								</div>
 							</div>
-							<div class="task-solved-wrapper">
-								<input type="checkbox" class="task-solved" <% if(section.taskinstance[i].task[j].task_solved){ %> checked <% } %>>
-								<label class="task-solved-label"></label>
-							</div>
-							<div class="task-description quill-format">
-									<%- section.taskinstance[i].task[j].description %>
-								<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="<%= section.taskinstance[i].task[j].task_number %>">Run Test</button>
-							</div>
-						</div>
-					<% } %>
-				</div>
+						<% } %>
+					</div>
+				<% } %>
 			<% } %>
 			<div class="resize --vertical" onmousedown="onClickVertical(this)"></div>
 		</div>
@@ -128,7 +140,9 @@
 		<section class="output">
 			<div class="size-iframe"></div>
 			<div class="error-message-wrapper">
-				<div class="close-wrapper" onclick="closeErrorMessage()"></div>
+				<svg class="close-wrapper" onclick="closeErrorMessage()">
+					<use xlink:href="#svg-close" />
+				</svg>
 				<div class="error-message"></div>
 			</div>
 			<iframe class="output-iframe"></iframe>

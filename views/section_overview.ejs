@@ -19,8 +19,9 @@
 		</svg>
 	</div>
 	<div class="section-container_overview mb-100 scroll-to-js">
-		<% for(var i = 0; i<sectioninstance.section.length; i++) { %>
-			<a href="/editor/<%=sectioninstance.section[i]._id%>" class="section-container">
+		<%if(sectioninstance.section !== null) {%>
+			<% for(var i = 0; i<sectioninstance.section.length; i++) { %>
+				<a href="/editor/<%=sectioninstance.section[i]._id%>" class="section-container">
 					<div class="top-line"></div>
 					<h4 class="section-container__headline"><%=sectioninstance.section[i].name %></h4>
 					<div class="section-container__text">
@@ -28,8 +29,11 @@
 							<p><%- sectioninstance.section[i].shortdescription.substring(0, 150) %>...</p>
 						<% } %>
 					</div>
-			</a>
-		<%}%>
+				</a>
+			<% } %>
+		<% } else {%>
+			<p class="text-center" ><%=sectioninstance.name %> hat keine Untersectionen. Bitte kontaktieren Sie Ihren Admin.</p>
+		<% } %>
 	</div>
 	<script src="/js/init.bundle.js"></script>
 </body>
