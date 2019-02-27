@@ -1,10 +1,11 @@
 <% extend('admin_base') %>
 	<div class="content mb-50">
 		<h2 class="header-2 mb-20">Willkommen im Admin-Bereich</h2> 
-		<p class="mb-20">
+		<p>
 			Über das Menü auf der linken Seite, können die Sektionen und Aufgaben für die Studenten angelegt werden. 
 			Die Datenbank hat den folgenden UML Aufbau: 
 		</p>
+		<img class="img mb-20"src="/img/Database_ER.png" alt="ER Diagramm">
 		<p class="mb-20">
 			<strong>Bitte beachten Sie:</strong> Es können nur Objekte anhand bereits vorhandener Objekte erstellt werden. (Es müssen also z.B. schon alle Sektionen erstellt werden und können dann der Sektions-Instanz zugewiesen werden) 
 		</p>
@@ -18,7 +19,7 @@
 
 		<h4>Hierarchien:</h4>
 		<p class="mb-20">
-			In den jeweiligen Übersichtslisten werden die Objekte nach der Hierarchie geordnet. Die Hierarchie-Ebenen vereinfachen die Zuordnung und sollten deshalb richtig betitelt werden.
+			In den jeweiligen Übersichtslisten werden die Objekte nach der Hierarchie (suffix) geordnet. Die Hierarchie-Ebenen vereinfachen die Zuordnung und sollten deshalb richtig betitelt werden.
 		</p>
 		<h4>Objekt-Nummerierung und Namensgebung:</h4>
 		<p class="mb-20">
