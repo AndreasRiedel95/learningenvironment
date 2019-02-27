@@ -3,23 +3,27 @@
 	<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/css/backend/quillEditor_admin.css"/>
 	<%if (typeof section === 'undefined') { %>
-		<form action="" method="POST">
+		<form action="" name="form1" method="POST">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<input class="input" type="number" name="section_number" placeholder=" ">
+					<label class="input-label_error" for="section_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="number" name="section_number" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="section_number">Section Nummer</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="name" placeholder=" ">
+					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="name" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="name">Titel</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="suffix" placeholder=" ">
+					<label class="input-label_error" for="suffix">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="suffix" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="suffix">Hierachie (z.B. 1.1)</label>
 				</div>
 			</div>
 			<div class="form-group mb-40">
-				<textarea name="shortdescription"class="input --textarea" max-length="200" placeholder=" "></textarea>
+				<label class="input-label_error" for="shortdescription">Dies ist ein Pflichtfled</label>
+				<textarea name="shortdescription "class="input --textarea validate-me-js" max-length="200" placeholder=" " onchange="validateField(this)"></textarea>
 				<label class="input-label" for="shortdescription">Kurzbeschreibung</label>
 			</div>
 			<div class="form-group mb-40">
@@ -48,27 +52,32 @@
 			<button class="btn" type="submit">Submit</button>
 		</form>
 	<% } else { %>
-		<form action="" method="POST">
+		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<input class="input" type="number" name="section_number" value="<%= section.section_number %>"placeholder=" ">
+					<label class="input-label_error" for="section_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="number" name="section_number" value="<%= section.section_number %>"placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="section_number">Section Nummer</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="name" value="<%= section.name %>" placeholder=" ">
+					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="name" value="<%= section.name %>" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="name">Titel</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="suffix" value="<%= section.suffix %>" placeholder=" ">
+					<label class="input-label_error" for="suffix">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="suffix" value="<%= section.suffix %>" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="suffix">Hierachie (z.B. 1.1)</label>
 				</div>
 			</div>
 			<div class="form-group mb-40">
-				<textarea class="input --textarea" name="shortdescription" max-length="200" placeholder=" "><%- section.shortdescription %></textarea>
+				<label class="input-label_error" for="shortdescription">Dies ist ein Pflichtfled</label>
+				<textarea class="input --textarea validate-me-js" name="shortdescription" max-length="200" placeholder=" " onchange="validateField(this)"><%- section.shortdescription %></textarea>
 				<label class="input-label" for="shortdescription">Kurzbeschreibung</label>
 			</div>
 			<div class="form-group mb-40">
-				<input name="description" type="hidden">
+				<label class="input-label_error" for="description">Dies ist ein Pflichtfled</label>
+				<input name="description" type="hidden" class="validate-me-js">
 				<div class="scrolling-container">
 					<div id="editor-container"><%- section.description %></div>
 				</div>
@@ -94,6 +103,7 @@
 		</form>
 	<% } %>
 	<script src="/js/quill_setUp.bundle.js"></script>
+	<script src="/js/validate_form.bundle.js"></script>
 </div>
 
 

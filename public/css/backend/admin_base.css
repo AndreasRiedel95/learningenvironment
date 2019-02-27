@@ -61,6 +61,18 @@
   -o-transition: top 0.3s;
   transition: top 0.3s; }
 
+.input-label_error {
+  position: absolute;
+  top: calc(100% + 5px);
+  font-size: 12px;
+  font-family: "Roboto", "Avenir", "Helvetica Neue", sans-serif;
+  color: #F7465D;
+  display: none; }
+  .input-label_error.--error {
+    display: block; }
+    .input-label_error.--error ~ .input {
+      border: 1px solid #F7465D; }
+
 .input {
   min-height: 50px;
   outline: none;

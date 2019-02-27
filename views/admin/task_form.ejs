@@ -4,18 +4,21 @@
 	<link rel="stylesheet" type="text/css" href="/css/backend/quillEditor_admin.css"/>
 	<% if(typeof task == 'undefined') { %>
 		<p class="mb-20">Fill in the form for your Subtasks:</p>
-		<form action="" method="POST">
+		<form action="" name="form1" method="POST">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<input class="input" type="number" name="task_number" placeholder=" ">
-					<label class="input-label" for="task_number">Task Number</label>
+					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="number" name="task_number" placeholder=" " onchange="validateField(this)">
+					<label class="input-label" for="task_number">Task Number*</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="name" placeholder=" ">
+					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="name" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="name">Titel</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="suffix" placeholder=" ">
+					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="suffix" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1.1)</label>
 				</div>
 			</div>
@@ -29,18 +32,21 @@
 		</form>
 	<% } else { %>
 		<p class="mb-20">Fill in the form for your Subtasks:</p>
-		<form action="" method="POST">
+		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<input class="input" type="number" value="<%= task.task_number %>" name="task_number" placeholder=" ">
+					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="number" value="<%= task.task_number %>" name="task_number" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="task_number">Task Number</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" value="<%= task.name %>" name="name" placeholder=" ">
-					<label class="input-label" for="name">Tiel</label>
+					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" value="<%= task.name %>" name="name" placeholder=" " onchange="validateField(this)">
+					<label class="input-label" for="name">Titel</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" value="<%= task.suffix %>" name="suffix" placeholder=" ">
+					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" value="<%= task.suffix %>" name="suffix" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1.1)</label>
 				</div>
 			</div>
@@ -53,5 +59,6 @@
 			<button class="btn" type="submit">Submit</button>
 		</form>
 	<% } %>
+	<script src="/js/validate_form.bundle.js"></script>
 	<script src="/js/quill_setUp.bundle.js"></script>
 </div>

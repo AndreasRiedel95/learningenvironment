@@ -2,20 +2,23 @@
 <link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
 <div class="content mb-20">
 <%if (typeof sectioninstance === 'undefined') { %>
-	<form action="" method="POST">
+	<form action="" name="form1" method="POST">
 		<div class="form-group-col-2">
 			<div class="form-group mb-40">
-				<input class="input" type="number" name="sectionInstance_number" placeholder=" ">
-				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer</label>
+				<label class="input-label_error" for="sectionInstance_number">Dies ist ein Pflichtfled</label>
+				<input class="input validate-me-js" type="number" name="sectionInstance_number" placeholder=" " onchange="validateField(this)">
+				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer*</label>
 			</div>
 			<div class="form-group mb-40">
-				<input class="input" type="text" name="name" placeholder=" ">
-				<label class="input-label" for="name">Titel</label>
+				<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
+				<input class="input validate-me-js" type="text" name="name" placeholder=" ">
+				<label class="input-label" for="name">Titel*</label>
 			</div>
 		</div>
 		<div class="form-group mb-40">
-			<textarea class="input --textarea"name="description" maxlength="250" placeholder=" "></textarea>
-			<label class="input-label" for="description">Kurzbeschreibung</label>
+			<label class="input-label_error" for="description">Dies ist ein Pflichtfled</label>
+			<textarea class="input --textarea validate-me-js"name="description" maxlength="250" placeholder=" " onchange="validateField(this)""></textarea>
+			<label class="input-label" for="description">Kurzbeschreibung*</label>
 		</div>
 		<span class="code-label">Select Section(s) for the Section Instance:</span>
 		<div class="input-list mb-50 mt-10">
@@ -32,19 +35,22 @@
 		<button class="btn" type="submit">Submit</button>
 	</form>
 <% } else { %>
-	<form action="" method="POST">
+	<form action="" method="POST" name="form1">
 		<div class="form-group-col-2">
 			<div class="form-group mb-40">
-				<input class="input" type="number" name="sectionInstance_number"  value="<%= sectioninstance.sectionInstance_number %>" placeholder=" ">
+				<label class="input-label_error" for="sectionInstance_number">Dies ist ein Pflichtfled</label>
+				<input class="input validate-me-js" type="number" name="sectionInstance_number"  value="<%= sectioninstance.sectionInstance_number %>" placeholder=" " onchange="validateField(this)">
 				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer</label>
 			</div>
 			<div class="form-group mb-40">
-				<input class="input" type="text" name="name" value="<%= sectioninstance.name %>" placeholder=" ">
+				<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
+				<input class="input validate-me-js" type="text" name="name" value="<%= sectioninstance.name %>" placeholder=" " onchange="validateField(this)">
 				<label class="input-label" for="name">Titel</label>
 			</div>
 		</div>
 		<div class="form-group mb-40">
-			<textarea class="input --textarea"name="description" maxlength="250" placeholder=" "><%= sectioninstance.description %></textarea>
+			<label class="input-label_error" for="description">Dies ist ein Pflichtfled</label>
+			<textarea class="input --textarea validate-me-js" name="description" maxlength="250" placeholder=" " onchange="validateField(this)"><%= sectioninstance.description %></textarea>
 			<label class="input-label" for="description">Kurzbeschreibung</label>
 		</div>
 		<span class="code-label">Select Section(s) for the Section Instance:</span>
@@ -63,4 +69,4 @@
 	</form>
 <% } %>
 </div>
-<script src="/js/admin_codeMirror.bundle.js"></script>
+<script src="/js/validate_form.bundle.js"></script>

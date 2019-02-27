@@ -2,19 +2,22 @@
 <link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
 <%if (typeof taskinstance === 'undefined') { %>
 	<div class="content mb-20">
-		<form action="" method="POST">
+		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<input class="input" type="number" name="taskInstance_number" placeholder=" ">
-					<label class="input-label" for="taskInstance_number">Taskinstance Nummer</label>
+					<label class="input-label_error" for="taskInstance_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="number" name="taskInstance_number" placeholder=" " onchange="validateField(this)">
+					<label class="input-label" for="taskInstance_number">Taskinstance Nummer*</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="name" placeholder=" ">
-					<label class="input-label" for="name">Titel</label>
+					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="name" placeholder=" " onchange="validateField(this)">
+					<label class="input-label" for="name">Titel*</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="suffix" placeholder=" ">
-					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1)</label>
+					<label class="input-label_error" for="suffix">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="suffix" placeholder=" " onchange="validateField(this)">
+					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1)*</label>
 				</div>
 			</div>
 			<div class="form-group mb-40">
@@ -42,18 +45,21 @@
 	</div>
 <% } else { %>
 	<div class="content mb-20">
-		<form action="" method="POST">
+		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<input class="input" type="number" value="<%= taskinstance.taskInstance_number %>"name="taskInstance_number" placeholder=" ">
+					<label class="input-label_error" for="taskInstance_number">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="number" value="<%= taskinstance.taskInstance_number %>"name="taskInstance_number" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="taskInstance_number">Taskinstance Nummer</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" name="name" placeholder=" " value="<%= taskinstance.name %>">
+					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" name="name" placeholder=" " value="<%= taskinstance.name %>" onchange="validateField(this)">
 					<label class="input-label" for="name">Titel</label>
 				</div>
 				<div class="form-group mb-40">
-					<input class="input" type="text" value="<%= taskinstance.suffix %>" name="suffix" placeholder=" ">
+					<label class="input-label_error" for="suffix">Dies ist ein Pflichtfled</label>
+					<input class="input validate-me-js" type="text" value="<%= taskinstance.suffix %>" name="suffix" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1)</label>
 				</div>
 			</div>
@@ -81,4 +87,5 @@
 		</form>
 	</div>
 <% } %>
+<script src="/js/validate_form.bundle.js"></script>
 <script src="/js/admin_codeMirror.bundle.js"></script>

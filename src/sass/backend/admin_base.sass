@@ -51,6 +51,19 @@
 	pointer-events: none
 	transition: top 0.3s
 
+.input-label_error
+	position: absolute
+	top: calc(100% + 5px)
+	font-size: 12px
+	font-family: "Roboto", "Avenir", "Helvetica Neue", sans-serif
+	color: $red
+	display: none
+	&.--error
+		display: block
+		& ~ .input 
+			border: 1px solid $red
+
+
 .input
 	min-height: 50px
 	outline: none

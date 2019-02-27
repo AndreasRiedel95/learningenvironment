@@ -183,7 +183,7 @@ exports.task_update_post = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values and error messages.
-            res.render('task_form', { title: 'Update Task', task: task, errors: errors.array()});
+            res.render('admin/task_form', { title: 'Update Task', task: task, errors: errors.array()});
         return;
         }
         else {

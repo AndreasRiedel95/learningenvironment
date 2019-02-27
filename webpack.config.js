@@ -14,6 +14,7 @@ module.exports = {
     polyfill: 'babel-polyfill',
     admin_codeMirror: './src/js/admin/codeMirror_admin.js',
     quill_setUp: './src/js/admin/quill_setUp.js',
+    validate_form: './src/js/admin/validate_form.js',
     index: './src/js/index.js',
     init: './src/js/initSVG.js'
   },
