@@ -10,8 +10,6 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, se
 	require('tap-browser-color')();
 	const test = require('tape-css')(require('tape'));
 	require('tape-dom')(test);
-	const h = require('hyperscript');
-	const computedStyle = require('computed-style');
 	const checkIfError = require(`./checkTestError`);
 	const CheckInstance = new checkIfError();
 
@@ -33,15 +31,15 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, se
 	
 	//check if files are existing
 	try {
-		//Require dynamically the correct test file
+	// 	//Require dynamically the correct test file
 		let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${tasknumber}`);
 
 		let TestInstance = new testRun();
 		try {
-			//Call dynamically the correct test function in test file
-			TestInstance[runNumber](htmlNode, cssString, test, h, computedStyle, testnumber)
+	// 		//Call dynamically the correct test function in test file
+			TestInstance[runNumber](htmlNode, cssString, test, testnumber)
 				.then(() => {
-					//Check if Test result is already append to DOM (ASYNC)
+	// 				//Check if Test result is already append to DOM (ASYNC)
 					checkElementExists('.assert') 
 						.then(() => {
 							//Element exists now

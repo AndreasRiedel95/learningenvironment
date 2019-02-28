@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("function validateField(field) {\n  var fieldValid = true;\n  var fieldLabel;\n\n  if (field.value !== '') {\n    field.previousElementSibling.classList.remove('--error');\n  } else if (fieldValid) {\n    field.previousElementSibling.classList.add('--error');\n    fieldValid = false;\n  }\n\n  return fieldValid;\n}\n\ndocument.form1.addEventListener(\"submit\", function (event) {\n  var form = document.querySelector('form');\n  var fields = document.querySelectorAll('.validate-me-js');\n  fields.forEach(function (field) {\n    var fieldValid = validateField(field);\n\n    if (!fieldValid) {\n      event.preventDefault();\n      return false;\n    }\n  });\n});\nwindow.validateField = validateField;\n\n//# sourceURL=webpack:///./src/js/admin/validate_form.js?");
+eval("function validateField(field) {\n  var fieldValid = true;\n  var fieldLabel;\n\n  if (field.value !== '') {\n    field.previousElementSibling.classList.remove('--error');\n  } else if (fieldValid) {\n    field.previousElementSibling.classList.add('--error');\n    fieldValid = false;\n  }\n\n  return fieldValid;\n}\n\ndocument.form1.addEventListener(\"submit\", function (event) {\n  var fields = document.querySelectorAll('.validate-me-js');\n  fields.forEach(function (field) {\n    var fieldValid = validateField(field);\n\n    if (!fieldValid) {\n      event.preventDefault();\n      return false;\n    }\n  });\n});\nwindow.validateField = validateField;\n\n//# sourceURL=webpack:///./src/js/admin/validate_form.js?");
 
 /***/ })
 

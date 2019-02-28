@@ -71,7 +71,7 @@ exports.section_create_post = [
 			suffix: req.body.suffix,
 			taskinstance: req.body.taskinstance,
 		});
-
+		console.log(req.body)
 		section.save(function (err) {
 			if (err) { return next(err); }
 			   //successful - redirect to new section record.

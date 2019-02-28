@@ -1,126 +1,83 @@
-const test3 = function () {
+//self.run1 – Absätze, //self.run2 – Absätze, //self.run3 – Absätze, 
+const test1 = function () {
 	let self = this;
-	self.run1 = (htmlNode, cssString, test, h, computedStyle) => {
-			console.log("Sectioninstanz 1.1.1.1" )
-			const positionOf = (element) => {
-			  const {top, right, bottom, left} = element.getBoundingClientRect();
-			  return {top, right, bottom, left};
-			};
+	self.run1 = (htmlNode, cssString, test) => {
+		test((
+		'check if all ps are there'
+		), { dom: htmlNode }, (asset) => {
+			let psLength = htmlNode.querySelectorAll('p').length;
+			asset.deepEqual(
+				psLength, 3, "Sind Sie sicher, dass Sie 3 <p> Elemente benutzt haben?"
+			);
+			asset.end();
+		});
+		
+		return Promise.resolve()
+	}
+	self.run2 = (htmlNode, cssString, test) => {
+		let classArray = ["paragraph1", "paragraph2", "paragraph3"];
+		let ps = htmlNode.querySelectorAll('p');
 
-			const styles = cssString;
-			const contents = htmlNode.querySelector('.content')
-			const child = htmlNode.querySelector('.child')
-			const parent = htmlNode.querySelector('.parent')
-			const container = htmlNode.querySelector('.container')
 
-			test.only((
-			'`.parent` takes up the whole width and height of its container'
-			), { dom: htmlNode, styles }, (is) => {
-				is.deepEqual(
-					positionOf(parent),
-					positionOf(container),
-					"Bist du sicher, dass .parent die höhe und breite des Containers ausfüllt?"
+		test((
+		'check if all ps have a class'
+		), { dom: htmlNode }, (asset) => {
+			ps.forEach((p) => {
+				asset.notEqual(
+					p.classList.length, 0, "Sind Sie sicher, dass jedes <p>-Elemente eine Klasse besitzt?"
 				);
-				is.end();
 			});
-
-			test((
-			'`.child` grows and shrink to fit its contents'
-			), { dom: htmlNode, styles }, (is) => {
-				is.deepEqual(
-					positionOf(child),
-					positionOf(contents)
+			asset.end();
+		})
+		test((
+		'check if all ps have the right classname'
+		), { dom: htmlNode }, (asset) => {
+			ps.forEach((p) => {
+				let className = p.className;
+				console.log(className)
+				let boolean = classArray.includes(className)
+				console.log(boolean)
+				asset.ok(
+					boolean, "Sind Sie sicher, dass die Elemente, die vorgegebenen Klassennamen haben?"
 				);
-				is.end();
 			});
+			asset.end();
+		})
 
-			test((
-			'`.child` is centered horizontally within its `.parent`'
-			), { dom: htmlNode, styles }, (is) => {
-				is.equal(
-					positionOf(parent).right - positionOf(child).right,
-					positionOf(child).left - positionOf(parent).left, 
-					"Kind-Element sollte horizontal centered sein"
+		return Promise.resolve()
+	}
+	self.run3 = (htmlNode, cssString, test) => {
+		let classArray = ["paragraph1", "paragraph2", "paragraph3"];
+		let ps = htmlNode.querySelectorAll('p');
+
+
+		test((
+		'check if all ps have a class'
+		), { dom: htmlNode }, (asset) => {
+			ps.forEach((p) => {
+				asset.notEqual(
+					p.classList.length, 0, "Sind Sie sicher, dass jedes <p>-Elemente eine Klasse besitzt?"
 				);
-				is.end();
 			});
-
-			test((
-			'`.child` is centered vertically within its `.parent`'
-			), { dom: htmlNode, styles }, (is) => {
-				is.equal(
-					positionOf(parent).bottom - positionOf(child).bottom,
-					positionOf(child).top - positionOf(parent).top
+			asset.end();
+		})
+		test((
+		'check if all ps have the right classname'
+		), { dom: htmlNode }, (asset) => {
+			ps.forEach((p) => {
+				let className = p.className;
+				console.log(className)
+				let boolean = classArray.includes(className)
+				console.log(boolean)
+				asset.ok(
+					boolean, "Sind Sie sicher, dass die Elemente, die vorgegebenen Klassennamen haben?"
 				);
-				is.end();
 			});
+			asset.end();
+		})
 
-			return Promise.resolve()
-   }
-
-	self.run2 = function (htmlNode, cssString, test, h, computedStyle){
-		console.log("I'm test 2")
-			
-
-			return Promise.resolve()
-   };
-	self.run3 = function (htmlNode, cssString, test, h, computedStyle){
-		console.log("I'm test 2")
-			const positionOf = (element) => {
-			  const {top, right, bottom, left} = element.getBoundingClientRect();
-			  return {top, right, bottom, left};
-			};
-
-			const styles = cssString;
-			const contents = htmlNode.querySelector('.content')
-			const child = htmlNode.querySelector('.child')
-			const parent = htmlNode.querySelector('.parent')
-			const container = htmlNode.querySelector('.container')
-
-			test.only((
-			'`.parent` takes up the whole width and height of its container'
-			), { dom: htmlNode, styles }, (is) => {
-				is.deepEqual(
-					positionOf(parent),
-					positionOf(container),
-					"Bist du sicher, dass .parent die höhe und breite des Containers ausfüllt?"
-				);
-				is.end();
-			});
-
-			test((
-			'`.child` grows and shrink to fit its contents'
-			), { dom: htmlNode, styles }, (is) => {
-				is.deepEqual(
-					positionOf(child),
-					positionOf(contents)
-				);
-				is.end();
-			});
-
-			test((
-			'`.child` is centered horizontally within its `.parent`'
-			), { dom: htmlNode, styles }, (is) => {
-				is.equal(
-					positionOf(parent).right - positionOf(child).right,
-					positionOf(child).left - positionOf(parent).left, 
-					"Kind-Element sollte horizontal centered sein"
-				);
-				is.end();
-			});
-
-			test((
-			'`.child` is centered vertically within its `.parent`'
-			), { dom: htmlNode, styles }, (is) => {
-				is.equal(
-					positionOf(parent).bottom - positionOf(child).bottom,
-					positionOf(child).top - positionOf(parent).top
-				);
-				is.end();
-			});
-
-			return Promise.resolve()
-   };
+		return Promise.resolve()
+	}
 }
 
-module.exports = test3;
+module.exports = test1;//self.run1 – Absätze, //self.run2 – Absätze, //self.run3 – Absätze, 

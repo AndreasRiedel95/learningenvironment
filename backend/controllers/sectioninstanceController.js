@@ -120,11 +120,23 @@ exports.sectioninstance_create_post = [
             }
         );
 
-        sectioninstance.save(function (err) {
+        SectionInstance.findOne({'sectionInstance_number': req.body.sectionInstance_number})
+        .exec(function(err, found_sectionInstance) {
             if (err) { return next(err); }
-               // Successful - redirect to new record.
-               res.redirect(sectioninstance.url);
-        });
+            if(found_sectionInstance) {
+                res.render('admin/sectioninstance_form_unique', { url: found_sectionInstance.url, title: 'Section-Instance existiert bereits'});
+            } else {
+                sectioninstance.save(function (err) {
+                    if (err) { return next(err); }
+                    // Successful - redirect to new record.
+                    res.redirect(sectioninstance.url);
+                });
+
+            }
+
+        })
+
+
     }
 ];
 
@@ -215,6 +227,8 @@ exports.sectioninstance_update_post = [
         });
     }
 ];
+
+
 
 exports.sectioninstance_create_path = function(req, res, next) {
 SectionInstance.findById(req.params.id)

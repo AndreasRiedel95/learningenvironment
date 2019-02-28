@@ -150,7 +150,8 @@ let editorRendering = (() => {
 	const render = () => {
 		let source = prepareSource();
 		let iframe = document.querySelector('.output-iframe');
-		let iframe_doc = iframe.contentDocument;
+		let iframe_doc = iframe.contentDocument || iframe.contentWindow.document;
+
 		
 		iframe_doc.open();
 		iframe_doc.write(source);
@@ -207,6 +208,7 @@ document.querySelectorAll('.export-file').forEach((button) => {
 });
 
 //Run Tests Event Handler (EXLUDE IN teshandler.js)
+var isClicked = false;
 let testButtons = document.querySelectorAll('.run-test-js');
 testButtons.forEach((button) => {
 	button.addEventListener('click', () => {
@@ -219,6 +221,17 @@ testButtons.forEach((button) => {
 		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
 		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
 		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber, sectioninstanceNumber);
+
+		//Avoid Spamming on button
+		if (isClicked) {
+	        return;
+		}
+		var isClicked = true;
+		button.style.pointerEvents = 'none'
+		setTimeout(() => {
+			button.style.pointerEvents = 'all'
+			isClicked = false;
+		}, 2000)
 	})
 
 })
