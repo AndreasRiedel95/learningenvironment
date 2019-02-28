@@ -18,7 +18,6 @@ const test1 = function () {
 		let classArray = ["paragraph1", "paragraph2", "paragraph3"];
 		let ps = htmlNode.querySelectorAll('p');
 
-
 		test((
 		'check if all ps have a class'
 		), { dom: htmlNode }, (asset) => {
@@ -29,14 +28,13 @@ const test1 = function () {
 			});
 			asset.end();
 		})
+
 		test((
 		'check if all ps have the right classname'
 		), { dom: htmlNode }, (asset) => {
 			ps.forEach((p) => {
 				let className = p.className;
-				console.log(className)
 				let boolean = classArray.includes(className)
-				console.log(boolean)
 				asset.ok(
 					boolean, "Sind Sie sicher, dass die Elemente, die vorgegebenen Klassennamen haben?"
 				);
@@ -47,35 +45,7 @@ const test1 = function () {
 		return Promise.resolve()
 	}
 	self.run3 = (htmlNode, cssString, test) => {
-		let classArray = ["paragraph1", "paragraph2", "paragraph3"];
-		let ps = htmlNode.querySelectorAll('p');
-
-
-		test((
-		'check if all ps have a class'
-		), { dom: htmlNode }, (asset) => {
-			ps.forEach((p) => {
-				asset.notEqual(
-					p.classList.length, 0, "Sind Sie sicher, dass jedes <p>-Elemente eine Klasse besitzt?"
-				);
-			});
-			asset.end();
-		})
-		test((
-		'check if all ps have the right classname'
-		), { dom: htmlNode }, (asset) => {
-			ps.forEach((p) => {
-				let className = p.className;
-				console.log(className)
-				let boolean = classArray.includes(className)
-				console.log(boolean)
-				asset.ok(
-					boolean, "Sind Sie sicher, dass die Elemente, die vorgegebenen Klassennamen haben?"
-				);
-			});
-			asset.end();
-		})
-
+		console.log("This is test 3")
 		return Promise.resolve()
 	}
 }

@@ -1,4 +1,3 @@
-
 const checkIfError = function () {
 	let self = this;
 	self.check = function (tasknumber, testNumber) {
@@ -28,9 +27,7 @@ const checkIfError = function () {
 				} 
 			})
 		// 		//check if Tests are all OK
-			console.log(asserts)
 			if(!(Array.from(allAsserts).some(assert => assert.classList.contains('fail')))) {
-				console.log("in")
 				taskInputs[testNumber-1].checked = true;
 				taskInputs[testNumber-1].classList.remove('--error')
 				boolean = true;
@@ -53,7 +50,6 @@ let closeErrorMessage = () => {
 }
 
 let udpateTaskSolved = (taskid, boolean) => {
-	console.log("update")
 	fetch(`/admin/solved/task/${taskid}/update`, {
 		method: 'post',
 		headers: {'Content-Type': 'application/json'},
