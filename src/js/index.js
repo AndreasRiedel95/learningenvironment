@@ -244,19 +244,9 @@ testButtons.forEach((button) => {
 		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
 		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
 		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber, sectioninstanceNumber);
-
 		//Avoid Spamming on button
-		if (isClickedRun) {
-	        return;
-		}
-		var isClickedRun = true;
-		button.style.pointerEvents = 'none'
-		setTimeout(() => {
-			button.style.pointerEvents = 'all'
-			isClickedRun = false;
-		}, 2000)
+		avoidSpam(button, isClickedRun)
 	})
-
 })
 
 //Toggle TaskDescription 
@@ -294,7 +284,8 @@ let setDescription = (ele) => {
 }
 
 //Reset User Code
-let resetBtns = document.querySelectorAll('.reset')
+let resetBtns = document.querySelectorAll('.reset');
+let isClickedReset = false;
 resetBtns.forEach((btn) => {
 	btn.addEventListener('click', () => {
 		let taskinstance = document.querySelector('.taskInput.--task:checked');
@@ -310,7 +301,8 @@ resetBtns.forEach((btn) => {
 					if(index > 0) {
 						task.classList.add('--not-solved');
 					}
-					let input = task.querySelector('.task-solved')
+					let input = task.querySelector('.task-solved');
+					input.classList.contains('--error') ? input.classList.remove('--error') : ""
 					input.checked = false;
 					updateTaskSolved(task.dataset.taskid, false);	
 				})
@@ -323,12 +315,14 @@ resetBtns.forEach((btn) => {
 		} else {
 			alert("Bitte wählen Sie eine Aufgabe aus um den Code zurückzusetzten")
 		}
+		avoidSpam(btn, isClickedReset)
 
 	})
 })
 
 //Save code on button click
 let updateBtn = document.querySelector('.save');
+let isClickedSave = false;
 updateBtn.addEventListener('click', () => {
 	let html_editor = editorRendering.getHTMLEditor();
 	let css_editor = editorRendering.getCSSEditor();
@@ -349,8 +343,21 @@ updateBtn.addEventListener('click', () => {
 		}, 3000)
 
 	}
+	avoidSpam(updateBtn, isClickedSave)
 })
 
+
+function avoidSpam(button, isClicked) {
+	if (isClicked) {
+		return;
+	}
+	var isClicked = true;
+	button.style.pointerEvents = 'none'
+	setTimeout(() => {
+		button.style.pointerEvents = 'all'
+		isClicked = false;
+	}, 2000)
+}
 
 export const getEditors = () => {
 	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];
