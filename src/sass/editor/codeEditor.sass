@@ -30,7 +30,7 @@
 	margin-right: 10px
 	user-select: none
 
-.import-export-wrapper
+.editor-btn-wrapper
 	margin-left: auto
 	display: flex
 	align-self: center
@@ -38,13 +38,18 @@
 
 .file-icon
 	background-repeat: no-repeat
-	background-size: cover
+	background-size: contain
+	background-position: center
 	width: 20px
 	height: 15px
 	&.--import
 		background-image: url('../../img/upload.png')
 	&.--export
 		background-image: url('../../img/download.png')
+	&.--reset
+		margin-top: -2px
+		height: 18px
+		background-image: url('../../img/reset.png')
 
 .file-import-wrapper
 	margin-left: 10px
@@ -66,6 +71,8 @@
 	opacity: 0
 	cursor: pointer
 
+.reset
+	margin-right: 10px
 
 .html-css-wrapper
 	position: relative

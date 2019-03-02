@@ -40,7 +40,7 @@
   -ms-user-select: none;
   user-select: none; }
 
-.import-export-wrapper {
+.editor-btn-wrapper {
   margin-left: auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -54,13 +54,18 @@
 
 .file-icon {
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
   width: 20px;
   height: 15px; }
   .file-icon.--import {
     background-image: url("../../img/upload.png"); }
   .file-icon.--export {
     background-image: url("../../img/download.png"); }
+  .file-icon.--reset {
+    margin-top: -2px;
+    height: 18px;
+    background-image: url("../../img/reset.png"); }
 
 .file-import-wrapper {
   margin-left: 10px;
@@ -80,6 +85,9 @@
   height: 100%;
   opacity: 0;
   cursor: pointer; }
+
+.reset {
+  margin-right: 10px; }
 
 .html-css-wrapper {
   position: relative;

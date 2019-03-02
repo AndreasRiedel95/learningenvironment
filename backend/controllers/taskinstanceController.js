@@ -182,6 +182,8 @@ exports.taskinstance_update_post = [
         { '$set': 
             {   name: req.body.name,
                 taskInstance_number: req.body.taskInstance_number,
+                htmlCode_inital: req.body.htmlCode_inital,
+                cssCode_inital: req.body.cssCode_inital,
                 suffix: req.body.suffix,
                 task: req.body.task,
             } 

@@ -29,30 +29,37 @@ export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, se
 	let cssString = cssEditor.getValue();
 	let runNumber = `run${testnumber}`.toString();
 	
-	//check if files are existing
-	try {
-	// 	//Require dynamically the correct test file
-		let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${tasknumber}`);
-
-		let TestInstance = new testRun();
+	//Check if Code is Valide
+	let runBtn = document.querySelector(`.run-test-js[data-testnumber="${testnumber}"]`)
+	if(runBtn.classList.contains('validateErrorHTML') || runBtn.classList.contains('validateErrorCSS')){
+		errorMsgWrapper.classList.add('--active');
+		errorMsgField.innerHTML = "Bitte überprüfen Sie ihren Code auf Validität";
+	} else {
+		//check if files are existing
 		try {
-	// 		//Call dynamically the correct test function in test file
-			TestInstance[runNumber](htmlNode, cssString, test, testnumber)
-				.then(() => {
-	// 				//Check if Test result is already append to DOM (ASYNC)
-					checkElementExists('.assert') 
-						.then(() => {
-							//Element exists now
-							CheckInstance.check(tasknumber, testnumber)
-						});
-				}).catch((err) => {
-					console.log("No Promise resolved in Test file" + err.message)
-				});
+		// 	//Require dynamically the correct test file
+			let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${tasknumber}`);
+
+			let TestInstance = new testRun();
+			try {
+		// 		//Call dynamically the correct test function in test file
+				TestInstance[runNumber](htmlNode, cssString, test, testnumber)
+					.then(() => {
+		// 				//Check if Test result is already append to DOM (ASYNC)
+						checkElementExists('.assert') 
+							.then(() => {
+								//Element exists now
+								CheckInstance.check(tasknumber, testnumber)
+							});
+					}).catch((err) => {
+						console.log("No Promise resolved in Test file" + err.message)
+					});
+			} catch(err) {
+				console.log(err.message);
+			}
 		} catch(err) {
 			console.log(err.message);
 		}
-	} catch(err) {
-		console.log(err.message);
 	}
 
 	const rafAsync = () => {

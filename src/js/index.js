@@ -103,13 +103,34 @@ let editorRendering = (() => {
 
 	function css_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.css(cm);
-		let onlyErrors = errors.filter(error => error.severity === 'error')
+		let onlyErrors = errors.filter(error => error.severity === 'error');
+		let runbtns = document.querySelectorAll('.run-test-js')
+		runbtns.forEach((runbtn) => {
+			if(onlyErrors.length > 0) {
+				runbtn.classList.add('validateErrorCSS')
+			} else {
+				if(runbtn.classList.contains('validateErrorCSS')) {
+					runbtn.classList.remove('validateErrorCSS')
+				}
+			}
+		})
 		updateLinting(onlyErrors);
 	}
 
 	function html_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.html(cm);
 		let onlyErrors = errors.filter(error => error.severity === 'error')
+		let runbtns = document.querySelectorAll('.run-test-js')
+		runbtns.forEach((runbtn) => {
+			if(onlyErrors.length > 0) {
+				runbtn.classList.add('validateErrorHTML')
+			} else {
+				if(runbtn.classList.contains('validateErrorHTML')) {
+					runbtn.classList.remove('validateErrorHTML')
+				}
+			}
+		})
+
 		updateLinting(errors);
 	}
 
@@ -141,7 +162,7 @@ let editorRendering = (() => {
 		// HTML
 		src = base_tpl.replace('</body>', html + '</body>');
 		// include css reset from http://meyerweb.com/eric/tools/css/reset/ (maybe better fetch from external file?)
-		let cssReset = "a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,let,video{margin:0;padding:0;border:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}";
+		let cssReset = "" //"a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,let,video{margin:0;padding:0;border:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}";
 		css = '<style>' + cssReset + css + '</style>';
 		src = src.replace('</head>', css + '</head>');
 		return src;
@@ -207,8 +228,10 @@ document.querySelectorAll('.export-file').forEach((button) => {
 	}, false)
 });
 
+
+
 //Run Tests Event Handler (EXLUDE IN teshandler.js)
-var isClicked = false;
+var isClickedRun = false;
 let testButtons = document.querySelectorAll('.run-test-js');
 testButtons.forEach((button) => {
 	button.addEventListener('click', () => {
@@ -223,14 +246,14 @@ testButtons.forEach((button) => {
 		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber, sectioninstanceNumber);
 
 		//Avoid Spamming on button
-		if (isClicked) {
+		if (isClickedRun) {
 	        return;
 		}
-		var isClicked = true;
+		var isClickedRun = true;
 		button.style.pointerEvents = 'none'
 		setTimeout(() => {
 			button.style.pointerEvents = 'all'
-			isClicked = false;
+			isClickedRun = false;
 		}, 2000)
 	})
 
@@ -270,6 +293,39 @@ let setDescription = (ele) => {
 	descriptionWrapper.classList.remove('--not-active');
 }
 
+//Reset User Code
+let resetBtns = document.querySelectorAll('.reset')
+resetBtns.forEach((btn) => {
+	btn.addEventListener('click', () => {
+		let taskinstance = document.querySelector('.taskInput.--task:checked');
+		if(taskinstance !== null) {
+			let taskinstanceNumber = taskinstance.id
+			if (confirm('Möchten Sie wirklich Ihren Code auf den Start-Code zurücksetzten?')) {
+				let resetUserCode = require('./module/resetUserCode');
+				let updateTaskSolved = require('./module/updateTaskSolved');
+				resetUserCode(taskinstance);
+				let descriptionScrollWrapper = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${taskinstanceNumber}"]`);
+				let tasks = descriptionScrollWrapper.querySelectorAll('.task');
+				tasks.forEach((task, index) => {
+					if(index > 0) {
+						task.classList.add('--not-solved');
+					}
+					let input = task.querySelector('.task-solved')
+					input.checked = false;
+					updateTaskSolved(task.dataset.taskid, false);	
+				})
+				//Set HTML & CSS Editor to inital
+				let htmlEditor = editorRendering.getHTMLEditor();
+				let cssEditor = editorRendering.getCSSEditor();
+				htmlEditor.setValue(section.taskinstance[(taskinstanceNumber - 1)].htmlCode_inital)
+				cssEditor.setValue(section.taskinstance[(taskinstanceNumber - 1)].cssCode_inital)
+			}
+		} else {
+			alert("Bitte wählen Sie eine Aufgabe aus um den Code zurückzusetzten")
+		}
+
+	})
+})
 
 //Save code on button click
 let updateBtn = document.querySelector('.save');
@@ -279,17 +335,9 @@ updateBtn.addEventListener('click', () => {
 	let savedWrapper = document.querySelector('.code-saved-wrapper');
 	let savedWrapperError = document.querySelector('.code-saved-wrapper.--error');
 	let taskinstance = document.querySelector('.taskInput.--task:checked');
-
 	if(taskinstance !== null) {
-		fetch(`/admin/btn/taskinstance/${taskinstance.dataset.taskinstanceid}/update`, {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				'id' : taskinstance.dataset.taskinstanceid,
-				'htmlCode_user': html_editor.getValue(),
-				'cssCode_user': css_editor.getValue(),
-			})
-		})
+		let saveCode = require('./module/saveCode');
+		saveCode(taskinstance, html_editor, css_editor)
 		savedWrapper.classList.add('--saved');
 		setTimeout(() => {
 			savedWrapper.classList.remove('--saved');

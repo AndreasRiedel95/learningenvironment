@@ -84,8 +84,9 @@
 		<p class="mb-20">
 			Ist eine Sectionsinstanz aufgebaut, so können die für die Tests nötigen Dateien auch automatisch generiert werden. Hierfür muss im Admin Bereich auf der jeweiligen Detail-Seite der Sectioninstanz auf den Button "Create File-System Path" geklickt werden. Somit wird sicher gestellt, dass die Applikationen die korrekte Verzechnisstrukur besitzt und die Test-Dateien von der Applikation gefunden werden können. Dennoch wird eine intelligente Nummerierung empfohlen. 
 		</p>
+		<h4>CodeMirror Validator:</h4>
 		<p class="mb-20">
-			<strong>Bitte beachten Sie:</strong> Dieses Feature befindet sich noch in der Beta-Version. Vor jedem neuen Generieren der Dateien wird empfohlen den jeweiliegn Sectioninstance Ordner in folgendem Verzeichnis zu löschen: <code>delete: src > js > tests > sectioninstance${sectioninstnace_number}</code>
+			Ist der vom Nutzer eingegebene HTML und CSS Code nicht valide, so wird den Run-Buttons die Klasse <code>validateErrorCSS</code> bzw. <code>validateErrorHTML</code> hizugefügt. Ist dies der Fall, so werden die Testdateien nicht aufgerufen und dem Nutzer wird eine Fehlermeldung angezeigt. 
 		</p>
 		<h4>Bilder:</h4>
 		<p class="mb-20">

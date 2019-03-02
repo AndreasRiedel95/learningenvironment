@@ -45,4 +45,9 @@
 			<path d="m26.219 25.189-23.612-23.611"/><path d="m2.248 25.098 23.611-23.611"/>
 		</g>
 	</symbol>
+	<symbol id="svg-reset" viewBox="0 0 28.233 27.046">
+		<g stroke-linecap="round" stroke-miterlimit="10" stroke-width="2">
+			<path d="m26.219 25.189-23.612-23.611"/><path d="m2.248 25.098 23.611-23.611"/>
+		</g>
+	</symbol>
 </svg>

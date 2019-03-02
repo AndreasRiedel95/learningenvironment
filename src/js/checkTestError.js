@@ -1,5 +1,6 @@
 const checkIfError = function () {
 	let self = this;
+	let updateTaskSolved = require('./module/updateTaskSolved')
 	self.check = function (tasknumber, testNumber) {
 		let tests = document.querySelectorAll('.test');
 		let errorMsgWrapper = document.querySelector('.error-message-wrapper');
@@ -38,7 +39,7 @@ const checkIfError = function () {
 			}
 			
 		})
-		udpateTaskSolved(taskid, boolean);
+		updateTaskSolved(taskid, boolean);
 	}
 }
 
@@ -47,23 +48,6 @@ let closeErrorMessage = () => {
 	let errorMsgField = document.querySelector('.error-message');
 	errorMsgField.innerHTML = '';
 	errorMsgWrapper.classList.remove('--active')
-}
-
-let udpateTaskSolved = (taskid, boolean) => {
-	fetch(`/admin/solved/task/${taskid}/update`, {
-		method: 'post',
-		headers: {'Content-Type': 'application/json'},
-		body: JSON.stringify({
-			'id' : taskid,
-			'task_solved': boolean
-		})
-	}).then((response) => {
-		response.json()
-		console.log("hhhh")
-	})
-	.catch((err) => {
-		console.log(err)
-	})
 }
 
 window.closeErrorMessage = closeErrorMessage;
