@@ -45,9 +45,34 @@ const test1 = function () {
 		return Promise.resolve()
 	}
 	self.run3 = (htmlNode, cssString, test) => {
-		console.log("This is test 3")
+		let p1= htmlNode.querySelector('.paragraph1')
+		test(('`p` haben verschiedene Farben'),
+			{ dom: htmlNode, styles: cssString }, (asset) => {
+				let ps = htmlNode.querySelectorAll('p');
+				let colorsArray = [];
+				for(let i = 0; i< ps.length; i++) {
+					let backgroundColor = getComputedStyle(ps[i]).getPropertyValue('background-color')
+					colorsArray.push(backgroundColor)
+				}
+				let boolean = checkDuplicates(colorsArray)
+				asset.ok(
+					boolean, "Sind Sie sicher, dass alle Klassen eine andere Farbe haben?"
+				);
+		  		asset.end();
+			});
 		return Promise.resolve()
+	}
+
+	function checkDuplicates(a) {
+	    for(var i = 0; i <= a.length; i++) {
+	        for(var j = i; j <= a.length; j++) {
+	            if(i != j && a[i] == a[j]) {
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
 	}
 }
 
-module.exports = test1;//self.run1 – Absätze, //self.run2 – Absätze, //self.run3 – Absätze, 
+module.exports = test1;

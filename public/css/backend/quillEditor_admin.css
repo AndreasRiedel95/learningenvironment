@@ -42,6 +42,12 @@
   width: 100%;
   margin-bottom: 20px; }
 
+.code-editor > p > code, .code-editor > ul > li > code {
+  color: #292929 !important;
+  font-size: 13px;
+  padding: 2px;
+  background-color: #f1f1f1; }
+
 .code-editor > ol {
   list-style: decimal;
   padding-left: 1.5em;

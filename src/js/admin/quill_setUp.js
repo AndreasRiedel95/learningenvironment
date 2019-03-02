@@ -9,8 +9,9 @@ var quill = new Quill('#editor-container', {
 	    container: [
 	      [{ header: [1, 2, 3, false] }],
 	      ['bold', 'italic', 'underline'],
-	      ['image', 'code-block', 'link'],
+	      ['image', 'code', 'link'],
 	      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+	      ['code-block']
 	    ],
 		handlers: {image: imageHandler},
 	}

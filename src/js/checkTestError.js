@@ -57,6 +57,12 @@ let udpateTaskSolved = (taskid, boolean) => {
 			'id' : taskid,
 			'task_solved': boolean
 		})
+	}).then((response) => {
+		response.json()
+		console.log("hhhh")
+	})
+	.catch((err) => {
+		console.log(err)
 	})
 }
 
