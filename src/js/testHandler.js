@@ -1,4 +1,25 @@
-export default (htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, sectioninstanceNumber) => {
+import { getEditors, avoidSpam } from './index'
+
+var isClickedRun = false;
+let editors = getEditors()
+let testButtons = document.querySelectorAll('.run-test-js');
+testButtons.forEach((button) => {
+	button.addEventListener('click', () => {
+		let htmlEditor = editors[0]
+		let cssEditor = editors[1]
+		let section = document.querySelector('.description-wrapper');
+		let sectionNumber = parseInt(section.dataset.descriptionnumber);
+		let testNumber = parseInt(button.dataset.testnumber);
+		let taskNumber = document.querySelector('.taskInput:checked');
+		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
+		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
+		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber, sectioninstanceNumber);
+		//Avoid Spamming on button
+		avoidSpam(button, isClickedRun)
+	})
+})
+
+function callTestHandler(htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, sectioninstanceNumber) {
 	// delete all require cache everytime a test gets called otherwise test can be called only once
 	for (const path in require.cache) {
 		if (path.endsWith('.js')) { // only clear *.js, not *.node

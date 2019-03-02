@@ -10,7 +10,8 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import { importFile, exportFile } from './importExportFile';
-import callTestHandler from './testHandler';
+
+
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
@@ -229,26 +230,6 @@ document.querySelectorAll('.export-file').forEach((button) => {
 });
 
 
-
-//Run Tests Event Handler (EXLUDE IN teshandler.js)
-var isClickedRun = false;
-let testButtons = document.querySelectorAll('.run-test-js');
-testButtons.forEach((button) => {
-	button.addEventListener('click', () => {
-		let htmlEditor = editorRendering.getHTMLEditor();
-		let cssEditor = editorRendering.getCSSEditor();
-		let section = document.querySelector('.description-wrapper');
-		let sectionNumber = parseInt(section.dataset.descriptionnumber);
-		let testNumber = parseInt(button.dataset.testnumber);
-		let taskNumber = document.querySelector('.taskInput:checked');
-		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
-		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
-		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber, sectioninstanceNumber);
-		//Avoid Spamming on button
-		avoidSpam(button, isClickedRun)
-	})
-})
-
 //Toggle TaskDescription 
 let setTaskDescription = (ele) => {
 	let tasknumber = parseInt(ele.htmlFor)
@@ -347,7 +328,7 @@ updateBtn.addEventListener('click', () => {
 })
 
 
-function avoidSpam(button, isClicked) {
+export const avoidSpam = (button, isClicked) => {
 	if (isClicked) {
 		return;
 	}
