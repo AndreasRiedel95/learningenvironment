@@ -1,7 +1,8 @@
-import { getEditors, avoidSpam } from './index'
+//For some reason its executing the whole index.js)?!
+import {getEditors, avoidSpam} from './index.js'
 
 var isClickedRun = false;
-let editors = getEditors()
+let editors = getEditors();
 let testButtons = document.querySelectorAll('.run-test-js');
 testButtons.forEach((button) => {
 	button.addEventListener('click', () => {
@@ -58,15 +59,15 @@ function callTestHandler(htmlEditor, cssEditor, tasknumber, testnumber, sectionN
 	} else {
 		//check if files are existing
 		try {
-		// 	//Require dynamically the correct test file
+		 	//Require dynamically the correct test file
 			let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${tasknumber}`);
 
 			let TestInstance = new testRun();
 			try {
-		// 		//Call dynamically the correct test function in test file
+		 		//Call dynamically the correct test function in test file
 				TestInstance[runNumber](htmlNode, cssString, test, testnumber)
 					.then(() => {
-		// 				//Check if Test result is already append to DOM (ASYNC)
+						//Check if Test result is already append to DOM (ASYNC)
 						checkElementExists('.assert') 
 							.then(() => {
 								//Element exists now

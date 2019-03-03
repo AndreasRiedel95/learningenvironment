@@ -266,40 +266,40 @@ let setDescription = (ele) => {
 
 //Reset User Code
 let resetBtns = document.querySelectorAll('.reset');
-let isClickedReset = false;
 resetBtns.forEach((btn) => {
-	btn.addEventListener('click', () => {
-		let taskinstance = document.querySelector('.taskInput.--task:checked');
-		if(taskinstance !== null) {
-			let taskinstanceNumber = taskinstance.id
-			if (confirm('Möchten Sie wirklich Ihren Code auf den Start-Code zurücksetzten?')) {
-				let resetUserCode = require('./module/resetUserCode');
-				let updateTaskSolved = require('./module/updateTaskSolved');
-				resetUserCode(taskinstance);
-				let descriptionScrollWrapper = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${taskinstanceNumber}"]`);
-				let tasks = descriptionScrollWrapper.querySelectorAll('.task');
-				tasks.forEach((task, index) => {
-					if(index > 0) {
-						task.classList.add('--not-solved');
-					}
-					let input = task.querySelector('.task-solved');
-					input.classList.contains('--error') ? input.classList.remove('--error') : ""
-					input.checked = false;
-					updateTaskSolved(task.dataset.taskid, false);	
-				})
-				//Set HTML & CSS Editor to inital
-				let htmlEditor = editorRendering.getHTMLEditor();
-				let cssEditor = editorRendering.getCSSEditor();
-				htmlEditor.setValue(section.taskinstance[(taskinstanceNumber - 1)].htmlCode_inital)
-				cssEditor.setValue(section.taskinstance[(taskinstanceNumber - 1)].cssCode_inital)
-			}
-		} else {
-			alert("Bitte wählen Sie eine Aufgabe aus um den Code zurückzusetzten")
-		}
-		avoidSpam(btn, isClickedReset)
+	btn.addEventListener('click', () => { resetCode(btn) }, false) 
+});
 
-	})
-})
+let isClickedReset = false;
+function resetCode(btn) {
+	let taskinstance = document.querySelector('.taskInput.--task:checked');
+	if(taskinstance !== null) {
+		let taskinstanceNumber = taskinstance.id
+		console.log("i")
+		if (confirm('Möchten Sie wirklich Ihren Code auf den Start-Code zurücksetzten?')) {
+			let resetUserCode = require('./module/resetUserCode');
+			let updateTaskSolved = require('./module/updateTaskSolved');
+			resetUserCode(taskinstance);
+			let descriptionScrollWrapper = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${taskinstanceNumber}"]`);
+			let tasks = descriptionScrollWrapper.querySelectorAll('.task');
+			tasks.forEach((task, index) => {
+				index > 0 ? task.classList.add('--not-solved') : ""
+				let input = task.querySelector('.task-solved');
+				input.classList.contains('--error') ? input.classList.remove('--error') : ""
+				input.checked = false;
+				updateTaskSolved(task.dataset.taskid, false);	
+			})
+			//Set HTML & CSS Editor to inital
+			let htmlEditor = editorRendering.getHTMLEditor();
+			let cssEditor = editorRendering.getCSSEditor();
+			htmlEditor.setValue(section.taskinstance[(taskinstanceNumber - 1)].htmlCode_inital)
+			cssEditor.setValue(section.taskinstance[(taskinstanceNumber - 1)].cssCode_inital)
+		}
+	} else {
+		alert("Bitte wählen Sie eine Aufgabe aus um den Code zurückzusetzten")
+	}
+	avoidSpam(btn, isClickedReset)
+}
 
 //Save code on button click
 let updateBtn = document.querySelector('.save');
@@ -341,8 +341,9 @@ export const avoidSpam = (button, isClicked) => {
 }
 
 export const getEditors = () => {
-	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];
+	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()]
 }
+
 
 window.setTaskDescription = setTaskDescription;
 window.setDescription = setDescription;

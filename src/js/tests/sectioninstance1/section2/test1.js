@@ -68,4 +68,4 @@ const test1 = function () {
 	}
 }
 
-module.exports = test1;//self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, 
+module.exports = test1;//self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, 

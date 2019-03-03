@@ -1,5 +1,4 @@
 var FileSaver = require('file-saver');
-
 export const importFile = (input, target) => { 
 		if ('files' in input && input.files.length > 0) {
 			placeFileContent(target, input.files[0])}

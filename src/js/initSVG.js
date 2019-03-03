@@ -18,8 +18,6 @@ smoothscroll.polyfill();
 	});
 })();
 
-
-
 let scrollToView = () => {
 	document.querySelector('.scroll-to-js').scrollIntoView({ behavior: 'smooth', block: "start"});
 }

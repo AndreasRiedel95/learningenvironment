@@ -26,10 +26,10 @@
 	<div class="header" data-sectioninstancenumber="<%= sectioninstance[0].sectionInstance_number %>">
 		<h2 class="header-2 white"><%=section.name %></h2>
 		<div class="header-btn-wrapper">
-			<button class="btn --icon" type="button" onclick="setInitialGrid()" title='Set Editor-Grid to inital size'>
+			<button class="btn --icon" type="button" onclick="setInitialGrid()" title='Setzte das Editor-Grid auf Initialgröße'>
 				<div class="set-inital-grid"></div>
 			</button>
-			<button class="save btn --icon" type="button" title='Save your code'>
+			<button class="save btn --icon" type="button" title='Speicher deinen Code'>
 				<div class="save-disk"></div>
 			</button>
 		</div>
@@ -96,7 +96,7 @@
 				<div class="headeline-wrapper">
 					<div class="code-editor-header">index.html</div>
 					<div class="editor-btn-wrapper">
-						<button class="btn reset" title="Reset Code to initl Code">
+						<button class="btn reset html" title="Setze deinen Lernfortschritt zurück">
 							<div class="file-icon --reset"></div>
 						</button>
 						<button class="btn export-file --html-js" title="Download File">
@@ -119,7 +119,7 @@
 				<div class="headeline-wrapper">
 					<div class="code-editor-header">style.css</div>
 					<div class="editor-btn-wrapper">
-						<button class="btn reset" title="Reset Code to initl Code">
+						<button class="btn reset css" title="Setze deinen Lernfortschritt zurück">
 							<div class="file-icon --reset"></div>
 						</button>
 						<button class="btn export-file --css-js" title="Download File">
@@ -152,8 +152,9 @@
 	</div>
 	<script src="https://unpkg.com/csslint@1.0.5/dist/csslint.js"></script>
 	<script src="/js/html-hint.js" charset="utf-8"></script>
-	<script src="/js/init.bundle.js"></script>
-	<script src="/js/index.bundle.js" charset="utf-8"></script>
-	<script src="/js/test.bundle.js" charset="utf-8"></script>
+	<script src="/js/init.bundle.js"></script> 
+	<!-- test is also executing index.js -->
+	<script src="/js/test.bundle.js"></script>
+	
 </body>
 </html>
