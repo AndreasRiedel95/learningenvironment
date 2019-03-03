@@ -74,7 +74,7 @@
 						<% for(let j = 0; j<section.taskinstance[i].task.length; j++){ %>
 							<div class="task <% if(!(section.taskinstance[i].task[j].task_solved)){ %> --not-solved <% } %>" data-taskid="<%= section.taskinstance[i].task[j]._id %>">
 								<div class="task-headline-wrapper">
-									<h3 class="header-3"><%= section.taskinstance[i].task[j].name  %></h3>
+									<h3 class="header-3 mr-10"><%= section.taskinstance[i].task[j].name  %></h3>
 										<svg class="svg-close" onclick="closeDescription()">
 											<use xlink:href="#svg-close" />
 										</svg>

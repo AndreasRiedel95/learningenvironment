@@ -7,11 +7,11 @@ import {getEditors} from './index.js'
 			let target = null;
 			let editors = getEditors();
 			if(button.classList.contains('--html-js')) {
-				target = editors[0]
+				target = editors[0];
 			} else {
-				target = editors[1]
+				target = editors[1];
 			}
-			importFile(button, target)
+			importFile(button, target);
 		}, false)
 	});
 
@@ -43,11 +43,11 @@ export const importFile = (input, target) => {
 		}
 
 		function readFileContent(file) {
-			const reader = new FileReader()
+			const reader = new FileReader();
 			return new Promise((resolve, reject) => {
-				reader.onload = event => resolve(event.target.result)
-				reader.onerror = error => reject(error)
-				reader.readAsText(file)
+				reader.onload = event => resolve(event.target.result);
+				reader.onerror = error => reject(error);
+				reader.readAsText(file);
 		})
 	}
 };

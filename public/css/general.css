@@ -471,6 +471,8 @@
   font-weight: 600;
   line-height: 0;
   color: #292929;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

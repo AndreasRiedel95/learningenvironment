@@ -1,4 +1,3 @@
-//For some reason its executing the whole index.js?!
 import {getEditors} from './index.js';
 let avoidSpam = require('./module/avoidSpam.js')
 
@@ -38,7 +37,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	const CheckInstance = new checkTestError();
 
 	//Reset TestResult before every test run
-	let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskInstanceNumber}"]`)
+	let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskInstanceNumber}"]`);
 	let taskInputs = activeTaskinstanceNumberWrapper.querySelectorAll('.task-solved');
 	let testOutput = document.querySelector('#tests');
 	let errorMsgWrapper = document.querySelector('.error-message-wrapper');
@@ -46,17 +45,17 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	if(testOutput !== undefined){
 		testOutput.innerHTML = '';
 		errorMsgField.innerHTML = '';
-		errorMsgWrapper.classList.remove('--active')
+		errorMsgWrapper.classList.remove('--active');
 	}
 	
-	let htmlStr = htmlEditor.getValue()
+	let htmlStr = htmlEditor.getValue();
 	let htmlNode = document.createElement('html');
 	htmlNode.innerHTML = htmlStr;
 	let cssString = cssEditor.getValue();
 	let runNumber = `run${testnumber}`.toString();
 	
 	//Check if Code is Valide
-	let runBtn = document.querySelector(`.run-test-js[data-testnumber="${testnumber}"]`)
+	let runBtn = document.querySelector(`.run-test-js[data-testnumber="${testnumber}"]`);
 	if(runBtn.classList.contains('validateErrorHTML') || runBtn.classList.contains('validateErrorCSS')){
 		errorMsgWrapper.classList.add('--active');
 		errorMsgField.innerHTML = "Bitte überprüfen Sie ihren Code auf Validität";
@@ -66,7 +65,6 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 		try {
 		 	//Require dynamically the correct test file
 			let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${taskInstanceNumber}`);
-
 			let TestInstance = new testRun();
 			try {
 		 		//Call dynamically the correct test function in test file
@@ -76,10 +74,10 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 						checkElementExists('.assert') 
 							.then(() => {
 								//Element exists now -> call checkInstance
-								CheckInstance.check(taskInstanceNumber, testNumberArray)
+								CheckInstance.check(taskInstanceNumber, testNumberArray);
 							});
 					}).catch((err) => {
-						console.log("No Promise resolved in Test file" + err.message)
+						console.log("No Promise resolved in Test file" + err.message);
 					});
 			} catch(err) {
 				console.log(err.message);

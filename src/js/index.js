@@ -10,7 +10,7 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import { importFile, exportFile } from './importExportFile';
-let avoidSpam = require('./module/avoidSpam.js')
+let avoidSpam = require('./module/avoidSpam.js');
 
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
@@ -21,16 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
 	taskDescriptions.forEach(taskDescription => {
 		let tasks = taskDescription.querySelectorAll('.task');
-		let taskInputs = taskDescription.querySelectorAll('.task-solved')
+		let taskInputs = taskDescription.querySelectorAll('.task-solved');
 		//remove --not-solved class from first Task, so student is able to run test for it 
 		tasks[0].classList.remove('--not-solved'); 
 		//find first Task-Input which is not checked
 		var result = Array.from(taskInputs).filter(taskInput => taskInput.checked === false)[0];
 		//find index of first Task-Input which is not checked
-		var index = Array.from(taskInputs).findIndex(taskInput => taskInput === result)
+		var index = Array.from(taskInputs).findIndex(taskInput => taskInput === result);
 		//remove --not-solved class on Task, so student is able to run test for it
 		if(tasks[index] !== undefined) { 
-			tasks[index].classList.remove('--not-solved')
+			tasks[index].classList.remove('--not-solved');
 		}
 
 	})
@@ -96,7 +96,7 @@ let editorRendering = (() => {
 	let css_box = document.querySelector('.css-codearea');
 	let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 	
-	let inputWrappers = document.querySelectorAll('.taskInput:not(.--description)')
+	let inputWrappers = document.querySelectorAll('.taskInput:not(.--description)');
 	html_editor.setSize("100%", "100%");
 	css_editor.setSize("100%", "100%");
 
@@ -106,10 +106,10 @@ let editorRendering = (() => {
 		let runbtns = document.querySelectorAll('.run-test-js')
 		runbtns.forEach((runbtn) => {
 			if(onlyErrors.length > 0) {
-				runbtn.classList.add('validateErrorCSS')
+				runbtn.classList.add('validateErrorCSS');
 			} else {
 				if(runbtn.classList.contains('validateErrorCSS')) {
-					runbtn.classList.remove('validateErrorCSS')
+					runbtn.classList.remove('validateErrorCSS');
 				}
 			}
 		})
@@ -118,14 +118,14 @@ let editorRendering = (() => {
 
 	function html_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.html(cm);
-		let onlyErrors = errors.filter(error => error.severity === 'error')
-		let runbtns = document.querySelectorAll('.run-test-js')
+		let onlyErrors = errors.filter(error => error.severity === 'error');
+		let runbtns = document.querySelectorAll('.run-test-js');
 		runbtns.forEach((runbtn) => {
 			if(onlyErrors.length > 0) {
-				runbtn.classList.add('validateErrorHTML')
+				runbtn.classList.add('validateErrorHTML');
 			} else {
 				if(runbtn.classList.contains('validateErrorHTML')) {
-					runbtn.classList.remove('validateErrorHTML')
+					runbtn.classList.remove('validateErrorHTML');
 				}
 			}
 		})
@@ -201,14 +201,11 @@ let editorRendering = (() => {
 
 //Toggle TaskDescription 
 let setTaskDescription = (ele) => {
-	let taskinstancenumber = parseInt(ele.htmlFor)
+	let taskinstancenumber = parseInt(ele.htmlFor);
 	let parent = ele.parentNode;
 	let inputs = document.querySelectorAll('.input-wrapper.--task');
 	var index = Array.from(inputs).findIndex(input => input === parent);
-	console.log(index)
-
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-taskinstancenumber="${taskinstancenumber}"])`);
-
 	taskDescriptions.forEach((taskDescription) => {
 		taskDescription.classList.add('--not-active');
 	})
@@ -217,15 +214,15 @@ let setTaskDescription = (ele) => {
 	let htmlEditor = editorRendering.getHTMLEditor();
 	let cssEditor = editorRendering.getCSSEditor();
 	if(section.taskinstance[index].htmlCode_user !== null) {
-		htmlEditor.setValue(section.taskinstance[index].htmlCode_user)
+		htmlEditor.setValue(section.taskinstance[index].htmlCode_user);
 	} else {
-		htmlEditor.setValue(section.taskinstance[index].htmlCode_inital)
+		htmlEditor.setValue(section.taskinstance[index].htmlCode_inital);
 	}
 
 	if(section.taskinstance[index].cssCode_user !== null) {
-		cssEditor.setValue(section.taskinstance[index].cssCode_user)
+		cssEditor.setValue(section.taskinstance[index].cssCode_user);
 	} else {
-		cssEditor.setValue(section.taskinstance[index].cssCode_inital)
+		cssEditor.setValue(section.taskinstance[index].cssCode_inital);
 	}
 }
 
@@ -241,15 +238,15 @@ let setDescription = (ele) => {
 
 //Reset User Code
 let resetBtn = document.querySelector('.reset');
-resetBtn.addEventListener('click', () => { resetCode(resetBtn) }, false) 
+resetBtn.addEventListener('click', () => { resetCode(resetBtn) }, false);
 
 let isClickedReset = false;
 function resetCode(btn) {
 	let taskinstance = document.querySelector('.taskInput.--task:checked');
-	let parent = taskinstance.parentNode;
-	let inputs = document.querySelectorAll('.input-wrapper.--task');
-	var index = Array.from(inputs).findIndex(input => input === parent);
 	if(taskinstance !== null) {
+		let parent = taskinstance.parentNode;
+		let inputs = document.querySelectorAll('.input-wrapper.--task');
+		var index = Array.from(inputs).findIndex(input => input === parent);
 		let taskinstanceNumber = taskinstance.id;
 		if (confirm('Möchten Sie wirklich Ihren Code auf den Start-Code zurücksetzten?')) {
 			let resetUserCode = require('./module/resetUserCode');
@@ -258,22 +255,22 @@ function resetCode(btn) {
 			let descriptionScrollWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstanceNumber}"]`);
 			let tasks = descriptionScrollWrapper.querySelectorAll('.task');
 			tasks.forEach((task, index) => {
-				index > 0 ? task.classList.add('--not-solved') : ""
+				index > 0 ? task.classList.add('--not-solved') : "";
 				let input = task.querySelector('.task-solved');
-				input.classList.contains('--error') ? input.classList.remove('--error') : ""
+				input.classList.contains('--error') ? input.classList.remove('--error') : "";
 				input.checked = false;
 				updateTaskSolved(task.dataset.taskid, false);	
 			})
 			//Set HTML & CSS Editor to inital
 			let htmlEditor = editorRendering.getHTMLEditor();
 			let cssEditor = editorRendering.getCSSEditor();
-			htmlEditor.setValue(section.taskinstance[index].htmlCode_inital)
-			cssEditor.setValue(section.taskinstance[index].cssCode_inital)
+			htmlEditor.setValue(section.taskinstance[index].htmlCode_inital);
+			cssEditor.setValue(section.taskinstance[index].cssCode_inital);
 		}
 	} else {
-		alert("Bitte wählen Sie eine Aufgabe aus um den Code zurückzusetzten")
+		alert("Bitte wählen Sie eine Aufgabe aus um den Code zurückzusetzten");
 	}
-	avoidSpam(btn, isClickedReset)
+	avoidSpam(btn, isClickedReset);
 }
 
 //Save code on button click
@@ -287,7 +284,7 @@ updateBtn.addEventListener('click', () => {
 	let taskinstance = document.querySelector('.taskInput.--task:checked');
 	if(taskinstance !== null) {
 		let saveCode = require('./module/saveCode');
-		saveCode(taskinstance, html_editor, css_editor)
+		saveCode(taskinstance, html_editor, css_editor);
 		savedWrapper.classList.add('--saved');
 		setTimeout(() => {
 			savedWrapper.classList.remove('--saved');
@@ -299,11 +296,11 @@ updateBtn.addEventListener('click', () => {
 		}, 3000)
 
 	}
-	avoidSpam(updateBtn, isClickedSave)
+	avoidSpam(updateBtn, isClickedSave);
 })
 
 export const getEditors = () => {
-	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()]
+	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];
 }
 
 
