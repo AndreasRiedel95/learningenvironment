@@ -10,14 +10,14 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import { importFile, exportFile } from './importExportFile';
-
+let avoidSpam = require('./module/avoidSpam.js')
 
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
 	taskDescriptions.forEach(taskDescription => {
 		let tasks = taskDescription.querySelectorAll('.task');
@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 	})
-
 });
 
 let editorRendering = (() => {
@@ -70,7 +69,7 @@ let editorRendering = (() => {
 		}
 	};
 
-		let cm_opt_css = {
+	let cm_opt_css = {
 		mode: 'text/html',
 		gutters: ['CodeMirror-lint-markers'],
 		theme: 'lucario',
@@ -101,7 +100,6 @@ let editorRendering = (() => {
 	html_editor.setSize("100%", "100%");
 	css_editor.setSize("100%", "100%");
 
-
 	function css_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.css(cm);
 		let onlyErrors = errors.filter(error => error.severity === 'error');
@@ -131,7 +129,6 @@ let editorRendering = (() => {
 				}
 			}
 		})
-
 		updateLinting(errors);
 	}
 
@@ -173,7 +170,6 @@ let editorRendering = (() => {
 		let source = prepareSource();
 		let iframe = document.querySelector('.output-iframe');
 		let iframe_doc = iframe.contentDocument || iframe.contentWindow.document;
-
 		
 		iframe_doc.open();
 		iframe_doc.write(source);
@@ -187,6 +183,7 @@ let editorRendering = (() => {
 		render();
 	});
 	render();
+
 	css_editor.refresh();
 	html_editor.refresh();
 
@@ -201,56 +198,34 @@ let editorRendering = (() => {
 			
 })();
 
-//Import/Export Files Event Handler
-document.querySelectorAll('.import-file').forEach((button) => {
-	button.addEventListener('change', () => {
-		let target = null;
-		if(button.classList.contains('--html-js')) {
-			target = editorRendering.getHTMLEditor()
-		} else {
-			target = editorRendering.getCSSEditor()
-		}
-		importFile(button, target)
-	}, false)
-});
-
-document.querySelectorAll('.export-file').forEach((button) => {
-	button.addEventListener('click', () => {
-		let target = null;
-		let fileName = ''
-		if(button.classList.contains('--html-js')) {
-			target = editorRendering.getHTMLEditor();
-			fileName = 'index.html';
-		} else {
-			target = editorRendering.getCSSEditor();
-			fileName = 'style.css';
-		}
-		exportFile(fileName, target)
-	}, false)
-});
-
 
 //Toggle TaskDescription 
 let setTaskDescription = (ele) => {
-	let tasknumber = parseInt(ele.htmlFor)
-	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-tasknumber="${tasknumber}"])`);
+	let taskinstancenumber = parseInt(ele.htmlFor)
+	let parent = ele.parentNode;
+	let inputs = document.querySelectorAll('.input-wrapper.--task');
+	var index = Array.from(inputs).findIndex(input => input === parent);
+	console.log(index)
+
+	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-taskinstancenumber="${taskinstancenumber}"])`);
+
 	taskDescriptions.forEach((taskDescription) => {
 		taskDescription.classList.add('--not-active');
 	})
-	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${tasknumber}"]`);
+	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
 	activeTaskDescription.classList.remove('--not-active');
 	let htmlEditor = editorRendering.getHTMLEditor();
 	let cssEditor = editorRendering.getCSSEditor();
-	if(section.taskinstance[tasknumber - 1].htmlCode_user !== null) {
-		htmlEditor.setValue(section.taskinstance[(tasknumber - 1)].htmlCode_user)
+	if(section.taskinstance[index].htmlCode_user !== null) {
+		htmlEditor.setValue(section.taskinstance[index].htmlCode_user)
 	} else {
-		htmlEditor.setValue(section.taskinstance[(tasknumber - 1)].htmlCode_inital)
+		htmlEditor.setValue(section.taskinstance[index].htmlCode_inital)
 	}
 
-	if(section.taskinstance[tasknumber - 1].cssCode_user !== null) {
-		cssEditor.setValue(section.taskinstance[(tasknumber - 1)].cssCode_user)
+	if(section.taskinstance[index].cssCode_user !== null) {
+		cssEditor.setValue(section.taskinstance[index].cssCode_user)
 	} else {
-		cssEditor.setValue(section.taskinstance[(tasknumber - 1)].cssCode_inital)
+		cssEditor.setValue(section.taskinstance[index].cssCode_inital)
 	}
 }
 
@@ -265,14 +240,15 @@ let setDescription = (ele) => {
 }
 
 //Reset User Code
-let resetBtns = document.querySelectorAll('.reset');
-resetBtns.forEach((btn) => {
-	btn.addEventListener('click', () => { resetCode(btn) }, false) 
-});
+let resetBtn = document.querySelector('.reset');
+resetBtn.addEventListener('click', () => { resetCode(resetBtn) }, false) 
 
 let isClickedReset = false;
 function resetCode(btn) {
 	let taskinstance = document.querySelector('.taskInput.--task:checked');
+	let parent = taskinstance.parentNode;
+	let inputs = document.querySelectorAll('.input-wrapper.--task');
+	var index = Array.from(inputs).findIndex(input => input === parent);
 	if(taskinstance !== null) {
 		let taskinstanceNumber = taskinstance.id
 		console.log("i")
@@ -280,7 +256,7 @@ function resetCode(btn) {
 			let resetUserCode = require('./module/resetUserCode');
 			let updateTaskSolved = require('./module/updateTaskSolved');
 			resetUserCode(taskinstance);
-			let descriptionScrollWrapper = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${taskinstanceNumber}"]`);
+			let descriptionScrollWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstanceNumber}"]`);
 			let tasks = descriptionScrollWrapper.querySelectorAll('.task');
 			tasks.forEach((task, index) => {
 				index > 0 ? task.classList.add('--not-solved') : ""
@@ -292,8 +268,8 @@ function resetCode(btn) {
 			//Set HTML & CSS Editor to inital
 			let htmlEditor = editorRendering.getHTMLEditor();
 			let cssEditor = editorRendering.getCSSEditor();
-			htmlEditor.setValue(section.taskinstance[(taskinstanceNumber - 1)].htmlCode_inital)
-			cssEditor.setValue(section.taskinstance[(taskinstanceNumber - 1)].cssCode_inital)
+			htmlEditor.setValue(section.taskinstance[index].htmlCode_inital)
+			cssEditor.setValue(section.taskinstance[index].cssCode_inital)
 		}
 	} else {
 		alert("Bitte wählen Sie eine Aufgabe aus um den Code zurückzusetzten")
@@ -326,19 +302,6 @@ updateBtn.addEventListener('click', () => {
 	}
 	avoidSpam(updateBtn, isClickedSave)
 })
-
-
-export const avoidSpam = (button, isClicked) => {
-	if (isClicked) {
-		return;
-	}
-	var isClicked = true;
-	button.style.pointerEvents = 'none'
-	setTimeout(() => {
-		button.style.pointerEvents = 'all'
-		isClicked = false;
-	}, 2000)
-}
 
 export const getEditors = () => {
 	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()]

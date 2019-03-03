@@ -1,14 +1,14 @@
 const checkIfError = function () {
 	let self = this;
 	let updateTaskSolved = require('./module/updateTaskSolved')
-	self.check = function (tasknumber, testNumber) {
+	self.check = function (taskinstancenumber, testNumberArray) {
 		let tests = document.querySelectorAll('.test');
 		let errorMsgWrapper = document.querySelector('.error-message-wrapper');
 		let errorMsgField = document.querySelector('.error-message');
-		let activeTaskNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-tasknumber="${tasknumber}"]`)
-		let taskInputs = activeTaskNumberWrapper.querySelectorAll('.task-solved');
-		let tasks = activeTaskNumberWrapper.querySelectorAll('.task');
-		let taskid = tasks[testNumber - 1].dataset.taskid;
+		let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`)
+		let taskInputs = activeTaskinstanceNumberWrapper.querySelectorAll('.task-solved');
+		let tasks = activeTaskinstanceNumberWrapper.querySelectorAll('.task');
+		let taskid = tasks[testNumberArray - 1].dataset.taskid;
 		let boolean = false;
 		let allAsserts = document.querySelectorAll('.assert');
 		tests.forEach((test) => {
@@ -22,18 +22,18 @@ const checkIfError = function () {
 						let fail = test.querySelectorAll('.fail')[0]
 						let errMsg = fail.querySelector('.name').innerHTML;
 						errorMsgField.innerHTML += "<br>" + errMsg;
-						taskInputs[testNumber-1].classList.add('--error');
+						taskInputs[testNumberArray-1].classList.add('--error');
 						i++;
 					}
 				} 
 			})
 		// 		//check if Tests are all OK
 			if(!(Array.from(allAsserts).some(assert => assert.classList.contains('fail')))) {
-				taskInputs[testNumber-1].checked = true;
-				taskInputs[testNumber-1].classList.remove('--error')
+				taskInputs[testNumberArray-1].checked = true;
+				taskInputs[testNumberArray-1].classList.remove('--error')
 				boolean = true;
-				if(tasks[testNumber] !== undefined) {
-					tasks[testNumber].classList.remove('--not-solved');
+				if(tasks[testNumberArray] !== undefined) {
+					tasks[testNumberArray].classList.remove('--not-solved');
 				}
 										
 			}

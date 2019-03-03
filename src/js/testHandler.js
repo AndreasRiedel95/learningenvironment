@@ -1,5 +1,6 @@
-//For some reason its executing the whole index.js)?!
-import {getEditors, avoidSpam} from './index.js'
+//For some reason its executing the whole index.js?!
+import {getEditors} from './index.js';
+let avoidSpam = require('./module/avoidSpam.js')
 
 var isClickedRun = false;
 let editors = getEditors();
@@ -11,16 +12,19 @@ testButtons.forEach((button) => {
 		let section = document.querySelector('.description-wrapper');
 		let sectionNumber = parseInt(section.dataset.descriptionnumber);
 		let testNumber = parseInt(button.dataset.testnumber);
-		let taskNumber = document.querySelector('.taskInput:checked');
+		let testNumberArray = parseInt(button.dataset.testnumberarray);
+		let taskInstanceNumber = document.querySelector('.taskInput:checked');
+		console.log("tasknumber", taskInstanceNumber)
+		console.log("testNumber", testNumber)
 		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
 		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
-		callTestHandler(htmlEditor, cssEditor, taskNumber.id, testNumber, sectionNumber, sectioninstanceNumber);
+		callTestHandler(htmlEditor, cssEditor, taskInstanceNumber.id, testNumber, sectionNumber, sectioninstanceNumber, testNumberArray);
 		//Avoid Spamming on button
 		avoidSpam(button, isClickedRun)
 	})
 })
 
-function callTestHandler(htmlEditor, cssEditor, tasknumber, testnumber, sectionNumber, sectioninstanceNumber) {
+function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, sectionNumber, sectioninstanceNumber, testNumberArray) {
 	// delete all require cache everytime a test gets called otherwise test can be called only once
 	for (const path in require.cache) {
 		if (path.endsWith('.js')) { // only clear *.js, not *.node
@@ -32,8 +36,8 @@ function callTestHandler(htmlEditor, cssEditor, tasknumber, testnumber, sectionN
 	require('tap-browser-color')();
 	const test = require('tape-css')(require('tape'));
 	require('tape-dom')(test);
-	const checkIfError = require(`./checkTestError`);
-	const CheckInstance = new checkIfError();
+	const checkTestError = require(`./checkTestError`);
+	const CheckInstance = new checkTestError();
 
 	//Reset TestResult before every test run
 	let testOutput = document.querySelector('#tests');
@@ -46,7 +50,7 @@ function callTestHandler(htmlEditor, cssEditor, tasknumber, testnumber, sectionN
 	}
 	
 	let htmlStr = htmlEditor.getValue()
-	let htmlNode = document.createElement( 'html' );
+	let htmlNode = document.createElement('html');
 	htmlNode.innerHTML = htmlStr;
 	let cssString = cssEditor.getValue();
 	let runNumber = `run${testnumber}`.toString();
@@ -60,7 +64,7 @@ function callTestHandler(htmlEditor, cssEditor, tasknumber, testnumber, sectionN
 		//check if files are existing
 		try {
 		 	//Require dynamically the correct test file
-			let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${tasknumber}`);
+			let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${taskInstanceNumber}`);
 
 			let TestInstance = new testRun();
 			try {
@@ -70,8 +74,8 @@ function callTestHandler(htmlEditor, cssEditor, tasknumber, testnumber, sectionN
 						//Check if Test result is already append to DOM (ASYNC)
 						checkElementExists('.assert') 
 							.then(() => {
-								//Element exists now
-								CheckInstance.check(tasknumber, testnumber)
+								//Element exists now -> call checkInstance
+								CheckInstance.check(taskInstanceNumber, testNumberArray)
 							});
 					}).catch((err) => {
 						console.log("No Promise resolved in Test file" + err.message)

@@ -15,7 +15,7 @@ const test1 = function () {
 		return Promise.resolve()
 	}
 	self.run2 = (htmlNode, cssString, test) => {
-		let classArray = ["paragraph1", "paragraph2", "paragraph3"];
+		let classArray = ["p1", "p2", "p3"];
 		let ps = htmlNode.querySelectorAll('p');
 
 		test((
