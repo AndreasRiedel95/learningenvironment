@@ -17,8 +17,8 @@
 		</div>
 		<div class="form-group mb-40">
 			<label class="input-label_error" for="description">Dies ist ein Pflichtfled</label>
-			<textarea class="input --textarea validate-me-js"name="description" maxlength="250" placeholder=" " onchange="validateField(this)""></textarea>
-			<label class="input-label" for="description">Kurzbeschreibung*</label>
+			<textarea class="input --textarea validate-me-js"name="description" maxlength="200" placeholder=" " onchange="validateField(this)""></textarea>
+			<label class="input-label" for="description">Kurzbeschreibung (Max: 200)*</label>
 		</div>
 		<span class="code-label">Select Section(s) for the Section Instance:</span>
 		<div class="input-list mb-50 mt-10">
@@ -50,8 +50,8 @@
 		</div>
 		<div class="form-group mb-40">
 			<label class="input-label_error" for="description">Dies ist ein Pflichtfled</label>
-			<textarea class="input --textarea validate-me-js" name="description" maxlength="250" placeholder=" " onchange="validateField(this)"><%= sectioninstance.description %></textarea>
-			<label class="input-label" for="description">Kurzbeschreibung</label>
+			<textarea class="input --textarea validate-me-js" name="description" maxlength="200" placeholder=" " onchange="validateField(this)"><%= sectioninstance.description %></textarea>
+			<label class="input-label" for="description">Kurzbeschreibung (Max: 200)</label>
 		</div>
 		<span class="code-label">Select Section(s) for the Section Instance:</span>
 		<div class="input-list mb-50 mt-10">

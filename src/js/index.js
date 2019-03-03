@@ -250,8 +250,7 @@ function resetCode(btn) {
 	let inputs = document.querySelectorAll('.input-wrapper.--task');
 	var index = Array.from(inputs).findIndex(input => input === parent);
 	if(taskinstance !== null) {
-		let taskinstanceNumber = taskinstance.id
-		console.log("i")
+		let taskinstanceNumber = taskinstance.id;
 		if (confirm('Möchten Sie wirklich Ihren Code auf den Start-Code zurücksetzten?')) {
 			let resetUserCode = require('./module/resetUserCode');
 			let updateTaskSolved = require('./module/updateTaskSolved');

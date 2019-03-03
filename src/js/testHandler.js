@@ -13,12 +13,10 @@ testButtons.forEach((button) => {
 		let sectionNumber = parseInt(section.dataset.descriptionnumber);
 		let testNumber = parseInt(button.dataset.testnumber);
 		let testNumberArray = parseInt(button.dataset.testnumberarray);
-		let taskInstanceNumber = document.querySelector('.taskInput:checked');
-		console.log("tasknumber", taskInstanceNumber)
-		console.log("testNumber", testNumber)
+		let taskInstanceNumber = document.querySelector('.taskInput:checked').id;
 		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
 		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
-		callTestHandler(htmlEditor, cssEditor, taskInstanceNumber.id, testNumber, sectionNumber, sectioninstanceNumber, testNumberArray);
+		callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testNumber, sectionNumber, sectioninstanceNumber, testNumberArray);
 		//Avoid Spamming on button
 		avoidSpam(button, isClickedRun)
 	})
@@ -40,6 +38,8 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	const CheckInstance = new checkTestError();
 
 	//Reset TestResult before every test run
+	let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskInstanceNumber}"]`)
+	let taskInputs = activeTaskinstanceNumberWrapper.querySelectorAll('.task-solved');
 	let testOutput = document.querySelector('#tests');
 	let errorMsgWrapper = document.querySelector('.error-message-wrapper');
 	let errorMsgField = document.querySelector('.error-message');
@@ -60,6 +60,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	if(runBtn.classList.contains('validateErrorHTML') || runBtn.classList.contains('validateErrorCSS')){
 		errorMsgWrapper.classList.add('--active');
 		errorMsgField.innerHTML = "Bitte überprüfen Sie ihren Code auf Validität";
+		taskInputs[testNumberArray-1].classList.add('--error');
 	} else {
 		//check if files are existing
 		try {
