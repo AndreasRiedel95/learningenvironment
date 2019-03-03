@@ -75,4 +75,4 @@ const test1 = function () {
 	}
 }
 
-module.exports = test1;//self.run1 – Absätze, //self.run2 – Absätze, //self.run3 – Absätze, //self.run1 – Test Absatz , //self.run1 – Test Absatz , //self.run1 – Test Absatz , //self.run1 – Test Absatz , 
+module.exports = test1;

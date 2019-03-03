@@ -81,9 +81,10 @@
 			Die Tests basieren auf dem Modul <a target="_blank" href="https://github.com/studio-b12/tape-css">tape-css</a>. Tape-css benutzt die existierende <a target="_blank" href="https://github.com/substack/tape">API</a> der Test-Bibliothek tape.  
 		</p>
 		<h4>Testdateien automatisch generieren:</h4>
-		<p class="mb-20">
+		<p>
 			Ist eine Sectionsinstanz aufgebaut, so können die für die Tests nötigen Dateien auch automatisch generiert werden. Hierfür muss im Admin Bereich auf der jeweiligen Detail-Seite der Sectioninstanz auf den Button "Create File-System Path" geklickt werden. Somit wird sicher gestellt, dass die Applikationen die korrekte Verzechnisstrukur besitzt und die Test-Dateien von der Applikation gefunden werden können. Dennoch wird eine intelligente Nummerierung empfohlen. 
 		</p>
+		<p class="mb-20">Gelöschte Objekte in der Datenbank werden in der Ordnerstruktur nicht automatisch gelöscht, sondern müssen händisch gelöscht werden.</p>
 		<h4>CodeMirror Validator:</h4>
 		<p class="mb-20">
 			Ist der vom Nutzer eingegebene HTML und CSS Code nicht valide, so wird den Run-Buttons die Klasse <code>validateErrorCSS</code> bzw. <code>validateErrorHTML</code> hizugefügt. Ist dies der Fall, so werden die Testdateien nicht aufgerufen und dem Nutzer wird eine Fehlermeldung angezeigt. 
