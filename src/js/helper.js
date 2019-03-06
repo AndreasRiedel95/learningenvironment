@@ -6,7 +6,7 @@ var options = {
         ignoreEndTags: false,
         ignoreDuplicateAttributes: false
     };
-let htmlDiffer = new HtmlDiffer();
+let htmlDiffer = new HtmlDiffer(options);
 let htmlDifferOutput = require('node-htmldiff')
 
 
@@ -28,28 +28,27 @@ const helper = function () {
 			}
 		}
 	}
-	self.htmlDifferences = function (oldHtml, newHtml, option) {
-		var diff = htmlDiffer.diffHtml(oldHtml.innerHTML, oldHtml.innerHTML);
-		let isEqual = htmlDiffer.isEqual(oldHtml.innerHTML, newHtml.innerHTML);
-		let res = logger.getDiffText(diff, { charsAroundDiff: 100 });
-		logger.logDiffText(diff, { charsAroundDiff: 100 });
-		console.log("diff", diff)
-		console.log("e", isEqual)
-		console.log("r", res)
-		console.log("o", option)
-		if(option !== undefined && option === 'strict' ) {
-			let boolean = false
+	self.htmlDifferences = function (expected, actual, option) {
+		var diff = htmlDiffer.diffHtml(expected.outerHTML, actual.outerHTML);
+		let isEqual = htmlDiffer.isEqual(expected.outerHTML, actual.outerHTML);
+		let res = logger.getDiffText(diff, { charsAroundDiff: 0 });
+		console.log(diff)
+		logger.logDiffText(diff, { charsAroundDiff: 0 });
+		if(option !== 'undefined' && option !== 'strict' ) {
 			if(!isEqual) {
-				let node = htmlDifferOutput(oldHtml.innerHTML, newHtml.innerHTML)
-				let div = document.createElement('div');
-				div.innerHTML = node
-				console.log(div)
-				let dataDels = div.querySelectorAll('[data-diff-node="del"]')
-				let dels = div.querySelectorAll('del')
+				for(var i = 0 ; i < diff.length; i++){
+					if(diff[i].hasOwnProperty("removed") && diff[i].removed === true) {
+						console.log('something is removed')
+						isEqual = false;
+						break;
+					} else {
+						isEqual = true;
+					}
+				} 
 			}
-
 		}
-
+		console.log(isEqual)
+		return isEqual;
 	}
 	self.checkDuplicates = function (a) {
 	    for(var i = 0; i <= a.length; i++) {

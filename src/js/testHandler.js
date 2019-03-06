@@ -60,7 +60,6 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	htmlNode.innerHTML = htmlStr;
 	let cssString = cssEditor.getValue();
 	let runNumber = `run${testnumber}`.toString();
-
 	
 	//Check if Code is Valide
 	let runBtn = document.querySelector(`.run-test-js[data-testnumber="${testnumber}"]`);
@@ -72,6 +71,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 		//check if files are existing
 		try {
 		 	//Require dynamically the correct test file
+		 	console.log(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${taskInstanceNumber}`)
 			let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${taskInstanceNumber}`);
 			let TestInstance = new testRun();
 			try {
