@@ -1,4 +1,8 @@
 //self.run1 – Absätze, //self.run2 – Absätze, //self.run3 – Absätze, 
+const helper = require('../../../helper.js');
+const HelperInstance = new helper();
+const h = require('hyperscript');
+
 const test1 = function () {
 	let self = this;
 	self.run1 = (htmlNode, cssString, test) => {
@@ -54,24 +58,13 @@ const test1 = function () {
 					let backgroundColor = getComputedStyle(ps[i]).getPropertyValue('background-color')
 					colorsArray.push(backgroundColor)
 				}
-				let boolean = checkDuplicates(colorsArray)
+				let boolean = HelperInstance.checkDuplicates(colorsArray)
 				asset.ok(
 					boolean, "Sind Sie sicher, dass alle Klassen eine andere Farbe haben?"
 				);
 		  		asset.end();
 			});
 		return Promise.resolve()
-	}
-
-	function checkDuplicates(a) {
-	    for(var i = 0; i <= a.length; i++) {
-	        for(var j = i; j <= a.length; j++) {
-	            if(i != j && a[i] == a[j]) {
-	                return false;
-	            }
-	        }
-	    }
-	    return true;
 	}
 }
 

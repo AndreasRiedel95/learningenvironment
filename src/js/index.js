@@ -10,6 +10,7 @@ import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import { importFile, exportFile } from './importExportFile';
+
 let avoidSpam = require('./module/avoidSpam.js');
 
 // window.addEventListener("beforeunload", function (event) {

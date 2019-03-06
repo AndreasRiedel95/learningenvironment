@@ -1,3 +1,8 @@
+const helper = require('../../../helper.js');
+const HelperInstance = new helper();
+const h = require('hyperscript');
+
+
 const test3 = function () {
 	let self = this;
 	self.run1 = (htmlNode, cssString, test, h, computedStyle) => {

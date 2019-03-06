@@ -1,8 +1,19 @@
 //self.run1 – Relative Positionierung, //self.run2 – Relative Positionierung, 
 const test1 = function () {
 	let self = this;
-	self.run1 = (htmlNode, cssString, test) => {
+	self.run1 = (htmlNode, cssString, test, h, HelperInstance) => {
 		let boolean = false;
+		// h('div#page',
+		// const parent = h('.parent', [child]);
+		let info = h('span.info');
+		let info2 = h('span.info2');
+		let img = h('img', {src: '/img/apfel.jpg'});
+		let rahmen = h('.rahmen', [img, info]);
+		console.log(rahmen)
+		let node = htmlNode.querySelector('.rahmen');
+		HelperInstance.removeAllTextNodes(node)
+		HelperInstance.htmlDifferences(rahmen, node, 'strict');
+
 		test((
 		'check if elements are there'
 		), { dom: htmlNode }, (asset) => {
@@ -16,7 +27,6 @@ const test1 = function () {
 					'check if picture has correct path'
 					), { dom: htmlNode }, (asset) => {
 						let imageSrc = htmlNode.querySelector('img').src
-						console.log(imageSrc)
 						asset.equal(
 							imageSrc, 'http://localhost:3000/img/apfel.jpg', "Bitte überprüfen Sie den Bildpfad"
 						)
@@ -54,7 +64,7 @@ const test1 = function () {
 		return Promise.resolve()
 	}
 
-	self.run2 = (htmlNode, cssString, test) => {
+	self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
 		let img = htmlNode.querySelector('img');
 		img.style.display = "block"
 		let rahmen = htmlNode.querySelector('.rahmen');

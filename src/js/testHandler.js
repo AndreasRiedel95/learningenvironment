@@ -1,5 +1,8 @@
 import {getEditors} from './index.js';
-let avoidSpam = require('./module/avoidSpam.js')
+import HtmlDiff from 'htmldiff-js';
+let avoidSpam = require('./module/avoidSpam.js');
+
+
 
 var isClickedRun = false;
 let editors = getEditors();
@@ -32,9 +35,13 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	require('tap-dev-tool/register');
 	require('tap-browser-color')();
 	const test = require('tape-css')(require('tape'));
+	const h = require('hyperscript');
 	require('tape-dom')(test);
 	const checkTestError = require(`./checkTestError`);
+	const helper = require('./helper.js');
+	const HtmlDiffer = require('html-differ').HtmlDiffer;
 	const CheckInstance = new checkTestError();
+	const HelperInstance = new helper();
 
 	//Reset TestResult before every test run
 	let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskInstanceNumber}"]`);
@@ -53,6 +60,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	htmlNode.innerHTML = htmlStr;
 	let cssString = cssEditor.getValue();
 	let runNumber = `run${testnumber}`.toString();
+
 	
 	//Check if Code is Valide
 	let runBtn = document.querySelector(`.run-test-js[data-testnumber="${testnumber}"]`);
@@ -68,7 +76,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 			let TestInstance = new testRun();
 			try {
 		 		//Call dynamically the correct test function in test file
-				TestInstance[runNumber](htmlNode, cssString, test, testnumber)
+				TestInstance[runNumber](htmlNode, cssString, test, h, HelperInstance)
 					.then(() => {
 						//Check if Test result is already append to DOM (ASYNC)
 						checkElementExists('.assert') 
