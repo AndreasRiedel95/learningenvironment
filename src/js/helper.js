@@ -33,12 +33,10 @@ const helper = function () {
 		let isEqual = htmlDiffer.isEqual(expected.outerHTML, actual.outerHTML);
 		let res = logger.getDiffText(diff, { charsAroundDiff: 0 });
 		console.log(diff)
-		logger.logDiffText(diff, { charsAroundDiff: 0 });
 		if(option !== 'undefined' && option !== 'strict' ) {
 			if(!isEqual) {
 				for(var i = 0 ; i < diff.length; i++){
 					if(diff[i].hasOwnProperty("removed") && diff[i].removed === true) {
-						console.log('something is removed')
 						isEqual = false;
 						break;
 					} else {
@@ -51,14 +49,14 @@ const helper = function () {
 		return isEqual;
 	}
 	self.checkDuplicates = function (a) {
-	    for(var i = 0; i <= a.length; i++) {
-	        for(var j = i; j <= a.length; j++) {
-	            if(i != j && a[i] == a[j]) {
-	                return false;
-	            }
-	        }
-	    }
-	    return true;
+		for(var i = 0; i <= a.length; i++) {
+			for(var j = i; j <= a.length; j++) {
+				if(i != j && a[i] == a[j]) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }
 

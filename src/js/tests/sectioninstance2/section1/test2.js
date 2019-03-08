@@ -17,40 +17,45 @@ const test2 = function () {
 		), { dom: htmlNode }, (asset) => {
 			let nodeRoute = htmlNode.querySelector('.box-wrapper');
 			if(nodeRoute !== null) {
-				HelperInstance.removeAllTextNodes(nodeRoute)
+				HelperInstance.removeAllTextNodes(nodeRoute);
 				boolean = HelperInstance.htmlDifferences(boxWrapper, nodeRoute );
 			} 
-
 			asset.ok(boolean, 'Bitte überprüfen Sie die Struktur und Klassennamen ihrer HTML Datei')
 			asset.end();
+
+			if(boolean) {
+				test(('check if position of red and blue is correct'), {dom: htmlNode, styles: cssString}, (asset) => {
+					asset.equal(
+						Math.round(positionOf(htmlNode.querySelector('.red-box')).bottom),
+						Math.round(positionOf(htmlNode.querySelector('.blue-box')).top),
+						"Ist das grüne Rechteck direkt unter dem Blauen?"
+						)
+					asset.end();
+				})
+
+				test(('check if position of blue and green is correct'), {dom: htmlNode, styles: cssString}, (asset) => {
+					console.log(positionOf(htmlNode.querySelector('.blue-box')).bottom)
+					console.log(positionOf(htmlNode.querySelector('.green-box')).top)
+					asset.equal(
+						Math.round(positionOf(htmlNode.querySelector('.blue-box')).bottom),
+						Math.round(positionOf(htmlNode.querySelector('.green-box')).top),
+						"Ist das blaue Rechteck direkt unter dem Roten?"
+						)
+					asset.end();
+				})
+
+				test(('check if position of yellow and green is correct'), {dom: htmlNode, styles: cssString}, (asset) => {
+					asset.equal(
+						Math.round(positionOf(htmlNode.querySelector('.green-box')).bottom),
+						Math.round(positionOf(htmlNode.querySelector('.yellow-box')).top),
+						"Ist das gelbe Rechteck direkt unter dem Grünen?"
+						)
+					asset.end();
+				})
+			}
+
 		})
-
-		// test(('check if position of red and blue is correct'), {dom: htmlNode, styles: cssString}, (asset) => {
-		// 	asset.equal(
-		// 		positionOf(htmlNode.querySelector('.red-box')).bottom,
-		// 		positionOf(htmlNode.querySelector('.blue-box')).top,
-		// 		"Ist das grüne Rechteck direkt unter dem Blauen?"
-		// 		)
-		// 	asset.end();
-		// })
-
-		// test(('check if position of blue and green is correct'), {dom: htmlNode, styles: cssString}, (asset) => {
-		// 	asset.equal(
-		// 		positionOf(htmlNode.querySelector('.blue-box')).bottom,
-		// 		positionOf(htmlNode.querySelector('.green-box')).top,
-		// 		"Ist das blaue Rechteck direkt unter dem Roten?"
-		// 		)
-		// 	asset.end();
-		// })
-
-		// test(('check if position of yellow and green is correct'), {dom: htmlNode, styles: cssString}, (asset) => {
-		// 	asset.equal(
-		// 		positionOf(htmlNode.querySelector('.green-box')).bottom,
-		// 		positionOf(htmlNode.querySelector('.yellow-box')).top,
-		// 		"Ist das blaue Rechteck direkt unter dem Roten?"
-		// 		)
-		// 	asset.end();
-		// })
+		
 		return Promise.resolve()
 	}
 	self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
