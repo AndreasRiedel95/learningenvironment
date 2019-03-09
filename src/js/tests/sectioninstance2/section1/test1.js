@@ -15,7 +15,7 @@ const test1 = function () {
 			)
 			asset.end();
 		}); 
-		return Promise.resolve()
+		return Promise.resolve();
 	}
 
 	self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
@@ -79,11 +79,8 @@ const test1 = function () {
 		test(('check if image top -20'), {dom: htmlNode, styles: cssString}, (asset) => {
 			let img = htmlNode.querySelector('img');
 			img.style.display = "block"
-			
-			console.log(img.offsetTop)
-
 			asset.equal(
-				 img.offsetTop, -20, "Bitte überprüfen Sie ob das Bild um 20px nach oben verschoben ist"
+				 HelperInstance.getPositionOf(img).top, -20, "Bitte überprüfen Sie ob das Bild um 20px nach oben verschoben ist"
 			)
 			asset.end();
 
@@ -108,39 +105,6 @@ const test1 = function () {
 
 
 	}
-
-
-		
-		// return Promise.resolve()
-	
-
-	// self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
-	// 	let img = htmlNode.querySelector('img');
-	// 	img.style.display = "block"
-	// 	let rahmen = htmlNode.querySelector('.rahmen');
-	// 	let span = rahmen.querySelector('.info');
-	
-	// 	test((
-	// 	'check top position of image'
-	// 	), { dom: htmlNode, styles: cssString }, (asset) => {
-	// 		console.log(img.offsetTop)
-	// 		asset.equal(
-	// 			img.offsetTop, 20, "Bitte überprüfen Sie top des Bildes"
-	// 		)
-	// 		asset.end();
-	// 	});
-	// 	test((
-	// 	'check left position of image'
-	// 	), { dom: htmlNode, styles: cssString }, (asset) => {
-	// 		console.log(span.offsetLeft)
-	// 		asset.equal(
-	// 			 span.offsetLeft, -150, "Bitte überprüfen Sie left des spans"
-	// 		)
-	// 		asset.end();
-	// 	});
-
-	// 	return Promise.resolve()
-	// }
 }
 
 module.exports = test1;

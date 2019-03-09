@@ -8,8 +8,8 @@ const test3 = function () {
 	self.run1 = (htmlNode, cssString, test, h, computedStyle) => {
 			console.log("Sectioninstanz 1.1.1.1" )
 			const positionOf = (element) => {
-			  const {top, right, bottom, left} = element.getBoundingClientRect();
-			  return {top, right, bottom, left};
+			  const {top, right, bottom, left, X, Y} = element.getBoundingClientRect();
+			  return {top, right, bottom, left, X, Y};
 			};
 
 			const styles = cssString;

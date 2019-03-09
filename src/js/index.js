@@ -274,10 +274,19 @@ function resetCode(btn) {
 	avoidSpam(btn, isClickedReset);
 }
 
+document.addEventListener("keydown", function(e) {
+  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
+    e.preventDefault();
+    	saveCode()
+  }
+}, false);
+
 //Save code on button click
 let updateBtn = document.querySelector('.save');
 let isClickedSave = false;
-updateBtn.addEventListener('click', () => {
+updateBtn.addEventListener('click', saveCode, false)
+
+function saveCode() {
 	let html_editor = editorRendering.getHTMLEditor();
 	let css_editor = editorRendering.getCSSEditor();
 	let savedWrapper = document.querySelector('.code-saved-wrapper');
@@ -298,7 +307,7 @@ updateBtn.addEventListener('click', () => {
 
 	}
 	avoidSpam(updateBtn, isClickedSave);
-})
+}
 
 export const getEditors = () => {
 	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];

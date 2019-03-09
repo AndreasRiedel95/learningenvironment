@@ -29,10 +29,14 @@ const helper = function () {
 		}
 	}
 	self.htmlDifferences = function (expected, actual, option) {
+		console.log("expected",expected)
+		console.log("actual", actual)
 		var diff = htmlDiffer.diffHtml(expected.outerHTML, actual.outerHTML);
 		let isEqual = htmlDiffer.isEqual(expected.outerHTML, actual.outerHTML);
 		let res = logger.getDiffText(diff, { charsAroundDiff: 0 });
 		console.log(diff)
+		console.log(res)
+
 		if(option !== 'undefined' && option !== 'strict' ) {
 			if(!isEqual) {
 				for(var i = 0 ; i < diff.length; i++){
@@ -57,6 +61,11 @@ const helper = function () {
 			}
 		}
 		return true;
+	}
+	self.getPositionOf = function(element) {
+		var h =  Math.round(window.innerHeight) + 0.5 ;
+		const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
+		return {top: Math.round(top - h), right: Math.round(right), bottom: Math.round(bottom), left: Math.round(left)};
 	}
 }
 

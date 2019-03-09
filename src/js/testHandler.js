@@ -60,6 +60,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	htmlNode.innerHTML = htmlStr;
 	let cssString = cssEditor.getValue();
 	let runNumber = `run${testnumber}`.toString();
+	console.log(runNumber)
 	
 	//Check if Code is Valide
 	let runBtn = document.querySelector(`.run-test-js[data-testnumber="${testnumber}"]`);

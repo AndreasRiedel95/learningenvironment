@@ -42,7 +42,7 @@ exports.section_to_editor = function(req, res, next) {
     async.parallel({
         section: function (callback) {
             Section.findById(req.params.id)
-            .populate({path: 'taskinstance', populate: {path: 'task'}})
+            .populate({path: 'taskinstance', populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}})
             .exec(callback)
         },
         sectioninstance: function (callback) {
