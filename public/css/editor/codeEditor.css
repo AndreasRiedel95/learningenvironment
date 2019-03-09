@@ -206,3 +206,9 @@ body {
   height: 12px;
   stroke: #F7465D;
   cursor: pointer; }
+
+#tests {
+  display: none; }
+
+.task-editor-wrapper ~ pre {
+  display: none; }
