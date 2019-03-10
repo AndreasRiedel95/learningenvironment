@@ -21,8 +21,11 @@ const checkIfError = function () {
 					if(i === 0) {
 						let fail = test.querySelectorAll('.fail')[0];
 						let errMsg = fail.querySelector('.name').innerHTML;
-						errorMsgField.innerHTML += "<br>" + errMsg;
-						taskInputs[testNumberArray-1].classList.add('--error');
+						//TODO Make array of errors which shpuld not show up
+						if(((errMsg.indexOf("TypeError") === -1) || (errMsg.indexOf("ReferenceError") === -1) )) {
+							errorMsgField.innerHTML += "<br>" + errMsg;
+							taskInputs[testNumberArray-1].classList.add('--error');
+						}
 						i++;
 					}
 				} 

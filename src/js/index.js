@@ -212,10 +212,27 @@ let setTaskDescription = (ele) => {
 	})
 	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
 	activeTaskDescription.classList.remove('--not-active');
+	onlyOnPageReload(index);
+
+}
+
+function once(fn, context) { 
+	var result;
+	return function() { 
+		if(fn) {
+			result = fn.apply(context || this, arguments);
+			fn = null;
+		}
+		return result;
+	};
+}
+
+var onlyOnPageReload = once(function(index) {
 	let htmlEditor = editorRendering.getHTMLEditor();
 	let cssEditor = editorRendering.getCSSEditor();
 	if(section.taskinstance[index].htmlCode_user !== null) {
 		htmlEditor.setValue(section.taskinstance[index].htmlCode_user);
+		
 	} else {
 		htmlEditor.setValue(section.taskinstance[index].htmlCode_inital);
 	}
@@ -225,7 +242,7 @@ let setTaskDescription = (ele) => {
 	} else {
 		cssEditor.setValue(section.taskinstance[index].cssCode_inital);
 	}
-}
+});
 
 //Toggle Section Description
 let setDescription = (ele) => {

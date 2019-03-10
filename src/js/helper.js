@@ -63,7 +63,8 @@ const helper = function () {
 		return true;
 	}
 	self.getPositionOf = function(element) {
-		var h =  Math.round(window.innerHeight) + 0.5 ;
+		var h =  Math.round(window.innerHeight)
+		console.log("HHHH", h)
 		const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
 		return {top: Math.round(top - h), right: Math.round(right), bottom: Math.round(bottom), left: Math.round(left)};
 	}

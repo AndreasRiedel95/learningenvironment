@@ -1,5 +1,4 @@
 //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, 
-//self.run1 – Absätze, //self.run2 – Absätze, //self.run3 – Absätze, 
 const test1 = function () {
 	let self = this;
 	self.run1 = (htmlNode, cssString, test) => {

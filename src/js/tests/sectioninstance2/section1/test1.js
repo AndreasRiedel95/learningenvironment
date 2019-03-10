@@ -19,6 +19,7 @@ const test1 = function () {
 	}
 
 	self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		boolean = false;
 		let info = h('span.info');
 		let img = h('img', {src: '/img/apfel.jpg'});
@@ -59,10 +60,10 @@ const test1 = function () {
 		})
 		
 		return Promise.resolve();
-
 	}
 
 	self.run3 = (htmlNode, cssString, test, h, HelperInstance) => {
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		test(('check if image is relative'), {dom: htmlNode, styles: cssString}, (asset) => {
 			
 			let img = htmlNode.querySelector('img');
@@ -79,6 +80,7 @@ const test1 = function () {
 		test(('check if image top -20'), {dom: htmlNode, styles: cssString}, (asset) => {
 			let img = htmlNode.querySelector('img');
 			img.style.display = "block"
+			console.log("top", HelperInstance.getPositionOf(img).top)
 			asset.equal(
 				 HelperInstance.getPositionOf(img).top, -20, "Bitte überprüfen Sie ob das Bild um 20px nach oben verschoben ist"
 			)
@@ -98,12 +100,7 @@ const test1 = function () {
 			asset.end();
 
 		});
-
-
-
 		return Promise.resolve();
-
-
 	}
 }
 

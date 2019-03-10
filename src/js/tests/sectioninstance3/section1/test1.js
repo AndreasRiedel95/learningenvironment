@@ -24,6 +24,8 @@ const test1 = function () {
 	}
 
 	self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
+		//Check if Elements are still there
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		let linkRef = htmlNode.querySelector('link').getAttribute('href'); 
 		let boolean = false;
 		if((linkRef !== null) && (linkRef = './style.css') || (linkRef = 'style.css')) {
@@ -37,7 +39,8 @@ const test1 = function () {
 		return Promise.resolve();
 	}
 	self.run3 = (htmlNode, cssString, test, h, HelperInstance) => {
-		//check again if structure is right and elements are there
+		//Check if Elements are still there
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		test(('check if ul has background-color '), {dom: htmlNode, styles: cssString}, (asset) => {
 			let ul = htmlNode.querySelector('ul');
 			let backgroundColorUl = getComputedStyle(ul).getPropertyValue('background-color');
@@ -63,6 +66,8 @@ const test1 = function () {
 	}
 
 	self.run4 = (htmlNode, cssString, test, h, HelperInstance) => {
+		//Check if Elements are still there
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		test((`check if elements are in one line `), {dom: htmlNode, styles: cssString}, (asset) => {
 			let lis = htmlNode.querySelectorAll('li')
 			for(let i = 0; i < lis.length; i++) {
@@ -74,6 +79,8 @@ const test1 = function () {
 	}
 
 	self.run5 = (htmlNode, cssString, test, h, HelperInstance) => {
+		//Check if Elements are still there
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		test(('check if lis has padding from 10px'), {dom: htmlNode, styles: cssString}, (asset) => {
 			let lis = htmlNode.querySelectorAll('li')
 			lis.forEach((li) => {
@@ -87,6 +94,8 @@ const test1 = function () {
 	}
 
 	self.run6 = (htmlNode, cssString, test, h, HelperInstance) => {
+		//Check if Elements are still there
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		test(('check if lis has padding from 10px'), {dom: htmlNode, styles: cssString}, (asset) => {
 			let lis = htmlNode.querySelectorAll('li')
 			lis.forEach((li) => {
@@ -109,6 +118,8 @@ const test1 = function () {
 		return Promise.resolve();
 	}
 	self.run7 = (htmlNode, cssString, test, h, HelperInstance) => {
+		//Check if Elements are still there
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		test(('check if lis has padding from 10px'), {dom: htmlNode, styles: cssString}, (asset) => {
 			let lis = htmlNode.querySelectorAll('li')
 			lis.forEach((li) => {

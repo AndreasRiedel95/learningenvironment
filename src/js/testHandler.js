@@ -24,6 +24,7 @@ testButtons.forEach((button) => {
 	})
 })
 
+
 function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, sectionNumber, sectioninstanceNumber, testNumberArray) {
 	// delete all require cache everytime a test gets called otherwise test can be called only once
 	for (const path in require.cache) {
@@ -33,8 +34,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	}
 	//Beautify Test result and append to DOM
 	require('tap-dev-tool/register');
-	require('tap-browser-color')();
-	const test = require('tape-css')(require('tape'));
+	const test = require('tape-css')(require('tape-catch'));
 	const h = require('hyperscript');
 	require('tape-dom')(test);
 	const checkTestError = require(`./checkTestError`);
@@ -43,6 +43,10 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	const CheckInstance = new checkTestError();
 	const HelperInstance = new helper();
 
+
+	test.onFailure(() => {
+		console.log("im failed")
+	})
 	//Reset TestResult before every test run
 	let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskInstanceNumber}"]`);
 	let taskInputs = activeTaskinstanceNumberWrapper.querySelectorAll('.task-solved');
