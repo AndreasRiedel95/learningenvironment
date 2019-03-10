@@ -91,6 +91,9 @@ router.get('/taskinstances', task_instance_controller.taskinstance_list);
 // Post request to update user html and css fields through button click 
 router.post('/btn/taskinstance/:id/update', task_instance_controller.taskinstance_update_btn)
 
+router.get('/btn/taskinstance/:id/get', task_instance_controller.taskinstance_get_btn)
+
+
 
 
 /// Sectioninstance ROUTES ///

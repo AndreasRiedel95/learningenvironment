@@ -11,12 +11,18 @@ import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
 import { importFile, exportFile } from './importExportFile';
 
-let avoidSpam = require('./module/avoidSpam.js');
+//Require Module
+const avoidSpamM = require('./module/avoidSpam.js');
+const onceM = require('./module/once.js');
+const updateTaskSolvedM = require('./module/updateTaskSolved');
+const saveCodeM = require('./module/saveCode');
+const resetUserCodeM = require('./module/resetUserCode');
 
 // window.addEventListener("beforeunload", function (event) {
 //   event.preventDefault();
 //   event.returnValue = '';
 // });
+
 
 document.addEventListener("DOMContentLoaded", () => {
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
@@ -50,6 +56,7 @@ let editorRendering = (() => {
       "</body>\n" +
      "</html>";
 
+     //options for code editor
 	let cm_opt_html = {
 		mode: 'text/html',
 		gutters: ['CodeMirror-lint-markers'],
@@ -212,37 +219,33 @@ let setTaskDescription = (ele) => {
 	})
 	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
 	activeTaskDescription.classList.remove('--not-active');
-	onlyOnPageReload(index);
-
-}
-
-function once(fn, context) { 
-	var result;
-	return function() { 
-		if(fn) {
-			result = fn.apply(context || this, arguments);
-			fn = null;
-		}
-		return result;
-	};
-}
-
-var onlyOnPageReload = once(function(index) {
 	let htmlEditor = editorRendering.getHTMLEditor();
 	let cssEditor = editorRendering.getCSSEditor();
-	if(section.taskinstance[index].htmlCode_user !== null) {
-		htmlEditor.setValue(section.taskinstance[index].htmlCode_user);
-		
-	} else {
-		htmlEditor.setValue(section.taskinstance[index].htmlCode_inital);
-	}
+	let taskinstance = ele.parentNode.querySelector('.taskInput')
+	let taskinstanceObj;
+	fetch(`/admin/btn/taskinstance/${taskinstance.dataset.taskinstanceid}/get`, {
+			method: 'GET'
+		}).then((res) => {
+			if (res.ok) return res.json()
+		}).then((data) => {
+			taskinstanceObj = data
+			if(taskinstanceObj.taskinstance.htmlCode_user !== null) {
+				htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_user);
+				
+			} else {
+				htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_inital);
+			}
 
-	if(section.taskinstance[index].cssCode_user !== null) {
-		cssEditor.setValue(section.taskinstance[index].cssCode_user);
-	} else {
-		cssEditor.setValue(section.taskinstance[index].cssCode_inital);
-	}
-});
+			if(taskinstanceObj.taskinstance.cssCode_user !== null) {
+				cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_user);
+			} else {
+				cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_inital);
+			}
+		}).catch(function(error) {
+			console.log(error)
+  });   	
+
+}
 
 //Toggle Section Description
 let setDescription = (ele) => {
@@ -267,9 +270,7 @@ function resetCode(btn) {
 		var index = Array.from(inputs).findIndex(input => input === parent);
 		let taskinstanceNumber = taskinstance.id;
 		if (confirm('Möchten Sie wirklich Ihren Code auf den Start-Code zurücksetzten?')) {
-			let resetUserCode = require('./module/resetUserCode');
-			let updateTaskSolved = require('./module/updateTaskSolved');
-			resetUserCode(taskinstance);
+			resetUserCodeM(taskinstance);
 			let descriptionScrollWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstanceNumber}"]`);
 			let tasks = descriptionScrollWrapper.querySelectorAll('.task');
 			tasks.forEach((task, index) => {
@@ -277,7 +278,7 @@ function resetCode(btn) {
 				let input = task.querySelector('.task-solved');
 				input.classList.contains('--error') ? input.classList.remove('--error') : "";
 				input.checked = false;
-				updateTaskSolved(task.dataset.taskid, false);	
+				updateTaskSolvedM(task.dataset.taskid, false);	
 			})
 			//Set HTML & CSS Editor to inital
 			let htmlEditor = editorRendering.getHTMLEditor();
@@ -288,13 +289,30 @@ function resetCode(btn) {
 	} else {
 		alert("Bitte wählen Sie eine Aufgabe aus um den Code zurückzusetzten");
 	}
-	avoidSpam(btn, isClickedReset);
+	avoidSpamM(btn, isClickedReset);
 }
 
+//Save Code on KeyDown cmd + s or ctrl + s
+let keyfired = false;
 document.addEventListener("keydown", function(e) {
   if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
     e.preventDefault();
-    	saveCode()
+    if (e.repeat) { return }
+    	console.log(keyfired)
+    if(!keyfired) {
+    	keyfired = true;
+    	saveCode();
+    }
+    
+  }
+}, false);
+
+document.addEventListener("keyup", function(e) {
+  if (e.keyCode == 83) {
+    e.preventDefault();
+    setTimeout(() => {
+    	keyfired = false;
+    }, 2000)
   }
 }, false);
 
@@ -310,9 +328,9 @@ function saveCode() {
 	let savedWrapperError = document.querySelector('.code-saved-wrapper.--error');
 	let taskinstance = document.querySelector('.taskInput.--task:checked');
 	if(taskinstance !== null) {
-		let saveCode = require('./module/saveCode');
-		saveCode(taskinstance, html_editor, css_editor);
+		saveCodeM(taskinstance, html_editor, css_editor);
 		savedWrapper.classList.add('--saved');
+		//Show and Hide Save wrapper
 		setTimeout(() => {
 			savedWrapper.classList.remove('--saved');
 		}, 2000)
@@ -323,9 +341,10 @@ function saveCode() {
 		}, 3000)
 
 	}
-	avoidSpam(updateBtn, isClickedSave);
+	avoidSpamM(updateBtn, isClickedSave);
 }
 
+//make Editors accessible for other files
 export const getEditors = () => {
 	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];
 }

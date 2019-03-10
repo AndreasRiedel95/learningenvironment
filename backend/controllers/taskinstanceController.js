@@ -86,7 +86,6 @@ exports.taskinstance_create_post = [
 
 // Display taskinstance delete form on GET.
 exports.taskinstance_delete_get = function(req, res, next) {
-
     async.parallel({
         taskinstance: function(callback) {
             TaskInstance.findById(req.params.id).exec(callback);
@@ -205,4 +204,19 @@ exports.taskinstance_update_btn = function(req, res, next) {
         }, function (err,thetaskinstance) {
             if (err) { return next(err); }
         });
+    }
+
+
+exports.taskinstance_get_btn = function(req, res, next) {
+    async.parallel({
+        taskinstance: function(callback) {
+            TaskInstance.findById(req.params.id).exec(callback);
+        }
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.taskinstance==null) { // No results.
+            res.redirect('/admin/taskinstances');
+        }
+        res.send({taskinstance: results.taskinstance});
+    });
     }

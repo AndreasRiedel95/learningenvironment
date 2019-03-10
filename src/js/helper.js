@@ -29,6 +29,8 @@ const helper = function () {
 		}
 	}
 	self.htmlDifferences = function (expected, actual, option) {
+		//If Option is striced then its not allwoed to add sth expected has to be exactly the same then actual
+		//If no option is given then actual has to be the same then expected but nodes and text can be added to it 
 		console.log("expected",expected)
 		console.log("actual", actual)
 		var diff = htmlDiffer.diffHtml(expected.outerHTML, actual.outerHTML);
@@ -36,7 +38,6 @@ const helper = function () {
 		let res = logger.getDiffText(diff, { charsAroundDiff: 0 });
 		console.log(diff)
 		console.log(res)
-
 		if(option !== 'undefined' && option !== 'strict' ) {
 			if(!isEqual) {
 				for(var i = 0 ; i < diff.length; i++){
@@ -49,24 +50,33 @@ const helper = function () {
 				} 
 			}
 		}
-		console.log(isEqual)
 		return isEqual;
 	}
-	self.checkDuplicates = function (a) {
+	self.checkIfDuplicatesInArray = function (a) {
 		for(var i = 0; i <= a.length; i++) {
 			for(var j = i; j <= a.length; j++) {
 				if(i != j && a[i] == a[j]) {
-					return false;
+					//Duplicates in there
+					return true;
 				}
 			}
 		}
-		return true;
+		//No Duplicates in there
+		return false;
 	}
 	self.getPositionOf = function(element) {
 		var h =  Math.round(window.innerHeight)
 		console.log("HHHH", h)
 		const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
 		return {top: Math.round(top - h), right: Math.round(right), bottom: Math.round(bottom), left: Math.round(left)};
+	}
+
+	self.checkIfInArrayContains = function(array, a) {
+		if(Array.from(array).includes(a)){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 

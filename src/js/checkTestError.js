@@ -18,6 +18,7 @@ const checkIfError = function () {
 				document.body.style.backgroundColor = "transparent";
 				if(assert.classList.contains('fail')) {
 					errorMsgWrapper.classList.add('--active');
+					console.log(i)
 					if(i === 0) {
 						let fail = test.querySelectorAll('.fail')[0];
 						let errMsg = fail.querySelector('.name').innerHTML;
@@ -25,8 +26,9 @@ const checkIfError = function () {
 						if(((errMsg.indexOf("TypeError") === -1) || (errMsg.indexOf("ReferenceError") === -1) )) {
 							errorMsgField.innerHTML += "<br>" + errMsg;
 							taskInputs[testNumberArray-1].classList.add('--error');
+							i++;
+							console.log(i)
 						}
-						i++;
 					}
 				} 
 			})

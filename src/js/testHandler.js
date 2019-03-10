@@ -1,8 +1,6 @@
 import {getEditors} from './index.js';
 import HtmlDiff from 'htmldiff-js';
-let avoidSpam = require('./module/avoidSpam.js');
-
-
+let avoidSpamM = require('./module/avoidSpam.js');
 
 var isClickedRun = false;
 let editors = getEditors();
@@ -20,10 +18,9 @@ testButtons.forEach((button) => {
 		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
 		callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testNumber, sectionNumber, sectioninstanceNumber, testNumberArray);
 		//Avoid Spamming on button
-		avoidSpam(button, isClickedRun)
+		avoidSpamM(button, isClickedRun)
 	})
 })
-
 
 function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, sectionNumber, sectioninstanceNumber, testNumberArray) {
 	// delete all require cache everytime a test gets called otherwise test can be called only once
@@ -33,7 +30,6 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 		}
 	}
 	//Beautify Test result and append to DOM
-	require('tap-dev-tool/register');
 	const test = require('tape-css')(require('tape-catch'));
 	const h = require('hyperscript');
 	require('tape-dom')(test);
@@ -43,10 +39,6 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	const CheckInstance = new checkTestError();
 	const HelperInstance = new helper();
 
-
-	test.onFailure(() => {
-		console.log("im failed")
-	})
 	//Reset TestResult before every test run
 	let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskInstanceNumber}"]`);
 	let taskInputs = activeTaskinstanceNumberWrapper.querySelectorAll('.task-solved');

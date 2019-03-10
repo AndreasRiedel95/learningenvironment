@@ -1,5 +1,4 @@
 const path = require("path");
-
 module.exports = {
   mode: 'development',
   node: {
@@ -19,6 +18,7 @@ module.exports = {
     test: './src/js/testHandler.js',
     init: './src/js/initSVG.js'
   },
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, "public/js"),
     filename: '[name].bundle.js'
@@ -27,7 +27,7 @@ module.exports = {
     //For some reason live reloading not working – feel free to fix
     publicPath: '/js/',
     hot: true,
-    contentBase: path.resolve(__dirname, "./views"),
+    contentBase: './views',
     watchContentBase: true
   },
    module: {
@@ -36,7 +36,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules)/,
         use: {
-          loader: "babel-loader",
+          loader: "babel-loader?retainLines=true", 
           options: {
             presets: ["@babel/preset-env"]
           }

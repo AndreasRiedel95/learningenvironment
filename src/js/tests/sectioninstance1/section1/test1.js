@@ -5,7 +5,7 @@ const h = require('hyperscript');
 
 const test1 = function () {
 	let self = this;
-	self.run1 = (htmlNode, cssString, test) => {
+	self.run1 = (htmlNode, cssString, test, h, HelperInstance) => {
 		test((
 		'check if all ps are there'
 		), { dom: htmlNode }, (asset) => {
@@ -18,7 +18,8 @@ const test1 = function () {
 		
 		return Promise.resolve()
 	}
-	self.run2 = (htmlNode, cssString, test) => {
+	self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		let classArray = ["p1", "p2", "p3"];
 		let ps = htmlNode.querySelectorAll('p');
 
@@ -48,7 +49,8 @@ const test1 = function () {
 
 		return Promise.resolve()
 	}
-	self.run3 = (htmlNode, cssString, test) => {
+	self.run3 = (htmlNode, cssString, test, h, HelperInstance) => {
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
 		let p1= htmlNode.querySelector('.paragraph1')
 		test(('`p` haben verschiedene Farben'),
 			{ dom: htmlNode, styles: cssString }, (asset) => {
@@ -58,8 +60,8 @@ const test1 = function () {
 					let backgroundColor = getComputedStyle(ps[i]).getPropertyValue('background-color')
 					colorsArray.push(backgroundColor)
 				}
-				let boolean = HelperInstance.checkDuplicates(colorsArray)
-				asset.ok(
+				let boolean = HelperInstance.checkIfDuplicatesInArray(colorsArray)
+				asset.notOk(
 					boolean, "Sind Sie sicher, dass alle Klassen eine andere Farbe haben?"
 				);
 		  		asset.end();
