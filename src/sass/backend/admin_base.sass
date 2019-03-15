@@ -81,6 +81,10 @@
 	&:focus ~ .input-label, &:not(:placeholder-shown) ~ .input-label
 		top: -20px
 		font-size: 12px
+		& > .serach-icon
+			width: 12px
+			height: 12px
+			stroke: red
 	&.--textarea
 		height: 150px
 		resize: none
@@ -102,7 +106,38 @@
 	padding-top: 10px
 	padding-bottom: 10px
 	width: 100%
+	display: flex
 	cursor: pointer
+	flex-shrink: 0
+	height: 35px
+	&:last-child > .list-value:after
+		border-bottom: 0
+		
+
+.search-icon 
+	width: 16px
+	height: 16px
+	stroke: #000
+	margin-right: 5px
+	position: relative
+	top: 2px
+	stroke-width: 2
+	stroke-linecap: round
+	stroke-linejoin: round
+	fill: none
+
+.list-value
+	position: relative
+	width: 100%
+	display: inline-block
+	&:after
+		content: " "
+		display: block
+		width: 100%
+		position: absolute
+		top: 25px
+		left: 0
+		border-bottom: 1px solid #000
 
 .input-list
 	width: 100%

@@ -28,16 +28,16 @@
 				<span class="code-label">Inital CSS Code</span>
 				<textarea class="input --textarea css-codearea --input" name="cssCode_inital" placeholder=" "></textarea>
 			</div>
-			<span class="code-label">Select Tasks for the Task Instance:</span>
+			<div class="form-group">
+				<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
+				<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstance Suchen</label>
+			</div>
 			<div class="input-list mb-50 mt-10">
 				<% for(var i = 0; i<tasks.length; i++) { %>
 					<label class="checkbox-group" for="<%= tasks[i]._id %>">
 						<input type="checkbox" name="task" id="<%= tasks[i]._id %>" value="<%= tasks[i]._id %>">
-						<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].suffix %>)</label>
+						<label class="code-label list-value" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].suffix %>)</label>
 					</label>
-					<% if(i < (tasks.length - 1)) { %>
-						<div class="break --dark"></div>
-					<% } %>
 				<% } %>
 			</div>
 			<button class="btn" type="submit">Submit</button>
@@ -71,16 +71,16 @@
 				<span class="code-label">Inital CSS Code</span>
 				<textarea class="input --textarea css-codearea --input" name="cssCode_inital" placeholder=" "><%= taskinstance.cssCode_inital %></textarea>
 			</div>
-			<span class="code-label">Select Tasks for the Task Instance:</span>
+			<div class="form-group">
+				<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
+				<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstance Suchen</label>
+			</div>
 			<div class="input-list mb-50 mt-10">
 				<% for(var i = 0; i<tasks.length; i++) { %>
 					<label class="checkbox-group" for="<%= tasks[i]._id %>">
 						<input type="checkbox" name="task" id="<%= tasks[i]._id %>" <% if(tasks[i].checked) { %> checked <% } %> value="<%= tasks[i]._id %>">
-						<label class="code-label" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].suffix %>)</label>
+						<label class="code-label list-value" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].suffix %>)</label>
 					</label>
-					<% if(i < (tasks.length - 1)) { %>
-						<div class="break --dark"></div>
-					<% } %>
 				<% } %>
 			</div>
 			<button class="btn" type="submit">Submit</button>
