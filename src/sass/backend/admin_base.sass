@@ -81,10 +81,9 @@
 	&:focus ~ .input-label, &:not(:placeholder-shown) ~ .input-label
 		top: -20px
 		font-size: 12px
-		& > .serach-icon
+		& > svg
 			width: 12px
 			height: 12px
-			stroke: red
 	&.--textarea
 		height: 150px
 		resize: none
@@ -112,6 +111,12 @@
 	height: 35px
 	&:last-child > .list-value:after
 		border-bottom: 0
+	&.--not-in-query
+		display: none
+	&.--without-break
+		& > .list-value:after
+			border-bottom: 0
+
 		
 
 .search-icon 
@@ -125,6 +130,7 @@
 	stroke-linecap: round
 	stroke-linejoin: round
 	fill: none
+	transition: width 0.3s, height 0.3s
 
 .list-value
 	position: relative

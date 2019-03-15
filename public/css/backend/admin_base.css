@@ -90,10 +90,9 @@
   .input:focus ~ .input-label, .input:not(:placeholder-shown) ~ .input-label {
     top: -20px;
     font-size: 12px; }
-    .input:focus ~ .input-label > .serach-icon, .input:not(:placeholder-shown) ~ .input-label > .serach-icon {
+    .input:focus ~ .input-label > svg, .input:not(:placeholder-shown) ~ .input-label > svg {
       width: 12px;
-      height: 12px;
-      stroke: red; }
+      height: 12px; }
   .input.--textarea {
     height: 150px;
     resize: none; }
@@ -127,6 +126,10 @@
   height: 35px; }
   .checkbox-group:last-child > .list-value:after {
     border-bottom: 0; }
+  .checkbox-group.--not-in-query {
+    display: none; }
+  .checkbox-group.--without-break > .list-value:after {
+    border-bottom: 0; }
 
 .search-icon {
   width: 16px;
@@ -138,7 +141,10 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  fill: none; }
+  fill: none;
+  -webkit-transition: width 0.3s, height 0.3s;
+  -o-transition: width 0.3s, height 0.3s;
+  transition: width 0.3s, height 0.3s; }
 
 .list-value {
   position: relative;
