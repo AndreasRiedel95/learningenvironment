@@ -8,6 +8,9 @@ const saveCode = (taskinstance, html_editor, css_editor) => {
 			'cssCode_user': css_editor.getValue(),
 		})
 	})
+	.then(response => response.json())
+	.catch(error => console.error('Error:', error))
+	.then(response => console.log('Success:', JSON.stringify(response)));
 }
 
 module.exports = saveCode;

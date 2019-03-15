@@ -13,7 +13,7 @@ var quill = new Quill('#editor-container', {
 	      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
 	      ['code-block']
 	    ],
-		handlers: {image: imageHandler},
+		handlers: {image: selectLocalImage},
 	}
   },
   bounds: '.scrolling-container',
@@ -29,20 +29,43 @@ form.onsubmit = function() {
 	description.value = quill.root.innerHTML;
 }
 
-function imageHandler() {
-    const input = document.createElement('input');
-    var reader = new FileReader();
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-    let fileName;
-
-	input.onchange = async function() {
+function selectLocalImage() {
+  const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
+	input.onchange = () => {
 		const file = input.files[0];
-		console.log(file)
-		const fileName = await file.name; 
-		var range = this.quill.getSelection();	
-	  	this.quill.insertEmbed(range.index, 'image', `/img/${fileName}`, Quill.sources.USER);
-	}.bind(this); 
+		if (/^image\//.test(file.type)) {
+	  		imageHandler(file, insertToEditor);
+		} else {
+	  		console.warn('You could only upload images.');
+	  		alert('Bitte wählen Sie ein Bild vom Typ .jpd oder .png aus')
+		}
+	}
+}
 
+function imageHandler(image, callback) {
+	var data = new FormData();
+	data.append('image', image);
+	fetch('https://api.imgur.com/3/image', {
+		method: 'POST',
+		headers: {
+			Authorization: 'Client-ID 90ef1830bd083ba',
+		},
+		body: data
+	}).then(response => {
+		return response.json()
+	}).then(data => {
+		insertToEditor(data.data.link)
+	}).catch(error => {
+		console.error(JSON.stringify(error));
+		alert('Upload failed: ' + error);
+	});
+}
+
+function insertToEditor(url) {
+	console.log("utl", url)
+	const range = quill.getSelection();
+	quill.insertEmbed(range.index, 'image', url);
 }

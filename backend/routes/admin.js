@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 var section_controller = require('../controllers/sectionController');
 var task_controller = require('../controllers/taskController');
 var task_instance_controller = require('../controllers/taskinstanceController');
@@ -33,7 +34,6 @@ router.get('/section/:id', section_controller.section_detail);
 // GET request for list of all section items.
 router.get('/sections', section_controller.section_list);
 
-
 /// Task ROUTES ///
 
 // GET request for creating a task. NOTE This must come before routes that display task (uses id).
@@ -64,6 +64,7 @@ router.get('/tasks', task_controller.task_list);
 router.post('/solved/task/:id/update', task_controller.task_udpate_solved);
 
 
+
 // GET request for creating a BookInstance. NOTE This must come before route that displays BookInstance (uses id).
 router.get('/taskinstance/create', task_instance_controller.taskinstance_create_get);
 
@@ -92,8 +93,6 @@ router.get('/taskinstances', task_instance_controller.taskinstance_list);
 router.post('/btn/taskinstance/:id/update', task_instance_controller.taskinstance_update_btn)
 
 router.get('/btn/taskinstance/:id/get', task_instance_controller.taskinstance_get_btn)
-
-
 
 
 /// Sectioninstance ROUTES ///

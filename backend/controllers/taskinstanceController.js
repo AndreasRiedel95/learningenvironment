@@ -203,6 +203,7 @@ exports.taskinstance_update_btn = function(req, res, next) {
             } 
         }, function (err,thetaskinstance) {
             if (err) { return next(err); }
+            return res.send({success: true});
         });
     }
 
@@ -215,7 +216,7 @@ exports.taskinstance_get_btn = function(req, res, next) {
     }, function(err, results) {
         if (err) { return next(err); }
         if (results.taskinstance==null) { // No results.
-            res.redirect('/admin/taskinstances');
+            console.log('error no tasks found')
         }
         res.send({taskinstance: results.taskinstance});
     });

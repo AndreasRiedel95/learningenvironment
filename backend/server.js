@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin'); 
+// var multer = require('multer');
 
 var app = express();
 
@@ -30,6 +31,19 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter); 
+
+// var storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, '/public/upload/img')
+//     },
+//     filename: (req, file, cb) => {
+//       cb(null, file.fieldname + '-' + Date.now())
+//     }
+// });
+
+// var upload = multer({storage: storage});
+
+// app.use(upload.single('photo'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
