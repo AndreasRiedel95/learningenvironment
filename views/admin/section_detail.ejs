@@ -29,17 +29,21 @@
 				<li>
 					<strong><%= section.section_number %>. Section</strong> <%= section.name %> (<%= section.suffix %>)
 				</li>
-				<ol class="with-out-decimal">
+				<ol class="with-out-decimal order-list --section drag-sort-enable" data-listid="<%= section._id %>">
 					<%if(section.taskinstance !== null) { %>
 						<% for(var i = 0; i<section.taskinstance.length; i++) { %>
-							<li><strong><%= section.taskinstance[i].taskInstance_number %>. Taskinstanz:</strong> <a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name%></a> (<%= section.taskinstance[i].suffix %>)</li>
-							<ol class="with-out-decimal">
-								<% if(section.taskinstance[i].task !== null) { %>
-									<% for(var j = 0; j<section.taskinstance[i].task.length; j++) { %>
-										<li><strong><%= section.taskinstance[i].task[j].task_number %>. Task:</strong> <a href="<%= section.taskinstance[i].task[j].url %>"><%= section.taskinstance[i].task[j].name %> </a> (<%= section.taskinstance[i].task[j].suffix %>)</li>
-									<% } %>	
-								<% } %>
-							</ol>
+							<li class="order-list-item" data-listitemid = "<%= section.taskinstance[i]._id %>">
+								<strong class="object-number"><%= section.taskinstance[i].taskInstance_number %></strong><strong>. Taskinstanz:</strong> 
+								<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name%></a> 
+								(<%= section.taskinstance[i].suffix %>)
+								<ol class="with-out-decimal">
+									<% if(section.taskinstance[i].task !== null) { %>
+										<% for(var j = 0; j<section.taskinstance[i].task.length; j++) { %>
+											<li><strong><%= section.taskinstance[i].task[j].task_number %>. Task:</strong> <a href="<%= section.taskinstance[i].task[j].url %>"><%= section.taskinstance[i].task[j].name %> </a> (<%= section.taskinstance[i].task[j].suffix %>)</li>
+										<% } %>	
+									<% } %>
+								</ol>
+							</li>
 						<% } %>
 					<% } %>
 				</ol>

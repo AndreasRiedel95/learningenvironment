@@ -20,7 +20,7 @@ exports.section_detail = function(req, res, next) {
 	async.parallel({
 		section: function(callback) {
 			Section.findById(req.params.id)
-				.populate({path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}})
+				.populate({path: 'taskinstance', populate: {path: 'task'}})
 				.exec(callback);
 		},
 		sectioninstance: function(callback) {
@@ -187,3 +187,32 @@ exports.section_update_post = [
 			});
 		}
 ];
+
+exports.update_taskinstance_order = function(req, res, next) {
+	console.log("hhh",req.body.objects)
+    Section.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            {
+                taskinstance: req.body.objects   
+            }
+        }, 
+    function (err,thetaskinstance) {
+        if (err) { return next(err); }
+        return res.send({success: true});
+    });
+}
+
+
+
+exports.section_udpate_order = function(req, res, next) {
+    Section.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            { 
+                section_number: req.body.position,
+            } 
+        }, function (err,numberAffected) {
+            if (err) { return next(err); }
+            return res.send({success: true});
+        });
+
+}

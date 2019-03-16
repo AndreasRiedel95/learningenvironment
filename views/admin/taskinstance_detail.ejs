@@ -27,10 +27,14 @@
 			<li>
 				<strong><%= taskinstance.taskInstance_number %>. Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.suffix %>)
 			</li>
-			<ol class="with-out-decimal">
+			<ol class="with-out-decimal order-list --taskinstance drag-sort-enable" data-listid="<%= taskinstance._id %>">
 				<%if(taskinstance.task !== null) { %>
 					<% for(var i = 0; i<taskinstance.task.length; i++) { %>
-						<li><strong><%= taskinstance.task[i].task_number %>. Task:</strong> <a href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name%></a> (<%= taskinstance.task[i].suffix %>)</li>
+						<li class="order-list-item" data-listitemid="<%= taskinstance.task[i]._id %>">
+							<strong class="object-number"><%= taskinstance.task[i].task_number %></strong><strong>. Task:</strong> 
+							<a draggable="true" href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name%></a> 
+							<span>(<%= taskinstance.task[i].suffix %>)</span>
+						</li>
 					<% } %>
 				<% } else { %>
 					<li>Taskinstance hat keine Tasks</li>

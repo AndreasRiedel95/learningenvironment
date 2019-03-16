@@ -40,7 +40,7 @@ function selectLocalImage() {
 	  		imageHandler(file, insertToEditor);
 		} else {
 	  		console.warn('You could only upload images.');
-	  		alert('Bitte wählen Sie ein Bild vom Typ .jpd oder .png aus')
+	  		alert('Bitte wählen Sie ein Bild vom Typ .jpg oder .png aus')
 		}
 	}
 }

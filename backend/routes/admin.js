@@ -34,6 +34,12 @@ router.get('/section/:id', section_controller.section_detail);
 // GET request for list of all section items.
 router.get('/sections', section_controller.section_list);
 
+router.post('/btn/section/taskinstance/order/:id/update', section_controller.update_taskinstance_order);
+
+router.post('/btn/section/order/:id/update', section_controller.section_udpate_order);
+
+
+
 /// Task ROUTES ///
 
 // GET request for creating a task. NOTE This must come before routes that display task (uses id).
@@ -63,6 +69,10 @@ router.get('/tasks', task_controller.task_list);
 //Post request to update task solve field through button click
 router.post('/solved/task/:id/update', task_controller.task_udpate_solved);
 
+router.post('/btn/task/order/:id/update', task_controller.task_udpate_order);
+
+
+
 
 
 // GET request for creating a BookInstance. NOTE This must come before route that displays BookInstance (uses id).
@@ -90,10 +100,13 @@ router.get('/taskinstance/:id', task_instance_controller.taskinstance_detail);
 router.get('/taskinstances', task_instance_controller.taskinstance_list);
 
 // Post request to update user html and css fields through button click 
-router.post('/btn/taskinstance/:id/update', task_instance_controller.taskinstance_update_btn)
+router.post('/btn/taskinstance/:id/update', task_instance_controller.taskinstance_update_btn);
 
-router.get('/btn/taskinstance/:id/get', task_instance_controller.taskinstance_get_btn)
+router.get('/btn/taskinstance/:id/get', task_instance_controller.taskinstance_get_btn);
 
+router.post('/btn/taskinstance/task/order/:id/update', task_instance_controller.update_task_order);
+
+router.post('/btn/taskinstance/order/:id/update', task_instance_controller.taskinstance_udpate_order);
 
 /// Sectioninstance ROUTES ///
 
@@ -122,5 +135,11 @@ router.get('/sectioninstance/:id', section_instance_controller.sectioninstance_d
 router.get('/sectioninstances', section_instance_controller.sectioninstance_list);
 
 router.get('/sectioninstance/:id/createpath', section_instance_controller.sectioninstance_create_path);
+
+//Save to database
+router.post('/btn/sectioninstance/section/order/:id/update', section_instance_controller.udpate_section_order);
+
+
+
 
 module.exports = router;

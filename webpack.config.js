@@ -14,7 +14,7 @@ module.exports = {
     admin_codeMirror: './src/js/admin/codeMirror_admin.js',
     quill_setUp: './src/js/admin/quill_setUp.js',
     validate_form: './src/js/admin/validate_form.js',
-    admin: './src/js/admin/admin.js',
+    admin_index: './src/js/admin/admin_index.js',
     index: './src/js/index.js',
     test: './src/js/testHandler.js',
     init: './src/js/initSVG.js'

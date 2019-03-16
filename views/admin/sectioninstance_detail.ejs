@@ -12,24 +12,31 @@
 			<li>
 				<strong><%= sectioninstance.sectionInstance_number %>. Section-Instanz:</strong> <%= sectioninstance.name %> (<%= sectioninstance.sectionInstance_number %>)
 			</li>
-			<ol class="with-out-decimal">
+			<ol class="with-out-decimal order-list --sectioninstance drag-sort-enable" data-listid="<%= sectioninstance._id %>">
 				<%if(sectioninstance.section !== null) { %>
 					<% for(var i = 0; i<sectioninstance.section.length; i++) { %>
-						<li><strong><%= sectioninstance.section[i].section_number %>. Section:</strong> <a href="<%= sectioninstance.section[i].url %>"><%= sectioninstance.section[i].name %></a> (<%= sectioninstance.section[i].suffix %>)</li>
-						<ol class="with-out-decimal">
-							<% if(sectioninstance.section[i].taskinstance !== null) { %>
-								<% for(var j = 0; j<sectioninstance.section[i].taskinstance.length; j++) { %>
-									<li><strong><%= sectioninstance.section[i].taskinstance[j].taskInstance_number %>. Testinstanz:</strong> <a href="<%= sectioninstance.section[i].taskinstance[j].url%>"><%= sectioninstance.section[i].taskinstance[j].name %> </a> (<%= sectioninstance.section[i].taskinstance[j].suffix %>)</li>
-									<ol class="with-out-decimal">
-										<% if(sectioninstance.section[i].taskinstance[j].task !== null) { %>
-											<% for(var k = 0; k<sectioninstance.section[i].taskinstance[j].task.length; k++) { %>
-												<li><strong><%= sectioninstance.section[i].taskinstance[j].task[k].task_number %>. Task: </strong><a href="<%= sectioninstance.section[i].taskinstance[j].task[k].url %>"><%= sectioninstance.section[i].taskinstance[j].task[k].name %></a> (<%= sectioninstance.section[i].taskinstance[j].task[k].suffix %>)</li>		
-											<% } %>
-										<% } %>											
-									</ol>
-								<% } %>	
-							<% } %>
-						</ol>
+						<li class="order-list-item" data-listitemid = "<%= sectioninstance.section[i]._id %>">
+							<strong class="object-number"><%= sectioninstance.section[i].section_number %></strong><strong>. Section:</strong>
+							<a href="<%= sectioninstance.section[i].url %>"><%= sectioninstance.section[i].name %></a>
+							(<%= sectioninstance.section[i].suffix %>)
+							<ol class="with-out-decimal">
+								<% if(sectioninstance.section[i].taskinstance !== null) { %>
+									<% for(var j = 0; j<sectioninstance.section[i].taskinstance.length; j++) { %>
+										<li>
+											<strong><%= sectioninstance.section[i].taskinstance[j].taskInstance_number %>. Testinstanz:</strong> 
+											<a href="<%= sectioninstance.section[i].taskinstance[j].url%>"><%= sectioninstance.section[i].taskinstance[j].name %> </a> (<%= sectioninstance.section[i].taskinstance[j].suffix %>)
+										</li>
+										<ol class="with-out-decimal">
+											<% if(sectioninstance.section[i].taskinstance[j].task !== null) { %>
+												<% for(var k = 0; k<sectioninstance.section[i].taskinstance[j].task.length; k++) { %>
+													<li><strong><%= sectioninstance.section[i].taskinstance[j].task[k].task_number %>. Task: </strong><a href="<%= sectioninstance.section[i].taskinstance[j].task[k].url %>"><%= sectioninstance.section[i].taskinstance[j].task[k].name %></a> (<%= sectioninstance.section[i].taskinstance[j].task[k].suffix %>)</li>		
+												<% } %>
+											<% } %>											
+										</ol>
+									<% } %>	
+								<% } %>
+							</ol>
+						</li>
 					<% } %>
 				<% } %>
 			</ol>

@@ -20,7 +20,7 @@ exports.taskinstance_detail = function(req, res, next) {
     async.parallel({
         taskinstance: function(callback) {
              TaskInstance.findById(req.params.id)
-                .populate({path: 'task', options:{sort:{suffix: 'ascending'}}})
+                .populate({path: 'task'})
                 .exec(callback);
         }, 
         section: function(callback) {
@@ -220,4 +220,30 @@ exports.taskinstance_get_btn = function(req, res, next) {
         }
         res.send({taskinstance: results.taskinstance});
     });
-    }
+}
+
+exports.update_task_order = function(req, res, next) {
+    TaskInstance.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            {
+                task: req.body.objects   
+            }
+        }, 
+    function (err,thetaskinstance) {
+        if (err) { return next(err); }
+        return res.send({success: true});
+    });
+}
+
+exports.taskinstance_udpate_order = function(req, res, next) {
+    TaskInstance.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            {
+                taskInstance_number: req.body.position   
+            }
+        }, 
+    function (err,thetaskinstance) {
+        if (err) { return next(err); }
+        return res.send({success: true});
+    });
+}

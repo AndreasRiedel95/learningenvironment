@@ -16,17 +16,16 @@
 			<li>Section erstellen und Task-Instanz zuweisen </li>
 			<li>Section-Instanz erstellen und Section zuweisen </li>
 		</ol>
-
 		<h4>Hierarchien:</h4>
 		<p class="mb-20">
 			In den jeweiligen Übersichtslisten werden die Objekte nach der Hierarchie (suffix) geordnet. Die Hierarchie-Ebenen vereinfachen die Zuordnung und sollten deshalb richtig betitelt werden.
 		</p>
 		<h4>Objekt-Nummerierung und Namensgebung:</h4>
-		<p class="mb-20">
+		<p class="mb-10">
 			Um die späteren Tests korrekt durchführen zu können ist es wichtig, dass die jeweiligen Nummern korrekt und in aufsteigender Reihenfolge gewählt werden. Andernfalls wird es zu Komplikationen beim Durchführen der Tests kommen, da die richtigen Testdateien in der Dateistruktur nicht gefunden werden können. 
 		</p>
 		<p>Die Titel/Namen eines Objektes können beliebieg gewählt werden.</p>
-		<p class="mb-20">Eine korrekte Nummerierung und Hierarchie könnte wie folgt aussehen:</p>
+		<p>Eine korrekte Nummerierung und Hierarchie könnte wie folgt aussehen:</p>
 		<ol class="mb-40">
 			<li><strong>Section-Instanz:</strong> HTML-Grundlagen (1)</li>
 			<ol>
@@ -67,18 +66,21 @@
 		<p>
 			Damit die Tests von der Applikation gefunden werden können, muss innerhalb des <code>tests</code>-Ordner die folgende Verzeichnisstruktur und Namensgebung eingehalten werden: 
 		</p>
-		<p class="mb-20"><code>sectioninstance${sectioninstance_number} > section${section_number} > test${taskinstance_number}.js</code></p>
+		<p class="mb-10"><code>sectioninstance${sectioninstance_number} > section${section_number} > test${taskinstance_number}.js</code></p>
 		
 		<p>
 			In den <code>test${taskinstance_number}.js</code>-Dateien befinden sich die eigentlichen Tests für die jeweiligen Aufgaben. Die Funktionsnamen für die Tests müssen wie folgt gewählt werden:
 		</p>
-		<p class="mb-20"><code>self.run${task_number} = (htmlNode, cssString, test, [...]) => { ... }</code></p>
-		<p class="mb-20">
+		<p class="mb-10"><code>self.run${task_number} = (htmlNode, cssString, test, [...]) => { ... }</code></p>
+		<p class="mb-10">
 			<strong>Bitte beachten Sie:</strong> Jede <code>self.run${task_number}</code>-Funktion, muss nach dem letzten Test ein Promise wie folgt zurückgeben:
 			<code>return Promise.resolve();</code>
 		</p>
-		<p class="mb-20">
+		<p class="mb-10">
 			Die Tests basieren auf dem Modul <a target="_blank" href="https://github.com/studio-b12/tape-css">tape-css</a>. Tape-css benutzt die existierende <a target="_blank" href="https://github.com/substack/tape">API</a> der Test-Bibliothek tape.  
+		</p>
+		<p class="mb-20">
+			Eine Beschreibung, wie die eigentlichen Tests implementiert werden können, sowie ein Basic-Testtemplate finden Sie im folgenden Verzeichnis: <code>root > src > js > tests >testexample</code>
 		</p>
 		<h4>Helferklassen</h4>
 		<p class="mb-20">
@@ -94,9 +96,11 @@
 			Ist der vom Nutzer eingegebene HTML und CSS Code nicht valide, so wird den Run-Buttons die Klasse <code>validateErrorCSS</code> bzw. <code>validateErrorHTML</code> hizugefügt. Ist dies der Fall, so werden die Testdateien nicht aufgerufen und dem Nutzer wird eine Fehlermeldung angezeigt. 
 		</p>
 		<h4>Bilder:</h4>
+		<p class="mb-10">
+			Alle Bilder die über den WYSIWYG-Editor eingefügt werden, werden auf <a target="_blank" href="https://imgur.com">Imgur</a> hochgeladen. Hierfür wurde eine private Applikation erstellt. Die Bilder sind nur durch den Bild-Link abrufbar. Somit können auch Bilder verwendet werden, die nicht in der Applikation abgelegt wurden.
+		</p>
 		<p class="mb-20">
-			Alle Bilder die in dieser Applikation benutzt werden (auch die, die über den WYSIWYG-Editor hochgeladen werden), müssen sich in dem folgenden Verzeichnis befinden:
-			<code>root > public > img </code>
+			Sollen Studierende Bilder in der Applikation verlinken, so wird empfohlen diese im folgenden Verzeichnis zu hinterlegen: <code>root > public > img </code> Hier können auch Unterordner angelegt werden.
 		</p>
 		<h4>Datenbank:</h4>
 		<p class="mb-20">

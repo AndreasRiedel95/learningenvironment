@@ -42,7 +42,7 @@ exports.section_to_editor = function(req, res, next) {
     async.parallel({
         section: function (callback) {
             Section.findById(req.params.id)
-            .populate({path: 'taskinstance', populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}})
+            .populate({path: 'taskinstance', populate: {path: 'task'}})
             .exec(callback)
         },
         sectioninstance: function (callback) {
@@ -279,4 +279,18 @@ SectionInstance.findById(req.params.id)
     })
 };
 
+
+exports.udpate_section_order = function(req, res, next) {
+    console.log("sectionPath",req.body.objects)
+    SectionInstance.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            {
+                section: req.body.objects   
+            }
+        }, 
+    function (err,thetaskinstance) {
+        if (err) { return next(err); }
+        return res.send({success: true});
+    });
+}
 

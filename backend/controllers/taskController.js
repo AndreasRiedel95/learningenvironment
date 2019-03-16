@@ -208,3 +208,16 @@ exports.task_udpate_solved = function(req, res, next) {
             if (err) { return next(err); }
         });
 };
+
+exports.task_udpate_order = function(req, res, next) {
+    Task.findByIdAndUpdate(req.params.id, 
+        { '$set': 
+            { 
+                task_number: req.body.position,
+            } 
+        }, function (err,numberAffected) {
+            if (err) { return next(err); }
+            return res.send({success: true});
+        });
+
+}

@@ -6,11 +6,13 @@ const getUserCode = (taskinstance) => {
 		if (res.ok) return res.json()
 	}).then((data) => {
 		returnData(data)
-	})	
+	}).catch((error) => {
+		console.log(error)
+	})
 }
-
 
 function returnData(data) {
 	return data;
 }
+
 module.exports = getUserCode;

@@ -1,4 +1,4 @@
-// die Konstanze die exportiert wird, selber Name wie File-Name
+// die Konstanze die exportiert wird, selber Name wie File-Name (Taskinstance nummer)
 const test1 = function () {
 	let self = this;
 	//run1 Nummer wie Task-Nummer
@@ -10,9 +10,8 @@ const test1 = function () {
 		//h: Hyperscript Element um Node Elemente einfach zu bilden -> https://www.npmjs.com/package/hyperscript
 		//HelperInstance: Hierüber können Helferfunktionen aufgerufen werden: File befindet sich in: /public/js/helper.js
 
-
 		//Ein Test wird wie folgt geschrieben: 
-		//Doku der möglichen Methoden: https://github.com/substack/tape
+			//Doku der möglichen Methoden: https://github.com/substack/tape
 
 		// Dem test-Element wird das DOM Element und der CSSString übergeben.
 		// Während des Tests fügt die Test-Bibliothek die übergebenen Elemente an das Ende des <body> Elementes an, nach dem Test werden die Elemente wieder gelöscht. 
@@ -78,12 +77,12 @@ module.exports = test1;
 	}
 
 	self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
-		//Es kann bei bedarf self.run1 nochmals aufgerufen werden, um zu überprüfen ob das <ul>-Element auch wirklich vorhanden ist 
+		//Es kann bei bedarf self.run1 nochmals aufgerufen werden, um zu überprüfen ob das <ul>-Element mit erwarteter Struktur auch wirklich vorhanden ist 
 		self.run1(htmlNode, cssString, test, h, HelperInstance) 
 
 		test('<li> should be blue', { //hier wird beschrieben, was der Test testen soll
-		  dom: htmlNode, //HTML Node wird dem Test mitgegeben
-		  styles: cssString, //cssString wird dem Test mitgegeben 
+		  dom: htmlNode, //HTML Node wird dem Test übergeben
+		  styles: cssString, //cssString wird dem Test übergeben 
 		}, (asset) => {
 
 			//Diese Methode vergleicht, ob Variable 1 == Variable 2
