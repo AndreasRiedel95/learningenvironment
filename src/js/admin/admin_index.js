@@ -25,6 +25,11 @@ function searchList() {
 	}
 }
 
+//variables needed for firefox 
+var x = 0,
+    y = 0;
+
+
 function enableDragSort(listClass) {
   const sortableLists = document.getElementsByClassName(listClass);
   Array.prototype.map.call(sortableLists, (list) => {enableDragList(list)});
@@ -37,8 +42,17 @@ function enableDragList(list) {
 function enableDragItem(item) {
   item.setAttribute('draggable', true)
 
+  document.addEventListener('dragstart', function(event) {
+  	event.dataTransfer.setData('application/node type', this);
+    document.ondragover = function(event) {
+        event = event || window.event;
+        x = event.clientX,
+        y = event.clientY;
+    };
+  }, false)
+
   document.addEventListener('drag', function(event) {
-  	handleDrag(event, item)
+  	handleDrag(item, event)
   }, false)
   document.addEventListener('dragend', function(event) {
   	handleDrop(event);	
@@ -46,13 +60,12 @@ function enableDragItem(item) {
   
 }
 
-function handleDrag(item) {
-  const selectedItem = item.target,
-        list = selectedItem.parentNode,
-        x = event.clientX,
-        y = event.clientY;
-  
+
+function handleDrag(item, event) {
+  const selectedItem = event.target,
+        list = selectedItem.parentNode;
   selectedItem.classList.add('drag-sort-active');
+
   let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
   
   if (list === swapItem.parentNode) {
@@ -61,9 +74,9 @@ function handleDrag(item) {
   }
 }
 
-function handleDrop(item) {
-  item.target.classList.remove('drag-sort-active');
-  setItemNumber(item);
+function handleDrop(event) {
+  event.target.classList.remove('drag-sort-active');
+  setItemNumber(event);
 }
 
 function setItemNumber(item) {
@@ -111,12 +124,10 @@ function saveNumberToDataBase(item, position) {
 
 function saveOrderToDataBase(listItems) {
 	let list = listItems[0].parentNode;
-	console.log(list)
 	let parentCls = listItems[0].parentNode.classList
 	let fetchURL = "";
 	listitemObj = Array.from(listItems).map((listItem) => ({_id: listItem.dataset.listitemid}));
 	let listId = list.dataset.listid;
-	console.log(listId)
 	switch(true) {
 		case parentCls.contains('--section'):
 			fetchURL = `/admin/btn/section/taskinstance/order/${listId}/update`
