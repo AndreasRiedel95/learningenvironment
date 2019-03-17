@@ -56,32 +56,28 @@ exports.task_create_post =  [
 			}
 		);
 
-            Task.findOne({ 'suffix': req.body.suffix })
-                .exec( function(err, found_task) {
-                     if (err) { return next(err); }
+        Task.findOne({ 'suffix': req.body.suffix })
+            .exec( function(err, found_task) {
+                 if (err) { return next(err); }
+                 if (found_task) {
+                     // Task exists, redirect to its detail page.
+                     res.redirect(found_task.url);
+                 } else {
+                    task.save(function (err) {
+                    if (err) { return next(err); }
+                    // Task saved. Redirect to genre detail page.
+                    res.redirect(task.url);
+                    });
 
-                     if (found_task) {
-                         // Task exists, redirect to its detail page.
-                         res.redirect(found_task.url);
-                     }
-                     else {
+                 }
 
-                         task.save(function (err) {
-                           if (err) { return next(err); }
-                           // Task saved. Redirect to genre detail page.
-                           res.redirect(task.url);
-                         });
-
-                     }
-
-                 });
+             });
         }
 ];
 
 
 // Display task delete form on GET.
 exports.task_delete_get = function(req, res, next) {
-
     async.parallel({
         task: function(callback) {
             Task.findById(req.params.id).exec(callback);
@@ -155,19 +151,14 @@ exports.task_update_get = function(req, res, next) {
 
 // Handle task update on POST.
 exports.task_update_post = [
-   
     // Validate that the name field is not empty.
     body('name', 'Title name required').isLength({ min: 1 }).trim(),
-    
     // Sanitize (trim and escape) the name field.
     sanitizeBody('name').trim().escape(),
-
     // Process request after validation and sanitization.
     (req, res, next) => {
-
         // Extract the validation errors from a request .
         const errors = validationResult(req);
-
     // Create a genre object with escaped and trimmed data (and the old id!)
         var task = new Task(
           {
@@ -204,9 +195,11 @@ exports.task_udpate_solved = function(req, res, next) {
             { 
                 task_solved: req.body.task_solved,
             } 
-        }, function (err,numberAffected) {
-            if (err) { return next(err); }
-        });
+        }, 
+    function (err,numberAffected) {
+        if (err) { return next(err); }
+        return res.send({success: true});
+    });
 };
 
 exports.task_udpate_order = function(req, res, next) {
@@ -215,9 +208,10 @@ exports.task_udpate_order = function(req, res, next) {
             { 
                 task_number: req.body.position,
             } 
-        }, function (err,numberAffected) {
-            if (err) { return next(err); }
-            return res.send({success: true});
-        });
+        }, 
+    function (err,numberAffected) {
+        if (err) { return next(err); }
+        return res.send({success: true});
+    });
 
 }

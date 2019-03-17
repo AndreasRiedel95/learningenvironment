@@ -5,8 +5,11 @@ const resetUserCode = (taskinstance, html_editor, css_editor) => {
 		body: JSON.stringify({
 			'id' : taskinstance.dataset.taskinstanceid,
 			'htmlCode_user': null,
-			'cssCode_user': null,
+			'cssCode_user': null
 		})
 	})
+	.then(response => response.json())
+	.catch(error => console.error('Error:', error))
+	.then(response => console.log('Success:', JSON.stringify(response)));
 }
 module.exports = resetUserCode;

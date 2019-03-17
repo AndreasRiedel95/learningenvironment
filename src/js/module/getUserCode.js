@@ -1,5 +1,4 @@
 const getUserCode = (taskinstance) => {
-	console.log("jaaa")
 	fetch(`/admin/btn/taskinstance/${taskinstance.dataset.taskinstanceid}/get`, {
 		method: 'GET'
 	}).then((res) => {

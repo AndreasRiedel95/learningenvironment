@@ -298,7 +298,6 @@ document.addEventListener("keydown", function(e) {
   if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
     e.preventDefault();
     if (e.repeat) { return }
-    	console.log(keyfired)
     if(!keyfired) {
     	keyfired = true;
     	saveCode();

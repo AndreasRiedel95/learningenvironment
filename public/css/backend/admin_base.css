@@ -892,3 +892,8 @@ h4 {
     cursor: -webkit-grab;
     cursor: grab;
     border: 1px solid #446a89; }
+  .order-list-item.drag-sort-active > a {
+    background: transparent;
+    color: transparent; }
+  .order-list-item.drag-sort-active > ol {
+    opacity: 0; }

@@ -52,7 +52,7 @@ function enableDragItem(item) {
   }, false)
 
   document.addEventListener('drag', function(event) {
-  	handleDrag(item, event)
+  	handleDrag(event)
   }, false)
   document.addEventListener('dragend', function(event) {
   	handleDrop(event);	
@@ -61,7 +61,7 @@ function enableDragItem(item) {
 }
 
 
-function handleDrag(item, event) {
+function handleDrag(event) {
   const selectedItem = event.target,
         list = selectedItem.parentNode;
   selectedItem.classList.add('drag-sort-active');

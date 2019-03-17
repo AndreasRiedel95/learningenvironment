@@ -222,7 +222,6 @@ exports.sectioninstance_update_post = [
             } 
         }, function (err,thesectioninstance) {
             if (err) { return next(err); }
-
             res.redirect(thesectioninstance.url);
         });
     }
@@ -278,7 +277,6 @@ SectionInstance.findById(req.params.id)
         res.render('admin/sectioninstance_create_path', {title: 'Section Instance Create Path', sectioninstance: sectioninstance, path: "Es wurden für diese Sectionsinstanzen die nötigen Dateien erstellt"})
     })
 };
-
 
 exports.udpate_section_order = function(req, res, next) {
     console.log("sectionPath",req.body.objects)
