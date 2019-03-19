@@ -42,7 +42,7 @@ exports.section_to_editor = function(req, res, next) {
     async.parallel({
         section: function (callback) {
             Section.findById(req.params.id)
-            .populate({path: 'taskinstance', populate: {path: 'task'}})
+            .populate({path: 'taskinstance', options:{sort:{taskInstance_number: 'ascending'}}, populate: {path: 'task', options:{sort:{task_number: 'ascending'}}}})
             .exec(callback)
         },
         sectioninstance: function (callback) {
@@ -74,7 +74,7 @@ exports.sectioninstance_list = function(req, res) {
 // Display detail page for a specific taskinstance.
 exports.sectioninstance_detail = function(req, res, next) {
     SectionInstance.findById(req.params.id)
-    .populate({path: 'section',options:{sort:{suffix: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{suffix: 'ascending'}}, populate: {path: 'task', options:{sort:{suffix: 'ascending'}}}}})
+    .populate({path: 'section',options:{sort:{section_number: 'ascending'}}, populate: {path: 'taskinstance',options:{sort:{taskInstance_number: 'ascending'}}, populate: {path: 'task', options:{sort:{task_number: 'ascending'}}}}})
     .exec(function (err, sectioninstance) {
         if(err) {return next(err)}
         if(sectioninstance == null) {
@@ -245,13 +245,13 @@ SectionInstance.findById(req.params.id)
         //REALLY BAD CODE STYLE
         if(sectioninstance.section !== null) {
             for(let i = 0; i<sectioninstance.section.length; i++) {
-                let sectionPath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/section`
+                let sectionPath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_inc}/section`
                 ensureDirectoryExistence(sectionPath)
                 if(sectioninstance.section[i].taskinstance !== null) {
                     for(let j = 0; j<sectioninstance.section[i].taskinstance.length; j++) {
                         if(sectioninstance.section[i].taskinstance[j].task !== null){
                             for(let k = 0; k < sectioninstance.section[i].taskinstance[j].task.length; k++) {
-                                fs.appendFile(`./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_number}/test${sectioninstance.section[i].taskinstance[j].taskInstance_number}.js`, `//self.run${sectioninstance.section[i].taskinstance[j].task[k].task_number} – ${sectioninstance.section[i].taskinstance[j].task[k].name}, `, function(err) {
+                                fs.appendFile(`./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_inc}/test${sectioninstance.section[i].taskinstance[j].taskinstance_inc}.js`, `//self.run${sectioninstance.section[i].taskinstance[j].task[k].task_inc} – ${sectioninstance.section[i].taskinstance[j].task[k].name}, `, function(err) {
                                     if(err) {
                                         return console.log("file", err);
                                     }

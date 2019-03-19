@@ -1,8 +1,8 @@
 <% extend('admin_base') %>
 <link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
 <div class="content mb-100">
-	<p><strong>Task Instance Hierachie: </strong></p>
-	<p class="mb-20"><%= taskinstance.suffix %></p>
+	<p><strong>Task Instance Incremenet (Ordnernummer): </strong></p>
+	<p class="mb-20"><%= taskinstance.taskinstance_inc %></p>
 	<p><strong>Task Instance Nummer: </strong></p>
 	<p class="mb-20"><%= taskinstance.taskInstance_number %></p>
 	<p><strong>Task Instance Name: </strong></p>
@@ -18,28 +18,28 @@
 					<% for(let i = 0; i<section.length; i++) { %>
 						<li>
 							<strong><%= section[i].section_number %>. Section</strong>
-							<a href="<%= section[i].url %>"><%= section[i].name %></a> (<%= section[i].suffix %>)
+							<a href="<%= section[i].url %>"><%= section[i].name %></a> (<%= section[i].section_inc %>)
 						</li>
 					<% } %>
 				</ol>
 		<% } %>
 		<ol class="mb-20 with-out-decimal">
 			<li>
-				<strong><%= taskinstance.taskInstance_number %>. Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.suffix %>)
+				<strong><%= taskinstance.taskInstance_number %>. Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.taskinstance_inc %>)
 			</li>
-			<ol class="with-out-decimal order-list --taskinstance drag-sort-enable" data-listid="<%= taskinstance._id %>">
-				<%if(taskinstance.task !== null) { %>
+			<%if(taskinstance.task.length > 0) { %>
+				<ol class="with-out-decimal order-list --taskinstance drag-sort-enable" data-listid="<%= taskinstance._id %>">
 					<% for(var i = 0; i<taskinstance.task.length; i++) { %>
 						<li class="order-list-item" data-listitemid="<%= taskinstance.task[i]._id %>">
 							<strong class="object-number"><%= taskinstance.task[i].task_number %></strong><strong>. Task:</strong> 
 							<a draggable="true" href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name%></a> 
-							<span>(<%= taskinstance.task[i].suffix %>)</span>
+							<span>(<%= taskinstance.task[i].task_inc %>)</span>
 						</li>
 					<% } %>
-				<% } else { %>
-					<li>Taskinstance hat keine Tasks</li>
-				<% } %>
-			</ol>
+				</ol>
+			<% } else {%>
+				<p>Dieser Taskinstance wurden noch keine Tasks hinzugefügt</p>
+			<% } %>
 		</ol>
 	<% } else { %>
 		<p class="mb-20">Diese Instanz hat keine zugehörigen Sections</p>

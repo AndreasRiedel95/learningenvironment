@@ -6,7 +6,7 @@
 			<tr>
 				<th class="table-cell --header">Nummer</th>
 				<th class="table-cell --header">Name</th>
-				<th class="table-cell --header">Hierachie</th>
+				<th class="table-cell --header">Increment (Ordnernummer)</th>
 			</tr>
 			<% for(let i = 0; i < sections.length; i++) { %>
 				<tr>
@@ -17,7 +17,7 @@
 						<a href="<%=sections[i].url%>"><%=sections[i].name%></a>
 					</td>
 					<td class="table-cell">
-						<%=sections[i].suffix%>
+						<%=sections[i].section_inc%>
 					</td>
 				</tr>
 			<% } %>

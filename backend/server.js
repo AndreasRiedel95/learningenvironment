@@ -11,7 +11,7 @@ var adminRouter = require('./routes/admin');
 var app = express();
 
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://admin:admin123@ds137605.mlab.com:37605/editor';
+var mongoDB = 'mongodb://admin:admin1234@ds157833.mlab.com:57833/htmlcsseditor2' //'mongodb://admin:admin123@ds137605.mlab.com:37605/editor';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -32,20 +32,6 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/', indexRouter);
 app.use('/admin', adminRouter); 
 
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, '/public/upload/img')
-//     },
-//     filename: (req, file, cb) => {
-//       cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-
-// var upload = multer({storage: storage});
-
-// app.use(upload.single('photo'));
-
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });

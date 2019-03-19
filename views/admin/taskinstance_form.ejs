@@ -5,19 +5,9 @@
 		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<label class="input-label_error" for="taskInstance_number">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="number" name="taskInstance_number" placeholder=" " onchange="validateField(this)">
-					<label class="input-label" for="taskInstance_number">Taskinstance Nummer*</label>
-				</div>
-				<div class="form-group mb-40">
 					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 					<input class="input validate-me-js" type="text" name="name" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="name">Titel*</label>
-				</div>
-				<div class="form-group mb-40">
-					<label class="input-label_error" for="suffix">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="text" name="suffix" placeholder=" " onchange="validateField(this)">
-					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1)*</label>
 				</div>
 			</div>
 			<div class="form-group mb-40">
@@ -36,7 +26,7 @@
 				<% for(var i = 0; i<tasks.length; i++) { %>
 					<label class="checkbox-group" for="<%= tasks[i]._id %>">
 						<input type="checkbox" name="task" id="<%= tasks[i]._id %>" value="<%= tasks[i]._id %>">
-						<label class="code-label list-value" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].suffix %>)</label>
+						<label class="code-label list-value" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].task_inc %>)</label>
 					</label>
 				<% } %>
 			</div>
@@ -48,19 +38,9 @@
 		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<label class="input-label_error" for="taskInstance_number">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="number" value="<%= taskinstance.taskInstance_number %>"name="taskInstance_number" placeholder=" " onchange="validateField(this)">
-					<label class="input-label" for="taskInstance_number">Taskinstance Nummer</label>
-				</div>
-				<div class="form-group mb-40">
 					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 					<input class="input validate-me-js" type="text" name="name" placeholder=" " value="<%= taskinstance.name %>" onchange="validateField(this)">
 					<label class="input-label" for="name">Titel</label>
-				</div>
-				<div class="form-group mb-40">
-					<label class="input-label_error" for="suffix">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="text" value="<%= taskinstance.suffix %>" name="suffix" placeholder=" " onchange="validateField(this)">
-					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1)</label>
 				</div>
 			</div>
 			<div class="form-group mb-40">
@@ -79,7 +59,7 @@
 				<% for(var i = 0; i<tasks.length; i++) { %>
 					<label class="checkbox-group" for="<%= tasks[i]._id %>">
 						<input type="checkbox" name="task" id="<%= tasks[i]._id %>" <% if(tasks[i].checked) { %> checked <% } %> value="<%= tasks[i]._id %>">
-						<label class="code-label list-value" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].suffix %>)</label>
+						<label class="code-label list-value" for="<%= tasks[i]._id %>"><%= tasks[i].task_number %>. <%= tasks[i].name %> (<%= tasks[i].task_inc %>)</label>
 					</label>
 				<% } %>
 			</div>

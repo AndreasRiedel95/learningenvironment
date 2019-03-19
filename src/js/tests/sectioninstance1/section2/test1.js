@@ -1,70 +1,74 @@
-//self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, 
+//self.run1 – Absatz 1, //self.run2 – Absatz 2, //self.run3 – Absatz 3,
+const helper = require('../../../helper.js');
+const HelperInstance = new helper();
+const h = require('hyperscript');
+
 const test1 = function () {
 	let self = this;
-	self.run1 = (htmlNode, cssString, test) => {
+	self.run1 = (htmlNode, cssString, test, h, HelperInstance) => {
+		console.log("im 1")
 		test((
-		'check if list contains ol'
+		'check if all ps are there'
 		), { dom: htmlNode }, (asset) => {
-			let boolean;
-			let ol = htmlNode.querySelector('ol');
-			ol !== null ? boolean = true : boolean = false;
-			asset.ok(
-				boolean, "Bitte überprüfen sie ob ihre Liste eine Nummerierte ist"
+			let psLength = htmlNode.querySelectorAll('p').length;
+			asset.deepEqual(
+				psLength, 3, "Sind Sie sicher, dass Sie 3 <p> Elemente benutzt haben?"
 			);
 			asset.end();
 		});
+		
+		return Promise.resolve()
+	}
+	self.run2 = (htmlNode, cssString, test, h, HelperInstance) => {
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
+		let classArray = ["p1", "p2", "p3"];
+		let ps = htmlNode.querySelectorAll('p');
 
 		test((
-		'check if list contains 6 lis'
+		'check if all ps have a class'
 		), { dom: htmlNode }, (asset) => {
-			let li = htmlNode.querySelectorAll('li');
-			asset.equal(
-				li.length, 6,  "Bitte überprüfen sie ob ihre Liste 6 Punkte beinhaltet"
-			);
+			ps.forEach((p) => {
+				asset.notEqual(
+					p.classList.length, 0, "Sind Sie sicher, dass jedes <p>-Elemente eine Klasse besitzt?"
+				);
+			});
 			asset.end();
-		});
-		
+		})
+
+		test((
+		'check if all ps have the right classname'
+		), { dom: htmlNode }, (asset) => {
+			ps.forEach((p) => {
+				let className = p.className;
+				let boolean = classArray.includes(className)
+				asset.ok(
+					boolean, "Sind Sie sicher, dass die Elemente, die vorgegebenen Klassennamen haben?"
+				);
+			});
+			asset.end();
+		})
+
 		return Promise.resolve()
 	}
-	self.run2 = (htmlNode, cssString, test) => {
-		test((
-		'check if ol has color aqua'
-		), { dom: htmlNode, styles: cssString }, (asset) => {
-			let ol = htmlNode.querySelector('ol');
-			let backgroundColorOL = getComputedStyle(ol).getPropertyValue('background-color');
-			asset.equal(
-				backgroundColorOL, 'rgb(0, 255, 255)', "Bitte überprüfen sie ob Ihre <ol>-Liste die Hintergrundfarbe aqua besitzt"
-			);
-			asset.end();
-		});
-		test((
-		'check if ol has color aqua'
-		), { dom: htmlNode, styles: cssString }, (asset) => {
-			let li = htmlNode.querySelectorAll('li')[0];
-			let backgroundColorLI = getComputedStyle(li).getPropertyValue('background-color');
-			asset.equal(
-				backgroundColorLI, 'rgb(255, 99, 71)', "Bitte überprüfen sie ob Ihre <li>-Liste die Hintergrundfarbe tomato besitzt"
-			);
-			asset.end();
-		});
-		
-		return Promise.resolve()
-	}
-	self.run3 = (htmlNode, cssString, test) => {
-		test((
-		'check if list contains ul'
-		), { dom: htmlNode }, (asset) => {
-			let boolean;
-			let ul = htmlNode.querySelector('ul');
-			ul !== null ? boolean = true : boolean = false;
-			asset.ok(
-				boolean, "Bitte überprüfen sie ob ihre Liste eine Aufzählungsliste ist"
-			);
-			asset.end();
-		});
-		
+	self.run3 = (htmlNode, cssString, test, h, HelperInstance) => {
+		self.run1(htmlNode, cssString, test, h, HelperInstance)
+		let p1= htmlNode.querySelector('.paragraph1')
+		test(('`p` haben verschiedene Farben'),
+			{ dom: htmlNode, styles: cssString }, (asset) => {
+				let ps = htmlNode.querySelectorAll('p');
+				let colorsArray = [];
+				for(let i = 0; i< ps.length; i++) {
+					let backgroundColor = getComputedStyle(ps[i]).getPropertyValue('background-color')
+					colorsArray.push(backgroundColor)
+				}
+				let boolean = HelperInstance.checkIfDuplicatesInArray(colorsArray)
+				asset.notOk(
+					boolean, "Sind Sie sicher, dass alle Klassen eine andere Farbe haben?"
+				);
+		  		asset.end();
+			});
 		return Promise.resolve()
 	}
 }
 
-module.exports = test1;//self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, //self.run1 – Liste korrigieren, //self.run2 – Liste einfärben, //self.run3 – Aufzählungslisten, 
+module.exports = test1; //self.run1 – Absatz 1, //self.run2 – Absatz 2, //self.run3 – Absatz 3, //self.run1 – Absatz 1, //self.run2 – Absatz 2, //self.run3 – Absatz 3, 

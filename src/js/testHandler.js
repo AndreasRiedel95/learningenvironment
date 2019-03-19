@@ -19,10 +19,12 @@ testButtons.forEach((button) => {
 		callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testNumber, sectionNumber, sectioninstanceNumber, testNumberArray);
 		//Avoid Spamming on button
 		avoidSpamM(button, isClickedRun)
+		console.log("in")
 	})
 })
 
 function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, sectionNumber, sectioninstanceNumber, testNumberArray) {
+
 	// delete all require cache everytime a test gets called otherwise test can be called only once
 	for (const path in require.cache) {
 		if (path.endsWith('.js')) { // only clear *.js, not *.node

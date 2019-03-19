@@ -1,16 +1,17 @@
 var mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 var Schema = mongoose.Schema;
 
 var TaskInstanceSchema = new Schema(
   {
-    taskInstance_number: {type: Number, required: true},
+    taskInstance_number: {type: Number, default: null},
     name: {type: String, required: true, max: 100},
     htmlCode_inital: {type: String},
     cssCode_inital: {type: String},
     htmlCode_user: {type: String},
     cssCode_user: {type: String},
-    suffix: {type: String, required: true, unique: true},
+    suffix: {type: String},
     task: [{type: Schema.Types.ObjectId, ref: 'Task'}]
   }
 );
@@ -22,6 +23,7 @@ TaskInstanceSchema
   return '/admin/taskinstance/' + this._id;
 });
 
+TaskInstanceSchema.plugin(AutoIncrement, {inc_field: 'taskinstance_inc'});
 
 //Export model
 module.exports = mongoose.model('TaskInstance', TaskInstanceSchema);

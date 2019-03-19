@@ -65,7 +65,7 @@ exports.section_create_post = [
 		// Create a Section object with escaped and trimmed data.
 		var section = new Section({ 
 			name: req.body.name,
-			section_number: req.body.section_number,
+			section_number: null,
 			description: req.body.description,
 			shortdescription: req.body.shortdescription,
 			suffix: req.body.suffix,
@@ -175,7 +175,6 @@ exports.section_update_post = [
 		{ '$set': 
 			{   
 				name: req.body.name,
-				section_number: req.body.section_number,
 				description: req.body.description,
 				shortdescription: req.body.shortdescription,
 				suffix: req.body.suffix,

@@ -23,6 +23,7 @@ const resetUserCodeM = require('./module/resetUserCode');
 //   event.returnValue = '';
 // });
 
+console.log(section)
 
 document.addEventListener("DOMContentLoaded", () => {
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
@@ -209,6 +210,7 @@ let editorRendering = (() => {
 
 //Toggle TaskDescription 
 let setTaskDescription = (ele) => {
+	console.log(ele)
 	let taskinstancenumber = parseInt(ele.htmlFor);
 	let parent = ele.parentNode;
 	let inputs = document.querySelectorAll('.input-wrapper.--task');
@@ -216,7 +218,9 @@ let setTaskDescription = (ele) => {
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-taskinstancenumber="${taskinstancenumber}"])`);
 	taskDescriptions.forEach((taskDescription) => {
 		taskDescription.classList.add('--not-active');
+		console.log(taskDescription)
 	})
+
 	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
 	activeTaskDescription.classList.remove('--not-active');
 	let htmlEditor = editorRendering.getHTMLEditor();

@@ -1,8 +1,8 @@
 <% extend('admin_base') %>
 	<div class="content mb-50">
 		<link rel="stylesheet" type="text/css" href="/css/backend/quillEditor_admin.css"/>
-		<p><strong>Task Hierachie: </strong></p>
-		<p class="mb-20"><%= task.suffix %></p>
+		<p><strong>Task Increment (Funktionsname): </strong></p>
+		<p class="mb-20"><%= task.task_inc %></p>
 		<p><strong>Task Nummer: </strong></p>
 		<p class="mb-20"><%= task.task_number %></p>
 		<p><strong>Task Name: </strong></p>
@@ -15,7 +15,7 @@
 				<% for(let i = 0; i<taskinstance.length; i++) { %>
 					<li>
 						<strong><%= taskinstance[i].taskInstance_number %>. Taskinstance</strong>
-						<a href="<%= taskinstance[i].url %>"><%= taskinstance[i].name %> (<%= taskinstance[i].suffix %>)</a>
+						<a href="<%= taskinstance[i].url %>"><%= taskinstance[i].name %> (<%= taskinstance[i].taskinstance_inc %>)</a>
 					</li>
 				<% } %>
 			</ol>

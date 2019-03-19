@@ -1,4 +1,4 @@
-//self.run1 – Absätze, //self.run2 – Absätze, //self.run3 – Absätze, 
+//self.run1 – Absätze Test, //self.run2 – Absätze Test 2, 
 const test1 = function () {
 	let self = this;
 	self.run1 = (htmlNode, cssString, test) => {
@@ -75,4 +75,4 @@ const test1 = function () {
 	}
 }
 
-module.exports = test1;
+module.exports = test1 

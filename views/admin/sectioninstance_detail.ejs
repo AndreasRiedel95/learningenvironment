@@ -12,24 +12,24 @@
 			<li>
 				<strong><%= sectioninstance.sectionInstance_number %>. Section-Instanz:</strong> <%= sectioninstance.name %> (<%= sectioninstance.sectionInstance_number %>)
 			</li>
-			<ol class="with-out-decimal order-list --sectioninstance drag-sort-enable" data-listid="<%= sectioninstance._id %>">
-				<%if(sectioninstance.section !== null) { %>
+			<%if(sectioninstance.section !== null) { %>
+				<ol class="with-out-decimal order-list --sectioninstance drag-sort-enable" data-listid="<%= sectioninstance._id %>">
 					<% for(var i = 0; i<sectioninstance.section.length; i++) { %>
 						<li class="order-list-item" data-listitemid = "<%= sectioninstance.section[i]._id %>">
 							<strong class="object-number"><%= sectioninstance.section[i].section_number %></strong><strong>. Section:</strong>
 							<a href="<%= sectioninstance.section[i].url %>"><%= sectioninstance.section[i].name %></a>
-							(<%= sectioninstance.section[i].suffix %>)
+							(<%= sectioninstance.section[i].section_inc %>)
 							<ol class="with-out-decimal">
 								<% if(sectioninstance.section[i].taskinstance !== null) { %>
 									<% for(var j = 0; j<sectioninstance.section[i].taskinstance.length; j++) { %>
 										<li>
-											<strong><%= sectioninstance.section[i].taskinstance[j].taskInstance_number %>. Testinstanz:</strong> 
-											<a href="<%= sectioninstance.section[i].taskinstance[j].url%>"><%= sectioninstance.section[i].taskinstance[j].name %> </a> (<%= sectioninstance.section[i].taskinstance[j].suffix %>)
+											<strong><%= sectioninstance.section[i].taskinstance[j].taskInstance_number %>. Taskinstance:</strong> 
+											<a href="<%= sectioninstance.section[i].taskinstance[j].url%>"><%= sectioninstance.section[i].taskinstance[j].name %> </a> (<%= sectioninstance.section[i].taskinstance[j].taskinstance_inc %>)
 										</li>
 										<ol class="with-out-decimal">
 											<% if(sectioninstance.section[i].taskinstance[j].task !== null) { %>
 												<% for(var k = 0; k<sectioninstance.section[i].taskinstance[j].task.length; k++) { %>
-													<li><strong><%= sectioninstance.section[i].taskinstance[j].task[k].task_number %>. Task: </strong><a href="<%= sectioninstance.section[i].taskinstance[j].task[k].url %>"><%= sectioninstance.section[i].taskinstance[j].task[k].name %></a> (<%= sectioninstance.section[i].taskinstance[j].task[k].suffix %>)</li>		
+													<li><strong><%= sectioninstance.section[i].taskinstance[j].task[k].task_number %>. Task: </strong><a href="<%= sectioninstance.section[i].taskinstance[j].task[k].url %>"><%= sectioninstance.section[i].taskinstance[j].task[k].name %></a> (<%= sectioninstance.section[i].taskinstance[j].task[k].task_inc %>)</li>		
 												<% } %>
 											<% } %>											
 										</ol>
@@ -38,8 +38,10 @@
 							</ol>
 						</li>
 					<% } %>
-				<% } %>
-			</ol>
+				</ol>
+			<% } else { %>
+				<p>Dieser Sectioninstance wurde noch keine Sectionen zugewiesen</p>
+			<% } %>
 		</ol>
 	<% } else { %>
 		<p class="mb-20">Diese Instanz hat keine zugehörigen Sections</p>

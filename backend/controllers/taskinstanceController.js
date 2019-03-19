@@ -66,7 +66,7 @@ exports.taskinstance_create_post = [
         // Create a BookInstance object with escaped and trimmed data.
         var taskinstance = new TaskInstance(
           { name: req.body.name,
-            taskInstance_number: req.body.taskInstance_number,
+            taskInstance_number: null,
             htmlCode_inital: req.body.htmlCode_inital,
             cssCode_inital: req.body.cssCode_inital,
             htmlCode_user: null,
@@ -180,7 +180,6 @@ exports.taskinstance_update_post = [
         TaskInstance.findByIdAndUpdate(req.params.id, 
         { '$set': 
             {   name: req.body.name,
-                taskInstance_number: req.body.taskInstance_number,
                 htmlCode_inital: req.body.htmlCode_inital,
                 cssCode_inital: req.body.cssCode_inital,
                 suffix: req.body.suffix,

@@ -76,11 +76,11 @@ function handleDrag(event) {
 
 function handleDrop(event) {
   event.target.classList.remove('drag-sort-active');
-  setItemNumber(event);
+  let list = event.target.parentNode
+  setItemNumber(list);
 }
 
-function setItemNumber(item) {
-	let list = item.target.parentNode;
+function setItemNumber(list) {
 	let listItems = list.querySelectorAll('.order-list-item');
 	listItems.forEach((listItem, i) => {
 		listItem.querySelector('.object-number').innerHTML = i + 1;
@@ -160,6 +160,7 @@ function saveOrderToDataBase(listItems) {
 }
 
 
+(() => {setItemNumber(document.querySelector('.order-list'))})();
 (()=> {enableDragSort('drag-sort-enable')})();
 
 window.searchList = searchList;

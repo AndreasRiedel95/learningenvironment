@@ -48,31 +48,19 @@ exports.task_create_post =  [
 	(req, res, next) => {
 		var task = new Task(
 			{
-				task_number: req.body.task_number,
+				task_number: null,
 				name: req.body.name,
 				description: req.body.description,
                 suffix: req.body.suffix,
 				task_solved: false
 			}
 		);
-
-        Task.findOne({ 'suffix': req.body.suffix })
-            .exec( function(err, found_task) {
-                 if (err) { return next(err); }
-                 if (found_task) {
-                     // Task exists, redirect to its detail page.
-                     res.redirect(found_task.url);
-                 } else {
-                    task.save(function (err) {
-                    if (err) { return next(err); }
-                    // Task saved. Redirect to genre detail page.
-                    res.redirect(task.url);
-                    });
-
-                 }
-
-             });
-        }
+        task.save(function (err) {
+            if (err) { return next(err); }
+            // Task saved. Redirect to genre detail page.
+            res.redirect(task.url);
+        });
+    }
 ];
 
 
@@ -162,7 +150,6 @@ exports.task_update_post = [
     // Create a genre object with escaped and trimmed data (and the old id!)
         var task = new Task(
           {
-			task_number: req.body.task_number,
 			name: req.body.name,
 			description: req.body.description,
 			task_solved: false,

@@ -28,7 +28,7 @@
 			<% for(var i = 0; i<sections.length; i++) { %>
 				<label class="checkbox-group" for="<%= sections[i]._id %>">
 					<input type="checkbox" name="section" id="<%= sections[i]._id %>" value="<%= sections[i]._id %>">
-					<label class="code-label list-value" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].suffix %>)</label>
+					<label class="code-label list-value" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].section_inc %>)</label>
 				</label>
 			<% } %>
 		</div>
@@ -61,7 +61,7 @@
 			<% for(var i = 0; i<sections.length; i++) { %>
 				<label class="checkbox-group" for="<%= sections[i]._id %>">
 					<input type="checkbox" name="section" id="<%= sections[i]._id %>" <% if(sections[i].checked) { %> checked <% } %> value="<%= sections[i]._id %>">
-					<label class="code-label list-value" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].suffix %>)</label>
+					<label class="code-label list-value" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].section_inc %>)</label>
 				</label>
 			<% } %>
 		</div>

@@ -8,18 +8,8 @@
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
 					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="number" name="task_number" placeholder=" " onchange="validateField(this)">
-					<label class="input-label" for="task_number">Task Number*</label>
-				</div>
-				<div class="form-group mb-40">
-					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
 					<input class="input validate-me-js" type="text" name="name" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="name">Titel*</label>
-				</div>
-				<div class="form-group mb-40">
-					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="text" name="suffix" placeholder=" " onchange="validateField(this)">
-					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1.1)*</label>
 				</div>
 			</div>
 			<div class="form-group mb-40">
@@ -35,19 +25,8 @@
 		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
-					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="number" value="<%= task.task_number %>" name="task_number" placeholder=" " onchange="validateField(this)">
-					<label class="input-label" for="task_number">Task Number</label>
-				</div>
-				<div class="form-group mb-40">
-					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="text" value="<%= task.name %>" name="name" placeholder=" " onchange="validateField(this)">
+					<input class="input" type="text" value="<%= task.name %>" name="name" placeholder=" ">
 					<label class="input-label" for="name">Titel</label>
-				</div>
-				<div class="form-group mb-40">
-					<label class="input-label_error" for="task_number">Dies ist ein Pflichtfled</label>
-					<input class="input validate-me-js" type="text" value="<%= task.suffix %>" name="suffix" placeholder=" " onchange="validateField(this)">
-					<label class="input-label" for="suffix">Hierachie (z.B. 1.1.1.1)</label>
 				</div>
 			</div>
 			<div class="form-group mb-40">

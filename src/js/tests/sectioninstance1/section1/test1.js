@@ -1,4 +1,4 @@
-//self.run1 – Absätze, //self.run2 – Absätze, //self.run3 – Absätze, 
+//self.run1 – Absatz 1, //self.run2 – Absatz 2, //self.run3 – Absatz 3,
 const helper = require('../../../helper.js');
 const HelperInstance = new helper();
 const h = require('hyperscript');
@@ -70,4 +70,4 @@ const test1 = function () {
 	}
 }
 
-module.exports = test1;
+module.exports = test1; 
