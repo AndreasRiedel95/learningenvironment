@@ -1,5 +1,7 @@
 <% extend('admin_base') %>
 <div class="content mb-100">
+	<p><strong>Ordnername:</strong></p>
+	<p class="mb-20"><%= sectioninstance.path_name %><%= sectioninstance.sectioninstance_inc %></p>
 	<p><strong>Section Instance Nummer: </strong></p>
 	<p class="mb-20"><%= sectioninstance.sectionInstance_number %></p>
 	<p><strong>Section Instance Name: </strong></p>
@@ -18,18 +20,20 @@
 						<li class="order-list-item" data-listitemid = "<%= sectioninstance.section[i]._id %>">
 							<strong class="object-number"><%= sectioninstance.section[i].section_number %></strong><strong>. Section:</strong>
 							<a href="<%= sectioninstance.section[i].url %>"><%= sectioninstance.section[i].name %></a>
-							(<%= sectioninstance.section[i].section_inc %>)
+							(<%= sectioninstance.section[i].path_name %><%= sectioninstance.section[i].section_inc %>)
 							<ol class="with-out-decimal">
 								<% if(sectioninstance.section[i].taskinstance !== null) { %>
 									<% for(var j = 0; j<sectioninstance.section[i].taskinstance.length; j++) { %>
 										<li>
 											<strong><%= sectioninstance.section[i].taskinstance[j].taskInstance_number %>. Taskinstance:</strong> 
-											<a href="<%= sectioninstance.section[i].taskinstance[j].url%>"><%= sectioninstance.section[i].taskinstance[j].name %> </a> (<%= sectioninstance.section[i].taskinstance[j].taskinstance_inc %>)
+											<a href="<%= sectioninstance.section[i].taskinstance[j].url%>"><%= sectioninstance.section[i].taskinstance[j].name %> </a> 
+											(<%= sectioninstance.section[i].taskinstance[j].path_name %><%= sectioninstance.section[i].taskinstance[j].taskinstance_inc %>)
 										</li>
 										<ol class="with-out-decimal">
 											<% if(sectioninstance.section[i].taskinstance[j].task !== null) { %>
 												<% for(var k = 0; k<sectioninstance.section[i].taskinstance[j].task.length; k++) { %>
-													<li><strong><%= sectioninstance.section[i].taskinstance[j].task[k].task_number %>. Task: </strong><a href="<%= sectioninstance.section[i].taskinstance[j].task[k].url %>"><%= sectioninstance.section[i].taskinstance[j].task[k].name %></a> (<%= sectioninstance.section[i].taskinstance[j].task[k].task_inc %>)</li>		
+													<li><strong><%= sectioninstance.section[i].taskinstance[j].task[k].task_number %>. Task: </strong><a href="<%= sectioninstance.section[i].taskinstance[j].task[k].url %>"><%= sectioninstance.section[i].taskinstance[j].task[k].name %></a>
+													(<%= sectioninstance.section[i].taskinstance[j].task[k].path_name %><%= sectioninstance.section[i].taskinstance[j].task[k].task_inc %>)</li>		
 												<% } %>
 											<% } %>											
 										</ol>
@@ -50,3 +54,4 @@
 	<a class="btn mt-20" href="<%= sectioninstance.url%>/delete">Delete Sectioninstance</a>
 	<a class="btn mt-20" href="<%= sectioninstance.url%>/createpath">Create File-System Path</a>
 </div>
+<script src="/js/admin_index.bundle.js"></script>

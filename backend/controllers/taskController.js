@@ -63,7 +63,7 @@ exports.task_create_post = (req, res, next) => {
       }
     );
 
-    Task.findOne({'name': str}).exec(function(err, found_task) {
+    Task.findOne({'path_name': str}).exec(function(err, found_task) {
         if (err) { return next(err); }
         if(found_task) {
             res.render('admin/task_form', { title: 'Erstelle neuen Task', task: task, error: "Dieser Taskname existiert bereits. Bitte benutzen Sie einen anderen Namen."});
@@ -154,7 +154,7 @@ exports.task_update_get = function(req, res, next) {
 // Handle task update on POST.
 exports.task_update_post = (req, res, next) => {
     var str = urlify(req.body.name);
-    var str = str.toLowerCase();
+    str = str.toLowerCase();
     var task = new Task(
       {
 		name: req.body.name,

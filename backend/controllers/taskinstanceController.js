@@ -68,9 +68,11 @@ exports.taskinstance_create_post = [
     },
     (req, res, next) => {
         var str = urlify(req.body.name);
+        str = str.toLowerCase();
         var taskinstance = new TaskInstance(
             { 
-                name: str,
+                name: req.body.name,
+                path_name: str,
                 taskInstance_number: null,
                 htmlCode_inital: req.body.htmlCode_inital,
                 cssCode_inital: req.body.cssCode_inital,
@@ -81,7 +83,7 @@ exports.taskinstance_create_post = [
                 _id: req.params.id
             });
         
-        TaskInstance.findOne({'name': str}).exec(function(err, found_taskinstance) {
+        TaskInstance.findOne({'path_name': str}).exec(function(err, found_taskinstance) {
             if (err) { return next(err); }
             if(found_taskinstance) {
                 Task.find().exec(function(err, results) {
@@ -190,10 +192,12 @@ exports.taskinstance_update_get = function(req, res, next) {
 // Handle taskinstance update on POST.
 exports.taskinstance_update_post = (req, res, next) => {
     var str = urlify(req.body.name);
+        str = str.toLowerCase();
     console.log("str", str)
     var taskinstance = new TaskInstance(
         {
-            name: str,
+            name: req.body.name,
+            path_name: str,
             htmlCode_inital: req.body.htmlCode_inital,
             cssCode_inital: req.body.cssCode_inital,
             task: req.body.task,
@@ -201,11 +205,11 @@ exports.taskinstance_update_post = (req, res, next) => {
         }
     );
       
-    TaskInstance.findOne({'name': str}).exec(function(err, found_taskinstance) {
+    TaskInstance.findOne({'path_name': str}).exec(function(err, found_taskinstance) {
         if(err) {return next(err);}
         console.log("found", found_taskinstance)
         console.log("task", taskinstance)
-        if(found_taskinstance && found_taskinstance.name !== taskinstance.name) {
+        if((found_taskinstance) && (JSON.stringify(found_taskinstance._id) !== JSON.stringify(taskinstance._id))) {
             Task.find().exec(function(err, results) {
                 res.render('admin/taskinstance_form', { title: 'Update TaskInstance', taskinstance: taskinstance, tasks: results, error: "Dieser TaskInstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});
             })
@@ -213,6 +217,7 @@ exports.taskinstance_update_post = (req, res, next) => {
             TaskInstance.findByIdAndUpdate(req.params.id, 
                 { '$set': {   
                     name: req.body.name,
+                    path_name: str,
                     htmlCode_inital: req.body.htmlCode_inital,
                     cssCode_inital: req.body.cssCode_inital,
                     task: req.body.task} 

@@ -10,6 +10,9 @@
 				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer*</label>
 			</div>
 			<div class="form-group mb-40">
+				<% if(typeof error !== 'undefined') { %>
+					<label class="input-label_error  --error" for="task_number"><%= error %></label>
+				<% } %>
 				<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 				<input class="input validate-me-js" type="text" name="name" placeholder=" ">
 				<label class="input-label" for="name">Titel*</label>
@@ -20,17 +23,25 @@
 			<textarea class="input --textarea validate-me-js"name="description" maxlength="200" placeholder=" " onchange="validateField(this)""></textarea>
 			<label class="input-label" for="description">Kurzbeschreibung (Max: 200)*</label>
 		</div>
-		<div class="form-group">
-			<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
-			<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Section suchen...</label>
-		</div>
-		<div class="input-list mb-50 mt-10">
-			<% for(var i = 0; i<sections.length; i++) { %>
-				<label class="checkbox-group" for="<%= sections[i]._id %>">
-					<input type="checkbox" name="section" id="<%= sections[i]._id %>" value="<%= sections[i]._id %>">
-					<label class="code-label list-value" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].section_inc %>)</label>
-				</label>
-			<% } %>
+		<div class="form-group-col-2">
+			<div>
+				<div class="form-group">
+					<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
+					<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Section suchen...</label>
+				</div>
+				<div class="input-list mb-50 mt-10">
+					<% for(var i = 0; i<sections.length; i++) { %>
+						<label class="checkbox-group" for="<%= sections[i]._id %>">
+							<input onchange="displayObject(this)" class="objectCheckbox" type="checkbox" name="section" id="<%= sections[i]._id %>" value="<%= sections[i]._id %>">
+							<label class="code-label list-value" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].section_inc %>)</label>
+						</label>
+					<% } %>
+				</div>
+			</div>
+			<div>
+				Ausgewählte Objekte:
+				<ul class="selectedObjectsList mt-10"></ul>
+			</div>
 		</div>
 		<button class="btn" type="submit">Submit</button>
 	</form>
@@ -43,6 +54,9 @@
 				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer</label>
 			</div>
 			<div class="form-group mb-40">
+				<% if(typeof error !== 'undefined') { %>
+					<label class="input-label_error  --error" for="task_number"><%= error %></label>
+				<% } %>
 				<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 				<input class="input validate-me-js" type="text" name="name" value="<%= sectioninstance.name %>" placeholder=" " onchange="validateField(this)">
 				<label class="input-label" for="name">Titel</label>
@@ -53,20 +67,30 @@
 			<textarea class="input --textarea validate-me-js" name="description" maxlength="200" placeholder=" " onchange="validateField(this)"><%= sectioninstance.description %></textarea>
 			<label class="input-label" for="description">Kurzbeschreibung (Max: 200)</label>
 		</div>
-		<div class="form-group">
-			<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
-			<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Section suchen...</label>
-		</div>
-		<div class="input-list mb-50 mt-10">
-			<% for(var i = 0; i<sections.length; i++) { %>
-				<label class="checkbox-group" for="<%= sections[i]._id %>">
-					<input type="checkbox" name="section" id="<%= sections[i]._id %>" <% if(sections[i].checked) { %> checked <% } %> value="<%= sections[i]._id %>">
-					<label class="code-label list-value" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].section_inc %>)</label>
-				</label>
-			<% } %>
+		<div class="form-group-col-2">
+			<div>
+				<div class="form-group">
+					<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
+					<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Section suchen...</label>
+				</div>
+				<div class="input-list mb-50 mt-10">
+					<% for(var i = 0; i<sections.length; i++) { %>
+						<label class="checkbox-group" for="<%= sections[i]._id %>">
+							<input class="objectCheckbox" onchange="displayObject(this)" type="checkbox" name="section" id="<%= sections[i]._id %>" <% if(sections[i].checked) { %> checked <% } %> value="<%= sections[i]._id %>">
+							<label class="code-label list-value" for="<%= sections[i]._id %>"><%= sections[i].section_number %>. <%= sections[i].name %> (<%= sections[i].section_inc %>)</label>
+						</label>
+					<% } %>
+				</div>
+			</div>
+			<div>
+				Ausgewählte Objekte:
+				<ul class="selectedObjectsList mt-10">
+				</ul>
+			</div>
 		</div>
 		<button class="btn" type="submit">Submit</button>
 	</form>
 <% } %>
 </div>
 <script src="/js/validate_form.bundle.js"></script>
+<script src="/js/admin_form.bundle.js"></script>

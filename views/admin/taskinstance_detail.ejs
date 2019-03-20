@@ -1,8 +1,8 @@
 <% extend('admin_base') %>
 <link rel="stylesheet" type="text/css" href="/css/backend/codeMirror_admin.css"/>
 <div class="content mb-100">
-	<p><strong>Task Instance Incremenet (Ordnernummer): </strong></p>
-	<p class="mb-20"><%= taskinstance.taskinstance_inc %></p>
+	<p><strong>Task Instance Incremenet (Ordnername): </strong></p>
+	<p class="mb-20"><%= taskinstance.path_name %><%= taskinstance.taskinstance_inc %></p>
 	<p><strong>Task Instance Nummer: </strong></p>
 	<p class="mb-20"><%= taskinstance.taskInstance_number %></p>
 	<p><strong>Task Instance Name: </strong></p>
@@ -25,8 +25,9 @@
 		<% } %>
 		<ol class="mb-20 with-out-decimal">
 			<li>
-				<strong><%= taskinstance.taskInstance_number %>. Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.taskinstance_inc %>)
+				<strong><%= taskinstance.taskInstance_number %><%if(taskinstance.taskInstance_number) { %>. <% } %> Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.taskinstance_inc %>)
 			</li>
+
 			<%if(taskinstance.task !== null) { %>
 				<ol class="with-out-decimal order-list --taskinstance drag-sort-enable" data-listid="<%= taskinstance._id %>">
 					<% for(var i = 0; i<taskinstance.task.length; i++) { %>
@@ -47,4 +48,5 @@
 	<a class="btn mt-20" href="<%= taskinstance.url%>/update">Update Taskinstance</a>
 	<a class="btn mt-20" href="<%= taskinstance.url%>/delete">Delete Taskinstance</a>
 </div>
+<script src="/js/admin_index.bundle.js"></script>
 <script src="/js/admin_codeMirror.bundle.js"></script>

@@ -1,7 +1,7 @@
 <% extend('admin_base') %>
 	<div class="content mb-50">
 		<link rel="stylesheet" type="text/css" href="/css/backend/quillEditor_admin.css"/>
-		<p><strong>Name für Ordnerstruktur: </strong></p>
+		<p><strong>Funktionsname: </strong></p>
 		<p class="mb-20"><%= task.path_name %><%= task.task_inc %></p>
 		<p><strong>Task Nummer: </strong></p>
 		<p class="mb-20"><%= task.task_number %></p>
@@ -14,8 +14,8 @@
 			<ol class="with-out-decimal --pl mb-40">
 				<% for(let i = 0; i<taskinstance.length; i++) { %>
 					<li>
-						<strong><%= taskinstance[i].taskInstance_number %>. Taskinstance</strong>
-						<a href="<%= taskinstance[i].url %>"><%= taskinstance[i].name %> (<%= taskinstance[i].taskinstance_inc %>)</a>
+						<strong><%= taskinstance[i].taskInstance_number %> <%if(taskinstance[i].taskInstance_number) { %>. <% }  %> Taskinstance</strong>
+						<a href="<%= taskinstance[i].url %>"><%= taskinstance[i].name %> (<%= taskinstance[i].path_name %><%= taskinstance[i].taskinstance_inc %>)</a>
 					</li>
 				<% } %>
 			</ol>

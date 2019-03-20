@@ -1,8 +1,8 @@
 <% extend('admin_base') %>
 	<div class="content mb-100">
 		<link rel="stylesheet" type="text/css" href="/css/backend/quillEditor_admin.css"/>
-		<p><strong>Section Incerement (Ordnernummer): </strong></p>
-		<p class="mb-20"><%= section.section_inc %></p>
+		<p><strong>Ordnername: </strong></p>
+		<p class="mb-20"><%= section.path_name %><%= section.section_inc %></p>
 		<p><strong>Section Nummer: </strong></p>
 		<p class="mb-20"><%= section.section_number %></p>
 		<p><strong>Section Name: </strong></p>
@@ -27,7 +27,7 @@
 			<% } %>
 			<ol class="mb-20 with-out-decimal">
 				<li>
-					<strong><%= section.section_number %>. Section</strong> <%= section.name %> (<%= section.section_inc %>)
+					<strong><%= section.section_number %> <% if( section.section_number ) { %>. <% } %> Section</strong> <%= section.name %> (<%= section.path_name %><%= section.section_inc %>)
 				</li>
 				<%if(section.taskinstance.length > 0) { %>
 					<ol class="with-out-decimal order-list --section drag-sort-enable" data-listid="<%= section._id %>">
@@ -35,11 +35,11 @@
 							<li class="order-list-item" data-listitemid = "<%= section.taskinstance[i]._id %>">
 								<strong class="object-number"><%= section.taskinstance[i].taskInstance_number %></strong><strong>. Taskinstanz:</strong> 
 								<a href="<%= section.taskinstance[i].url %>"><%= section.taskinstance[i].name%></a> 
-								(<%= section.taskinstance[i].taskinstance_inc %>)
+								(<%= section.taskinstance[i].path_name %><%= section.taskinstance[i].taskinstance_inc %>)
 								<ol class="with-out-decimal">
 									<% if(section.taskinstance[i].task !== null) { %>
 										<% for(var j = 0; j<section.taskinstance[i].task.length; j++) { %>
-											<li><strong><%= section.taskinstance[i].task[j].task_number %>. Task:</strong> <a href="<%= section.taskinstance[i].task[j].url %>"><%= section.taskinstance[i].task[j].name %> </a> (<%= section.taskinstance[i].task[j].task_inc %>)</li>
+											<li><strong><%= section.taskinstance[i].task[j].task_number %>. Task:</strong> <a href="<%= section.taskinstance[i].task[j].url %>"><%= section.taskinstance[i].task[j].name %> </a> (<%= section.taskinstance[i].task[j].path_name %><%= section.taskinstance[i].task[j].task_inc %>)</li>
 										<% } %>	
 									<% } %>
 								</ol>
@@ -56,3 +56,4 @@
 		<a class="btn" href="<%= section.url%>/update">Update Section</a>
 		<a class="btn" href="<%= section.url%>/delete">Delete Section</a>
 	</div>
+	<script src="/js/admin_index.bundle.js"></script>

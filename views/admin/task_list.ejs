@@ -6,7 +6,7 @@
 				<tr>
 					<th class="table-cell --header">Nummer</th>
 					<th class="table-cell --header">Name</th>
-					<th class="table-cell --header">Increment (Funktions-Nummer)</th>
+					<th class="table-cell --header">Funktionsname</th>
 				</tr>
 				<% for(var i = 0; i<list_tasks.length; i++) { %>
 					<tr>
@@ -17,7 +17,7 @@
 							<a href="<%=list_tasks[i].url %>"><%= list_tasks[i].name %></a>
 						</td>
 						<td class="table-cell">
-							<a href="<%=list_tasks[i].url %>"><%= list_tasks[i].task_inc %></a>
+							<%= list_tasks[i].path_name %><%= list_tasks[i].task_inc %>
 						</td>
 					</tr>
 				<% } %>

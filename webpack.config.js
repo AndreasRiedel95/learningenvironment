@@ -15,6 +15,7 @@ module.exports = {
     quill_setUp: './src/js/admin/quill_setUp.js',
     validate_form: './src/js/admin/validate_form.js',
     admin_index: './src/js/admin/admin_index.js',
+    admin_form: './src/js/admin/admin_form.js',
     index: './src/js/index.js',
     test: './src/js/testHandler.js',
     init: './src/js/initSVG.js'

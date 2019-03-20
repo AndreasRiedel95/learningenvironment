@@ -3,6 +3,13 @@ var Task = require('../models/task');
 var TaskInstance = require('../models/taskinstance');
 var SectionInstance = require('../models/sectioninstance');
 var async = require('async');
+var urlify = require('urlify').create({
+  addEToUmlauts: true,
+  szToSs: false,
+  spaces: "_",
+  trim: true
+});
+
 
 // Display list of all sections.
 exports.section_list = function(req, res, next) {
@@ -62,20 +69,28 @@ exports.section_create_post = [
 		next();
 	},
 	(req, res, next) => {
-		// Create a Section object with escaped and trimmed data.
+		var str = urlify(req.body.name);
+		str = str.toLowerCase();
 		var section = new Section({ 
 			name: req.body.name,
+			path_name: str,
 			section_number: null,
 			description: req.body.description,
 			shortdescription: req.body.shortdescription,
-			suffix: req.body.suffix,
 			taskinstance: req.body.taskinstance,
 		});
-		console.log(req.body)
-		section.save(function (err) {
-			if (err) { return next(err); }
-			   //successful - redirect to new section record.
-			   res.redirect(section.url);
+ 		Section.findOne({'path_name': str}).exec(function(err, found_section) {
+	        if (err) { return next(err); }
+	        if(found_section) {
+	        	TaskInstance.find().exec(function(err, results) {
+					res.render('admin/section_form', { title: 'Erstelle neue Section', section: section, taskinstances: results, error: "Dieser Sectionname existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+				});
+	        } else {
+				section.save(function (err) {
+					if (err) { return next(err); }
+					res.redirect(section.url);
+				});
+			}
 		});
 	}
 ];
@@ -169,23 +184,34 @@ exports.section_update_get = function(req, res, next) {
 };
 
 // Handle section update on POST.
-exports.section_update_post = [
-	(req, res, next) => {
-		Section.findByIdAndUpdate(req.params.id, 
-		{ '$set': 
-			{   
-				name: req.body.name,
-				description: req.body.description,
-				shortdescription: req.body.shortdescription,
-				suffix: req.body.suffix,
-				taskinstance: req.body.taskinstance,
-			} 
-		}, function (err,thetaskinstance) {
-			if (err) { return next(err); }
-			   res.redirect(thetaskinstance.url);
-			});
-		}
-];
+exports.section_update_post = (req, res, next) => {
+	var str = urlify(req.body.name);
+    str = str.toLowerCase();
+    var section = new Section(
+    	{
+			name: req.body.name,
+			path_name: str,
+			section_number: null,
+			description: req.body.description,
+			shortdescription: req.body.shortdescription,
+			taskinstance: req.body.taskinstance,
+			_id: req.params.id,
+    	});
+		Section.findOne({'path_name': str}).exec(function(err, found_section) {
+	        if (err) { return next(err); }
+	         if((found_section) && (JSON.stringify(found_section._id) !== JSON.stringify(section._id))) {
+	        	TaskInstance.find().exec(function(err, results) {
+					res.render('admin/section_form', { title: 'Erstelle neue Section', section: section, taskinstances: results, error: "Dieser Sectionname existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+				});
+	        } else {
+				Section.findByIdAndUpdate(req.params.id, section, {}, function (err,thesection) {
+					if (err) { return next(err); }
+					res.redirect(thesection.url);
+				});
+			}
+		});
+
+}
 
 exports.update_taskinstance_order = function(req, res, next) {
 	console.log("hhh",req.body.objects)

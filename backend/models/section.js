@@ -6,9 +6,9 @@ var SectionSchema = new Schema(
   {
     section_number: {type: Number, default: null},
     name: {type: String, required: true, max: 100},
+    path_name: {type: String, required: true},
     description: {type: String, required: true},
     shortdescription: {type: String, required: true, max: 200},
-    suffix: {type: String},
     taskinstance: [{type: Schema.Types.ObjectId, ref: 'TaskInstance'}]
   }
 );

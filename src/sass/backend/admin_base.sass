@@ -220,10 +220,14 @@ h4
 
 .order-list
 	background-color: $grey
-	padding: 10px
-	padding-bottom: 5px
+	padding: 0
 	border-radius: 4px
 	width: 500px
+	padding: 10px
+	padding-bottom: 5px
+	&:has(> li)
+		padding: 0
+	
 
 .order-list-item
 	padding: 10px

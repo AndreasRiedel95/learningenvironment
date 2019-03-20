@@ -3,6 +3,13 @@ var Section = require('../models/section');
 var async = require('async')
 const fs = require('fs');
 var path = require('path');
+var urlify = require('urlify').create({
+  addEToUmlauts: true,
+  szToSs: false,
+  spaces: "_",
+  trim: true
+});
+
 
 exports.admin = function(req, res, next) {   
         res.render('admin/index', { title: 'Admin Übersicht'});
@@ -111,32 +118,31 @@ exports.sectioninstance_create_post = [
         next();
     },
     (req, res, next) => {
+        var str = urlify(req.body.name);
+        str = str.toLowerCase();
         var sectioninstance = new SectionInstance(
             { 
                 name: req.body.name,
+                path_name: str,
                 description: req.body.description,
                 sectionInstance_number: req.body.sectionInstance_number,
                 section: req.body.section
             }
         );
 
-        SectionInstance.findOne({'sectionInstance_number': req.body.sectionInstance_number})
-        .exec(function(err, found_sectionInstance) {
+       SectionInstance.findOne({'path_name': str}).exec(function(err, found_sectioninstance) {
             if (err) { return next(err); }
-            if(found_sectionInstance) {
-                res.render('admin/sectioninstance_form_unique', { url: found_sectionInstance.url, title: 'Section-Instance existiert bereits'});
+            if(found_sectioninstance) {
+                Section.find().exec(function(err, results) {
+                    res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error: "Dieser Sectioninstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+                });
             } else {
                 sectioninstance.save(function (err) {
                     if (err) { return next(err); }
-                    // Successful - redirect to new record.
                     res.redirect(sectioninstance.url);
                 });
-
             }
-
-        })
-
-
+        });
     }
 ];
 
@@ -211,21 +217,35 @@ exports.sectioninstance_update_get = function(req, res, next) {
 };
 
 // Handle sectioninstance update on POST.
-exports.sectioninstance_update_post = [
-    (req, res, next) => {
-        SectionInstance.findByIdAndUpdate(req.params.id, 
-        { '$set': 
-            {   name: req.body.name,
-                description: req.body.description,
-                sectionInstance_number: req.body.sectionInstance_number,
-                section: req.body.section,
-            } 
-        }, function (err,thesectioninstance) {
-            if (err) { return next(err); }
-            res.redirect(thesectioninstance.url);
-        });
-    }
-];
+exports.sectioninstance_update_post = (req, res, next) => {
+    var str = urlify(req.body.name);
+    str = str.toLowerCase();
+    var sectioninstance = new SectionInstance(
+        { 
+            name: req.body.name,
+            path_name: str,
+            description: req.body.description,
+            sectionInstance_number: req.body.sectionInstance_number,
+            section: req.body.section,
+            _id: req.params.id
+        }
+    );
+
+   SectionInstance.findOne({'path_name': str}).exec(function(err, found_sectioninstance) {
+        if (err) { return next(err); }
+        if((found_sectioninstance) && (JSON.stringify(found_sectioninstance._id) !== JSON.stringify(sectioninstance._id))) {
+            Section.find().exec(function(err, results) {
+                res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error: "Dieser Sectioninstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+            });
+        } else {
+            SectionInstance.findByIdAndUpdate(req.params.id, sectioninstance, {}, function (err,thesectioninstance) {
+                if (err) { return next(err); }
+                res.redirect(thesectioninstance.url);
+            });
+        }
+    });
+
+}
 
 
 
@@ -286,7 +306,7 @@ exports.udpate_section_order = function(req, res, next) {
                 section: req.body.objects   
             }
         }, 
-    function (err,thetaskinstance) {
+    function (err,thesectionjinstance) {
         if (err) { return next(err); }
         return res.send({success: true});
     });

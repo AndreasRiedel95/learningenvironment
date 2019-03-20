@@ -6,7 +6,7 @@
 				<tr>
 					<th class="table-cell --header">Nummer</th>
 					<th class="table-cell --header">Name</th>
-					<th class="table-cell --header">Increment (Ordnernummer)</th>
+					<th class="table-cell --header">Ordnername</th>
 				</tr>
 				<% for(var i = 0; i<taskinstance_list.length; i++) { %>
 					<tr>
@@ -17,7 +17,7 @@
 							<a href="<%=taskinstance_list[i].url %>"><%= taskinstance_list[i].name %></a>
 						</td>
 						<td class="table-cell">
-							<a href="<%=taskinstance_list[i].url %>"><%= taskinstance_list[i].taskinstance_inc %></a>
+							<%= taskinstance_list[i].path_name %><%= taskinstance_list[i].taskinstance_inc %>
 						</td>
 					</tr>
 				<% } %>

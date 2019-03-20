@@ -6,6 +6,7 @@
 				<tr>
 					<th class="table-cell --header">Nummer</th>
 					<th class="table-cell --header">Name</th>
+					<th class="table-cell --header">Ordnername</th>
 				</tr>
 				<% for(var i = 0; i<sectioninstance_list.length; i++) { %>
 					<tr>
@@ -14,6 +15,9 @@
 						</td>
 						<td class="table-cell">
 							<a href="<%=sectioninstance_list[i].url %>"><%= sectioninstance_list[i].name %></a>
+						</td>
+						<td class="table-cell">
+							<%= sectioninstance_list[i].path_name %><%= sectioninstance_list[i].sectioninstance_inc %>
 						</td>
 					</tr>
 				<% } %>

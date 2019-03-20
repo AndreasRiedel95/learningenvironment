@@ -6,6 +6,9 @@
 		<form action="" name="form1" method="POST">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
+					<% if(typeof error !== 'undefined') { %>
+						<label class="input-label_error  --error" for="name"><%= error %></label>
+					<% } %>
 					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 					<input class="input validate-me-js" type="text" name="name" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="name">Titel</label>
@@ -23,18 +26,27 @@
 				</div>
 			</div>
 			<% if(taskinstances.length > 0) { %>
-			<div class="form-group">
-				<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
-				<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstance suchen...</label>
-			</div>
-				<div class="input-list mb-50 mt-10">
-					<% for(var i = 0; i<taskinstances.length; i++) { %>
-						<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
-							<input type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>">
-							<label class="code-label list-value" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].taskInstance_number %>. <%= taskinstances[i].name %> (<%= taskinstances[i].taskinstance_inc %>)</label>
-						</label>
-					<% } %>
+			<div class="form-group-col-2">
+				<div>
+					<div class="form-group">
+						<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
+						<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstance suchen...</label>
+					</div>
+					<div class="input-list mb-50 mt-10">
+						<% for(var i = 0; i<taskinstances.length; i++) { %>
+							<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
+								<input class="objectCheckbox" onchange="displayObject(this)" type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>">
+								<label class="code-label list-value" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].taskInstance_number %>. <%= taskinstances[i].name %> (<%= taskinstances[i].taskinstance_inc %>)</label>
+							</label>
+						<% } %>
+					</div>
 				</div>
+				<div>
+					Ausgewählte Objekte:
+					<ul class="selectedObjectsList mt-10"></ul>
+				</div>
+			</div>
+
 			<% } else { %>
 				<p>Leider gibt es keine Task Instanzen die Sie auswählen können</p>
 			<% } %>
@@ -44,6 +56,9 @@
 		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
+					<% if(typeof error !== 'undefined') { %>
+						<label class="input-label_error  --error" for="name"><%= error %></label>
+					<% } %>
 					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 					<input class="input validate-me-js" type="text" name="name" value="<%= section.name %>" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="name">Titel</label>
@@ -62,17 +77,25 @@
 				</div>
 			</div>
 			<% if(taskinstances.length > 0) { %>
-				<div class="form-group">
-					<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
-					<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstance suchen...</label>
-				</div>
-				<div class="input-list mb-50 mt-10">
-					<% for(var i = 0; i<taskinstances.length; i++) { %>
-						<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
-							<input type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>" <% if(taskinstances[i].checked) { %> checked <% } %>>
-							<label class="code-label list-value" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].taskInstance_number %>. <%= taskinstances[i].name %> (<%= taskinstances[i].taskinstance_inc %>)</label>
-						</label>
-					<% } %>
+				<div class="form-group-col-2">
+					<div>
+						<div class="form-group">
+							<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
+							<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstance suchen...</label>
+						</div>
+						<div class="input-list mb-50 mt-10">
+							<% for(var i = 0; i<taskinstances.length; i++) { %>
+								<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
+									<input class="objectCheckbox" onchange="displayObject(this)" type="checkbox" name="taskinstance" id="<%= taskinstances[i]._id %>" value="<%= taskinstances[i]._id %>" <% if(taskinstances[i].checked) { %> checked <% } %>>
+									<label class="code-label list-value" for="<%= taskinstances[i]._id %>"><%= taskinstances[i].taskInstance_number %>. <%= taskinstances[i].name %> (<%= taskinstances[i].taskinstance_inc %>)</label>
+								</label>
+							<% } %>
+						</div>
+					</div>
+					<div>
+						Ausgewählte Objekte:
+						<ul class="selectedObjectsList mt-10"></ul>
+					</div>
 				</div>
 			<% } else { %>
 				<p>Leider gibt es keine Task Instanzen die Sie auswählen können</p>
@@ -80,6 +103,7 @@
 			<button class="btn" type="submit">Submit</button>
 		</form>
 	<% } %>
+	<script src="/js/admin_form.bundle.js"></script>
 	<script src="/js/quill_setUp.bundle.js"></script>
 	<script src="/js/validate_form.bundle.js"></script>
 </div>
