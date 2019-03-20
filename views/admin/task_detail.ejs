@@ -1,8 +1,8 @@
 <% extend('admin_base') %>
 	<div class="content mb-50">
 		<link rel="stylesheet" type="text/css" href="/css/backend/quillEditor_admin.css"/>
-		<p><strong>Task Increment (Funktionsname): </strong></p>
-		<p class="mb-20"><%= task.task_inc %></p>
+		<p><strong>Name für Ordnerstruktur: </strong></p>
+		<p class="mb-20"><%= task.path_name %><%= task.task_inc %></p>
 		<p><strong>Task Nummer: </strong></p>
 		<p class="mb-20"><%= task.task_number %></p>
 		<p><strong>Task Name: </strong></p>

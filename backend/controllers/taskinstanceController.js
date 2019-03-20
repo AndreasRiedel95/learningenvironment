@@ -1,7 +1,13 @@
 var TaskInstance = require('../models/taskinstance');
 var Task = require('../models/task');
 var Section = require('../models/section');
-var async = require('async')
+var async = require('async');
+var urlify = require('urlify').create({
+  addEToUmlauts: true,
+  szToSs: false,
+  spaces: "_",
+  trim: true
+});
 
 
 // Display list of all TaskInstances.
@@ -61,26 +67,33 @@ exports.taskinstance_create_post = [
         next();
     },
     (req, res, next) => {
-        // Extract the validation errors from a request.
-
-        // Create a BookInstance object with escaped and trimmed data.
+        var str = urlify(req.body.name);
         var taskinstance = new TaskInstance(
-          { name: req.body.name,
-            taskInstance_number: null,
-            htmlCode_inital: req.body.htmlCode_inital,
-            cssCode_inital: req.body.cssCode_inital,
-            htmlCode_user: null,
-            cssCode_user: null,
-            suffix: req.body.suffix,
-            task: req.body.task
-           });
-
-            // Data from form is valid
-            taskinstance.save(function (err) {
-                if (err) { return next(err); }
-                   // Successful - redirect to new record.
-                   res.redirect(taskinstance.url);
+            { 
+                name: str,
+                taskInstance_number: null,
+                htmlCode_inital: req.body.htmlCode_inital,
+                cssCode_inital: req.body.cssCode_inital,
+                htmlCode_user: null,
+                cssCode_user: null,
+                suffix: req.body.suffix,
+                task: req.body.task,
+                _id: req.params.id
+            });
+        
+        TaskInstance.findOne({'name': str}).exec(function(err, found_taskinstance) {
+            if (err) { return next(err); }
+            if(found_taskinstance) {
+                Task.find().exec(function(err, results) {
+                    res.render('admin/taskinstance_form', { title: 'Erstelle neue Task-Instance', taskinstance: taskinstance, tasks: results, error: "Dieser TaskInstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});
                 });
+            } else {
+                taskinstance.save(function (err) {
+                    if (err) { return next(err); }
+                    res.redirect(taskinstance.url);
+                });
+            }
+        });
     }
 ];
 
@@ -170,27 +183,47 @@ exports.taskinstance_update_get = function(req, res, next) {
                 }
             }
             // Success.
-            res.render('admin/taskinstance_form', { title: 'Update  TaskInstance', tasks : results.tasks, taskinstance:results.taskinstance });
+            res.render('admin/taskinstance_form', { title: 'Update TaskInstance', tasks : results.tasks, taskinstance:results.taskinstance });
     });
 };
 
 // Handle taskinstance update on POST.
-exports.taskinstance_update_post = [
-    (req, res, next) => {
-        TaskInstance.findByIdAndUpdate(req.params.id, 
-        { '$set': 
-            {   name: req.body.name,
-                htmlCode_inital: req.body.htmlCode_inital,
-                cssCode_inital: req.body.cssCode_inital,
-                suffix: req.body.suffix,
-                task: req.body.task,
-            } 
-        }, function (err,thetaskinstance) {
-            if (err) { return next(err); }
-               res.redirect(thetaskinstance.url);
+exports.taskinstance_update_post = (req, res, next) => {
+    var str = urlify(req.body.name);
+    console.log("str", str)
+    var taskinstance = new TaskInstance(
+        {
+            name: str,
+            htmlCode_inital: req.body.htmlCode_inital,
+            cssCode_inital: req.body.cssCode_inital,
+            task: req.body.task,
+            _id: req.params.id
+        }
+    );
+      
+    TaskInstance.findOne({'name': str}).exec(function(err, found_taskinstance) {
+        if(err) {return next(err);}
+        console.log("found", found_taskinstance)
+        console.log("task", taskinstance)
+        if(found_taskinstance && found_taskinstance.name !== taskinstance.name) {
+            Task.find().exec(function(err, results) {
+                res.render('admin/taskinstance_form', { title: 'Update TaskInstance', taskinstance: taskinstance, tasks: results, error: "Dieser TaskInstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+            })
+        } else {
+            TaskInstance.findByIdAndUpdate(req.params.id, 
+                { '$set': {   
+                    name: req.body.name,
+                    htmlCode_inital: req.body.htmlCode_inital,
+                    cssCode_inital: req.body.cssCode_inital,
+                    task: req.body.task} 
+                }, function (err,thetaskinstance) {
+                    if (err) { return next(err); }
+                    res.redirect(thetaskinstance.url);
             });
         }
-];
+    })
+}
+
 
 // Handle taskinstance update (only user code)on button click.
 exports.taskinstance_update_btn = function(req, res, next) {

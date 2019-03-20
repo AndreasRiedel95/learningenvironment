@@ -1,6 +1,12 @@
 var Task = require('../models/task');
 var TaskInstance = require('../models/taskinstance')
 var async = require('async');
+var urlify = require('urlify').create({
+  addEToUmlauts: true,
+  szToSs: false,
+  spaces: "_",
+  trim: true
+});
 
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
@@ -44,24 +50,32 @@ exports.task_create_get = function(req, res) {
 };
 
 // Handle task create on POST.
-exports.task_create_post =  [
-	(req, res, next) => {
-		var task = new Task(
-			{
-				task_number: null,
-				name: req.body.name,
-				description: req.body.description,
-                suffix: req.body.suffix,
-				task_solved: false
-			}
-		);
-        task.save(function (err) {
-            if (err) { return next(err); }
-            // Task saved. Redirect to genre detail page.
-            res.redirect(task.url);
-        });
-    }
-];
+exports.task_create_post = (req, res, next) => {
+    var str = urlify(req.body.name);
+        str = str.toLowerCase();
+    var task = new Task(
+      {
+        name: req.body.name,
+        path_name: str,
+        description: req.body.description,
+        task_solved: false,
+        _id: req.params.id
+      }
+    );
+
+    Task.findOne({'name': str}).exec(function(err, found_task) {
+        if (err) { return next(err); }
+        if(found_task) {
+            res.render('admin/task_form', { title: 'Erstelle neuen Task', task: task, error: "Dieser Taskname existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+        } else {
+            task.save(function (err) {
+                if (err) { return next(err); }
+                // Task saved. Redirect to genre detail page.
+                res.redirect(task.url);
+            });
+        }
+    });
+}
 
 
 // Display task delete form on GET.
@@ -138,42 +152,33 @@ exports.task_update_get = function(req, res, next) {
 };
 
 // Handle task update on POST.
-exports.task_update_post = [
-    // Validate that the name field is not empty.
-    body('name', 'Title name required').isLength({ min: 1 }).trim(),
-    // Sanitize (trim and escape) the name field.
-    sanitizeBody('name').trim().escape(),
-    // Process request after validation and sanitization.
-    (req, res, next) => {
-        // Extract the validation errors from a request .
-        const errors = validationResult(req);
-    // Create a genre object with escaped and trimmed data (and the old id!)
-        var task = new Task(
-          {
-			name: req.body.name,
-			description: req.body.description,
-			task_solved: false,
-            suffix: req.body.suffix,
-			_id: req.params.id
-          }
-        );
-
-
-        if (!errors.isEmpty()) {
-            // There are errors. Render the form again with sanitized values and error messages.
-            res.render('admin/task_form', { title: 'Update Task', task: task, errors: errors.array()});
-        return;
-        }
-        else {
-            // Data from form is valid. Update the record.
-            Task.findByIdAndUpdate(req.params.id, task, {}, function (err,thetask) {
+exports.task_update_post = (req, res, next) => {
+    var str = urlify(req.body.name);
+    var str = str.toLowerCase();
+    var task = new Task(
+      {
+		name: req.body.name,
+        path_name: str,
+		description: req.body.description,
+		task_solved: false,
+		_id: req.params.id
+      }
+    );
+    console.log(task)
+    Task.findOne({'path_name': str}).exec(function(err, found_task) {
+        if (err) { return next(err); }
+            if((found_task) && (JSON.stringify(found_task._id) !== JSON.stringify(task._id))) {
+                res.render('admin/task_form', { title: 'Update Task', task: task, error: "Dieser Taskname existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+            } else {
+                // Data from form is valid. Update the record.
+                Task.findByIdAndUpdate(req.params.id, task, {}, function (err,thetask) {
                 if (err) { return next(err); }
-                   // Successful - redirect to genre detail page.
-                   res.redirect(thetask.url);
-                });
+                // Successful - redirect to genre detail page.
+                res.redirect(thetask.url);
+            });
         }
-    }
-];
+    })
+};
 
 // Handle task update on Button click .
 exports.task_udpate_solved = function(req, res, next) {

@@ -5,6 +5,9 @@
 		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
+					<% if(typeof error !== 'undefined') { %>
+						<label class="input-label_error  --error" for="task_number"><%= error %></label>
+					<% } %>
 					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 					<input class="input validate-me-js" type="text" name="name" placeholder=" " onchange="validateField(this)">
 					<label class="input-label" for="name">Titel*</label>
@@ -38,6 +41,9 @@
 		<form action="" method="POST" name="form1">
 			<div class="form-group-col-2">
 				<div class="form-group mb-40">
+					<% if(typeof error !== 'undefined') { %>
+						<label class="input-label_error  --error" for="task_number"><%= error %></label>
+					<% } %>
 					<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 					<input class="input validate-me-js" type="text" name="name" placeholder=" " value="<%= taskinstance.name %>" onchange="validateField(this)">
 					<label class="input-label" for="name">Titel</label>

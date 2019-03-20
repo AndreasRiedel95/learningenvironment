@@ -8,7 +8,7 @@ var TaskSchema = new Schema(
     task_number: {type: Number, default: null},
     name: {type: String, required: true, max: 100},
     description: {type: String, required: true},
-    suffix: {type: String},
+    path_name: {type: String, required: true},
     task_solved: {type: Boolean, required: true, default: false}
   }
 );
