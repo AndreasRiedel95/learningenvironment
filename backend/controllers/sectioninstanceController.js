@@ -260,18 +260,19 @@ SectionInstance.findById(req.params.id)
             return next(err);
         }
 
-        let sectioninstancePath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section`
+        let sectioninstancePath = `./src/js/tests/${sectioninstance.path_name}${sectioninstance.sectioninstance_inc}/section`
         ensureDirectoryExistence(sectioninstancePath)
         //REALLY BAD CODE STYLE
         if(sectioninstance.section !== null) {
             for(let i = 0; i<sectioninstance.section.length; i++) {
-                let sectionPath = `./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_inc}/section`
+                let sectionPath = `./src/js/tests/${sectioninstance.path_name}${sectioninstance.sectioninstance_inc}/${sectioninstance.section[i].path_name}${sectioninstance.section[i].section_inc}/section`
                 ensureDirectoryExistence(sectionPath)
                 if(sectioninstance.section[i].taskinstance !== null) {
                     for(let j = 0; j<sectioninstance.section[i].taskinstance.length; j++) {
                         if(sectioninstance.section[i].taskinstance[j].task !== null){
                             for(let k = 0; k < sectioninstance.section[i].taskinstance[j].task.length; k++) {
-                                fs.appendFile(`./src/js/tests/sectioninstance${sectioninstance.sectionInstance_number}/section${sectioninstance.section[i].section_inc}/test${sectioninstance.section[i].taskinstance[j].taskinstance_inc}.js`, `//self.run${sectioninstance.section[i].taskinstance[j].task[k].task_inc} – ${sectioninstance.section[i].taskinstance[j].task[k].name}, `, function(err) {
+                                fs.appendFile(`./src/js/tests/${sectioninstance.path_name}${sectioninstance.sectioninstance_inc}/${sectioninstance.section[i].path_name}${sectioninstance.section[i].section_inc}/${sectioninstance.section[i].taskinstance[j].path_name}${sectioninstance.section[i].taskinstance[j].taskinstance_inc}.js`, `//self.${sectioninstance.section[i].taskinstance[j].task[k].path_name}${sectioninstance.section[i].taskinstance[j].task[k].task_inc} – ${sectioninstance.section[i].taskinstance[j].task[k].name},`, function(err) {
+                                    console.log(`./src/js/tests/${sectioninstance.path_name}${sectioninstance.sectioninstance_inc}/${sectioninstance.section[i].path_name}${sectioninstance.section[i].section_inc}/${sectioninstance.section[i].taskinstance[j].path_name}${sectioninstance.section[i].taskinstance[j].taskinstance_inc}.js`, `//self.${sectioninstance.section[i].taskinstance[j].task[k].path_name}${sectioninstance.section[i].taskinstance[j].task[k].task_inc} – ${sectioninstance.section[i].taskinstance[j].task[k].name}`)
                                     if(err) {
                                         return console.log("file", err);
                                     }

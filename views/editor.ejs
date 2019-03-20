@@ -24,7 +24,7 @@
 	<div class="code-saved-wrapper --error">
 		Bitte Aufgabe auswählen um Code zu speichern
 	</div>
-	<div class="header" data-sectioninstancenumber="<%= sectioninstance[0].sectionInstance_number %>">
+	<div class="header" data-sectioninstancepath="<%= sectioninstance[0].path_name %>" data-sectioninstancenumber="<%= sectioninstance[0].sectioninstance_inc %>">
 		<h2 class="header-2 white"><%=section.name %></h2>
 		<div class="header-btn-wrapper">
 			<button class="btn reset css" title="Setze deinen Lernfortschritt zurück">
@@ -51,13 +51,13 @@
 			<% if(section.taskinstance !== null) { %>
 				<% for(let i = 0; i<section.taskinstance.length; i++){ %>
 					<div class="input-wrapper --task">
-						<input id="<%= section.taskinstance[i].taskinstance_inc %>" type="radio" name="task" class="taskInput --task" data-taskinstanceid="<%= section.taskinstance[i]._id %>">
+						<input id="<%= section.taskinstance[i].taskinstance_inc %>" type="radio" name="task" data-taskinstancepath="<%= section.taskinstance[i].path_name %>"class="taskInput --task" data-taskinstanceid="<%= section.taskinstance[i]._id %>">
 						<label class="task-number" for="<%= section.taskinstance[i].taskinstance_inc %>" onclick="setTaskDescription(this); setInitialGrid();">A<%= section.taskinstance[i].taskInstance_number %></label>
 					</div>
 				<% } %>
 			<% } %>
 		</div>
-		<div class="description-wrapper" data-descriptionnumber="<%= section.section_inc %>">
+		<div class="description-wrapper" data-sectionpath="<%= section.path_name %>" data-sectioninc="<%= section.section_inc %>">
 			<div class="description-scroll-wrapper" data-description="description">
 				<div class="task-headline-wrapper">
 					<h3 class="header-3 mr-10">Beschreibung</h3>
@@ -86,7 +86,7 @@
 								</div>
 								<div class="task-description quill-format">
 										<%- section.taskinstance[i].task[j].description %>
-									<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-testnumber="<%= section.taskinstance[i].task[j].task_inc %>" data-testnumberarray="<%= j + 1 %>">Run Test</button>
+									<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-tasknumber="<%= section.taskinstance[i].task[j].task_inc %>" data-taskpath="<%= section.taskinstance[i].task[j].path_name %>" data-tasksarray="<%= j + 1 %>">Run Test</button>
 								</div>
 							</div>
 						<% } %>

@@ -12,7 +12,8 @@
 		<p class="mt-20"><strong>Hierachie: </strong></p>
 		<ol class="mb-20 with-out-decimal">
 			<li>
-				<strong><%= sectioninstance.sectionInstance_number %>. Section-Instanz:</strong> <%= sectioninstance.name %> (<%= sectioninstance.sectionInstance_number %>)
+				<strong><%= sectioninstance.sectionInstance_number %>. Section-Instanz:</strong> <%= sectioninstance.name %> 
+				(<%= sectioninstance.path_name%><%= sectioninstance.sectioninstance_inc %>)
 			</li>
 			<%if(sectioninstance.section !== null) { %>
 				<ol class="with-out-decimal order-list --sectioninstance drag-sort-enable" data-listid="<%= sectioninstance._id %>">

@@ -9,21 +9,26 @@ testButtons.forEach((button) => {
 	button.addEventListener('click', () => {
 		let htmlEditor = editors[0]
 		let cssEditor = editors[1]
+		//Variable for getting correct Path
 		let section = document.querySelector('.description-wrapper');
-		let sectionNumber = parseInt(section.dataset.descriptionnumber);
-		let testNumber = parseInt(button.dataset.testnumber);
-		let testNumberArray = parseInt(button.dataset.testnumberarray);
+		let sectionNumber = parseInt(section.dataset.sectioninc);
+		let sectionPath = section.dataset.sectionpath;
+		let taskNumber = parseInt(button.dataset.tasknumber);
+		let taskPath = button.dataset.taskpath;
+		let tasksArray = parseInt(button.dataset.tasksarray);
 		let taskInstanceNumber = document.querySelector('.taskInput:checked').id;
+		let taskInstancePath = document.querySelector('.taskInput:checked').dataset.taskinstancepath;
 		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
 		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
-		callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testNumber, sectionNumber, sectioninstanceNumber, testNumberArray);
+		let sectioninstancePath = sectioninstance.dataset.sectioninstancepath;
+		console.log("sectioninstancePath", sectioninstancePath)
+		callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstancePath, taskNumber, taskPath, sectionNumber, sectionPath, sectioninstanceNumber, sectioninstancePath, tasksArray);
 		//Avoid Spamming on button
 		avoidSpamM(button, isClickedRun)
-		console.log("in")
 	})
 })
 
-function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, sectionNumber, sectioninstanceNumber, testNumberArray) {
+function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstancePath, taskNumber, taskPath, sectionNumber, sectionPath, sectioninstanceNumber, sectioninstancePath, tasksArray) {
 
 	// delete all require cache everytime a test gets called otherwise test can be called only once
 	for (const path in require.cache) {
@@ -57,31 +62,31 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, testnumber, 
 	let htmlNode = document.createElement('html');
 	htmlNode.innerHTML = htmlStr;
 	let cssString = cssEditor.getValue();
-	let runNumber = `run${testnumber}`.toString();
-	console.log(runNumber)
+	let testFunc = `${taskPath}${taskNumber}`.toString();
+	console.log(testFunc)
 	
 	//Check if Code is Valide
-	let runBtn = document.querySelector(`.run-test-js[data-testnumber="${testnumber}"]`);
+	let runBtn = document.querySelector(`.run-test-js[data-tasknumber="${taskNumber}"]`);
 	if(runBtn.classList.contains('validateErrorHTML') || runBtn.classList.contains('validateErrorCSS')){
 		errorMsgWrapper.classList.add('--active');
 		errorMsgField.innerHTML = "Bitte überprüfen Sie ihren Code auf Validität";
-		taskInputs[testNumberArray-1].classList.add('--error');
+		taskInputs[tasksArray-1].classList.add('--error');
 	} else {
 		//check if files are existing
 		try {
 		 	//Require dynamically the correct test file
-		 	console.log(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${taskInstanceNumber}`)
-			let testRun = require(`./tests/sectioninstance${sectioninstanceNumber}/section${sectionNumber}/test${taskInstanceNumber}`);
+		 	console.log(`./tests/${sectioninstancePath}${sectioninstanceNumber}/${sectionPath}${sectionNumber}/${taskInstancePath}${taskInstanceNumber}`)
+			let testRun = require(`./tests/${sectioninstancePath}${sectioninstanceNumber}/${sectionPath}${sectionNumber}/${taskInstancePath}${taskInstanceNumber}`);
 			let TestInstance = new testRun();
 			try {
 		 		//Call dynamically the correct test function in test file
-				TestInstance[runNumber](htmlNode, cssString, test, h, HelperInstance)
+				TestInstance[testFunc](htmlNode, cssString, test, h, HelperInstance)
 					.then(() => {
 						//Check if Test result is already append to DOM (ASYNC)
 						checkElementExists('.assert') 
 							.then(() => {
 								//Element exists now -> call checkInstance
-								CheckInstance.check(taskInstanceNumber, testNumberArray);
+								CheckInstance.check(taskInstanceNumber, tasksArray);
 							});
 					}).catch((err) => {
 						console.log("No Promise resolved in Test file" + err.message);
