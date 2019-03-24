@@ -1,6 +1,7 @@
 <% extend('admin_base') %>
 	<div class="content mb-20">
 		<p class="mb-20">Alle sich in der Datenbank befindenen Taskinstanzen:</p>
+		<a class="btn mb-20" href="/admin/taskinstance/create">Erstelle neue Task-Instanz</a>
 		<% if(taskinstance_list.length > 0) { %>
 			<table>
 				<tr>

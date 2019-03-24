@@ -37,6 +37,10 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 		}
 	}
 	//Beautify Test result and append to DOM
+
+	//Tape Catch catches all erros in console and displaying in error message 
+	//If you want to see error consoles in console uncomment the next line and comment out the tacpe-catch line
+	// const test = require('tape-css')(require('tape'));
 	const test = require('tape-css')(require('tape-catch'));
 	const h = require('hyperscript');
 	require('tape-dom')(test);

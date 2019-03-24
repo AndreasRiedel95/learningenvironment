@@ -28,7 +28,7 @@
 				<strong><%= taskinstance.taskInstance_number %><%if(taskinstance.taskInstance_number) { %>. <% } %> Taskinstance</strong> <%= taskinstance.name %> (<%= taskinstance.taskinstance_inc %>)
 			</li>
 
-			<%if(taskinstance.task !== null) { %>
+			<%if(taskinstance.task !== null && taskinstance.task.length > 0) { %>
 				<ol class="with-out-decimal order-list --taskinstance drag-sort-enable" data-listid="<%= taskinstance._id %>">
 					<% for(var i = 0; i<taskinstance.task.length; i++) { %>
 						<li class="order-list-item" data-listitemid="<%= taskinstance.task[i]._id %>">

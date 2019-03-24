@@ -210,55 +210,59 @@ let editorRendering = (() => {
 
 //Toggle TaskDescription 
 let setTaskDescription = (ele) => {
-	console.log(ele)
-	let taskinstancenumber = parseInt(ele.htmlFor);
-	let parent = ele.parentNode;
-	let inputs = document.querySelectorAll('.input-wrapper.--task');
-	var index = Array.from(inputs).findIndex(input => input === parent);
-	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-taskinstancenumber="${taskinstancenumber}"])`);
-	taskDescriptions.forEach((taskDescription) => {
-		taskDescription.classList.add('--not-active');
-		console.log(taskDescription)
-	})
+	saveCode().then(() => {
+		console.log(ele)
+		let taskinstancenumber = parseInt(ele.htmlFor);
+		let parent = ele.parentNode;
+		let inputs = document.querySelectorAll('.input-wrapper.--task');
+		var index = Array.from(inputs).findIndex(input => input === parent);
+		let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-taskinstancenumber="${taskinstancenumber}"])`);
+		taskDescriptions.forEach((taskDescription) => {
+			taskDescription.classList.add('--not-active');
+			console.log(taskDescription)
+		})
 
-	let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
-	activeTaskDescription.classList.remove('--not-active');
-	let htmlEditor = editorRendering.getHTMLEditor();
-	let cssEditor = editorRendering.getCSSEditor();
-	let taskinstance = ele.parentNode.querySelector('.taskInput')
-	let taskinstanceObj;
-	fetch(`/admin/btn/taskinstance/${taskinstance.dataset.taskinstanceid}/get`, {
-			method: 'GET'
-		}).then((res) => {
-			if (res.ok) return res.json()
-		}).then((data) => {
-			taskinstanceObj = data
-			if(taskinstanceObj.taskinstance.htmlCode_user !== null) {
-				htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_user);
-				
-			} else {
-				htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_inital);
-			}
+		let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
+		activeTaskDescription.classList.remove('--not-active');
+		let htmlEditor = editorRendering.getHTMLEditor();
+		let cssEditor = editorRendering.getCSSEditor();
+		let taskinstance = ele.parentNode.querySelector('.taskInput')
+		let taskinstanceObj;
+		fetch(`/admin/btn/taskinstance/${taskinstance.dataset.taskinstanceid}/get`, {
+				method: 'GET'
+			}).then((res) => {
+				if (res.ok) return res.json()
+			}).then((data) => {
+				taskinstanceObj = data
+				if(taskinstanceObj.taskinstance.htmlCode_user !== null || taskinstanceObj.taskinstance.htmlCode_user !== "") {
+					htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_user);
+					
+				} else {
+					htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_inital);
+				}
 
-			if(taskinstanceObj.taskinstance.cssCode_user !== null) {
-				cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_user);
-			} else {
-				cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_inital);
-			}
-		}).catch(function(error) {
-			console.log(error)
-  });   	
+				if(taskinstanceObj.taskinstance.cssCode_user !== null || taskinstanceObj.taskinstance.cssCode_user !== "") {
+					cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_user);
+				} else {
+					cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_inital);
+				}
+			}).catch(function(error) {
+				console.log(error)
+	  });
+ });   	
 
 }
 
 //Toggle Section Description
 let setDescription = (ele) => {
-	let descriptionWrapper = document.querySelector(`.description-scroll-wrapper[data-description="description"]`);
-	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
-	taskDescriptions.forEach((taskDescription) => {
-		taskDescription.classList.add('--not-active');
-	})
-	descriptionWrapper.classList.remove('--not-active');
+	saveCode().then(() => {
+		let descriptionWrapper = document.querySelector(`.description-scroll-wrapper[data-description="description"]`);
+		let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
+		taskDescriptions.forEach((taskDescription) => {
+			taskDescription.classList.add('--not-active');
+		})
+		descriptionWrapper.classList.remove('--not-active');
+	});
 }
 
 //Reset User Code
@@ -304,7 +308,7 @@ document.addEventListener("keydown", function(e) {
     if (e.repeat) { return }
     if(!keyfired) {
     	keyfired = true;
-    	saveCode();
+    	saveCode("manuell");
     }
     
   }
@@ -322,9 +326,11 @@ document.addEventListener("keyup", function(e) {
 //Save code on button click
 let updateBtn = document.querySelector('.save');
 let isClickedSave = false;
-updateBtn.addEventListener('click', saveCode, false)
+updateBtn.addEventListener('click', () => {
+	saveCode("manuell")
+}, false)
 
-function saveCode() {
+function saveCode(value) {
 	let html_editor = editorRendering.getHTMLEditor();
 	let css_editor = editorRendering.getCSSEditor();
 	let savedWrapper = document.querySelector('.code-saved-wrapper');
@@ -337,7 +343,7 @@ function saveCode() {
 		setTimeout(() => {
 			savedWrapper.classList.remove('--saved');
 		}, 2000)
-	} else {
+	} else if(taskinstance === null && value === "manuell") {
 		savedWrapperError.classList.add('--saved');
 		setTimeout(() => {
 			savedWrapperError.classList.remove('--saved');
@@ -345,6 +351,7 @@ function saveCode() {
 
 	}
 	avoidSpamM(updateBtn, isClickedSave);
+	return Promise.resolve()
 }
 
 //make Editors accessible for other files

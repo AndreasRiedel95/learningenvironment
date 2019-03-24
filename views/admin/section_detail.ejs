@@ -29,7 +29,7 @@
 				<li>
 					<strong><%= section.section_number %> <% if( section.section_number ) { %>. <% } %> Section</strong> <%= section.name %> (<%= section.path_name %><%= section.section_inc %>)
 				</li>
-				<%if(section.taskinstance.length > 0) { %>
+				<%if(section.taskinstance !== null && section.taskinstance.length > 0) { %>
 					<ol class="with-out-decimal order-list --section drag-sort-enable" data-listid="<%= section._id %>">
 						<% for(var i = 0; i<section.taskinstance.length; i++) { %>
 							<li class="order-list-item" data-listitemid = "<%= section.taskinstance[i]._id %>">

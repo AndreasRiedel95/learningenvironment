@@ -48,6 +48,7 @@ function selectLocalImage() {
 function imageHandler(image, callback) {
 	var data = new FormData();
 	data.append('image', image);
+	spinnerFire(true);
 	fetch('https://api.imgur.com/3/image', {
 		method: 'POST',
 		headers: {
@@ -55,8 +56,11 @@ function imageHandler(image, callback) {
 		},
 		body: data
 	}).then(response => {
-		return response.json()
+		if(response.ok) {
+			return response.json()
+		}
 	}).then(data => {
+		spinnerFire(false)
 		insertToEditor(data.data.link)
 	}).catch(error => {
 		console.error(JSON.stringify(error));
@@ -68,4 +72,10 @@ function insertToEditor(url) {
 	console.log("utl", url)
 	const range = quill.getSelection();
 	quill.insertEmbed(range.index, 'image', url);
+}
+
+function spinnerFire(boolean) {
+	let spinner = document.querySelector('.loading-screen');
+	boolean === true ? spinner.classList.add('m--active') : spinner.classList.remove('m--active')
+
 }

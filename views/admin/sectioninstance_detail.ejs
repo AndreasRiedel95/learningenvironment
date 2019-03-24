@@ -15,7 +15,7 @@
 				<strong><%= sectioninstance.sectionInstance_number %>. Section-Instanz:</strong> <%= sectioninstance.name %> 
 				(<%= sectioninstance.path_name%><%= sectioninstance.sectioninstance_inc %>)
 			</li>
-			<%if(sectioninstance.section !== null) { %>
+			<%if(sectioninstance.section !== null && sectioninstance.section.length > 0) { %>
 				<ol class="with-out-decimal order-list --sectioninstance drag-sort-enable" data-listid="<%= sectioninstance._id %>">
 					<% for(var i = 0; i<sectioninstance.section.length; i++) { %>
 						<li class="order-list-item" data-listitemid = "<%= sectioninstance.section[i]._id %>">

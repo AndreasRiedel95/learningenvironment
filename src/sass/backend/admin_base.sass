@@ -254,3 +254,19 @@ h4
 		color: transparent
 	&.drag-sort-active > ol
 		opacity: 0
+
+.loading-screen
+	position: fixed
+	top: 0
+	bottom: 0
+	left: 0
+	right: 0
+	display: none
+	flex-direction: column
+	color: #fff
+	justify-content: center
+	align-items: center
+	background-color: rgba(0,0,0,0.8)
+	z-index: 1000000000
+	&.m--active
+		display: flex
