@@ -77,6 +77,13 @@ const helper = function () {
 			return false;
 		}
 	}
+
+	self.openWindow = function(width, height) {
+		let widthStr = width.toString();
+		let heightStr = height.toString();
+		var newWindow = window.open("", '_blank', `width=${widthStr}, height=${heightStr}`);
+   		return newWindow
+	}
 }
 
 module.exports = helper;

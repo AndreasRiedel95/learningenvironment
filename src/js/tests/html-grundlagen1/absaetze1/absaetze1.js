@@ -3,50 +3,44 @@
 const test1 = function () {
 	let self = this;
 	self.absaetze_erstellen1 = (htmlNode, cssString, test, h, HelperInstance) => {
-		let myWindow = window.open("", "", "width=600, height=500");
-		test.only((
+		let myWindow = HelperInstance.openWindow(500, 500)
+		
+		test((
 		'check if all ps are there'
 		), { dom: htmlNode, styles: cssString, document: myWindow.document}, (asset) => {
+			myWindow.onload = function() {
+			let backgroundColor = myWindow.getComputedStyle(htmlNode.querySelector('.testi'), null).getPropertyValue('background-color')
 			let psLength = htmlNode.querySelectorAll('p').length;
-			// asset.deepEqual(
-			// 	backgroundColor, 'rgb(255, 0, 0)', "Sind Sie sicher, dass Sie 3 <p> Elemente benutzt haben?"
-			// );
+			asset.deepEqual(
+				backgroundColor, 'rgb(0, 0, 255)', "Muss blau sein"
+			);
 			asset.end();
-			console.log(myWindow.getComputedStyle(htmlNode.querySelector('.testi'), null).getPropertyValue('background-color'))
+			myWindow.close()
+		 }			
 		});
-
 
 		
 		return Promise.resolve()
 	}
 	self.absaetze_klassennamen2 = (htmlNode, cssString, test, h, HelperInstance) => {
-		self.absaetze_erstellen1(htmlNode, cssString, test, h, HelperInstance)
 		let classArray = ["p1", "p2", "p3"];
 		let ps = htmlNode.querySelectorAll('p');
+		let myWindow2 = HelperInstance.openWindow(200, 500)
 
-		test((
-		'check if all ps have a class'
-		), { dom: htmlNode }, (asset) => {
-			ps.forEach((p) => {
-				asset.notEqual(
-					p.classList.length, 0, "Sind Sie sicher, dass jedes <p>-Elemente eine andere Klasse besitzt?"
-				);
-			});
+	test((
+		'check if all ps are there'
+		), { dom: htmlNode, styles: cssString, document: myWindow2.document}, (asset) => {
+			myWindow2.onload = function() {
+			let backgroundColor = myWindow2.getComputedStyle(htmlNode.querySelector('.testi'), null).getPropertyValue('background-color')
+			console.log(backgroundColor)
+			let psLength = htmlNode.querySelectorAll('p').length;
+			asset.deepEqual(
+				backgroundColor, 'rgb(0, 0, 0)', "Muss rot sein"
+			);
 			asset.end();
-		})
-
-		test((
-		'check if all ps have the right classname'
-		), { dom: htmlNode }, (asset) => {
-			ps.forEach((p) => {
-				let className = p.className;
-				let boolean = HelperInstance.checkIfInArrayContains(classArray, className)
-				asset.ok(
-					boolean, "Sind Sie sicher, dass die Elemente, die vorgegebenen Klassennamen haben?"
-				);
-			});
-			asset.end();
-		})
+			myWindow2.close()
+		 }			
+		});
 
 		return Promise.resolve()
 	}
