@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/reset.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/general.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/section_overview/sectioninstance_overview.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 </head>
 <body>
 	<div class="header --big mb-50">
@@ -14,9 +15,7 @@
 		<p class="header-text" onclick="scrollTo()">
 			Lernen Sie die Grundlagen von HTML5 und CSS3 kennen und beginnen Sie mit dem Erstellen und Bearbeiten von Webseiten. 
 		</p>
-		<svg class="arrow-down-svg">
-			<use xlink:href="#svg-arrow-down" />
-		</svg>
+		<i class="arrow-down-svg" data-feather="chevron-down"></i>
 	</div>
 	<div class="section-container mb-30 scroll-to-js">
 		<p>
@@ -27,7 +26,9 @@
 	<div class="section-container">
 		<% for(var i = 0; i<sectioninstances.length; i++) { %>
 			<a href="/<%= sectioninstances[i]._id %>/overview" class="section-grid-container mb-50">
-				<div class="section-grid__image"></div>
+				<div class="section-grid__image">
+					<i class="code-icon" data-feather="activity"></i>
+				</div>
 				<div class="section-grid__text-container">
 					<h4 class="section-grid__text-container__headline"><%= sectioninstances[i].name %></h4>
 					<p class="section-grid__text-container__text"><%- sectioninstances[i].description %></p>
@@ -36,6 +37,10 @@
 		<%}%>
 	</div>
 	<script src="/js/init.bundle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script>
+		feather.replace()
+	</script> 
 </body>
 </html>
 

@@ -58,3 +58,12 @@
   .taskInput:checked ~ .task-number {
     background-color: #292929;
     color: #fff; }
+
+.description-icon {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none; }

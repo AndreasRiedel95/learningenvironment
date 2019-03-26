@@ -18,7 +18,7 @@ module.exports = {
     admin_form: './src/js/admin/admin_form.js',
     index: './src/js/index.js',
     test: './src/js/testHandler.js',
-    init: './src/js/initSVG.js'
+    init: './src/js/initScroll.js'
   },
   devtool: 'inline-source-map',
   output: {

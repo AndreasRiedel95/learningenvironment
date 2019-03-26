@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .headeline-wrapper {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
@@ -52,20 +53,15 @@
   -ms-flex-direction: row;
   flex-direction: row; }
 
-.file-icon {
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  width: 20px;
-  height: 15px; }
-  .file-icon.--import {
-    background-image: url("../../img/upload.png"); }
-  .file-icon.--export {
-    background-image: url("../../img/download.png"); }
-  .file-icon.--reset {
-    margin-top: -2px;
-    height: 18px;
-    background-image: url("../../img/reset.png"); }
+.down-upload-icon {
+  width: 18px;
+  height: 18px;
+  margin-top: -2px;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none; }
 
 .file-import-wrapper {
   margin-left: 10px;
@@ -86,9 +82,6 @@
   opacity: 0;
   cursor: pointer; }
 
-.reset {
-  margin-right: 10px; }
-
 .html-css-wrapper {
   position: relative;
   height: 100%;
@@ -104,6 +97,37 @@
   grid-template-columns: 100%;
   -ms-grid-rows: auto 10px auto;
   grid-template-areas: "html" "css"; }
+
+.html-css-wrapper-overlay:before {
+  content: "Bitte wählen Sie eine Aufgabe aus um den Code zu bearbeiten";
+  font-size: 14px;
+  line-height: 25px;
+  text-align: center;
+  padding: 10px;
+  font-weight: 300;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  z-index: 10000000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8); }
+
+.html-css-wrapper-overlay.m--not-active:before {
+  content: "";
+  display: none;
+  pointer-events: all; }
 
 .section {
   position: relative;
@@ -170,7 +194,7 @@
   width: 100%;
   position: absolute;
   bottom: 0;
-  padding: 5px 10px 10px 0px;
+  padding: 10px 10px 10px 0px;
   z-index: 100000;
   background-color: #223342;
   display: none; }
@@ -179,30 +203,30 @@
     display: -ms-flexbox;
     display: flex; }
 
+.error-close-icon {
+  width: 18px;
+  height: 18px;
+  stroke: #F7465D;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer; }
+
 .error-message {
   color: #F7465D;
-  font-size: 12px;
+  font-size: 11px;
   padding-right: 10px;
   padding-left: 10px;
-  font-family: "Consolas";
+  font-family: 'IBM Plex Mono', monospace;
   line-height: 1.6;
   font-weight: 300;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-
-.close-wrapper {
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  width: 12px;
-  height: 12px;
-  stroke: #F7465D;
-  cursor: pointer; }
-
-#tests {
-  display: none; }
-
-.task-editor-wrapper ~ pre {
-  display: none; }

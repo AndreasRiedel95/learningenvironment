@@ -6,7 +6,7 @@ const h = require('hyperscript');
 const test1 = function () {
 	let self = this;
 	self.run1 = (htmlNode, cssString, test, h, HelperInstance) => {
-		test((
+		test.only((
 		'check if all ps are there'
 		), { dom: htmlNode }, (asset) => {
 			let psLength = htmlNode.querySelectorAll('p').length;

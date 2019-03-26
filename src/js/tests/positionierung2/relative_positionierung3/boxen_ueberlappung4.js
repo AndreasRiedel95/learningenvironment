@@ -111,4 +111,4 @@ const test2 = function () {
 	}
 }
 
-module.exports = test2;
+module.exports = test2;//self.boxen_einfaerben10 – Boxen einfärben ,//self.boxen_positionieren11 – Boxen positionieren,//self.boxen_einfaerben10 – Boxen einfärben ,//self.boxen_positionieren11 – Boxen positionieren,//self.boxen_einfaerben10 – Boxen einfärben ,//self.boxen_positionieren11 – Boxen positionieren,//self.boxen_einfaerben10 – Boxen einfärben ,//self.boxen_positionieren11 – Boxen positionieren,

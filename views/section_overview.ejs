@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/reset.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/general.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/section_overview/section_overview.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 </head>
 <body>
 	<div class="header --big mb-50">
@@ -14,9 +15,7 @@
 		<p class="header-text">
 			<%- sectioninstance.description %>
 		</p>
-		<svg class="arrow-down-svg">
-			<use xlink:href="#svg-arrow-down" />
-		</svg>
+		<i class="arrow-down-svg" data-feather="chevron-down"></i>
 	</div>
 	<div class="section-container_overview mb-100 scroll-to-js">
 		<%if(sectioninstance.section !== null) {%>
@@ -36,5 +35,9 @@
 		<% } %>
 	</div>
 	<script src="/js/init.bundle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script>
+		feather.replace()
+	</script> 
 </body>
 </html>

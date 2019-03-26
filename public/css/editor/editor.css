@@ -55,8 +55,8 @@
   flex-direction: row; }
 
 .set-inital-grid {
-  height: 25px;
-  width: 44px;
+  height: 20px;
+  width: 38px;
   cursor: pointer;
   background-image: url("../../img/inital_grid.png");
   background-repeat: no-repeat;
@@ -67,15 +67,38 @@
 .save {
   margin-left: 10px; }
 
-.save-disk {
-  height: 25px;
+.save-icon {
   width: 25px;
-  cursor: pointer;
-  background-image: url("../../img/save_disk.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  -ms-flex-negative: 0;
-  flex-shrink: 0; }
+  height: 25px;
+  margin-top: 0px;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none; }
+
+.reset {
+  margin-right: 10px; }
+
+.grid-icon {
+  width: 25px;
+  height: 25px;
+  margin-top: 0px;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none; }
+
+.reset-icon {
+  width: 25px;
+  height: 25px;
+  margin-top: 0px;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none; }
 
 .header {
   position: relative;

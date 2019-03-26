@@ -210,8 +210,9 @@ let editorRendering = (() => {
 
 //Toggle TaskDescription 
 let setTaskDescription = (ele) => {
+		let htmlWrapperOverlay = document.querySelector('.html-css-wrapper-overlay')
+		htmlWrapperOverlay.classList.add('m--not-active')
 	saveCode().then(() => {
-		console.log(ele)
 		let taskinstancenumber = parseInt(ele.htmlFor);
 		let parent = ele.parentNode;
 		let inputs = document.querySelectorAll('.input-wrapper.--task');
@@ -255,6 +256,10 @@ let setTaskDescription = (ele) => {
 
 //Toggle Section Description
 let setDescription = (ele) => {
+	let htmlWrapperOverlay = document.querySelector('.html-css-wrapper-overlay')
+	if(htmlWrapperOverlay.classList.contains('m--not-active')) {
+		htmlWrapperOverlay.classList.remove('m--not-active')
+	}
 	saveCode().then(() => {
 		let descriptionWrapper = document.querySelector(`.description-scroll-wrapper[data-description="description"]`);
 		let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);

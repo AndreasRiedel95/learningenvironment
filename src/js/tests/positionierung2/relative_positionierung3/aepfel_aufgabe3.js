@@ -104,4 +104,4 @@ const test1 = function () {
 	}
 }
 
-module.exports = test1;
+module.exports = test1;//self.apfel_foto7 – Apfel Foto,//self.apfel_positionieren9 – Apfel positionieren ,//self.apfel_einfaerben8 – Apfel einfärben,//self.apfel_foto7 – Apfel Foto,//self.apfel_positionieren9 – Apfel positionieren ,//self.apfel_einfaerben8 – Apfel einfärben,//self.apfel_foto7 – Apfel Foto,//self.apfel_positionieren9 – Apfel positionieren ,//self.apfel_einfaerben8 – Apfel einfärben,//self.apfel_foto7 – Apfel Foto,//self.apfel_positionieren9 – Apfel positionieren ,//self.apfel_einfaerben8 – Apfel einfärben,

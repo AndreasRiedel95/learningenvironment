@@ -3,15 +3,19 @@
 const test1 = function () {
 	let self = this;
 	self.absaetze_erstellen1 = (htmlNode, cssString, test, h, HelperInstance) => {
-		test((
+		let myWindow = window.open("", "", "width=600, height=500");
+		test.only((
 		'check if all ps are there'
-		), { dom: htmlNode }, (asset) => {
+		), { dom: htmlNode, styles: cssString, document: myWindow.document}, (asset) => {
 			let psLength = htmlNode.querySelectorAll('p').length;
-			asset.deepEqual(
-				psLength, 3, "Sind Sie sicher, dass Sie 3 <p> Elemente benutzt haben?"
-			);
+			// asset.deepEqual(
+			// 	backgroundColor, 'rgb(255, 0, 0)', "Sind Sie sicher, dass Sie 3 <p> Elemente benutzt haben?"
+			// );
 			asset.end();
+			console.log(myWindow.getComputedStyle(htmlNode.querySelector('.testi'), null).getPropertyValue('background-color'))
 		});
+
+
 		
 		return Promise.resolve()
 	}

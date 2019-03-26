@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/editor/sidebar.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/editor/description.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/editor/codeEditor.css"/>
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Roboto:300,400,500,700" rel="stylesheet">
 </head>
 <body>
 	<script>
@@ -27,14 +28,14 @@
 	<div class="header" data-sectioninstancepath="<%= sectioninstance[0].path_name %>" data-sectioninstancenumber="<%= sectioninstance[0].sectioninstance_inc %>">
 		<h2 class="header-2 white"><%=section.name %></h2>
 		<div class="header-btn-wrapper">
-			<button class="btn reset css" title="Setze deinen Lernfortschritt zurück">
-				<div class="file-icon --reset"></div>
+			<button class="btn reset --icon" title="Setze deinen Lernfortschritt zurück">
+				<i class="reset-icon" data-feather="rotate-ccw"></i>
 			</button>
 			<button class="btn --icon" type="button" onclick="setInitialGrid()" title='Setzte das Editor-Grid auf Initialgröße'>
-				<div class="set-inital-grid"></div>
+				<i class="grid-icon" data-feather="grid"></i>
 			</button>
 			<button class="save btn --icon" type="button" title='Speicher deinen Code'>
-				<div class="save-disk"></div>
+				<i class="save-icon" data-feather="save"></i>
 			</button>
 		</div>
 	</div>
@@ -43,9 +44,7 @@
 			<div class="input-wrapper --description">
 				<input id="description" type="radio" name="task" class="taskInput --description" checked>
 				<label class="task-number" for="description" onclick="setDescription(); setInitialGrid();" >
-					<svg class="description-svg">
-						<use xlink:href="#svg-description" />
-					</svg>
+					<i class="description-icon" data-feather="book-open"></i>
 				</label>
 			</div>
 			<% if(section.taskinstance !== null) { %>
@@ -61,9 +60,7 @@
 			<div class="description-scroll-wrapper" data-description="description">
 				<div class="task-headline-wrapper">
 					<h3 class="header-3 mr-10">Beschreibung</h3>
-					<svg class="svg-close" onclick="closeDescription()">
-						<use xlink:href="#svg-close" />
-					</svg>
+					<i class="description-close-icon" onclick="closeDescription()" data-feather="x"></i>
 				</div>
 				<div class="description-text-wrapper quill-format">
 						<%- section.description %>
@@ -76,9 +73,7 @@
 							<div class="task <% if(!(section.taskinstance[i].task[j].task_solved)){ %> --not-solved <% } %>" data-taskid="<%= section.taskinstance[i].task[j]._id %>">
 								<div class="task-headline-wrapper">
 									<h3 class="header-3 mr-10"><%= section.taskinstance[i].task[j].name  %></h3>
-										<svg class="svg-close" onclick="closeDescription()">
-											<use xlink:href="#svg-close" />
-										</svg>
+									<i class="description-close-icon" onclick="closeDescription()" data-feather="x"></i>
 								</div>
 								<div class="task-solved-wrapper">
 									<input type="checkbox" class="task-solved" <% if(section.taskinstance[i].task[j].task_solved){ %> checked <% } %>>
@@ -95,17 +90,17 @@
 			<% } %>
 			<div class="resize --vertical" onmousedown="onClickVertical(this)"></div>
 		</div>
-		<div class="html-css-wrapper">
+		<div class="html-css-wrapper html-css-wrapper-overlay">
 			<section class="section --html">
 				<div class="headeline-wrapper">
 					<div class="code-editor-header">index.html</div>
 					<div class="editor-btn-wrapper">
 						<button class="btn export-file --html-js" title="Download File">
-							<div class="file-icon --export"></div>
+							<i class="down-upload-icon" data-feather="download"></i>
 						</button>
 						<div class="file-import-wrapper">
 							<button class="btn" title="Import File">
-								<div class="file-icon --import"></div>
+								<i class="down-upload-icon" data-feather="upload"></i>
 							</button>
 							<input type="file" class="import-file --html-js" title="Upload File">
 						</div>
@@ -121,11 +116,11 @@
 					<div class="code-editor-header">style.css</div>
 					<div class="editor-btn-wrapper">
 						<button class="btn export-file --css-js" title="Download File">
-							<div class="file-icon --export"></div>
+							<i class="down-upload-icon" data-feather="download"></i>
 						</button>
 						<div class="file-import-wrapper">
 							<button class="btn" title="Upload File">
-								<div class="file-icon --import"></div>
+								<i class="down-upload-icon" data-feather="upload"></i>
 							</button>
 							<input type="file" class="import-file --css-js" title="Upload File">
 						</div>
@@ -140,18 +135,18 @@
 		<section class="output">
 			<div class="size-iframe"></div>
 			<div class="error-message-wrapper">
-				<svg class="close-wrapper" onclick="closeErrorMessage()">
-					<use xlink:href="#svg-close" />
-				</svg>
 				<div class="error-message"></div>
+				<i class="error-close-icon" onclick="closeErrorMessage()" data-feather="x"></i>
 			</div>
 			<iframe class="output-iframe"></iframe>
 		</section>
 	</div>
-	<div class="diffHtml"></div>
 	<script src="https://unpkg.com/csslint@1.0.5/dist/csslint.js"></script>
 	<script src="/js/html-hint.js" charset="utf-8"></script>
-	<script src="/js/init.bundle.js"></script> 
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script>
+		feather.replace()
+	</script> 
 	<!-- test is also executing index.js -->
 	<script src="/js/test.bundle.js"></script>
 	
