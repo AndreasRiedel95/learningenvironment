@@ -10,6 +10,7 @@ var quill = new Quill('#editor-container', {
 	      [{ header: [1, 2, 3, false] }],
 	      ['bold', 'italic', 'underline'],
 	      ['image', 'code', 'link'],
+	      [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
 	      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
 	      ['code-block']
 	    ],

@@ -91,11 +91,6 @@
 .taskInput:checked + label > .description-svg {
   fill: #fff; }
 
-.description-svg {
-  width: 25px;
-  height: 18px;
-  fill: #292929; }
-
 .task-headline-wrapper {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
@@ -138,7 +133,7 @@
 
 .quill-format > p > img {
   width: 100%;
-  max-width: 500px;
+  max-width: 300px;
   display: block;
   margin-left: auto;
   margin-right: auto; }
@@ -151,6 +146,9 @@
 
 .quill-format > h3 {
   font-size: 16px; }
+
+.quill-format > .ql-align-center {
+  text-align: center !important; }
 
 .quill-format > pre {
   font-family: Consolas;

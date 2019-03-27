@@ -5,8 +5,9 @@ const fs = require('fs');
 var path = require('path');
 var urlify = require('urlify').create({
   addEToUmlauts: true,
-  szToSs: false,
+  szToSs: true,
   spaces: "_",
+  nonPrintable:"_",
   trim: true
 });
 

@@ -3,8 +3,9 @@ var TaskInstance = require('../models/taskinstance')
 var async = require('async');
 var urlify = require('urlify').create({
   addEToUmlauts: true,
-  szToSs: false,
+  szToSs: true,
   spaces: "_",
+  nonPrintable:"_",
   trim: true
 });
 

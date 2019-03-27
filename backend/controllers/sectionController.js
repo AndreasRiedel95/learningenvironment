@@ -5,8 +5,9 @@ var SectionInstance = require('../models/sectioninstance');
 var async = require('async');
 var urlify = require('urlify').create({
   addEToUmlauts: true,
-  szToSs: false,
+  szToSs: true,
   spaces: "_",
+  nonPrintable:"_",
   trim: true
 });
 

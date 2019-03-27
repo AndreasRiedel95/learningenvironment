@@ -7,7 +7,7 @@ var options = {
         ignoreDuplicateAttributes: false
     };
 let htmlDiffer = new HtmlDiffer(options);
-let htmlDifferOutput = require('node-htmldiff')
+let htmlDifferOutput = require('node-htmldiff');
 
 
 const helper = function () {
@@ -70,6 +70,11 @@ const helper = function () {
 		return {top: Math.round(top - h), right: Math.round(right), bottom: Math.round(bottom), left: Math.round(left)};
 	}
 
+	self.positionOfElement = function(element) {
+		const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
+		return {top, right, bottom, left, x, y};
+	}
+
 	self.checkIfInArrayContains = function(array, a) {
 		if(Array.from(array).includes(a)){
 			return true;
@@ -78,11 +83,28 @@ const helper = function () {
 		}
 	}
 
-	self.openWindow = function(width, height) {
-		let widthStr = width.toString();
-		let heightStr = height.toString();
-		var newWindow = window.open("", '_blank', `width=${widthStr}, height=${heightStr}`);
-   		return newWindow
+	self.checkIfValuesEqual = function(array) {
+		let arr = Array.from(array)
+		return arr.every( v => v === arr[0] );
+	}
+
+	self.createResponsiveFrame = function(width) {
+		widthPx = width.toString() + "px"
+		let frames = document.querySelectorAll('.media-box'); 
+		let count;
+		if(frames === 0) {
+			count = 1;
+		} else {
+			count = frames.length + 1
+		}
+		
+		let frame = document.createElement("iframe");
+		frame.classList.add('media-box')
+		frame.classList.add(`m--${count}`)
+		frame.width = widthPx
+		document.body.appendChild(frame);
+		var destDocument = frame.contentDocument;
+   		return destDocument
 	}
 }
 

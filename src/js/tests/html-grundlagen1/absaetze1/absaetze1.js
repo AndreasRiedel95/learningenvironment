@@ -1,46 +1,47 @@
 //self.absaetze_erstellen1 – Absätze erstellen,//self.absaetze_klassennamen2 – Absätze Klassennamen ,//self.absaetze_einfaerben3 – Absätze einfärben,
-
 const test1 = function () {
 	let self = this;
 	self.absaetze_erstellen1 = (htmlNode, cssString, test, h, HelperInstance) => {
-		let myWindow = HelperInstance.openWindow(500, 500)
-		
 		test((
 		'check if all ps are there'
-		), { dom: htmlNode, styles: cssString, document: myWindow.document}, (asset) => {
-			myWindow.onload = function() {
-			let backgroundColor = myWindow.getComputedStyle(htmlNode.querySelector('.testi'), null).getPropertyValue('background-color')
+		), { dom: htmlNode }, (asset) => {
 			let psLength = htmlNode.querySelectorAll('p').length;
 			asset.deepEqual(
-				backgroundColor, 'rgb(0, 0, 255)', "Muss blau sein"
+				psLength, 3, "Sind Sie sicher, dass Sie 3 <p> Elemente benutzt haben?"
 			);
 			asset.end();
-			myWindow.close()
-		 }			
 		});
-
 		
 		return Promise.resolve()
 	}
 	self.absaetze_klassennamen2 = (htmlNode, cssString, test, h, HelperInstance) => {
+		self.absaetze_erstellen1(htmlNode, cssString, test, h, HelperInstance)
 		let classArray = ["p1", "p2", "p3"];
 		let ps = htmlNode.querySelectorAll('p');
-		let myWindow2 = HelperInstance.openWindow(200, 500)
 
-	test((
-		'check if all ps are there'
-		), { dom: htmlNode, styles: cssString, document: myWindow2.document}, (asset) => {
-			myWindow2.onload = function() {
-			let backgroundColor = myWindow2.getComputedStyle(htmlNode.querySelector('.testi'), null).getPropertyValue('background-color')
-			console.log(backgroundColor)
-			let psLength = htmlNode.querySelectorAll('p').length;
-			asset.deepEqual(
-				backgroundColor, 'rgb(0, 0, 0)', "Muss rot sein"
-			);
+		test((
+		'check if all ps have a class'
+		), { dom: htmlNode }, (asset) => {
+			ps.forEach((p) => {
+				asset.notEqual(
+					p.classList.length, 0, "Sind Sie sicher, dass jedes <p>-Elemente eine Klasse besitzt?"
+				);
+			});
 			asset.end();
-			myWindow2.close()
-		 }			
-		});
+		})
+
+		test((
+		'check if all ps have the right classname'
+		), { dom: htmlNode }, (asset) => {
+			ps.forEach((p) => {
+				let className = p.className;
+				let boolean = HelperInstance.checkIfInArrayContains(classArray, className)
+				asset.ok(
+					boolean, "Sind Sie sicher, dass die Elemente, die vorgegebenen Klassennamen haben?"
+				);
+			});
+			asset.end();
+		})
 
 		return Promise.resolve()
 	}
@@ -65,4 +66,4 @@ const test1 = function () {
 	}
 }
 
-module.exports = test1; //self.absaetze_erstellen1 – Absätze erstellen,//self.absaetze_klassennamen2 – Absätze Klassennamen ,//self.absaetze_einfaerben3 – Absätze einfärben,
+module.exports = test1;
