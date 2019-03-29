@@ -112,13 +112,23 @@ let editorRendering = (() => {
 	function css_validator(cm, updateLinting, options) {
 		let errors = CodeMirror.lint.css(cm);
 		let onlyErrors = errors.filter(error => error.severity === 'error');
-		let runbtns = document.querySelectorAll('.run-test-js')
+		let runbtns = document.querySelectorAll('.run-test-js');
+		let errorMessageStr = "";
+		if(onlyErrors.length > 0) {
+			Object.keys(onlyErrors).forEach(function(key) {
+				errorMessageStr += onlyErrors[key].message + "\n";
+				console.log(errorMessageStr)
+
+			});
+		}
 		runbtns.forEach((runbtn) => {
 			if(onlyErrors.length > 0) {
 				runbtn.classList.add('validateErrorCSS');
+				runbtn.dataset.csserror = errorMessageStr
 			} else {
 				if(runbtn.classList.contains('validateErrorCSS')) {
 					runbtn.classList.remove('validateErrorCSS');
+					runbtn.dataset.csserror = ""
 				}
 			}
 		})
@@ -129,12 +139,21 @@ let editorRendering = (() => {
 		let errors = CodeMirror.lint.html(cm);
 		let onlyErrors = errors.filter(error => error.severity === 'error');
 		let runbtns = document.querySelectorAll('.run-test-js');
+		let errorMessageStr = "";
+		if(onlyErrors.length > 0) {
+			Object.keys(onlyErrors).forEach(function(key) {
+				console.log(onlyErrors[key].message)
+				errorMessageStr += onlyErrors[key].message + "\n";
+			});
+		}
 		runbtns.forEach((runbtn) => {
 			if(onlyErrors.length > 0) {
 				runbtn.classList.add('validateErrorHTML');
+				runbtn.dataset.htmlerror = errorMessageStr
 			} else {
 				if(runbtn.classList.contains('validateErrorHTML')) {
 					runbtn.classList.remove('validateErrorHTML');
+					runbtn.dataset.htmlerror = ""
 				}
 			}
 		})
@@ -249,9 +268,8 @@ let setTaskDescription = (ele) => {
 				}
 			}).catch(function(error) {
 				console.log(error)
-	  });
- });   	
-
+		});
+	});
 }
 
 //Toggle Section Description
@@ -308,24 +326,23 @@ function resetCode(btn) {
 //Save Code on KeyDown cmd + s or ctrl + s
 let keyfired = false;
 document.addEventListener("keydown", function(e) {
-  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
-    e.preventDefault();
-    if (e.repeat) { return }
-    if(!keyfired) {
-    	keyfired = true;
-    	saveCode("manuell");
-    }
-    
-  }
+	if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
+		e.preventDefault();
+		if (e.repeat) { return }
+		if(!keyfired) {
+			keyfired = true;
+			saveCode("manuell");
+		}
+	}
 }, false);
 
 document.addEventListener("keyup", function(e) {
-  if (e.keyCode == 83) {
-    e.preventDefault();
-    setTimeout(() => {
-    	keyfired = false;
-    }, 2000)
-  }
+	if (e.keyCode == 83) {
+		e.preventDefault();
+		setTimeout(() => {
+			keyfired = false;
+		}, 2000)
+	}
 }, false);
 
 //Save code on button click

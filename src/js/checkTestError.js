@@ -23,7 +23,7 @@ const checkIfError = function () {
 						let errMsg = fail.querySelector('.name').innerHTML;
 						//TODO Make array of errors which shpuld not show up
 						if(((errMsg.indexOf("TypeError") === -1) || (errMsg.indexOf("ReferenceError") === -1) )) {
-							errorMsgField.innerHTML += "<br>" + errMsg;
+							errorMsgField.innerHTML += errMsg + "<br />";
 							taskInputs[testNumberArray-1].classList.add('--error');
 							i++;
 						}

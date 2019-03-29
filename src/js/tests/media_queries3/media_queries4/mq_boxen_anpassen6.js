@@ -229,4 +229,4 @@ const test1 = function () {
 	}
 }
 
-module.exports = test1; //self.mq_boxen_erstellen14 – MQ Boxen erstellen,//self.mq_boxen_responisve_mobile15 – MQ Boxen responisve mobile,//self.mq_boxen_responsive_tablet16 – MQ Boxen responsive tablet,//self.mq_responsive_boxen_desktop17 – MQ Responsive Boxen Desktop,
+module.exports = test1; //self.mq_boxen_erstellen14 – MQ Boxen erstellen,//self.mq_boxen_responisve_mobile15 – MQ Boxen responisve mobile,//self.mq_boxen_responsive_tablet16 – MQ Boxen responsive tablet,//self.mq_responsive_boxen_desktop17 – MQ Responsive Boxen Desktop,//self.mq_boxen_erstellen14 – MQ Boxen erstellen,//self.mq_boxen_responisve_mobile15 – MQ Boxen responisve mobile,//self.mq_boxen_responsive_tablet16 – MQ Boxen responsive tablet,//self.mq_responsive_boxen_desktop17 – MQ Responsive Boxen Desktop,

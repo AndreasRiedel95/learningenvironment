@@ -34,7 +34,7 @@
 						<li class="order-list-item" data-listitemid="<%= taskinstance.task[i]._id %>">
 							<strong class="object-number"><%= taskinstance.task[i].task_number %></strong><strong>. Task:</strong> 
 							<a draggable="true" href="<%= taskinstance.task[i].url %>"><%= taskinstance.task[i].name%></a> 
-							<span>(<%= taskinstance.task[i].name %><%= taskinstance.task[i].task_inc %>)</span>
+							<span>(<%= taskinstance.task[i].path_name %><%= taskinstance.task[i].task_inc %>)</span>
 						</li>
 					<% } %>
 				</ol>

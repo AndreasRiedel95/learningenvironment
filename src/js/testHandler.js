@@ -73,7 +73,13 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 	let runBtn = document.querySelector(`.run-test-js[data-tasknumber="${taskNumber}"]`);
 	if(runBtn.classList.contains('validateErrorHTML') || runBtn.classList.contains('validateErrorCSS')){
 		errorMsgWrapper.classList.add('--active');
-		errorMsgField.innerHTML = "Bitte überprüfen Sie ihren Code auf Validität";
+		let errorMessageHtml = runBtn.dataset.htmlerror
+		errorMessageHtml !== "" ? errorMessageHtml = "HTML: " + errorMessageHtml : errorMessageHtml = "";
+		let errorMessageCss = runBtn.dataset.csserror;
+		errorMessageCss !== "" ? errorMessageCss = "CSS: " + errorMessageCss : errorMessageCss = "";
+		let totalErrorMessage = "";
+		errorMessageCss !== "" && errorMessageHtml !== "" ? totalErrorMessage = `${errorMessageHtml} \n ${errorMessageCss}` : totalErrorMessage = errorMessageHtml + errorMessageCss;
+		errorMsgField.innerText = totalErrorMessage;
 		taskInputs[tasksArray-1].classList.add('--error');
 	} else {
 		//check if files are existing
