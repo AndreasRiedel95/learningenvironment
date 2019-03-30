@@ -67,8 +67,7 @@ const test1 = function () {
 		test(('check if image is relative'), {dom: htmlNode, styles: cssString}, (asset) => {
 			
 			let img = htmlNode.querySelector('img');
-			let imgPos = getComputedStyle(img).getPropertyValue('position')
-
+			let imgPos = HelperInstance.getStyleProperty('img', 'position')
 			console.log(imgPos)
 			asset.equal(
 				 imgPos, 'relative', "Bitte überprüfen Sie ob das Bild die CSS-Regel relative besitzt"
@@ -80,9 +79,9 @@ const test1 = function () {
 		test(('check if image top -20'), {dom: htmlNode, styles: cssString}, (asset) => {
 			let img = htmlNode.querySelector('img');
 			img.style.display = "block"
-			console.log("top", HelperInstance.getPositionOf(img).top)
+			console.log("top", HelperInstance.getPositionOfElementWindow(img).top)
 			asset.equal(
-				 HelperInstance.getPositionOf(img).top, -20, "Bitte überprüfen Sie ob das Bild um 20px nach oben verschoben ist"
+				 HelperInstance.getPositionOfElementWindow(img).top, -20, "Bitte überprüfen Sie ob das Bild um 20px nach oben verschoben ist"
 			)
 			asset.end();
 

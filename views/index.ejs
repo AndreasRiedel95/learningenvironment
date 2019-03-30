@@ -10,6 +10,24 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 </head>
 <body>
+	<div class="modal">
+		<div class="modal-content-wrapper">
+			<div class="modal-backdrop" onclick="closeModal()"></div>
+			<div class="modal-content">
+				<h2 class="header-2">Hi there! &#128075</h2>
+				<p>
+					Wir haben festgestellt, dass du diese Applikation nicht mit einem Chrome-Browser aufrufst.
+				</p>
+				<p class="mb-20">
+					Um sicher zustellen, dass die Applikation einwandfrei funktioniert, bitten wir dich, diese in einem Chrome-Browser zu öffnen.
+				</p>
+				<div class="button-wrapper">
+					<button class="btn --green mr-10"><a class="link_button" target="_blank" href="https://www.google.com/chrome/?brand=CHBD&gclid=CjwKCAjwp_zkBRBBEiwAndwD9VBSUXdngv00h_h-Dukto45Q0eE-6WZhwELAzwZsQ_tl9olTg7AMwBoCyeoQAvD_BwE&gclsrc=aw.ds">Chrome herunterladen</a></button>
+					<button class="btn --red" onclick="closeModal()" >Ohne Chrome weiter</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="header --big mb-50">
 		<h1 class="header-1 white">HTML- und CSS- Editor</h1>
 		<p class="header-text" onclick="scrollTo()">
@@ -37,6 +55,7 @@
 		<%}%>
 	</div>
 	<script src="/js/init.bundle.js"></script>
+	<script src="/js/scrollPolyfill.bundle.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 	<script>
 		feather.replace()

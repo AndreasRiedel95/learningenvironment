@@ -10,7 +10,7 @@ let htmlDiffer = new HtmlDiffer(options);
 let htmlDifferOutput = require('node-htmldiff');
 
 
-const helper = function () {
+const helper = function (htmlNode) {
 	let self = this;
 	self.removeAllTextNodes = function (element) {
 		var nodes = element.childNodes;
@@ -28,16 +28,13 @@ const helper = function () {
 			}
 		}
 	}
+
 	self.htmlDifferences = function (expected, actual, option) {
 		//If Option is striced then its not allwoed to add sth expected has to be exactly the same then actual
 		//If no option is given then actual has to be the same then expected but nodes and text can be added to it 
-		console.log("expected",expected)
-		console.log("actual", actual)
 		var diff = htmlDiffer.diffHtml(expected.outerHTML, actual.outerHTML);
 		let isEqual = htmlDiffer.isEqual(expected.outerHTML, actual.outerHTML);
 		let res = logger.getDiffText(diff, { charsAroundDiff: 0 });
-		console.log(diff)
-		console.log(res)
 		if(option !== 'undefined' && option !== 'strict' ) {
 			if(!isEqual) {
 				for(var i = 0 ; i < diff.length; i++){
@@ -52,6 +49,7 @@ const helper = function () {
 		}
 		return isEqual;
 	}
+	
 	self.checkIfDuplicatesInArray = function (a) {
 		for(var i = 0; i <= a.length; i++) {
 			for(var j = i; j <= a.length; j++) {
@@ -64,15 +62,32 @@ const helper = function () {
 		//No Duplicates in there
 		return false;
 	}
-	self.getPositionOf = function(element) {
-		var h =  Math.round(window.innerHeight)
-		const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
-		return {top: Math.round(top - h), right: Math.round(right), bottom: Math.round(bottom), left: Math.round(left)};
+	self.getPositionOfElementWindow = function(ele) {
+		let boolean = false;
+		boolean = self.checkIfEleExists(ele)
+		if(boolean) {
+			let element;
+			typeof ele === 'string' ? element = htmlNode.querySelector(ele) : element = ele;
+			var h =  Math.round(window.innerHeight)
+			const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
+			return {top: Math.round(top - h), right: Math.round(right), bottom: Math.round(bottom), left: Math.round(left)};
+		} else {
+			return null;
+		}
+		
 	}
 
-	self.positionOfElement = function(element) {
-		const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
-		return {top, right, bottom, left, x, y};
+	self.positionOfElement = function(ele) {
+		let boolean = false;
+		boolean = self.checkIfEleExists(ele)
+		if(boolean) {
+			let element;
+			typeof ele === 'string' ? element = htmlNode.querySelector(ele) : element = ele;
+			const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
+			return {top, right, bottom, left, x, y};
+		} else {
+			return null;
+		}
 	}
 
 	self.checkIfInArrayContains = function(array, a) {
@@ -87,6 +102,33 @@ const helper = function () {
 		let arr = Array.from(array)
 		return arr.every( v => v === arr[0] );
 	}
+
+	self.getStyleProperty = function(ele, property) {
+		let boolean = false;
+		boolean = self.checkIfEleExists(ele)
+		let backgroundColor;
+		if(boolean){
+			let element;
+			typeof ele === 'string' ? element = htmlNode.querySelector(ele) : element = ele
+			backgroundColor = getComputedStyle(element, null).getPropertyValue(property)	
+		} else {
+			backgroundColor = null;
+		}
+		return backgroundColor;
+	}
+
+	self.checkIfEleExists = function(ele) {
+		let element;
+		typeof ele === 'string' ? element = htmlNode.querySelector(ele) : element = ele;
+		let boolean = false
+		if(element !== null) {
+			boolean = true;
+		} else {
+			boolean = false;
+		}
+		return boolean; 
+
+	}  
 
 	self.createResponsiveFrame = function(width) {
 		widthPx = width.toString() + "px"

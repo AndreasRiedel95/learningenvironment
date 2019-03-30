@@ -131,11 +131,17 @@ exports.sectioninstance_create_post = [
             }
         );
 
-       SectionInstance.findOne({'path_name': str}).exec(function(err, found_sectioninstance) {
+       SectionInstance.findOne({$or: [{path_name: str},{sectionInstance_number: req.body.sectionInstance_number}]}).exec(function(err, found_sectioninstance) {
             if (err) { return next(err); }
             if(found_sectioninstance) {
                 Section.find().exec(function(err, results) {
-                    res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error: "Dieser Sectioninstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+                    if(JSON.stringify(found_sectioninstance.path_name) === JSON.stringify(sectioninstance.path_name) && (JSON.stringify(found_sectioninstance.sectionInstance_number) === JSON.stringify(sectioninstance.sectionInstance_number))) {
+                        res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error_pathname: "Dieser Sectioninstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen.", error_number: "Dieser Sectioninstance-Nummer existiert bereits. Bitte benutzen Sie einen andere Nummer."});    
+                    } else if (JSON.stringify(found_sectioninstance.sectionInstance_number) === JSON.stringify(sectioninstance.sectionInstance_number)) {
+                        res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error_number: "Dieser Sectioninstance-Nummer existiert bereits. Bitte benutzen Sie einen andere Nummer."});    
+                    } else if(JSON.stringify(found_sectioninstance.path_name) === JSON.stringify(sectioninstance.path_name)) {
+                        res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error_pathname: "Dieser Sectioninstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});    
+                    } 
                 });
             } else {
                 sectioninstance.save(function (err) {
@@ -232,11 +238,17 @@ exports.sectioninstance_update_post = (req, res, next) => {
         }
     );
 
-   SectionInstance.findOne({'path_name': str}).exec(function(err, found_sectioninstance) {
+   SectionInstance.findOne({$or: [{path_name: str},{sectionInstance_number: req.body.sectionInstance_number}]}).exec(function(err, found_sectioninstance) {
         if (err) { return next(err); }
         if((found_sectioninstance) && (JSON.stringify(found_sectioninstance._id) !== JSON.stringify(sectioninstance._id))) {
             Section.find().exec(function(err, results) {
-                res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error: "Dieser Sectioninstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});
+                if(JSON.stringify(found_sectioninstance.path_name) === JSON.stringify(sectioninstance.path_name) && (JSON.stringify(found_sectioninstance.sectionInstance_number) === JSON.stringify(sectioninstance.sectionInstance_number))) {
+                    res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error_pathname: "Dieser Sectioninstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen.", error_number: "Dieser Sectioninstance-Nummer existiert bereits. Bitte benutzen Sie einen andere Nummer."});    
+                } else if (JSON.stringify(found_sectioninstance.sectionInstance_number) === JSON.stringify(sectioninstance.sectionInstance_number)) {
+                    res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error_number: "Dieser Sectioninstance-Nummer existiert bereits. Bitte benutzen Sie einen andere Nummer."});    
+                } else if(JSON.stringify(found_sectioninstance.path_name) === JSON.stringify(sectioninstance.path_name)) {
+                    res.render('admin/sectioninstance_form', { title: 'Erstelle neue Section-Instance', sectioninstance: sectioninstance, sections: results, error_pathname: "Dieser Sectioninstance-Name existiert bereits. Bitte benutzen Sie einen anderen Namen."});    
+                } 
             });
         } else {
             SectionInstance.findByIdAndUpdate(req.params.id, sectioninstance, {}, function (err,thesectioninstance) {

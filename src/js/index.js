@@ -23,7 +23,6 @@ const resetUserCodeM = require('./module/resetUserCode');
 //   event.returnValue = '';
 // });
 
-console.log(section)
 
 document.addEventListener("DOMContentLoaded", () => {
 	let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-description="description"])`);
@@ -117,7 +116,7 @@ let editorRendering = (() => {
 		if(onlyErrors.length > 0) {
 			Object.keys(onlyErrors).forEach(function(key) {
 				errorMessageStr += onlyErrors[key].message + "\n";
-				console.log(errorMessageStr)
+
 
 			});
 		}
@@ -142,7 +141,6 @@ let editorRendering = (() => {
 		let errorMessageStr = "";
 		if(onlyErrors.length > 0) {
 			Object.keys(onlyErrors).forEach(function(key) {
-				console.log(onlyErrors[key].message)
 				errorMessageStr += onlyErrors[key].message + "\n";
 			});
 		}
@@ -169,12 +167,28 @@ let editorRendering = (() => {
 		if(link !== null) {
 			if (link.getAttribute('rel') === 'stylesheet' && (link.getAttribute('href') === 'style.css' || link.getAttribute('href') === './style.css' )) {
 				boolean = true;
+				let runbtns = document.querySelectorAll('.run-test-js');
+				runbtns.forEach((btn) => {
+					btn.dataset.stylesheeterror = ""
+					btn.classList.remove('validateErrorStylesheet')
+				})
 			} else {
+				styleSheetError();
 				boolean = false;
 			}
+		}else {
+			styleSheetError();
 		}
 		return boolean;
 	} 
+
+	const styleSheetError = () => {
+		let runbtns = document.querySelectorAll('.run-test-js');
+		runbtns.forEach((btn) => {
+			btn.dataset.stylesheeterror = "\n Bitte stellen Sie sicher, dass das Stylesheet korrekt verlinkt ist. Tipp: Es befindet sich im selben Ordner wie 'index.html'"
+			btn.classList.add('validateErrorStylesheet')
+		})
+	}
 
 	const prepareSource = function() {
 		let html = html_editor.getValue();
@@ -239,7 +253,6 @@ let setTaskDescription = (ele) => {
 		let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-taskinstancenumber="${taskinstancenumber}"])`);
 		taskDescriptions.forEach((taskDescription) => {
 			taskDescription.classList.add('--not-active');
-			console.log(taskDescription)
 		})
 
 		let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
@@ -254,14 +267,14 @@ let setTaskDescription = (ele) => {
 				if (res.ok) return res.json()
 			}).then((data) => {
 				taskinstanceObj = data
-				if(taskinstanceObj.taskinstance.htmlCode_user !== null || taskinstanceObj.taskinstance.htmlCode_user !== "") {
+				if(taskinstanceObj.taskinstance.htmlCode_user !== null && taskinstanceObj.taskinstance.htmlCode_user !== "") {
 					htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_user);
 					
 				} else {
 					htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_inital);
 				}
 
-				if(taskinstanceObj.taskinstance.cssCode_user !== null || taskinstanceObj.taskinstance.cssCode_user !== "") {
+				if(taskinstanceObj.taskinstance.cssCode_user !== null && taskinstanceObj.taskinstance.cssCode_user !== "") {
 					cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_user);
 				} else {
 					cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_inital);

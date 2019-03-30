@@ -1,10 +1,4 @@
 @charset "UTF-8";
-html {
-  overflow: hidden; }
-
-body {
-  overflow: hidden; }
-
 .headeline-wrapper {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
@@ -135,6 +129,12 @@ body {
   display: none;
   pointer-events: all; }
 
+.html-css-wrapper-overlay.m--not-active > * {
+  pointer-events: all; }
+
+.html-css-wrapper-overlay > * {
+  pointer-events: none; }
+
 .section {
   position: relative;
   width: 100%;
@@ -245,5 +245,4 @@ body {
 
 .media-box {
   position: absolute;
-  opacity: 1;
-  pointer-events: none; }
+  opacity: 1; }

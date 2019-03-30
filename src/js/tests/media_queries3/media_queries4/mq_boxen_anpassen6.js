@@ -36,8 +36,6 @@ const test1 = function () {
 
 	self.mq_boxen_responisve_mobile15 = (htmlNode, cssString, test, h, HelperInstance) => {
 		let doc1 = HelperInstance.createResponsiveFrame(400)
-		let count = 0; 
-
 		test((
 		'check if box1 is present'
 		), { dom: htmlNode, styles: cssString, document: doc1}, (asset) => {
@@ -74,7 +72,7 @@ const test1 = function () {
 			let box1 =  htmlNode.querySelector('.box1');
 			let box2 =  htmlNode.querySelector('.box2');
 			asset.equal(
-				HelperInstance.positionOfElement(box1).bottom, HelperInstance.positionOfElement(box2).top, "Sind Sie sicher, dass die Elemente untereinander sind?"
+				HelperInstance.positionOfElement('.box1').bottom, HelperInstance.positionOfElement('.box2').top, "Sind Sie sicher, dass die Elemente untereinander sind?"
 			);
 			asset.end();
 		});
@@ -146,7 +144,7 @@ const test1 = function () {
 			let box1 =  htmlNode.querySelector('.box1');
 			let box2 =  htmlNode.querySelector('.box2');
 			asset.equal(
-				HelperInstance.positionOfElement(box1).bottom, HelperInstance.positionOfElement(box2).top, "Sind Sie sicher, dass die Elemente untereinander sind?"
+				HelperInstance.positionOfElement('.box1').bottom, HelperInstance.positionOfElement('.box2').top, "Sind Sie sicher, dass die Elemente untereinander sind?"
 			);
 			asset.end();
 		});
@@ -157,7 +155,7 @@ const test1 = function () {
 			let box3 =  htmlNode.querySelector('.box3');
 			let box2 =  htmlNode.querySelector('.box2');
 			asset.equal(
-				HelperInstance.positionOfElement(box2).bottom, HelperInstance.positionOfElement(box3).top, "Sind Sie sicher, dass die Elemente untereinander sind?"
+				HelperInstance.positionOfElement('.box2').bottom, HelperInstance.positionOfElement('.box3').top, "Sind Sie sicher, dass die Elemente untereinander sind?"
 			);
 			asset.end();
 		});
@@ -203,7 +201,7 @@ const test1 = function () {
 			let box1 =  htmlNode.querySelector('.box1');
 			let box2 =  htmlNode.querySelector('.box2');
 			let box3 =  htmlNode.querySelector('.box3');
-			let heightArray = [HelperInstance.positionOfElement(box1).top, HelperInstance.positionOfElement(box2).top, HelperInstance.positionOfElement(box3).top ]
+			let heightArray = [HelperInstance.positionOfElement('.box1').top, HelperInstance.positionOfElement('.box2').top, HelperInstance.positionOfElement('.box3').top ]
 			let boolean = HelperInstance.checkIfValuesEqual(heightArray);
 			asset.equal(
 				boolean, true, "Sind Sie sicher, dass sich die Boxen in einer Reihe befinden?"

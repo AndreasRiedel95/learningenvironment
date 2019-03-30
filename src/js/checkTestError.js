@@ -22,7 +22,8 @@ const checkIfError = function () {
 						let fail = test.querySelectorAll('.fail')[0];
 						let errMsg = fail.querySelector('.name').innerHTML;
 						//TODO Make array of errors which shpuld not show up
-						if(((errMsg.indexOf("TypeError") === -1) || (errMsg.indexOf("ReferenceError") === -1) )) {
+						console.log((errMsg.indexOf("TypeError") === -1) && (errMsg.indexOf("ReferenceError") === -1))
+						if(((errMsg.indexOf("TypeError") === -1) && (errMsg.indexOf("ReferenceError") === -1) )) {
 							errorMsgField.innerHTML += errMsg + "<br />";
 							taskInputs[testNumberArray-1].classList.add('--error');
 							i++;

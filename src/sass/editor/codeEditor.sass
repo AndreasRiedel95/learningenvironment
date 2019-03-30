@@ -1,9 +1,9 @@
 @import '../base/variable'
 
-html
-	overflow: hidden
-body
-	overflow: hidden
+// html
+// 	overflow: hidden
+// body
+// 	overflow: hidden
 
 .headeline-wrapper
 	background-color: $grey
@@ -104,6 +104,10 @@ body
 			content: ""
 			display: none
 			pointer-events: all
+	&.m--not-active > * 
+		pointer-events: all
+	& > *
+		pointer-events: none
 
 .section
 	position: relative
@@ -200,5 +204,5 @@ body
 .media-box
 	position: absolute
 	opacity: 1
-	pointer-events: none
+	// pointer-events: none
 

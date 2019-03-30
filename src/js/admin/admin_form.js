@@ -5,21 +5,24 @@ function searchList() {
 	label = document.querySelectorAll('.list-value');
 
 	let lastLines = document.querySelectorAll('.--without-break')
-	lastLines.forEach((lastline) => {
-		lastline.classList.remove('--without-break')
-	})
+	if(lastLines !== null) {
+		lastLines.forEach((lastline) => {
+			lastline.classList.remove('--without-break')
+		})
+	}
 
 	// Loop through all list items, and hide those who don't match the search query
 	for (i = 0; i < label.length; i++) {
 		txtValue = label[i].innerHTML;
 		if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			console.log("iiin")
 			label[i].parentNode.classList.remove('--not-in-query') 
 		} else {
 			label[i].parentNode.classList.add('--not-in-query') 
 		}
 		
 		let inQuery = document.querySelectorAll('.checkbox-group:not(.--not-in-query)');
-		if(inQuery !== null) {
+		if(inQuery.length > 0 && inQuery !== null) {
 			inQuery[inQuery.length - 1].classList.add('--without-break')
 		}
 	}
@@ -47,7 +50,7 @@ function displayObject(e) {
 (() => {
 	let checks = document.querySelectorAll('.objectCheckbox')
 	checks.forEach((checkbox) => {
-		if(checkbox.checked) {
+		if(checkbox !== null && checkbox.checked) {
 			displayObject(checkbox)	
 		}
 		

@@ -5,13 +5,16 @@
 	<form action="" name="form1" method="POST">
 		<div class="form-group-col-2">
 			<div class="form-group mb-40">
+				<% if(typeof error_number !== 'undefined') { %>
+					<label class="input-label_error  --error" for="task_number"><%= error_number %></label>
+				<% } %>
 				<label class="input-label_error" for="sectionInstance_number">Dies ist ein Pflichtfled</label>
 				<input class="input validate-me-js" type="number" name="sectionInstance_number" placeholder=" " onchange="validateField(this)">
 				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer*</label>
 			</div>
 			<div class="form-group mb-40">
-				<% if(typeof error !== 'undefined') { %>
-					<label class="input-label_error  --error" for="task_number"><%= error %></label>
+				<% if(typeof error_pathname !== 'undefined') { %>
+					<label class="input-label_error  --error" for="task_number"><%= error_pathname %></label>
 				<% } %>
 				<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 				<input class="input validate-me-js" type="text" name="name" placeholder=" ">
@@ -49,13 +52,16 @@
 	<form action="" method="POST" name="form1">
 		<div class="form-group-col-2">
 			<div class="form-group mb-40">
+				<% if(typeof error_number !== 'undefined') { %>
+					<label class="input-label_error  --error" for="task_number"><%= error_number %></label>
+				<% } %>
 				<label class="input-label_error" for="sectionInstance_number">Dies ist ein Pflichtfled</label>
 				<input class="input validate-me-js" type="number" name="sectionInstance_number"  value="<%= sectioninstance.sectionInstance_number %>" placeholder=" " onchange="validateField(this)">
 				<label class="input-label" for="sectionInstance_number">Sectioninstance Nummer</label>
 			</div>
 			<div class="form-group mb-40">
-				<% if(typeof error !== 'undefined') { %>
-					<label class="input-label_error  --error" for="task_number"><%= error %></label>
+				<% if(typeof error_pathname !== 'undefined') { %>
+					<label class="input-label_error  --error" for="task_number"><%= error_pathname %></label>
 				<% } %>
 				<label class="input-label_error" for="name">Dies ist ein Pflichtfled</label>
 				<input class="input validate-me-js" type="text" name="name" value="<%= sectioninstance.name %>" placeholder=" " onchange="validateField(this)">

@@ -1,7 +1,11 @@
 <% extend('admin_base') %>
 	<div class="content mb-20">
-		<p class="mb-20">Alle sich in der Datenbank befindenen Taskinstanzen:</p>
 		<a class="btn mb-20" href="/admin/taskinstance/create">Erstelle neue Task-Instanz</a>
+		<p class="mb-20">Alle sich in der Datenbank befindenen Taskinstanzen:</p>
+		<div class="form-group mb-20">
+			<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
+			<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstanz suchen</label>
+		</div>
 		<% if(taskinstance_list.length > 0) { %>
 			<table>
 				<tr>
@@ -10,12 +14,12 @@
 					<th class="table-cell --header">Ordnername</th>
 				</tr>
 				<% for(var i = 0; i<taskinstance_list.length; i++) { %>
-					<tr>
+					<tr class="detail-list-row">
 						<td class="table-cell">
 							<%= taskinstance_list[i].taskInstance_number %>
 						</td>
 						<td class="table-cell">
-							<a href="<%=taskinstance_list[i].url %>"><%= taskinstance_list[i].name %></a>
+							<a href="<%=taskinstance_list[i].url %>" class="object-value"><%= taskinstance_list[i].name %></a>
 						</td>
 						<td class="table-cell">
 							<%= taskinstance_list[i].path_name %><%= taskinstance_list[i].taskinstance_inc %>
@@ -26,3 +30,4 @@
 			<p>Leider sind noch keine Taskinstancen in der Datenbank</p>
 		<% } %>
 	</div>
+	<script src="/js/admin_searchListOverview.bundle.js"></script>

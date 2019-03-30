@@ -16,9 +16,11 @@ module.exports = {
     validate_form: './src/js/admin/validate_form.js',
     admin_index: './src/js/admin/admin_index.js',
     admin_form: './src/js/admin/admin_form.js',
+    admin_searchListOverview: './src/js/admin/searchoverviewlist.js',
     index: './src/js/index.js',
     test: './src/js/testHandler.js',
-    init: './src/js/initScroll.js'
+    scrollPolyfill: './src/js/scrollPolyfill.js', 
+    init: './src/js/init.js'
   },
   devtool: 'inline-source-map',
   output: {

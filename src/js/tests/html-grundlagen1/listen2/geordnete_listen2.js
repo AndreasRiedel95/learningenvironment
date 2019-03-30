@@ -1,13 +1,11 @@
 //self.liste_korrigieren4 – Liste korrigieren,//self.liste_einfaerben5 – Liste einfärben,//self.aufzaehlungsliste6 – Aufzählungsliste,
 const test1 = function () {
 	let self = this;
-	self.liste_korrigieren4 = (htmlNode, cssString, test) => {
+	self.liste_korrigieren4 = (htmlNode, cssString, test, h, HelperInstance) => {
 		test((
 		'check if list contains ol'
 		), { dom: htmlNode }, (asset) => {
-			let boolean;
-			let ol = htmlNode.querySelector('ol');
-			ol !== null ? boolean = true : boolean = false;
+			let boolean = HelperInstance.checkIfEleExists('ol');
 			asset.ok(
 				boolean, "Bitte überprüfen sie ob ihre Liste eine Nummerierte ist"
 			);
@@ -26,7 +24,8 @@ const test1 = function () {
 		
 		return Promise.resolve()
 	}
-	self.liste_einfaerben5 = (htmlNode, cssString, test) => {
+	self.liste_einfaerben5 = (htmlNode, cssString, test, h, HelperInstance) => {
+		self.liste_korrigieren4(htmlNode, cssString, test, h, HelperInstance)
 		test((
 		'check if ol has color aqua'
 		), { dom: htmlNode, styles: cssString }, (asset) => {
@@ -50,7 +49,7 @@ const test1 = function () {
 		
 		return Promise.resolve()
 	}
-	self.aufzaehlungsliste6 = (htmlNode, cssString, test) => {
+	self.aufzaehlungsliste6 = (htmlNode, cssString, test, h, HelperInstance) => {
 		test((
 		'check if list contains ul'
 		), { dom: htmlNode }, (asset) => {

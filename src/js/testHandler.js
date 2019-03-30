@@ -21,7 +21,6 @@ testButtons.forEach((button) => {
 		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
 		let sectioninstanceNumber = parseInt(sectioninstance.dataset.sectioninstancenumber);
 		let sectioninstancePath = sectioninstance.dataset.sectioninstancepath;
-		console.log("sectioninstancePath", sectioninstancePath)
 		callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstancePath, taskNumber, taskPath, sectionNumber, sectionPath, sectioninstanceNumber, sectioninstancePath, tasksArray);
 		//Avoid Spamming on button
 		avoidSpamM(button, isClickedRun)
@@ -29,7 +28,6 @@ testButtons.forEach((button) => {
 })
 
 function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstancePath, taskNumber, taskPath, sectionNumber, sectionPath, sectioninstanceNumber, sectioninstancePath, tasksArray) {
-
 	// delete all require cache everytime a test gets called otherwise test can be called only once
 	for (const path in require.cache) {
 		if (path.endsWith('.js')) { // only clear *.js, not *.node
@@ -40,15 +38,14 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 
 	//Tape Catch catches all erros in console and displaying in error message 
 	//If you want to see error consoles in console uncomment the next line and comment out the tacpe-catch line
-	// const test = require('tape-css')(require('tape'));
-	const test = require('tape-css')(require('tape-catch'));
+	const test = require('tape-css')(require('tape'));
+	// const test = require('tape-css')(require('tape-catch'));
 	const h = require('hyperscript');
 	require('tape-dom')(test);
 	const checkTestError = require(`./checkTestError`);
 	const helper = require('./helper.js');
 	const HtmlDiffer = require('html-differ').HtmlDiffer;
 	const CheckInstance = new checkTestError();
-	const HelperInstance = new helper();
 
 	//Reset TestResult before every test run
 	let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskInstanceNumber}"]`);
@@ -65,31 +62,34 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 	let htmlStr = htmlEditor.getValue();
 	let htmlNode = document.createElement('html');
 	htmlNode.innerHTML = htmlStr;
+	const HelperInstance = new helper(htmlNode);
 	let cssString = cssEditor.getValue();
 	let testFunc = `${taskPath}${taskNumber}`.toString();
-	console.log(testFunc)
+	
 	
 	//Check if Code is Valide
 	let runBtn = document.querySelector(`.run-test-js[data-tasknumber="${taskNumber}"]`);
-	if(runBtn.classList.contains('validateErrorHTML') || runBtn.classList.contains('validateErrorCSS')){
+	if(runBtn.classList.contains('validateErrorHTML') || runBtn.classList.contains('validateErrorCSS') || runBtn.classList.contains('validateErrorStylesheet')){
 		errorMsgWrapper.classList.add('--active');
 		let errorMessageHtml = runBtn.dataset.htmlerror
+		let errorMessageStylesheet = runBtn.dataset.stylesheeterror 
 		errorMessageHtml !== "" ? errorMessageHtml = "HTML: " + errorMessageHtml : errorMessageHtml = "";
 		let errorMessageCss = runBtn.dataset.csserror;
 		errorMessageCss !== "" ? errorMessageCss = "CSS: " + errorMessageCss : errorMessageCss = "";
 		let totalErrorMessage = "";
 		errorMessageCss !== "" && errorMessageHtml !== "" ? totalErrorMessage = `${errorMessageHtml} \n ${errorMessageCss}` : totalErrorMessage = errorMessageHtml + errorMessageCss;
-		errorMsgField.innerText = totalErrorMessage;
+		errorMsgField.innerText = totalErrorMessage + errorMessageStylesheet;
 		taskInputs[tasksArray-1].classList.add('--error');
 	} else {
 		//check if files are existing
 		try {
 		 	//Require dynamically the correct test file
-		 	console.log(`./tests/${sectioninstancePath}${sectioninstanceNumber}/${sectionPath}${sectionNumber}/${taskInstancePath}${taskInstanceNumber}`)
+		 	console.log(`./tests/${sectioninstancePath}${sectioninstanceNumber}/${sectionPath}${sectionNumber}/${taskInstancePath}${taskInstanceNumber}/${testFunc}`)
 			let testRun = require(`./tests/${sectioninstancePath}${sectioninstanceNumber}/${sectionPath}${sectionNumber}/${taskInstancePath}${taskInstanceNumber}`);
 			let TestInstance = new testRun();
 			try {
 		 		//Call dynamically the correct test function in test file
+		 		console.log(testFunc)
 				TestInstance[testFunc](htmlNode, cssString, test, h, HelperInstance)
 					.then(() => {
 						//Check if Test result is already append to DOM (ASYNC)

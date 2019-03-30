@@ -70,7 +70,6 @@ function imageHandler(image, callback) {
 }
 
 function insertToEditor(url) {
-	console.log("utl", url)
 	const range = quill.getSelection();
 	quill.insertEmbed(range.index, 'image', url);
 }
