@@ -141,10 +141,9 @@ const test1 = function () {
 		test((
 		'check if box2 is  underneath box1'
 		), { dom: htmlNode, styles: cssString, document: doc2}, (asset) => {
-			let box1 =  htmlNode.querySelector('.box1');
-			let box2 =  htmlNode.querySelector('.box2');
+			console.log("IIIIIi")
 			asset.equal(
-				HelperInstance.positionOfElement('.box1').bottom, HelperInstance.positionOfElement('.box2').top, "Sind Sie sicher, dass die Elemente untereinander sind?"
+				HelperInstance.positionOfElement('.box1').bottom, HelperInstance.positionOfElement('.box2').top, "Sind Sie sicher, dass box2 unter box 1 ist?"
 			);
 			asset.end();
 		});
@@ -152,8 +151,6 @@ const test1 = function () {
 		test((
 		'check if box3 is  underneath box2'
 		), { dom: htmlNode, styles: cssString, document: doc2}, (asset) => {
-			let box3 =  htmlNode.querySelector('.box3');
-			let box2 =  htmlNode.querySelector('.box2');
 			asset.equal(
 				HelperInstance.positionOfElement('.box2').bottom, HelperInstance.positionOfElement('.box3').top, "Sind Sie sicher, dass die Elemente untereinander sind?"
 			);

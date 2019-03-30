@@ -119,9 +119,10 @@ const helper = function (htmlNode) {
 
 	self.checkIfEleExists = function(ele) {
 		let element;
+		console.log(ele)
 		typeof ele === 'string' ? element = htmlNode.querySelector(ele) : element = ele;
 		let boolean = false
-		if(element !== null) {
+		if(element !== null && element !== undefined) {
 			boolean = true;
 		} else {
 			boolean = false;

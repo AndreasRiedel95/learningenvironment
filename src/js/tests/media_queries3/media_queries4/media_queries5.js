@@ -5,7 +5,9 @@ const test1 = function () {
 		test((
 		'check if all ps are there'
 		), { dom: htmlNode, styles: cssString}, (asset) => {
-			let boolean = HelperInstance.checkIfEleExists('.testi')
+			let testi = document.querySelector('.testi')
+			let boolean = HelperInstance.checkIfEleExists(testi)
+			console.log(boolean)
 			asset.equal(boolean, true, "Sind sie sicher, dass ein Element mit der Klasse 'testi existiert?' ")
 			asset.end();
 		});
