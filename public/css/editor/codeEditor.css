@@ -1,4 +1,14 @@
 @charset "UTF-8";
+html {
+  overflow: hidden; }
+  html[data-debug="true"] {
+    overflow: auto; }
+
+body {
+  overflow: hidden; }
+  [data-debug="true"] body {
+    overflow: auto; }
+
 .headeline-wrapper {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
@@ -239,10 +249,20 @@
 
 #tests {
   display: none; }
+  [data-debug="true"] #tests {
+    display: block;
+    position: absolute;
+    right: 0; }
 
 .task-editor-wrapper ~ pre {
   display: none; }
+  [data-debug="true"] .task-editor-wrapper ~ pre {
+    display: block; }
 
 .media-box {
   position: absolute;
-  opacity: 1; }
+  opacity: 0;
+  pointer-events: none; }
+  [data-debug="true"] .media-box {
+    opacity: 1;
+    pointer-events: all; }

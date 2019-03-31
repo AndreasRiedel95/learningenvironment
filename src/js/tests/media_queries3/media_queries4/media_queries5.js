@@ -20,10 +20,10 @@ const test1 = function () {
 		test((
 		'check if background blue >500'
 		), { dom: htmlNode, styles: cssString, document: doc1}, (asset) => {
-			let ele = htmlNode.querySelector('.testi');
+			let ele = htmlNode.getElementsByClassName('testi')[0];
 			let boolean = HelperInstance.checkIfEleExists('.testi')
-			console.log(boolean)
-			let backgroundColor = HelperInstance.getStyleProperty('.testi', 'background-color')
+
+			let backgroundColor = HelperInstance.getStyleProperty(ele, 'background-color')
 			asset.deepEqual(
 				backgroundColor,'rgb(0, 0, 255)', "Hintergrund muss blau sein wenn Bildschirmweite größer als 500px"
 			);
@@ -33,8 +33,9 @@ const test1 = function () {
 		test((
 		'check if background red <500'
 		), { dom: htmlNode, styles: cssString, document: doc2}, (asset) => {
+			let ele = htmlNode.getElementsByClassName('testi')[0];
 			let backgroundColor = getComputedStyle(htmlNode.querySelector('.testi'), null).getPropertyValue('background-color')
-			console.log(getComputedStyle(htmlNode.querySelector('.testi'), null).getPropertyValue('height'))
+			console.log(getComputedStyle(ele, null).getPropertyValue('height'))
 			console.log(backgroundColor)
 			asset.deepEqual(
 				backgroundColor, 'rgb(255, 0, 0)', "Hintergrund muss rot sein wenn Bildschirmweite kleiner als 500px"

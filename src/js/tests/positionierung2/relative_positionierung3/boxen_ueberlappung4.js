@@ -24,7 +24,7 @@ const test2 = function () {
 			asset.end();
 
 			if(boolean) {
-				test(('check if position of red and blue is correct'), {dom: htmlNode, styles: cssString}, (asset) => {
+				test.only(('check if position of red and blue is correct'), {dom: htmlNode, styles: cssString}, (asset) => {
 					asset.equal(
 						Math.round(positionOf(htmlNode.querySelector('.red-box')).bottom),
 						Math.round(positionOf(htmlNode.querySelector('.blue-box')).top),

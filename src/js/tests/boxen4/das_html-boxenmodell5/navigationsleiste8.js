@@ -12,8 +12,7 @@ const test1 = function () {
 			let boolean = false;
 			let ulUser = htmlNode.querySelector('ul');
 			if(ulUser !== null) {
-				HelperInstance.removeAllTextNodes(ulUser)
-				boolean = HelperInstance.htmlDifferences(ulEle, ulUser, 'strict');
+				boolean = HelperInstance.htmlDifferences(ulEle, ulUser);
 			}
 			asset.ok(
 				boolean, "Überprüfen Sie ob sie eine ul-Liste mit 4 Listeneinträgen haben"
@@ -30,19 +29,20 @@ const test1 = function () {
 		test(('check if lis has padding from 10px'), {dom: htmlNode, styles: cssString, document: doc1}, (asset) => {
 			let lis = htmlNode.querySelectorAll('li')
 			lis.forEach((li) => {
-				const textNode = li.firstChild;
-				const range = document.createRange();
-				range.selectNode(textNode);
-				const co = range.getBoundingClientRect();
-				const coLi = li.getBoundingClientRect();
-				let leftDiff = co.x - coLi.x
-				let topDiff = co.top - coLi.top
-				let bottomDiff = co.y - coLi.y
-				let rightDiff = Math.round(co.width - coLi.width)
-				console.log(rightDiff)
 				let boolean = false;
-				if(leftDiff === 10 && topDiff === 10 && bottomDiff === 10 && rightDiff === -20) {
-					boolean = true;
+				const textNode = li.firstChild;
+				if(textNode !== null) {
+					const co = HelperInstance.getPositionOfTextNode(textNode)
+					const coLi = li.getBoundingClientRect();
+					console.log(co)
+					let leftDiff = co.x - coLi.x
+					let topDiff = co.top - coLi.top
+					let bottomDiff = co.y - coLi.y
+					let rightDiff = Math.round(co.width - coLi.width)
+					console.log(rightDiff)
+					if(leftDiff === 10 && topDiff === 10 && bottomDiff === 10 && rightDiff === -20) {
+						boolean = true;
+					}
 				}
 				asset.ok(boolean, "Sind Sie sicher, dass Sie ein Einrückung von 10px von Links haben?" )
 

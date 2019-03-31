@@ -50,6 +50,11 @@
 
 .save
 	margin-left: 10px
+	&:hover ~ .headline-icon-hover.--save
+		opacity: 1
+.grid
+	&:hover ~ .headline-icon-hover.--grid
+		opacity: 1
 
 .save-icon
 	width: 25px
@@ -61,9 +66,74 @@
 	stroke-linejoin: round
 	fill: none
 
+.code
+	margin-right: 10px
+	[data-cssreset="true"] &
+		&:hover ~ .headline-icon-hover.--code-active
+			opacity: 1
+			pointer-events: all
+		&:hover ~ .headline-icon-hover.--code
+			opacity: 0
+			pointer-events: all
+	&:hover ~ .headline-icon-hover.--code
+		opacity: 1
+		pointer-events: all
+	&:hover ~ .headline-icon-hover.--code-active
+		opacity: 0
+
+.code-icon
+	width: 25px
+	height: 25px
+	margin-top: 0px
+	stroke: currentColor
+	stroke-width: 1
+	stroke-linecap: round
+	stroke-linejoin: round
+	fill: none
+	[data-cssreset="true"] &
+		stroke: #ffd70f
+
+.debug-icon
+	width: 25px
+	height: 25px
+	stroke: #ffd70f
+	stroke-width: 1
+	stroke-linecap: round
+	stroke-linejoin: round
+	fill: none
+	display: none
+	margin-top: 5px
+	margin-right: 14px
+	cursor: pointer
+	[data-debug="true"] &
+		display: block
+	&:hover ~ .headline-icon-hover.--debug
+		opacity: 1
+
+.headline-icon-hover 
+	position: absolute
+	bottom: 0
+	transform: translateY(110%)
+	z-index: 10000000
+	font-size: 12px
+	background-color: $blue
+	padding: 10px
+	border-radius: 4px
+	opacity: 0
+	right: 10px
+	pointer-events: none
+	transition: opacity 0.3s
+
+.break-horizontal
+	height: 40px
+	width: 1px 
+	margin-left: 10px
+	background-color: #fff
 
 .reset
 	margin-right: 10px
+	&:hover ~ .headline-icon-hover.--reset
+		opacity: 1
 
 
 .grid-icon

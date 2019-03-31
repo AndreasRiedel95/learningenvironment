@@ -1,9 +1,13 @@
 @import '../base/variable'
 
-// html
-// 	overflow: hidden
-// body
-// 	overflow: hidden
+html
+	overflow: hidden
+	&[data-debug="true"]
+		overflow: auto
+body
+	overflow: hidden
+	[data-debug="true"] &
+		overflow: auto
 
 .headeline-wrapper
 	background-color: $grey
@@ -196,13 +200,23 @@
 
 #tests
 	display: none
+	[data-debug="true"] &
+		display: block
+		position: absolute
+		right: 0
 
 .task-editor-wrapper ~ pre
 	display: none
+	[data-debug="true"] &
+		display: block
 
 
 .media-box
 	position: absolute
-	opacity: 1
-	// pointer-events: none
+	opacity: 0
+	pointer-events: none
+	[data-debug="true"] &
+		opacity: 1
+		pointer-events: all
+
 

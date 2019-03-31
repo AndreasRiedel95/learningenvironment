@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-debug="false" data-cssreset="true">
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
@@ -18,7 +18,35 @@
 		const section = <%- JSON.stringify(section) %>;
 		const sectioninstance =  <%- JSON.stringify(sectioninstance) %>;
 	</script>
+	<div class="modal">
+		<div class="modal-content-wrapper">
+			<div class="modal-backdrop" onclick="toggleModal()"></div>
+			<div class="modal-content">
+				<i class="modal-close-icon" onclick="toggleModal()" data-feather="x"></i>
+				<h2 class="header-2 mb-10">Hi there! &#128075</h2>
+				<p>Danke dass du diese Applikation nutzt!</p>
+				<p class="mb-20">
+					Diese Applikation ist im Sommersemester 2019 an der Hochschule der Medien, Stuttgart im Rahmen der Bachelorarbeit <strong>Front-End-Tests für Web-Applikationen</strong> enstanden.  
+				</p>
+				<h2 class="header-2">Einstellungen</h2>
+				<div class="setting-wrapper">
+					<div>
+						<p>CSS-Reset</p>
+						<p style="font-size: 10px; max-width: 220px">CSS-Reset wird für den eingegebenen User-Code aktiviert. <a target="_blank" class="link" href="https://meyerweb.com/eric/tools/css/reset/">Mehr Infos</a> über CSS-Reset.</p>
+					</div>
+					<label class="switch">
+						<input class="switch-input" checked onclick="toggleCSSReset(this)" type="checkbox" checked>
+						<span class="slider"></span>
+					</label>
+				</div>
+				<div class="copyright-wrapper">
+					Andreas Riedel | <a href="mailto:andreas.riedel95@gmail.com" target="_top">&nbsp;andreas.riedel95@gmail.com&nbsp;</a> | <a href="https://bitbucket.org/AndreasRiedel/">&nbsp;Bitbucket <i class="external-link-icon"  data-feather="external-link"></i></a>
+				</div>
 
+				
+			</div>
+		</div>
+	</div>
 	<div class="code-saved-wrapper">
 		Code gespeichert
 	</div>
@@ -28,14 +56,23 @@
 	<div class="header" data-sectioninstancepath="<%= sectioninstance[0].path_name %>" data-sectioninstancenumber="<%= sectioninstance[0].sectioninstance_inc %>">
 		<h2 class="header-2 white"><%=section.name %></h2>
 		<div class="header-btn-wrapper">
-			<button class="btn reset --icon" title="Setze deinen Lernfortschritt zurück">
+			<i class="debug-icon" data-feather="zap"></i>
+			<span class="headline-icon-hover --debug">Debug Mode is on</span>
+			<button class="btn reset --icon">
 				<i class="reset-icon" data-feather="rotate-ccw"></i>
 			</button>
-			<button class="btn --icon" type="button" onclick="setInitialGrid()" title='Setzte das Editor-Grid auf Initialgröße'>
+			<span class="headline-icon-hover --reset">Setzte Deinen Lernfortschritt zurück</span>
+			<button class="btn --icon grid" type="button" onclick="setInitialGrid()">
 				<i class="grid-icon" data-feather="grid"></i>
 			</button>
+			<span class="headline-icon-hover --grid">Setzte das Editor-Grid auf Inital</span>
 			<button class="save btn --icon" type="button" title='Speicher deinen Code'>
 				<i class="save-icon" data-feather="save"></i>
+			</button>
+			<span class="headline-icon-hover --save">Speicher deinen Lernfortschritt</span>
+			<div class="break-horizontal"></div>
+			<button class="save btn --icon" type="button" onclick="toggleModal()">
+				<i class="save-icon" data-feather="help-circle"></i>
 			</button>
 		</div>
 	</div>
@@ -81,7 +118,9 @@
 								</div>
 								<div class="task-description quill-format">
 										<%- section.taskinstance[i].task[j].description %>
-									<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-tasknumber="<%= section.taskinstance[i].task[j].task_inc %>" data-taskpath="<%= section.taskinstance[i].task[j].path_name %>" data-tasksarray="<%= j + 1 %>" data-htmlerror="" data-csserror="" data-stylesheeterror="" >Run Test</button>
+									<button type="button" class="run-test-js run-test btn mt-10 mb-10" data-tasknumber="<%= section.taskinstance[i].task[j].task_inc %>" data-taskpath="<%= section.taskinstance[i].task[j].path_name %>" data-tasksarray="<%= j + 1 %>" data-htmlerror="" data-csserror="" data-stylesheeterror="" >
+										Run Test
+									</button>
 								</div>
 							</div>
 						<% } %>

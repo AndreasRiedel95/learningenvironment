@@ -141,7 +141,6 @@ const test1 = function () {
 		test((
 		'check if box2 is  underneath box1'
 		), { dom: htmlNode, styles: cssString, document: doc2}, (asset) => {
-			console.log("IIIIIi")
 			asset.equal(
 				HelperInstance.positionOfElement('.box1').bottom, HelperInstance.positionOfElement('.box2').top, "Sind Sie sicher, dass box2 unter box 1 ist?"
 			);
@@ -195,9 +194,6 @@ const test1 = function () {
 		test((
 		'check if all boxes are in row'
 		), { dom: htmlNode, styles: cssString, document: doc3}, (asset) => {
-			let box1 =  htmlNode.querySelector('.box1');
-			let box2 =  htmlNode.querySelector('.box2');
-			let box3 =  htmlNode.querySelector('.box3');
 			let heightArray = [HelperInstance.positionOfElement('.box1').top, HelperInstance.positionOfElement('.box2').top, HelperInstance.positionOfElement('.box3').top ]
 			let boolean = HelperInstance.checkIfValuesEqual(heightArray);
 			asset.equal(

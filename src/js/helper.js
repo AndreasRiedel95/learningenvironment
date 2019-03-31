@@ -69,12 +69,22 @@ const helper = function (htmlNode) {
 			let element;
 			typeof ele === 'string' ? element = htmlNode.querySelector(ele) : element = ele;
 			var h =  Math.round(window.innerHeight)
-			const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
-			return {top: Math.round(top - h), right: Math.round(right), bottom: Math.round(bottom), left: Math.round(left)};
+			const {top, right, bottom, left, x, y, width, height} = element.getBoundingClientRect();
+			return {top: Math.round(top - h), right: Math.round(right), bottom: Math.round(bottom), left: Math.round(left), width: Math.round(width), height: Math.round(height)};
 		} else {
 			return null;
 		}
 		
+	}
+
+	self.getPositionOfTextNode = function(ele) {
+		if(ele !== null && ele !== undefined) {
+			const range = document.createRange();
+			range.selectNode(ele);
+			return range.getBoundingClientRect();
+		} else {
+			return null;
+		}	
 	}
 
 	self.positionOfElement = function(ele) {
@@ -83,8 +93,8 @@ const helper = function (htmlNode) {
 		if(boolean) {
 			let element;
 			typeof ele === 'string' ? element = htmlNode.querySelector(ele) : element = ele;
-			const {top, right, bottom, left, x, y} = element.getBoundingClientRect();
-			return {top, right, bottom, left, x, y};
+			const {top, right, bottom, left, x, y, width, height} = element.getBoundingClientRect();
+			return {top, right, bottom, left, x, y, width, height};
 		} else {
 			return null;
 		}

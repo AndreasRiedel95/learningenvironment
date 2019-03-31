@@ -202,7 +202,8 @@ let editorRendering = (() => {
 		// HTML
 		src = base_tpl.replace('</body>', html + '</body>');
 		// include css reset from http://meyerweb.com/eric/tools/css/reset/ (maybe better fetch from external file?)
-		let cssReset = "" //"a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,let,video{margin:0;padding:0;border:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}";
+		let dataCssReset = document.documentElement.getAttribute('data-cssreset')
+		let cssReset = dataCssReset === 'true' ? "a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,let,video{margin:0;padding:0;border:0;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}" : "";
 		css = '<style>' + cssReset + css + '</style>';
 		src = src.replace('</head>', css + '</head>');
 		return src;
@@ -235,11 +236,25 @@ let editorRendering = (() => {
 		},
 		getCSSEditor:() => {
 			return css_editor;
+		},
+		render:() => {
+			render();
 		}
 	};
 			
 })();
 
+//Toggle CSS reset
+const toggleCSSReset = (ele) => {
+	ele.checked === true ? document.documentElement.setAttribute('data-cssreset', "true") : document.documentElement.setAttribute('data-cssreset', "false");
+	editorRendering.render();
+}
+
+const toggleModal = () => {
+	let modal = document.querySelector('.modal');
+	modal.classList.contains('m--active-modal') ? modal.classList.remove('m--active-modal') : modal.classList.add('m--active-modal')
+
+}
 
 //Toggle TaskDescription 
 let setTaskDescription = (ele) => {
@@ -394,6 +409,7 @@ export const getEditors = () => {
 	return [editorRendering.getHTMLEditor(), editorRendering.getCSSEditor()];
 }
 
-
+window.toggleModal = toggleModal;
+window.toggleCSSReset = toggleCSSReset;
 window.setTaskDescription = setTaskDescription;
 window.setDescription = setDescription;

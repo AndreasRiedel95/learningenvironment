@@ -27,6 +27,15 @@ const checkIfError = function () {
 							errorMsgField.innerHTML += errMsg + "<br />";
 							taskInputs[testNumberArray-1].classList.add('--error');
 							i++;
+						} else if(errMsg.indexOf("TypeError") >= 0) {
+							errorMsgField.innerHTML += "TypeError: Erwartetes Element existiert nicht" + "<br />";
+							taskInputs[testNumberArray-1].classList.add('--error');
+							i++;
+						} else {
+							console.log(errMsg)
+							errorMsgField.innerHTML += "ReferenceError: Variable existiert nicht." + "<br />";
+							taskInputs[testNumberArray-1].classList.add('--error');
+							i++;
 						}
 					}
 				} 
