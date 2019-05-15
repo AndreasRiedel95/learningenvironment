@@ -80,7 +80,7 @@ body {
   display: inline-block;
   cursor: pointer; }
   .file-import-wrapper:hover > .btn {
-    background-color: #446a89; }
+    background-color: #4999CC; }
 
 .file-import-wrapper input[type=file] {
   font-size: 100px;
@@ -212,7 +212,7 @@ body {
   bottom: 0;
   padding: 10px 10px 10px 0px;
   z-index: 100000;
-  background-color: #223342;
+  background-color: #0F1422;
   display: none; }
   .error-message-wrapper.--active {
     display: -webkit-box;

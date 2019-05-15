@@ -1,4 +1,4 @@
-import CodeMirror from 'codemirror/lib/codemirror.js';
+ import CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/css/css.js';
 import 'codemirror/addon/hint/show-hint.js';
@@ -116,8 +116,6 @@ let editorRendering = (() => {
 		if(onlyErrors.length > 0) {
 			Object.keys(onlyErrors).forEach(function(key) {
 				errorMessageStr += onlyErrors[key].message + "\n";
-
-
 			});
 		}
 		runbtns.forEach((runbtn) => {

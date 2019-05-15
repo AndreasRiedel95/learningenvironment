@@ -9,7 +9,7 @@ const resetUserCode = (taskinstance, html_editor, css_editor) => {
 		})
 	})
 	.then(response => response.json())
-	.catch(error => console.error('Error:', error))
-	.then(response => console.log('Success:', JSON.stringify(response)));
+	.then(response => console.log('Success:', JSON.stringify(response)))
+	.catch(error => console.error('Error:', error));
 }
 module.exports = resetUserCode;

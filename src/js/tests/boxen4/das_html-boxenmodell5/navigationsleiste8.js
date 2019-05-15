@@ -65,6 +65,7 @@ const test1 = function () {
 
 		return Promise.resolve();
 	}
+	
 	self.nav_hintergrundfarben22 = (htmlNode, cssString, test, h, HelperInstance) => {
 		//Check if Elements are still there
 		self.nav_liste18(htmlNode, cssString, test, h, HelperInstance)
@@ -77,7 +78,7 @@ const test1 = function () {
 			asset.end()
 		});
 
-		test(('check if li has background-color '), {dom: htmlNode, styles: cssString}, (asset) => {
+		test.only(('check if li has background-color '), {dom: htmlNode, styles: cssString}, (asset) => {
 			let lis = htmlNode.querySelectorAll('li');
 			lis.forEach((li) => {
 				let booleanLi = false; 

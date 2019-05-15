@@ -518,12 +518,14 @@ body {
   font-size: 20px;
   color: #fff;
   padding: 10px;
-  background-color: #223342;
+  background: #0F1422;
   display: flex; }
   .header.--big {
     height: 106vh;
     width: 100%;
-    background-color: #2A3E50;
+    background: -webkit-linear-gradient(45deg, #0d121f 0%, #1b2234 50%, #253459 100%);
+    background: -o-linear-gradient(45deg, #0d121f 0%, #1b2234 50%, #253459 100%);
+    background: linear-gradient(45deg, #0d121f 0%, #1b2234 50%, #253459 100%);
     -webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 95%);
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 95%);
     display: -webkit-box;
@@ -577,7 +579,7 @@ body {
   -o-transition: stroke 0.3s;
   transition: stroke 0.3s; }
   .arrow-down-svg:hover {
-    stroke: #292929; }
+    stroke: #4999CC; }
 
 @-webkit-keyframes ArrowJump {
   0% {
@@ -599,7 +601,7 @@ body {
   padding: 10px;
   position: relative;
   max-height: 35px;
-  background-color: #223342;
+  background-color: #0F1422;
   font-size: 12px;
   color: #fff;
   border-radius: 4px;
@@ -614,11 +616,11 @@ body {
   -o-transition: background-color 0.3s;
   transition: background-color 0.3s; }
   .btn:hover {
-    background-color: #446a89;
+    background-color: #4999CC;
     color: #fff !important; }
   .btn.--grey {
     background-color: #ebebeb;
-    color: #223342; }
+    color: #0F1422; }
     .btn.--grey:hover {
       background-color: #d6d4d4; }
   .btn.--green {
@@ -633,7 +635,7 @@ body {
     padding: 5px;
     background-color: transparent; }
     .btn.--icon:hover {
-      background-color: #446a89; }
+      background-color: #4999CC; }
 
 .link {
   text-decoration: none;
@@ -746,7 +748,10 @@ body {
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center; }
+  justify-content: center;
+  padding-right: 20px;
+  padding-left: 20px;
+  width: 100%; }
 
 .switch {
   margin-left: auto;
@@ -808,3 +813,11 @@ body {
   stroke-linejoin: round;
   fill: none;
   cursor: pointer; }
+
+.container-wrapper {
+  max-width: 1200px;
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-left: auto;
+  margin-right: auto; }

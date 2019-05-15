@@ -34,10 +34,9 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 			delete require.cache[path]
 		}
 	}
-	//Beautify Test result and append to DOM
 
-	//Tape Catch catches all erros in console and displaying in error message 
-	//If you want to see error consoles in console add class debug on html node
+	//Tape Catch catches all erros in console and displaying them in error message 
+	//If you want to see error consoles in console add data-debug='true' on html node
 	let htmlDebug = document.documentElement.getAttribute('data-debug')
 	let test; 
 	if(htmlDebug === 'true') {
@@ -94,7 +93,6 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 			let TestInstance = new testRun();
 			try {
 		 		//Call dynamically the correct test function in test file
-		 		console.log(testFunc)
 				TestInstance[testFunc](htmlNode, cssString, test, h, HelperInstance)
 					.then(() => {
 						//Check if Test result is already append to DOM (ASYNC)

@@ -8,8 +8,8 @@ const updateTaskSolved = (taskid, boolean) => {
 		})
 	})
 	.then(response => response.json())
+	.then(response => console.log('Success:', JSON.stringify(response)))
 	.catch(error => console.error('Error:', error))
-	.then(response => console.log('Success:', JSON.stringify(response)));
 }
 
 module.exports = updateTaskSolved;

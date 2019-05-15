@@ -20,7 +20,9 @@
   width: 100%;
   border-top-right-radius: 2px;
   border-top-left-radius: 2px;
-  background-color: #2A3E50;
+  background: -webkit-linear-gradient(45deg, #0d121f 0%, #1b2234 50%, #253459 100%);
+  background: -o-linear-gradient(45deg, #0d121f 0%, #1b2234 50%, #253459 100%);
+  background: linear-gradient(45deg, #0d121f 0%, #1b2234 50%, #253459 100%);
   position: absolute;
   top: 0;
   left: 0; }

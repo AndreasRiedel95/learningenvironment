@@ -144,7 +144,7 @@
   transition: opacity 0.3s; }
 
 .break-horizontal {
-  height: 40px;
+  height: 35px;
   width: 1px;
   margin-left: 10px;
   background-color: #fff; }
@@ -193,14 +193,14 @@
   font-size: 20px;
   color: #fff;
   padding: 10px;
-  background-color: #223342;
+  background-color: #0F1422;
   display: flex; }
 
 .resize {
   position: absolute;
   cursor: pointer;
   z-index: 100000000;
-  background-color: #223342; }
+  background-color: #0F1422; }
   .resize.--vertical {
     height: 100%;
     width: 10px;

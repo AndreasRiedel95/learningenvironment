@@ -22,7 +22,6 @@ const checkIfError = function () {
 						let fail = test.querySelectorAll('.fail')[0];
 						let errMsg = fail.querySelector('.name').innerHTML;
 						//TODO Make array of errors which shpuld not show up
-						console.log((errMsg.indexOf("TypeError") === -1) && (errMsg.indexOf("ReferenceError") === -1))
 						if(((errMsg.indexOf("TypeError") === -1) && (errMsg.indexOf("ReferenceError") === -1) )) {
 							errorMsgField.innerHTML += errMsg + "<br />";
 							taskInputs[testNumberArray-1].classList.add('--error');
@@ -32,7 +31,6 @@ const checkIfError = function () {
 							taskInputs[testNumberArray-1].classList.add('--error');
 							i++;
 						} else {
-							console.log(errMsg)
 							errorMsgField.innerHTML += "ReferenceError: Variable existiert nicht." + "<br />";
 							taskInputs[testNumberArray-1].classList.add('--error');
 							i++;

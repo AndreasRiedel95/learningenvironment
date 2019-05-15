@@ -54,8 +54,8 @@ const test1 = function () {
 		'check if list contains ul'
 		), { dom: htmlNode }, (asset) => {
 			let boolean;
-			let ul = htmlNode.querySelector('ul');
-			ul !== null ? boolean = true : boolean = false;
+			let ul = htmlNode.querySelectorAll('ul');
+			ul.length === 6 ? boolean = true : boolean = false;
 			asset.ok(
 				boolean, "Bitte überprüfen sie ob ihre Liste eine Aufzählungsliste ist"
 			);

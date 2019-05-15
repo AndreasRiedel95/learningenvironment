@@ -22,12 +22,12 @@ body
 	font-size: 20px
 	color: #fff
 	padding: 10px
-	background-color: $darkblue
+	background: $darkblue 
 	display: flex
 	&.--big
 		height: 106vh
 		width: 100%
-		background-color: $blue
+		background: linear-gradient(45deg, #0d121f 0%, #1b2234 50%, #253459 100%)
 		clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 95%)
 		display: flex
 		flex-direction: column
@@ -68,7 +68,7 @@ body
 	animation: ArrowJump 2s infinite
 	transition: stroke 0.3s
 	&:hover
-		stroke: $darkgrey
+		stroke: #4999CC
 
 @keyframes ArrowJump 
 	0%
@@ -95,7 +95,7 @@ body
 	text-decoration: none
 	transition: background-color 0.3s
 	&:hover
-		background-color: #446a89
+		background-color: #4999CC
 		color: #fff !important
 	&.--grey
 		background-color: $grey
@@ -117,7 +117,7 @@ body
 		padding: 5px
 		background-color: transparent
 		&:hover
-			background-color: #446a89
+			background-color: #4999CC
 
 .link
 	text-decoration: none
@@ -209,6 +209,9 @@ body
 .button-wrapper
 	display: flex
 	justify-content: center
+	padding-right: 20px
+	padding-left: 20px
+	width: 100%
 
 .switch 
 	margin-left: auto
@@ -259,3 +262,11 @@ body
 	stroke-linejoin: round
 	fill: none
 	cursor: pointer
+
+.container-wrapper
+	max-width: 1200px
+	width: 100%
+	padding-right: 20px
+	padding-left: 20px
+	margin-left: auto
+	margin-right: auto

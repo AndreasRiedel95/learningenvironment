@@ -25,7 +25,7 @@ const test1 = function () {
 		let img = h('img', {src: '/img/apfel.jpg'});
 		let rahmen = h('.rahmen', [img, info]);
 		let boolean = false;
-		test(('check if rahmen, info and image exits in right order'), {dom: htmlNode, styles: cssString}, (asset) => {
+		test.only(('check if rahmen, info and image exits in right order'), {dom: htmlNode, styles: cssString}, (asset) => {
 			let rahmenUser = htmlNode.querySelector('.rahmen');
 			if(rahmenUser !== null) {
 				HelperInstance.removeAllTextNodes(rahmenUser)
