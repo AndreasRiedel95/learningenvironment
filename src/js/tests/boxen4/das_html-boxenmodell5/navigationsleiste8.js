@@ -78,7 +78,7 @@ const test1 = function () {
 			asset.end()
 		});
 
-		test.only(('check if li has background-color '), {dom: htmlNode, styles: cssString}, (asset) => {
+		test(('check if li has background-color '), {dom: htmlNode, styles: cssString}, (asset) => {
 			let lis = htmlNode.querySelectorAll('li');
 			lis.forEach((li) => {
 				let booleanLi = false; 
