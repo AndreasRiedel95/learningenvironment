@@ -1,3 +1,6 @@
+/* Helper File for tests 
+Availabe in all test files
+*/
 var HtmlDiffer = require('html-differ').HtmlDiffer;
 let logger = require('html-differ/lib/logger');
 var options = {
@@ -62,6 +65,7 @@ const helper = function (htmlNode) {
 		//No Duplicates in there
 		return false;
 	}
+	//Get Position of Element when Editor height in calculation
 	self.getPositionOfElementWindow = function(ele) {
 		let boolean = false;
 		boolean = self.checkIfEleExists(ele)
@@ -87,6 +91,7 @@ const helper = function (htmlNode) {
 		}	
 	}
 
+	//Get Position of Element when Editor height is not in calculation
 	self.positionOfElement = function(ele) {
 		let boolean = false;
 		boolean = self.checkIfEleExists(ele)
@@ -141,6 +146,7 @@ const helper = function (htmlNode) {
 
 	}  
 
+	//Creates iFrame for tasks which are using media queries 
 	self.createResponsiveFrame = function(width) {
 		widthPx = width.toString() + "px"
 		let frames = document.querySelectorAll('.media-box'); 

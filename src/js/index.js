@@ -1,4 +1,4 @@
- import CodeMirror from 'codemirror/lib/codemirror.js';
+import CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/css/css.js';
 import 'codemirror/addon/hint/show-hint.js';
@@ -17,11 +17,6 @@ const onceM = require('./module/once.js');
 const updateTaskSolvedM = require('./module/updateTaskSolved');
 const saveCodeM = require('./module/saveCode');
 const resetUserCodeM = require('./module/resetUserCode');
-
-// window.addEventListener("beforeunload", function (event) {
-//   event.preventDefault();
-//   event.returnValue = '';
-// });
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -42,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	})
 });
-
+//conig
 let editorRendering = (() => {
 	//Base template for Output 
 	let base_tpl =
@@ -56,7 +51,7 @@ let editorRendering = (() => {
       "</body>\n" +
      "</html>";
 
-     //options for code editor
+     //options for code editors 
 	let cm_opt_html = {
 		mode: 'text/html',
 		gutters: ['CodeMirror-lint-markers'],
@@ -104,11 +99,10 @@ let editorRendering = (() => {
 	let css_box = document.querySelector('.css-codearea');
 	let css_editor = CodeMirror.fromTextArea(css_box, cm_opt_css);
 	
-	let inputWrappers = document.querySelectorAll('.taskInput:not(.--description)');
 	html_editor.setSize("100%", "100%");
 	css_editor.setSize("100%", "100%");
 
-	function css_validator(cm, updateLinting, options) {
+	function css_validator(cm, updateLinting) {
 		let errors = CodeMirror.lint.css(cm);
 		let onlyErrors = errors.filter(error => error.severity === 'error');
 		let runbtns = document.querySelectorAll('.run-test-js');
@@ -122,17 +116,15 @@ let editorRendering = (() => {
 			if(onlyErrors.length > 0) {
 				runbtn.classList.add('validateErrorCSS');
 				runbtn.dataset.csserror = errorMessageStr
-			} else {
-				if(runbtn.classList.contains('validateErrorCSS')) {
+			} else if(runbtn.classList.contains('validateErrorCSS')) {
 					runbtn.classList.remove('validateErrorCSS');
-					runbtn.dataset.csserror = ""
-				}
+					runbtn.dataset.csserror = "";
 			}
 		})
 		updateLinting(onlyErrors);
 	}
 
-	function html_validator(cm, updateLinting, options) {
+	function html_validator(cm, updateLinting) {
 		let errors = CodeMirror.lint.html(cm);
 		let onlyErrors = errors.filter(error => error.severity === 'error');
 		let runbtns = document.querySelectorAll('.run-test-js');
@@ -146,11 +138,9 @@ let editorRendering = (() => {
 			if(onlyErrors.length > 0) {
 				runbtn.classList.add('validateErrorHTML');
 				runbtn.dataset.htmlerror = errorMessageStr
-			} else {
-				if(runbtn.classList.contains('validateErrorHTML')) {
-					runbtn.classList.remove('validateErrorHTML');
-					runbtn.dataset.htmlerror = ""
-				}
+			} else if(runbtn.classList.contains('validateErrorHTML')) {
+				runbtn.classList.remove('validateErrorHTML');
+				runbtn.dataset.htmlerror = "";
 			}
 		})
 		updateLinting(errors);
@@ -174,7 +164,7 @@ let editorRendering = (() => {
 				styleSheetError();
 				boolean = false;
 			}
-		}else {
+		} else {
 			styleSheetError();
 		}
 		return boolean;
@@ -228,6 +218,7 @@ let editorRendering = (() => {
 	css_editor.refresh();
 	html_editor.refresh();
 
+	//make editors accessible 
 	return {
 		getHTMLEditor:() => {
 			return html_editor;
@@ -242,7 +233,7 @@ let editorRendering = (() => {
 			
 })();
 
-//Toggle CSS reset
+//Toggle CSS reset wich can be set in congif on page
 const toggleCSSReset = (ele) => {
 	ele.checked === true ? document.documentElement.setAttribute('data-cssreset', "true") : document.documentElement.setAttribute('data-cssreset', "false");
 	editorRendering.render();
@@ -254,19 +245,17 @@ const toggleModal = () => {
 
 }
 
-//Toggle TaskDescription 
+//Set TaskDescription on inital and on each click
+//Check if data is in the database and set data in Editors, otherwise leave editors blank 
 let setTaskDescription = (ele) => {
 		let htmlWrapperOverlay = document.querySelector('.html-css-wrapper-overlay')
 		htmlWrapperOverlay.classList.add('m--not-active')
-	saveCode().then(() => {
-		let taskinstancenumber = parseInt(ele.htmlFor);
-		let parent = ele.parentNode;
-		let inputs = document.querySelectorAll('.input-wrapper.--task');
-		var index = Array.from(inputs).findIndex(input => input === parent);
-		let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-taskinstancenumber="${taskinstancenumber}"])`);
-		taskDescriptions.forEach((taskDescription) => {
-			taskDescription.classList.add('--not-active');
-		})
+		saveCode().then(() => {
+			let taskinstancenumber = parseInt(ele.htmlFor);
+			let taskDescriptions = document.querySelectorAll(`.description-scroll-wrapper:not([data-taskinstancenumber="${taskinstancenumber}"])`);
+			taskDescriptions.forEach((taskDescription) => {
+				taskDescription.classList.add('--not-active');
+			})
 
 		let activeTaskDescription = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
 		activeTaskDescription.classList.remove('--not-active');
@@ -282,11 +271,9 @@ let setTaskDescription = (ele) => {
 				taskinstanceObj = data
 				if(taskinstanceObj.taskinstance.htmlCode_user !== null && taskinstanceObj.taskinstance.htmlCode_user !== "") {
 					htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_user);
-					
 				} else {
 					htmlEditor.setValue(taskinstanceObj.taskinstance.htmlCode_inital);
 				}
-
 				if(taskinstanceObj.taskinstance.cssCode_user !== null && taskinstanceObj.taskinstance.cssCode_user !== "") {
 					cssEditor.setValue(taskinstanceObj.taskinstance.cssCode_user);
 				} else {
@@ -298,7 +285,8 @@ let setTaskDescription = (ele) => {
 	});
 }
 
-//Toggle Section Description
+//Toggle Section Description and save the section each time 
+//so already written code doesn't get lost
 let setDescription = (ele) => {
 	let htmlWrapperOverlay = document.querySelector('.html-css-wrapper-overlay')
 	if(htmlWrapperOverlay.classList.contains('m--not-active')) {
@@ -314,7 +302,7 @@ let setDescription = (ele) => {
 	});
 }
 
-//Reset User Code
+//Reset User Code and show alert before resetting
 let resetBtn = document.querySelector('.reset');
 resetBtn.addEventListener('click', () => { resetCode(resetBtn) }, false);
 
@@ -350,6 +338,7 @@ function resetCode(btn) {
 }
 
 //Save Code on KeyDown cmd + s or ctrl + s
+//83 = s
 let keyfired = false;
 document.addEventListener("keydown", function(e) {
 	if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
@@ -363,6 +352,7 @@ document.addEventListener("keydown", function(e) {
 }, false);
 
 document.addEventListener("keyup", function(e) {
+	//83 = s
 	if (e.keyCode == 83) {
 		e.preventDefault();
 		setTimeout(() => {
@@ -396,7 +386,6 @@ function saveCode(value) {
 		setTimeout(() => {
 			savedWrapperError.classList.remove('--saved');
 		}, 3000)
-
 	}
 	avoidSpamM(updateBtn, isClickedSave);
 	return Promise.resolve()

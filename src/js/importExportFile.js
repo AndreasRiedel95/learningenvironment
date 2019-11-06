@@ -1,6 +1,7 @@
 var FileSaver = require('file-saver');
 import {getEditors} from './index.js'
 
+//on init set click event listeners 
 (() => {
 	document.querySelectorAll('.import-file').forEach((button) => {
 		button.addEventListener('change', () => {
@@ -15,6 +16,7 @@ import {getEditors} from './index.js'
 		}, false)
 	});
 
+	// Set name for exported filename 
 	document.querySelectorAll('.export-file').forEach((button) => {
 		button.addEventListener('click', () => {
 			let target = null;

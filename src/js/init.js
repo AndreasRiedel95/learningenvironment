@@ -1,3 +1,5 @@
+//Because this application is developed for chrome, 
+//we have to check which browser is used on init and show a modal
 window.onload = () => {
 	var isChromium = window.chrome;
 	var winNav = window.navigator;

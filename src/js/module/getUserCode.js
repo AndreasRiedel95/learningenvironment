@@ -4,14 +4,10 @@ const getUserCode = (taskinstance) => {
 	}).then((res) => {
 		if (res.ok) return res.json()
 	}).then((data) => {
-		returnData(data)
+		return data;
 	}).catch((error) => {
 		console.log(error)
 	})
-}
-
-function returnData(data) {
-	return data;
 }
 
 module.exports = getUserCode;

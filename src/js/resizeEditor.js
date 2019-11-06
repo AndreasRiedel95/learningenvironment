@@ -2,7 +2,6 @@ import ResizeObserver from 'resize-observer-polyfill';
 import  { getEditors } from'./index.js';
 
 export const vertical = (draggerVertical) => {
-	let draggerHorizontal = document.querySelector('.resize.--horizontal')
 	let isDown = false;
 	let iFrame = document.querySelector('.output-iframe');
 	let iFrameWidth = document.querySelector('.size-iframe');
@@ -25,6 +24,7 @@ export const vertical = (draggerVertical) => {
 
 	ro.observe(iFrame);
 	mouseDown();
+
 	function mouseDown(event) {
 		isDown = true;
 		draggerVertical.classList.add('--active');
@@ -69,7 +69,7 @@ export const vertical = (draggerVertical) => {
 				wrapper.style.gridTemplateColumns =  `50px ${xNew}px 10px 1fr`;
 
 			} else if (((x-leftIndex) + 9) >= (vw - leftIndex)) {
-				//Rewrite for better solution!
+				//TODO: Rewrite for better solution!
 				//Do nothing and fix 2nd resizer on the right side of viewport
 			} else {
 				wrapper.style.gridTemplateColumns =  `50px ${taskDescriptionWrapperWidth}px minmax(10px, ${x}px) 1fr`;
@@ -82,7 +82,7 @@ export const vertical = (draggerVertical) => {
 		isDown = false;
 		document.body.style.pointerEvents = "all";
 		let editors = getEditors();
-		//Refresh so scrollbar is new calculated
+		//Refresh, so scrollbar is new calculated
 		editors[0].refresh();
 		editors[1].refresh();
 		document.removeEventListener('mousemove', mouseMove, false);

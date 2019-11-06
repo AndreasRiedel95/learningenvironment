@@ -1,5 +1,4 @@
 import {getEditors} from './index.js';
-import HtmlDiff from 'htmldiff-js';
 let avoidSpamM = require('./module/avoidSpam.js');
 
 var isClickedRun = false;
@@ -15,7 +14,8 @@ testButtons.forEach((button) => {
 		let sectionPath = section.dataset.sectionpath;
 		let taskNumber = parseInt(button.dataset.tasknumber);
 		let taskPath = button.dataset.taskpath;
-		let tasksArray = parseInt(button.dataset.tasksarray);
+		//-1 because array starts counting at 0
+		let tasksArray = parseInt(button.dataset.tasksarray) - 1;
 		let taskInstanceNumber = document.querySelector('.taskInput:checked').id;
 		let taskInstancePath = document.querySelector('.taskInput:checked').dataset.taskinstancepath;
 		let sectioninstance = document.querySelector('.header[data-sectioninstancenumber]');
@@ -36,7 +36,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 	}
 
 	//Tape Catch catches all erros in console and displaying them in error message 
-	//If you want to see error consoles in console add data-debug='true' on html node
+	//If you want to see error consoles in developer console add data-debug='true' on html node
 	let htmlDebug = document.documentElement.getAttribute('data-debug')
 	let test; 
 	if(htmlDebug === 'true') {
@@ -48,7 +48,6 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 	require('tape-dom')(test);
 	const checkTestError = require(`./checkTestError`);
 	const helper = require('./helper.js');
-	const HtmlDiffer = require('html-differ').HtmlDiffer;
 	const CheckInstance = new checkTestError();
 
 	//Reset TestResult before every test run
@@ -71,7 +70,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 	let testFunc = `${taskPath}${taskNumber}`.toString();
 	
 	
-	//Check if Code is Valide
+	//Check if Code is Valide and prepare general error message
 	let runBtn = document.querySelector(`.run-test-js[data-tasknumber="${taskNumber}"]`);
 	if(runBtn.classList.contains('validateErrorHTML') || runBtn.classList.contains('validateErrorCSS') || runBtn.classList.contains('validateErrorStylesheet')){
 		errorMsgWrapper.classList.add('--active');
@@ -83,12 +82,11 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 		let totalErrorMessage = "";
 		errorMessageCss !== "" && errorMessageHtml !== "" ? totalErrorMessage = `${errorMessageHtml} \n ${errorMessageCss}` : totalErrorMessage = errorMessageHtml + errorMessageCss;
 		errorMsgField.innerText = totalErrorMessage + errorMessageStylesheet;
-		taskInputs[tasksArray-1].classList.add('--error');
+		taskInputs[tasksArray].classList.add('--error');
 	} else {
 		//check if files are existing
 		try {
 		 	//Require dynamically the correct test file
-		 	console.log(`./tests/${sectioninstancePath}${sectioninstanceNumber}/${sectionPath}${sectionNumber}/${taskInstancePath}${taskInstanceNumber}/${testFunc}`)
 			let testRun = require(`./tests/${sectioninstancePath}${sectioninstanceNumber}/${sectionPath}${sectionNumber}/${taskInstancePath}${taskInstanceNumber}`);
 			let TestInstance = new testRun();
 			try {
@@ -112,6 +110,7 @@ function callTestHandler(htmlEditor, cssEditor, taskInstanceNumber, taskInstance
 		}
 	}
 
+	//TODO: Rewrite with using Mutation Observer 
 	const rafAsync = () => {
 		return new Promise(resolve => {
 			requestAnimationFrame(resolve);

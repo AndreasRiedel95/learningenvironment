@@ -1,6 +1,11 @@
 const checkIfError = function () {
 	let self = this;
-	let updateTaskSolved = require('./module/updateTaskSolved')
+	let updateTaskSolved = require('./module/updateTaskSolved');
+
+	//Check if solution is correct by geting the error message from tape-css
+	//which is appended to the body element and hidden
+	//Prepare error message and put it into the error message wrapper
+	//If an general JavaScript error happens show this error in the error message wrapper
 	self.check = function (taskinstancenumber, testNumberArray) {
 		let tests = document.querySelectorAll('.test');
 		let errorMsgWrapper = document.querySelector('.error-message-wrapper');
@@ -8,7 +13,7 @@ const checkIfError = function () {
 		let activeTaskinstanceNumberWrapper = document.querySelector(`.description-scroll-wrapper[data-taskinstancenumber="${taskinstancenumber}"]`);
 		let taskInputs = activeTaskinstanceNumberWrapper.querySelectorAll('.task-solved');
 		let tasks = activeTaskinstanceNumberWrapper.querySelectorAll('.task');
-		let taskid = tasks[testNumberArray - 1].dataset.taskid;
+		let taskid = tasks[testNumberArray].dataset.taskid;
 		let boolean = false;
 		let allAsserts = document.querySelectorAll('.assert');
 		tests.forEach((test) => {
@@ -24,31 +29,31 @@ const checkIfError = function () {
 						//TODO Make array of errors which shpuld not show up
 						if(((errMsg.indexOf("TypeError") === -1) && (errMsg.indexOf("ReferenceError") === -1) )) {
 							errorMsgField.innerHTML += errMsg + "<br />";
-							taskInputs[testNumberArray-1].classList.add('--error');
+							taskInputs[testNumberArray].classList.add('--error');
 							i++;
 						} else if(errMsg.indexOf("TypeError") >= 0) {
 							errorMsgField.innerHTML += "TypeError: Erwartetes Element existiert nicht" + "<br />";
-							taskInputs[testNumberArray-1].classList.add('--error');
+							taskInputs[testNumberArray].classList.add('--error');
 							i++;
 						} else {
 							errorMsgField.innerHTML += "ReferenceError: Variable existiert nicht." + "<br />";
-							taskInputs[testNumberArray-1].classList.add('--error');
+							taskInputs[testNumberArray].classList.add('--error');
 							i++;
 						}
 					}
 				} 
 			})
-		 		//check if Tests are all OK
+			 //check if Tests are all OK
+			 // if true then remove error message
 			if(!(Array.from(allAsserts).some(assert => assert.classList.contains('fail')))) {
-				taskInputs[testNumberArray-1].checked = true;
-				taskInputs[testNumberArray-1].classList.remove('--error');
+				taskInputs[testNumberArray].checked = true;
+				taskInputs[testNumberArray].classList.remove('--error');
 				boolean = true;
-				if(tasks[testNumberArray] !== undefined) {
-					tasks[testNumberArray].classList.remove('--not-solved');
-				}
-										
+				// remove not solved of next element 
+				if(tasks[testNumberArray + 1] !== undefined) {
+					tasks[testNumberArray + 1].classList.remove('--not-solved');
+				}						
 			}
-			
 		})
 		updateTaskSolved(taskid, boolean);
 	}
