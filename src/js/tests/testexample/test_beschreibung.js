@@ -6,7 +6,7 @@ const test1 = function () {
 		//htmlNode: DOM-Node, den der User eingegeben hat,
 		//cssString: String der CSS, den der User eingegeben hat 
 		//test: Test Element, der Library tapeCSS -> https://github.com/studio-b12/tape-css
-			// TapeCSS baut auf die Unit-Test-Bibliothek Tape auf -> https://github.com/substack/tape
+		// TapeCSS baut auf die Unit-Test-Bibliothek Tape auf -> https://github.com/substack/tape
 		//h: Hyperscript Element um Node Elemente einfach zu bilden -> https://www.npmjs.com/package/hyperscript
 		//HelperInstance: Hierüber können Helferfunktionen aufgerufen werden: File befindet sich in: /public/js/helper.js
 

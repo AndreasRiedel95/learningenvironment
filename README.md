@@ -1,34 +1,45 @@
-# HTML und CSS Lernumgebung
+# HTML und CSS Learning environment
 
 Conception and realization of a prototypical learning environment for the automatic
 evaluation of HTML- and CSS-based source code through front-end tests.
 
+## Demo
+
+![Recordit GIF](http://g.recordit.co/dtFGedgfoA.gif)
+
 ## Getting Started
 
 ```
-npm install
-npm start
+$ npm install
+$ npm start
 
 ```
-Open <a href="http://localhost:3000/">http://localhost:3000/</a> in your browser and naviagte to a task to solve it. 
+Open [http://localhost:3000/](http://localhost:3000/) in your browser and naviagte to a task to solve it. 
 
-Open <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> to create delete or update test scenarios.  
+Open [http://localhost:3000/admin](http://localhost:3000/admin) in your browser to create delete or update test scenarios.  
 
-### More Info
+## More Info
 
-On <a href="http://localhost:3000/admin">http://localhost:3000/admin</a> you can find more information about the project. Please keep in mind that the description is in German.
+On [http://localhost:3000/admin](http://localhost:3000/admin) you can find more information about the project. Please keep in mind that the description is in German.
 
-## Test template and example
+## Usage
 
-Test templates and an example can be found in src/js/tests/textexample
+Test templates and an examples can be found/created in 
+```
+src/js/tests/
+```
+Explanation of the test files can be found in 
+```
+src/js/tests/testexample
+```
 
 ## Built With
 
 * [node.js](https://nodejs.org/en/)
 * [MongoDB](https://www.mongodb.com/) 
 * [Express JS](https://expressjs.com/)
-* [Tape Css](https://github.com/studio-b12/tape-css)
+* [Tape CSS](https://github.com/studio-b12/tape-css)
 
-## Authors
+## Author
 
-* **Andreas Riedel** - *Initial work* - [PurpleBooth](https://bitbucket.org/AndreasRiedel)
+* **Andreas Riedel** - *Initial work* - [Andreas Riedel](https://bitbucket.org/AndreasRiedel)
