@@ -1,6 +1,6 @@
-/* Helper File for tests 
-Availabe in all test files
-*/
+//Helper File for tests 
+// Helper Object availabe in all test files
+
 var HtmlDiffer = require('html-differ').HtmlDiffer;
 let logger = require('html-differ/lib/logger');
 var options = {
@@ -65,6 +65,7 @@ const helper = function (htmlNode) {
 		//No Duplicates in there
 		return false;
 	}
+	
 	//Get Position of Element when Editor height in calculation
 	self.getPositionOfElementWindow = function(ele) {
 		let boolean = false;

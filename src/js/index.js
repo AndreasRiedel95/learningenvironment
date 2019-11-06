@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	})
 });
-//conig
+//config for editors called immidieatley
 let editorRendering = (() => {
 	//Base template for Output 
 	let base_tpl =
@@ -102,6 +102,9 @@ let editorRendering = (() => {
 	html_editor.setSize("100%", "100%");
 	css_editor.setSize("100%", "100%");
 
+	// auto validation for css and html
+	// set error messages on run btn of task
+	// error messages  are needed when user wants to run the test
 	function css_validator(cm, updateLinting) {
 		let errors = CodeMirror.lint.css(cm);
 		let onlyErrors = errors.filter(error => error.severity === 'error');
@@ -146,6 +149,8 @@ let editorRendering = (() => {
 		updateLinting(errors);
 	}
 
+	//Stylsheet must be correctl set in html editor
+	// otherwise style changes should not show up in iFrame
 	const checkCorrectStyleLink = () => {
 		let html = html_editor.getValue();
 		let parser = new DOMParser();
@@ -218,7 +223,7 @@ let editorRendering = (() => {
 	css_editor.refresh();
 	html_editor.refresh();
 
-	//make editors accessible 
+	//make editors accessible from outside this function
 	return {
 		getHTMLEditor:() => {
 			return html_editor;
@@ -285,8 +290,8 @@ let setTaskDescription = (ele) => {
 	});
 }
 
-//Toggle Section Description and save the section each time 
-//so already written code doesn't get lost
+// Toggle Section Description and save the section each time 
+// already written code doesn't get lost
 let setDescription = (ele) => {
 	let htmlWrapperOverlay = document.querySelector('.html-css-wrapper-overlay')
 	if(htmlWrapperOverlay.classList.contains('m--not-active')) {
