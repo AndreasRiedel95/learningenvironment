@@ -36,6 +36,7 @@
 						<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
 						<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstance suchen...</label>
 					</div>
+					<p class='mt-20'>Taskinstance Name (Autoinkrement)</p>
 					<div class="input-list mb-50 mt-10">
 						<% for(var i = 0; i<taskinstances.length; i++) { %>
 							<label class="checkbox-group" for="<%= taskinstances[i]._id %>">
@@ -86,6 +87,7 @@
 							<input class="input searchbar" name="searchbar" onkeyup="searchList()" type="text" placeholder=" " value="">
 							<label class="input-label" for="searchbar"><i class="search-icon" data-feather="search"></i>Nach Taskinstance suchen...</label>
 						</div>
+						<p class='mt-20'>Taskinstance Name (Autoinkrement)</p>
 						<div class="input-list mb-50 mt-10">
 							<% for(var i = 0; i<taskinstances.length; i++) { %>
 								<label class="checkbox-group" for="<%= taskinstances[i]._id %>">

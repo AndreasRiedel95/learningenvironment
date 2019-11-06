@@ -1,44 +1,63 @@
 <% extend('admin_base') %>
 	<div class="content mb-50">
+		<div class="mb-50" style='text-align: center'>
+			👉 <strong> <a target="_blank" href="https://drive.google.com/file/d/1DrR9emfzo9AieUXaw5KZz20iXNFSWsyk/view?usp=sharing">Hier</a> geht es zur Bachelorarbeit dieses Projektes</strong> 👈
+		</div>
 		<h2 class="header-2 mb-20">Willkommen im Admin-Bereich</h2> 
 		<p>
 			Über das Menü auf der linken Seite, können die Sektionen und Aufgaben für die Studenten angelegt werden. 
 			Die Datenbank hat den folgenden UML Aufbau: 
 		</p>
 		<img class="img mb-20"src="/img/Database_ER.png" alt="ER Diagramm">
+		<div>
+			<p class="mb-20">
+				<strong>Sectioninstance</strong>: Eine Sektionsinstanz bildet den Rahmen für eine komplette Lerneinheit. Sie referenziert Sektionen mit zusammengehörenden Themengebieten.
+			</p>
+			<p class="mb-20">
+				<strong>Section</strong>: Eine Sektion beinhaltet die allgemeine Beschreibung eines 	einzelnen Themengebietes und gehört einer Sektionsinstanz an. Außerdem referenziert sie eine oder mehrere Aufgabeninstanzen.
+			</p>
+			<p class="mb-20">
+				<strong>Taskinstance</strong>: Eine Aufgabeninstanz ist die Gesamtheit einer Aufgabe und setzt
+				sich aus mehreren Unteraufgaben zusammen, die in diesem Objekt referenziert werden. Jede Aufgabeninstanz besitzt eine Sektion als Elternelement. Eine Aufgabeninstanz speichert zusätzlich den eingegebenen Code der Nutzer, sowie den von den Tutoren optional definierten Anfangscode einer Aufgabe.
+			</p>
+			<p class="mb-20">
+				<strong>Task</strong>: Eine Aufgabe beinhaltet die eigentliche Aufgabenbeschreibung für einen Testfall. Zusätzlich speichert sie den Lösungsstand (wahr/falsch) der Aufgabe.
+			</p>
+		</div>
+		<div class="divider"></div>
 		<p class="mb-20">
 			<strong>Bitte beachten Sie:</strong> Es können nur Objekte anhand bereits vorhandener Objekte erstellt werden. (Es müssen also z.B. schon alle Sektionen erstellt werden und können dann der Sektions-Instanz zugewiesen werden) 
 		</p>
-		<p>Aus diesem Grund bietet es sich an, bei der Erstellung der Objekte in folgender Reihenfolge vorzugehen: </p>
+		<p>Es bietet sich an, bei der Erstellung der Objekte in folgender Reihenfolge vorzugehen: </p>
 		<ol class="mb-20">
 			<li>Alle Tasks einer Aufgabe erstellen</li>
 			<li>Task-Instanz erstellen und die Tasks dieser Instanz zuweisen</li>
 			<li>Section erstellen und Task-Instanz zuweisen </li>
 			<li>Section-Instanz erstellen und Section zuweisen </li>
 		</ol>
-		<h4>Hierarchien:</h4>
-		<p class="mb-20">
-			In den jeweiligen Übersichtslisten werden die Objekte nach der Hierarchie (suffix) geordnet. Die Hierarchie-Ebenen vereinfachen die Zuordnung und sollten deshalb richtig betitelt werden.
-		</p>
 		<h4>Objekt-Nummerierung und Namensgebung:</h4>
 		<p class="mb-10">
-			Um die späteren Tests korrekt durchführen zu können ist es wichtig, dass die jeweiligen Nummern korrekt und in aufsteigender Reihenfolge gewählt werden. Andernfalls wird es zu Komplikationen beim Durchführen der Tests kommen, da die richtigen Testdateien in der Dateistruktur nicht gefunden werden können. 
+			Beim Erstellen einer Sectioninstance, Section, Taskinstance oder einem Task wird automatisch eine einzigartige Nummer (Autoinkrement) generiert und der Titel des Objektes wird URLIFIED. Der URLIFIED Titel muss in der Ordner-/Dateistruktur verwendet werden, sodass ein einwandfreies Testen gewährleistet werden kann.
 		</p>
 		<p>Die Titel/Namen eines Objektes können beliebieg gewählt werden.</p>
-		<p>Eine korrekte Nummerierung und Hierarchie könnte wie folgt aussehen:</p>
+		<p>Eine korrekte Hierarchie könnte wie folgt aussehen:</p>
 		<ol class="mb-40">
-			<li><strong>Section-Instanz:</strong> HTML-Grundlagen (html-grundlagen1)</li>
+			<li><strong>Section-Instanz:</strong> HTML-Grundlagen (Ordnername: html-grundlagen1)</li>
 			<ol>
-				<li><strong>Section:</strong> Basis-Elemente (basis_elemente)</li>
+				<li><strong>Section:</strong> Basis-Elemente (Ordnername: basis_elemente2)</li>
 				<ol>
-					<li><strong>Testinstanz:</strong> Absätze und Überschriften (absaetze_und_ueberschriften1)</li>
+					<li><strong>Testinstanz:</strong> Absätze und Überschriften (Dateiname: absaetze_und_ueberschriften3)</li>
 					<ol>
-						<li><strong>Task:</strong> Absätze erstellen (absaetze_erstellen1)</li>
+						<li><strong>Task:</strong> Absätze erstellen (Funktionsname: absaetze_erstellen4)</li>
 					</ol>
 				</ol>
 			</ol>
 		</ol>
 
+		<p class="mt-20">
+			<strong>Achtung:</strong> Objekte können nur in ihrer Hierarchieebene verschoben  werden (drag-and-drop), jedoch nicht aus ihrer Hierarchieebene herausgenommen werden, ohne dass die Testdateien in der Ordnerstruktur ebenfalls verschoben werden. Wird dies nicht beachtet, kann die Applikation die passenden Test-Funktionen nicht mehr abrufen, was zu einem Absturz der Applikation führt.
+		</p>
+		<div class="divider"></div>
 		<h4>Tests:</h4>
 		<p>
 			Alle Test-Dateien müssen sich in folgendem Verzeichnis befinden: <code> root > src > js > tests</code>. 
@@ -66,11 +85,12 @@
 		<p class="mb-20">
 			Jeder Test hat Zugriff auf eine <code>HelperInstance</code> als Variable. Hierüber können Helferklassen wie z.B. <code>HelperInstance.htmlDifferences(expected, actual, option)</code> aufgerufen werden. Eine Dokumentation über die hinterlegten Klassen folgt in Kürze. 
 		</p>
-		<h4>Testdateien automatisch generieren:</h4>
+		<h4>Testdateistrukturen automatisch generieren:</h4>
 		<p>
-			Ist eine Sectionsinstanz aufgebaut, so können die für die Tests benötigten Dateien auch automatisch generiert werden. Hierfür muss im Admin Bereich auf der jeweiligen Detail-Seite der Sectioninstanz auf den Button "Create File-System Path" geklickt werden. Somit wird sicher gestellt, dass die Applikationen die korrekte Verzechnisstrukur besitzt und die Test-Dateien von der Applikation gefunden werden können. Dennoch wird eine intelligente Nummerierung empfohlen. 
+			Ist eine Sectionsinstanz aufgebaut, so können die für die Tests benötigten Dateien auch automatisch generiert werden. Hierfür muss im Admin Bereich auf der jeweiligen Detail-Seite der Sectioninstanz auf den Button "Create File-System Path" geklickt werden. Somit wird sicher gestellt, dass die Applikationen die korrekte Verzechnisstrukur besitzt und die Test-Dateien von der Applikation gefunden werden können. 
 		</p>
 		<p class="mb-20">Gelöschte Objekte in der Datenbank werden in der Ordnerstruktur nicht automatisch gelöscht, sondern müssen händisch gelöscht werden.</p>
+		<div class="divider"></div>
 		<h4>CodeMirror Validator:</h4>
 		<p class="mb-20">
 			Ist der vom Nutzer eingegebene HTML und CSS Code nicht valide, so wird den Run-Buttons die Klasse <code>validateErrorCSS</code> bzw. <code>validateErrorHTML</code> hizugefügt. Ist dies der Fall, so werden die Testdateien nicht aufgerufen und dem Nutzer wird eine Fehlermeldung angezeigt. 
@@ -89,4 +109,7 @@
 		<h4>Weitere Module/Bibliotheken:</h4>
 		<p>Für die Implementierung des WYSIWG-Editor wird der "Rich-Text-Editor" <a target="_blank" href="https://quilljs.com/">Quill</a> benutzt.</p>
 		<p>Für den Code-Editor wird die <a target="_blank" href="https://codemirror.net/">Codemirror-Bibliothek</a> benutzt.</p>
+		<div class="mt-50" style='text-align: center'>
+			👉 <strong> <a target="_blank" href="https://drive.google.com/file/d/1DrR9emfzo9AieUXaw5KZz20iXNFSWsyk/view?usp=sharing">Hier</a> geht es zur Bachelorarbeit dieses Projektes</strong> 👈
+		</div>
 	</div>
