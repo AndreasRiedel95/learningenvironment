@@ -9,11 +9,11 @@ import 'codemirror/addon/hint/html-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/scroll/simplescrollbars.js';
 import * as resizeEditor from './resizeEditor';
+//Is getting executed immidietaly 
 import { importFile, exportFile } from './importExportFile';
 
 //Require Module
 const avoidSpamM = require('./module/avoidSpam.js');
-const onceM = require('./module/once.js');
 const updateTaskSolvedM = require('./module/updateTaskSolved');
 const saveCodeM = require('./module/saveCode');
 const resetUserCodeM = require('./module/resetUserCode');
